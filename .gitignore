@@ -1,0 +1,63 @@
+# -------------------
+# Node & NPM
+# -------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# -------------------
+# Vercel deployment
+# -------------------
+.vercel/
+
+# -------------------
+# Environment files
+# -------------------
+.env
+.env.local
+.env.development
+.env.production
+
+# -------------------
+# Firebase
+# -------------------
+.firebaserc
+.firebase/
+firebase-debug.log
+firebase-debug.*
+firebase.json
+firestore.indexes.json
+firestore.rules
+storage.rules
+functions/node_modules/
+functions/lib/
+functions/.env
+
+# -------------------
+# Build outputs
+# -------------------
+dist/
+build/
+coverage/
+
+# -------------------
+# OS generated files
+# -------------------
+.DS_Store
+Thumbs.db
+
+# -------------------
+# IDEs & editors
+# -------------------
+.vscode/
+.idea/
+*.swp
+
+# -------------------
+# Logs & Misc
+# -------------------
+logs/
+*.log
+*.tgz
