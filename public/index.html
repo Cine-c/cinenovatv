@@ -68,7 +68,6 @@
     <a href="https://www.themoviedb.org/" target="_blank" style="color:#10b981;">Visit TMDB</a>
   </footer>
 
-  <!-- Trailer Modal -->
   <div class="modal" id="trailerModal">
     <div class="modal-content">
       <button class="close-btn" onclick="closeTrailer()">×</button>
@@ -77,6 +76,8 @@
   </div>
 
 <script>
+  const API_KEY = "be15cf50e79cec926bbbddb3ab5dd819";
+
   const genreSelect = document.getElementById('genreSelect');
   const filmGrid = document.getElementById('filmGrid');
   const todayBtn = document.getElementById('todayBtn');
@@ -92,54 +93,62 @@
   let searchQuery = '';
 
   async function loadGenres() {
-    const res = await fetch('/api/genres');
-    const data = await res.json();
-    data.genres.forEach(genre => {
-      const opt = document.createElement('option');
-      opt.value = genre.id;
-      opt.textContent = genre.name;
-      genreSelect.appendChild(opt);
-    });
+    try {
+      const res = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`);
+      const data = await res.json();
+      data.genres.forEach(genre => {
+        const opt = document.createElement('option');
+        opt.value = genre.id;
+        opt.textContent = genre.name;
+        genreSelect.appendChild(opt);
+      });
+    } catch (err) {
+      console.error('Error loading genres:', err);
+    }
   }
 
   async function loadMovies() {
     loadMoreBtn.disabled = true;
-    let url = `/api/trending/${currentTime}?page=${currentPage}`;
+
+    let url = `https://api.themoviedb.org/3/trending/movie/${currentTime}?api_key=${API_KEY}&page=${currentPage}`;
     if (searchQuery.length > 1) {
-      url = `/api/search?query=${encodeURIComponent(searchQuery)}&page=${currentPage}`;
+      url = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(searchQuery)}&page=${currentPage}`;
     }
 
-    const res = await fetch(url);
-    const data = await res.json();
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
 
-    // Filter by genre if selected
-    const filtered = currentGenre
-      ? data.results.filter(m => m.genre_ids.includes(parseInt(currentGenre)))
-      : data.results;
+      const filtered = currentGenre
+        ? data.results.filter(m => m.genre_ids.includes(parseInt(currentGenre)))
+        : data.results;
 
-    filtered.forEach(movie => {
-      const poster = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'placeholder.jpg';
-      const card = document.createElement('div');
-      card.className = 'film-item';
-      card.innerHTML = `
-        <img class="film-poster" src="${poster}" alt="${movie.title}">
-        <h3>${movie.title}</h3>
-        <p>${movie.overview ? movie.overview.slice(0, 100) : ''}...</p>
-        <button onclick="showTrailer(${movie.id})" class="read-more">Watch Trailer</button>
-      `;
-      filmGrid.appendChild(card);
-    });
+      filtered.forEach(movie => {
+        const poster = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'placeholder.jpg';
+        const card = document.createElement('div');
+        card.className = 'film-item';
+        card.innerHTML = `
+          <img class="film-poster" src="${poster}" alt="${movie.title}">
+          <h3>${movie.title}</h3>
+          <p>${movie.overview ? movie.overview.slice(0, 100) : ''}...</p>
+          <button onclick="showTrailer(${movie.id})" class="read-more">Watch Trailer</button>
+        `;
+        filmGrid.appendChild(card);
+      });
+    } catch (err) {
+      console.error('Error loading movies:', err);
+    }
 
     loadMoreBtn.disabled = false;
   }
 
   function showTrailer(movieId) {
-    fetch(`/api/movie/${movieId}/trailer`)
+    const url = `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}`;
+    fetch(url)
       .then(res => res.json())
       .then(data => {
-        console.log('Trailer data:', data);
-        const trailer = data.results.find(v => 
-          v.site === 'YouTube' && 
+        const trailer = data.results.find(v =>
+          v.site === 'YouTube' &&
           (v.type === 'Trailer' || v.type === 'Teaser' || v.type === 'Clip')
         );
         if (trailer) {
@@ -160,7 +169,7 @@
     trailerModal.style.display = 'none';
   }
 
-  // Event handlers
+  // Event listeners
   todayBtn.onclick = () => {
     currentTime = 'day';
     currentPage = 1;
