@@ -1,215 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8747979755893623"
+     crossorigin="anonymous"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CineNovaTv</title>
+  <title>CineNovaTV – Discover Trending Films</title>
+  <script defer src="/_vercel/insights/script.js"></script>
+  <!-- ✅ SEO META TAGS START -->
+  <meta name="description" content="Discover trending films and trailers on CineNovaTV. Updated daily with international movie content.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="CineNovaTV – Watch Trending Films" />
+  <meta property="og:description" content="Discover trending films and trailers on CineNovaTV. Updated daily with international movie content." />
+  <meta property="og:image" content="https://cinenovatv.com/your-social-image.jpg" />
+  <meta property="og:url" content="https://cinenovatv.com" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="CineNovaTV – Watch Trending Films" />
+  <meta name="twitter:description" content="Discover trending films and trailers on CineNovaTV. Updated daily with international movie content." />
+  <meta name="twitter:image" content="https://cinenovatv.com/your-social-image.jpg" />
+  <!-- ✅ SEO META TAGS END -->
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+
+  <!-- Main Stylesheet -->
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- Inline Styles for Filters and Modal -->
   <style>
-    .filters { display: flex; justify-content: center; gap: 1rem; margin: 1rem auto; flex-wrap: wrap; }
-    .filters select, .filters button {
-      background: #111;
-      color: white;
-      border: 1px solid #10b981;
+    .filters {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1rem auto;
+      flex-wrap: wrap;
+    }
+
+    .filters select,
+    .filters button {
+      background: var(--card-bg);
+      color: var(--white);
+      border: 1px solid var(--emerald);
       border-radius: 8px;
       padding: 0.5rem 1rem;
       cursor: pointer;
+      font-size: 1rem;
     }
+
     .filters button.active {
-      background: #10b981;
-      color: black;
+      background: var(--emerald);
+      color: var(--black);
       font-weight: bold;
     }
+
     .modal {
-      display: none; position: fixed; top: 0; left: 0; width: 100%;
-      height: 100%; background: rgba(0,0,0,0.8); justify-content: center;
-      align-items: center; z-index: 1000;
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
     }
+
     .modal-content {
-      background: #000; padding: 1rem; max-width: 800px;
-      width: 90%; position: relative;
+      background: var(--black);
+      padding: 1rem;
+      max-width: 800px;
+      width: 90%;
+      position: relative;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255, 102, 0, 0.2);
     }
+
     .modal iframe {
-      width: 100%; height: 400px;
+      width: 100%;
+      height: 400px;
+      border: none;
     }
+
     .close-btn {
-      position: absolute; top: 10px; right: 15px;
-      background: #e50914; color: #fff; border: none;
-      padding: 0.3rem 0.6rem; cursor: pointer;
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: var(--red);
+      color: var(--white);
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      cursor: pointer;
       font-size: 1.2rem;
+    }
+
+    .close-btn:hover {
+      background: var(--orange);
     }
   </style>
 </head>
-<body>
-
-  <header>
-    <h1>CineNovaTv</h1>
-    <input type="text" id="searchBar" placeholder="Search films..." />
-  </header>
-
-  <div class="filters">
-    <button id="todayBtn" class="active">Today</button>
-    <button id="weekBtn">This Week</button>
-    <select id="genreSelect">
-      <option value="">All Genres</option>
-    </select>
-  </div>
-
-  <main class="main-content">
-    <section class="film-grid" id="filmGrid"></section>
-    <div style="text-align:center; margin: 2rem;">
-      <button id="loadMoreBtn">Load More</button>
-    </div>
-  </main>
-
-  <footer class="footer">
-    &copy; 2025 CineCinema. This product uses the TMDB API but is not endorsed or certified by TMDB.
-    <br />
-    <a href="https://www.themoviedb.org/" target="_blank" style="color:#10b981;">Visit TMDB</a>
-  </footer>
-
-  <div class="modal" id="trailerModal">
-    <div class="modal-content">
-      <button class="close-btn" onclick="closeTrailer()">×</button>
-      <iframe id="trailerFrame" src="" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </div>
-
-<script>
-  const API_KEY = "be15cf50e79cec926bbbddb3ab5dd819";
-
-  const genreSelect = document.getElementById('genreSelect');
-  const filmGrid = document.getElementById('filmGrid');
-  const todayBtn = document.getElementById('todayBtn');
-  const weekBtn = document.getElementById('weekBtn');
-  const loadMoreBtn = document.getElementById('loadMoreBtn');
-  const searchBar = document.getElementById('searchBar');
-  const trailerModal = document.getElementById('trailerModal');
-  const trailerFrame = document.getElementById('trailerFrame');
-
-  let currentPage = 1;
-  let currentTime = 'day';
-  let currentGenre = '';
-  let searchQuery = '';
-
-  async function loadGenres() {
-    try {
-      const res = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`);
-      const data = await res.json();
-      data.genres.forEach(genre => {
-        const opt = document.createElement('option');
-        opt.value = genre.id;
-        opt.textContent = genre.name;
-        genreSelect.appendChild(opt);
-      });
-    } catch (err) {
-      console.error('Error loading genres:', err);
-    }
-  }
-
-  async function loadMovies() {
-    loadMoreBtn.disabled = true;
-
-    let url = `https://api.themoviedb.org/3/trending/movie/${currentTime}?api_key=${API_KEY}&page=${currentPage}`;
-    if (searchQuery.length > 1) {
-      url = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(searchQuery)}&page=${currentPage}`;
-    }
-
-    try {
-      const res = await fetch(url);
-      const data = await res.json();
-
-      const filtered = currentGenre
-        ? data.results.filter(m => m.genre_ids.includes(parseInt(currentGenre)))
-        : data.results;
-
-      filtered.forEach(movie => {
-        const poster = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'placeholder.jpg';
-        const card = document.createElement('div');
-        card.className = 'film-item';
-        card.innerHTML = `
-          <img class="film-poster" src="${poster}" alt="${movie.title}">
-          <h3>${movie.title}</h3>
-          <p>${movie.overview ? movie.overview.slice(0, 100) : ''}...</p>
-          <button onclick="showTrailer(${movie.id})" class="read-more">Watch Trailer</button>
-        `;
-        filmGrid.appendChild(card);
-      });
-    } catch (err) {
-      console.error('Error loading movies:', err);
-    }
-
-    loadMoreBtn.disabled = false;
-  }
-
-  function showTrailer(movieId) {
-    const url = `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}`;
-    fetch(url)
-      .then(res => res.json())
-      .then(data => {
-        const trailer = data.results.find(v =>
-          v.site === 'YouTube' &&
-          (v.type === 'Trailer' || v.type === 'Teaser' || v.type === 'Clip')
-        );
-        if (trailer) {
-          trailerFrame.src = `https://www.youtube.com/embed/${trailer.key}`;
-          trailerModal.style.display = 'flex';
-        } else {
-          alert('Trailer not available');
-        }
-      })
-      .catch(err => {
-        console.error('Error fetching trailer:', err);
-        alert('Failed to load trailer');
-      });
-  }
-
-  function closeTrailer() {
-    trailerFrame.src = '';
-    trailerModal.style.display = 'none';
-  }
-
-  // Event listeners
-  todayBtn.onclick = () => {
-    currentTime = 'day';
-    currentPage = 1;
-    todayBtn.classList.add('active');
-    weekBtn.classList.remove('active');
-    filmGrid.innerHTML = '';
-    loadMovies();
-  };
-
-  weekBtn.onclick = () => {
-    currentTime = 'week';
-    currentPage = 1;
-    weekBtn.classList.add('active');
-    todayBtn.classList.remove('active');
-    filmGrid.innerHTML = '';
-    loadMovies();
-  };
-
-  genreSelect.onchange = () => {
-    currentGenre = genreSelect.value;
-    currentPage = 1;
-    filmGrid.innerHTML = '';
-    loadMovies();
-  };
-
-  searchBar.addEventListener('input', () => {
-    searchQuery = searchBar.value.trim();
-    currentPage = 1;
-    filmGrid.innerHTML = '';
-    loadMovies();
-  });
-
-  loadMoreBtn.onclick = () => {
-    currentPage++;
-    loadMovies();
-  };
-
-  // Initial load
-  loadGenres();
-  loadMovies();
-</script>
-</body>
-</html>
