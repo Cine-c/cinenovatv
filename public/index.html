@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CineNovaTv</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
@@ -63,10 +63,12 @@
   </main>
 
   <footer class="footer">
-    &copy; 2025 CineCinema. This product uses the TMDB API but is not endorsed or certified by TMDB.
+    &copy; 2025 CineNovaTv. This product uses the TMDB API but is not endorsed or certified by TMDB.
     <br />
     <a href="https://www.themoviedb.org/" target="_blank" style="color:#10b981;">Visit TMDB</a>
   </footer>
+
+  <!-- Trailer Modal -->
 
   <div class="modal" id="trailerModal">
     <div class="modal-content">
@@ -75,26 +77,25 @@
     </div>
   </div>
 
-<script>
-  const API_KEY = "be15cf50e79cec926bbbddb3ab5dd819";
+  <script>
+    const API_BASE = '/api';
 
-  const genreSelect = document.getElementById('genreSelect');
-  const filmGrid = document.getElementById('filmGrid');
-  const todayBtn = document.getElementById('todayBtn');
-  const weekBtn = document.getElementById('weekBtn');
-  const loadMoreBtn = document.getElementById('loadMoreBtn');
-  const searchBar = document.getElementById('searchBar');
-  const trailerModal = document.getElementById('trailerModal');
-  const trailerFrame = document.getElementById('trailerFrame');
+    const filmGrid = document.getElementById('filmGrid');
+    const searchBar = document.getElementById('searchBar');
+    const genreSelect = document.getElementById('genreSelect');
+    const todayBtn = document.getElementById('todayBtn');
+    const weekBtn = document.getElementById('weekBtn');
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    const trailerModal = document.getElementById('trailerModal');
+    const trailerFrame = document.getElementById('trailerFrame');
 
-  let currentPage = 1;
-  let currentTime = 'day';
-  let currentGenre = '';
-  let searchQuery = '';
+    let currentTime = 'day';
+    let currentGenre = '';
+    let currentPage = 1;
+    let searchQuery = '';
 
-  async function loadGenres() {
-    try {
-      const res = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`);
+    async function loadGenres() {
+      const res = await fetch(`${API_BASE}/genres`);
       const data = await res.json();
       data.genres.forEach(genre => {
         const opt = document.createElement('option');
@@ -102,114 +103,96 @@
         opt.textContent = genre.name;
         genreSelect.appendChild(opt);
       });
-    } catch (err) {
-      console.error('Error loading genres:', err);
-    }
-  }
-
-  async function loadMovies() {
-    loadMoreBtn.disabled = true;
-
-    let url = `https://api.themoviedb.org/3/trending/movie/${currentTime}?api_key=${API_KEY}&page=${currentPage}`;
-    if (searchQuery.length > 1) {
-      url = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(searchQuery)}&page=${currentPage}`;
     }
 
-    try {
-      const res = await fetch(url);
+    function getEndpoint() {
+      if (searchQuery.length > 1) {
+        return `${API_BASE}/search?query=${encodeURIComponent(searchQuery)}&page=${currentPage}`;
+      }
+      return `${API_BASE}/trending-${currentTime}?page=${currentPage}`;
+    }
+
+    async function loadMovies() {
+      loadMoreBtn.disabled = true;
+      const res = await fetch(getEndpoint());
       const data = await res.json();
-
       const filtered = currentGenre
         ? data.results.filter(m => m.genre_ids.includes(parseInt(currentGenre)))
         : data.results;
 
       filtered.forEach(movie => {
-        const poster = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'placeholder.jpg';
+        const poster = movie.poster_path
+          ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+          : 'placeholder.jpg';
         const card = document.createElement('div');
         card.className = 'film-item';
         card.innerHTML = `
           <img class="film-poster" src="${poster}" alt="${movie.title}">
           <h3>${movie.title}</h3>
-          <p>${movie.overview ? movie.overview.slice(0, 100) : ''}...</p>
+          <p>${movie.overview.slice(0, 100)}...</p>
           <button onclick="showTrailer(${movie.id})" class="read-more">Watch Trailer</button>
         `;
         filmGrid.appendChild(card);
       });
-    } catch (err) {
-      console.error('Error loading movies:', err);
+
+      loadMoreBtn.disabled = false;
     }
 
-    loadMoreBtn.disabled = false;
-  }
+    function showTrailer(movieId) {
+      fetch(`${API_BASE}/movie/${movieId}-trailer`)
+        .then(res => res.json())
+        .then(data => {
+          const trailer = data.results.find(v => v.type === 'Trailer' && v.site === 'YouTube');
+          if (trailer) {
+            trailerFrame.src = `https://www.youtube.com/embed/${trailer.key}`;
+            trailerModal.style.display = 'flex';
+          } else {
+            alert('Trailer not available');
+          }
+        });
+    }
 
-  function showTrailer(movieId) {
-    const url = `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}`;
-    fetch(url)
-      .then(res => res.json())
-      .then(data => {
-        const trailer = data.results.find(v =>
-          v.site === 'YouTube' &&
-          (v.type === 'Trailer' || v.type === 'Teaser' || v.type === 'Clip')
-        );
-        if (trailer) {
-          trailerFrame.src = `https://www.youtube.com/embed/${trailer.key}`;
-          trailerModal.style.display = 'flex';
-        } else {
-          alert('Trailer not available');
-        }
-      })
-      .catch(err => {
-        console.error('Error fetching trailer:', err);
-        alert('Failed to load trailer');
-      });
-  }
+    function closeTrailer() {
+      trailerFrame.src = '';
+      trailerModal.style.display = 'none';
+    }
 
-  function closeTrailer() {
-    trailerFrame.src = '';
-    trailerModal.style.display = 'none';
-  }
+    // Event handlers
+    todayBtn.onclick = () => {
+      currentTime = 'day'; currentPage = 1;
+      todayBtn.classList.add('active'); weekBtn.classList.remove('active');
+      filmGrid.innerHTML = ''; loadMovies();
+    };
 
-  // Event listeners
-  todayBtn.onclick = () => {
-    currentTime = 'day';
-    currentPage = 1;
-    todayBtn.classList.add('active');
-    weekBtn.classList.remove('active');
-    filmGrid.innerHTML = '';
+    weekBtn.onclick = () => {
+      currentTime = 'week'; currentPage = 1;
+      weekBtn.classList.add('active'); todayBtn.classList.remove('active');
+      filmGrid.innerHTML = ''; loadMovies();
+    };
+
+    genreSelect.onchange = () => {
+      currentGenre = genreSelect.value;
+      currentPage = 1;
+      filmGrid.innerHTML = '';
+      loadMovies();
+    };
+
+    searchBar.addEventListener('input', () => {
+      searchQuery = searchBar.value.trim();
+      currentPage = 1;
+      filmGrid.innerHTML = '';
+      loadMovies();
+    });
+
+    loadMoreBtn.onclick = () => {
+      currentPage++;
+      loadMovies();
+    };
+
+    // Initial Load
+    loadGenres();
     loadMovies();
-  };
+  </script>
 
-  weekBtn.onclick = () => {
-    currentTime = 'week';
-    currentPage = 1;
-    weekBtn.classList.add('active');
-    todayBtn.classList.remove('active');
-    filmGrid.innerHTML = '';
-    loadMovies();
-  };
-
-  genreSelect.onchange = () => {
-    currentGenre = genreSelect.value;
-    currentPage = 1;
-    filmGrid.innerHTML = '';
-    loadMovies();
-  };
-
-  searchBar.addEventListener('input', () => {
-    searchQuery = searchBar.value.trim();
-    currentPage = 1;
-    filmGrid.innerHTML = '';
-    loadMovies();
-  });
-
-  loadMoreBtn.onclick = () => {
-    currentPage++;
-    loadMovies();
-  };
-
-  // Initial load
-  loadGenres();
-  loadMovies();
-</script>
 </body>
 </html>
