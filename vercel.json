@@ -1,15 +1,5 @@
 {
-  "redirects": [
-    {
-      "source": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "cinenovatv.com"
-        }
-      ],
-      "destination": "https://www.cinenovatv.com/:1",
-      "permanent": true
-    }
-  ]
+  "cleanUrls": true,
+  "trailingSlash": false
 }
+
