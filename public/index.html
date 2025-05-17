@@ -92,7 +92,7 @@
     let searchQuery = '';
 
     async function loadGenres() {
-      const res = await fetch(/api/genres);
+      const res = await fetch(`/api/genres`);
       const data = await res.json();
       data.genres.forEach(genre => {
         const opt = document.createElement('option');
@@ -104,9 +104,9 @@
 
     function getEndpoint() {
       if (searchQuery.length > 1) {
-        return /api/search?query=${encodeURIComponent(searchQuery)}&page=${currentPage};
+        return `/api/search?query=${encodeURIComponent(searchQuery)}&page=${currentPage}`;
       }
-      return /api/trending?time=${currentTime}&page=${currentPage};
+      return `/api/trending?time=${currentTime}&page=${currentPage}`;
     }
 
     async function loadMovies() {
@@ -116,15 +116,15 @@
       const filtered = currentGenre ? data.results.filter(m => m.genre_ids.includes(parseInt(currentGenre))) : data.results;
 
       filtered.forEach(movie => {
-        const poster = movie.poster_path ? https://image.tmdb.org/t/p/w500${movie.poster_path} : 'placeholder.jpg';
+        const poster = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'placeholder.jpg';
         const card = document.createElement('div');
         card.className = 'film-item';
-        card.innerHTML = 
+        card.innerHTML = `
           <img class="film-poster" src="${poster}" alt="${movie.title}">
           <h3>${movie.title}</h3>
           <p>${movie.overview.slice(0, 100)}...</p>
           <button onclick="showTrailer(${movie.id})" class="read-more">Watch Trailer</button>
-        ;
+        `;
         filmGrid.appendChild(card);
       });
 
@@ -132,12 +132,12 @@
     }
 
     function showTrailer(movieId) {
-      fetch(/api/movie/${movieId}/videos)
+      fetch(`/api/movie/${movieId}/videos`)
         .then(res => res.json())
         .then(data => {
           const trailer = data.results.find(v => v.type === 'Trailer' && v.site === 'YouTube');
           if (trailer) {
-            trailerFrame.src = https://www.youtube.com/embed/${trailer.key};
+            trailerFrame.src = `https://www.youtube.com/embed/${trailer.key}`;
             trailerModal.style.display = 'flex';
           } else {
             alert('Trailer not available');
