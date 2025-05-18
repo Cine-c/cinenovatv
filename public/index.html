@@ -106,11 +106,12 @@
     }
 
     function getEndpoint() {
-      if (searchQuery.length > 1) {
-        return `${API_BASE}/search?query=${encodeURIComponent(searchQuery)}&page=${currentPage}`;
-      }
-      return `${API_BASE}/trending-${currentTime}?page=${currentPage}`;
-    }
+     function getEndpoint() {
+  if (searchQuery.length > 1) {
+    return `${API_BASE}/search?query=${encodeURIComponent(searchQuery)}&page=${currentPage}`;
+  }
+  return `${API_BASE}/trending/${currentTime}?page=${currentPage}`;
+}
 
     async function loadMovies() {
       loadMoreBtn.disabled = true;
@@ -139,7 +140,7 @@
     }
 
     function showTrailer(movieId) {
-      fetch(`${API_BASE}/movie/${movieId}-trailer`)
+      fetch(`${API_BASE}/movie/${movieId}/trailer`)
         .then(res => res.json())
         .then(data => {
           const trailer = data.results.find(v => v.type === 'Trailer' && v.site === 'YouTube');
