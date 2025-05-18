@@ -106,36 +106,38 @@
     }
 
     function getEndpoint() {
-     function getEndpoint() {
-  if (searchQuery.length > 1) {
-    return `${API_BASE}/search?query=${encodeURIComponent(searchQuery)}&page=${currentPage}`;
-  }
-  return `${API_BASE}/trending/${currentTime}?page=${currentPage}`;
-}
+      if (searchQuery.length > 1) {
+        return `${API_BASE}/search?query=${encodeURIComponent(searchQuery)}&page=${currentPage}`;
+      }
+      return `${API_BASE}/trending/${currentTime}?page=${currentPage}`;
+    }
 
     async function loadMovies() {
       loadMoreBtn.disabled = true;
-      const res = await fetch(getEndpoint());
-      const data = await res.json();
-      const filtered = currentGenre
-        ? data.results.filter(m => m.genre_ids.includes(parseInt(currentGenre)))
-        : data.results;
+      try {
+        const res = await fetch(getEndpoint());
+        const data = await res.json();
+        const filtered = currentGenre
+          ? data.results.filter(m => m.genre_ids.includes(parseInt(currentGenre)))
+          : data.results;
 
-      filtered.forEach(movie => {
-        const poster = movie.poster_path
-          ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-          : 'placeholder.jpg';
-        const card = document.createElement('div');
-        card.className = 'film-item';
-        card.innerHTML = `
-          <img class="film-poster" src="${poster}" alt="${movie.title}">
-          <h3>${movie.title}</h3>
-          <p>${movie.overview.slice(0, 100)}...</p>
-          <button onclick="showTrailer(${movie.id})" class="read-more">Watch Trailer</button>
-        `;
-        filmGrid.appendChild(card);
-      });
-
+        filtered.forEach(movie => {
+          const poster = movie.poster_path
+            ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+            : 'placeholder.jpg';
+          const card = document.createElement('div');
+          card.className = 'film-item';
+          card.innerHTML = `
+            <img class="film-poster" src="${poster}" alt="${movie.title}">
+            <h3>${movie.title}</h3>
+            <p>${movie.overview.slice(0, 100)}...</p>
+            <button onclick="showTrailer(${movie.id})" class="read-more">Watch Trailer</button>
+          `;
+          filmGrid.appendChild(card);
+        });
+      } catch (error) {
+        console.error('Error loading movies:', error);
+      }
       loadMoreBtn.disabled = false;
     }
 
@@ -162,13 +164,15 @@
     todayBtn.onclick = () => {
       currentTime = 'day'; currentPage = 1;
       todayBtn.classList.add('active'); weekBtn.classList.remove('active');
-      filmGrid.innerHTML = ''; loadMovies();
+      filmGrid.innerHTML = '';
+      loadMovies();
     };
 
     weekBtn.onclick = () => {
       currentTime = 'week'; currentPage = 1;
       weekBtn.classList.add('active'); todayBtn.classList.remove('active');
-      filmGrid.innerHTML = ''; loadMovies();
+      filmGrid.innerHTML = '';
+      loadMovies();
     };
 
     genreSelect.onchange = () => {
@@ -191,8 +195,9 @@
     };
 
     // Initial Load
-    loadGenres();
-    loadMovies();
+    window.onload = () => {
+      loadGenres().then(() => loadMovies());
+    };
   </script>
 
 </body>
