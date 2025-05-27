@@ -12,10 +12,30 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Remove this route:
-// app.get('/', (req, res) => {
-//   res.send('Welcome to CineNovaTv API!');
-// });
+// === Custom Routes for Static HTML Pages ===
+
+// Optional: Send index.html on root
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+app.get('/trailer', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'trailer.html'));
+});
+
+app.get('/about', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'about.html'));
+});
+
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'login.html'));
+});
+
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+});
+
+// === TMDB API Routes ===
 
 app.get('/api/trending/:time', async (req, res) => {
   const { time } = req.params;
@@ -48,6 +68,7 @@ app.get('/api/movie/:id/trailer', async (req, res) => {
   res.json(data);
 });
 
+// Start server
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
