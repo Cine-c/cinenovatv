@@ -1,13 +1,22 @@
-// firebase-config.js
-import { initializeApp } from "firebase/app";
+// public/admin/firebase-config.js
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+import { getStorage } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  apiKey: "AIzaSyB1OJrnV1feRYUcUvzOLCiGaN_1w3dEut8",
+  authDomain: "cinenovatv.firebaseapp.com",
+  projectId: "cinenovatv",
+  storageBucket: "cinenovatv.firebasestorage.app",
+  messagingSenderId: "151330277063",
+  appId: "1:151330277063:web:f3766dc9c2ac5f68fc20e2",
+  measurementId: "G-9GTVV8JYFQ"
 };
 
-export const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const storage = getStorage(app);
+
+export { auth, db, storage };

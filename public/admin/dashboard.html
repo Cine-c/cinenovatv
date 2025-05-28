@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" />
+  <style>
+    /* --- Common styles --- */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 2rem;
+      transition: background-image 0.5s ease-in-out, background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+    }
+
+    /* --- Dark mode styles --- */
+    body {
+      background-color: #121212;
+      background-image: url('https://images.unsplash.com/photo-1620207418302-439b387441b0?auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: #eee;
+    }
+
+    /* --- Light mode overrides --- */
+    body.light-mode {
+      background-color: #f0f0f0;
+      background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80');
+      color: #111;
+    }
+
+    /* --- Login Container --- */
+    #login-container {
+      background: #1f1f1f;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px #ff6f00;
+      width: 320px;
+      margin: 0 auto;
+      text-align: center;
+      display: block; /* visible initially */
+    }
+    body.light-mode #login-container {
+      background: #fff;
+      color: #111;
+      box-shadow: 0 0 10px #ffa500;
+    }
+    #login-container h2 {
+      margin-bottom: 1.5rem;
+      color: #ff6f00;
+    }
+    #login-container input[type="email"],
+    #login-container input[type="password"] {
+      width: 100%;
+      padding: 0.75rem;
+      margin: 0.5rem 0 1.5rem;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    #login-container button {
+      background-color: #ff6f00;
+      border: none;
+      padding: 0.75rem;
+      width: 100%;
+      font-size: 1rem;
+      color: white;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    #login-container button:hover {
+      background-color: #e65c00;
+    }
+    #error-msg {
+      color: #ff4444;
+      margin-bottom: 1rem;
+      display: none;
+    }
+
+    /* --- Dashboard --- */
+    #dashboard {
+      display: none; /* hidden initially */
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    #dashboard h1 { color: #10b981; }
+    body.light-mode #dashboard h1 { color: #059669; }
+
+    #logoutBtn {
+      float: right;
+      background: #ef4444;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    #toggleTheme {
+      float: right;
+      margin-right: 1rem;
+      cursor: pointer;
+      font-size: 1.2rem;
+      background: transparent;
+      border: none;
+      color: inherit;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      margin: 0.5rem 0;
+      padding: 0.75rem;
+      background: #1f1f1f;
+      border: 1px solid #333;
+      border-radius: 6px;
+      color: #eee;
+    }
+    body.light-mode input,
+    body.light-mode select,
+    body.light-mode textarea {
+      background: #fff;
+      border: 1px solid #ccc;
+      color: #111;
+    }
+
+    button {
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background-color: #10b981;
+      color: #111;
+    }
+    body.light-mode .btn-primary {
+      background-color: #059669;
+      color: #fff;
+    }
+    .btn-secondary {
+      background-color: #334155;
+      color: white;
+    }
+    body.light-mode .btn-secondary {
+      background-color: #64748b;
+      color: #fff;
+    }
+    .btn-danger {
+      background-color: #e11d48;
+      color: white;
+    }
+    body.light-mode .btn-danger {
+      background-color: #dc2626;
+      color: #fff;
+    }
+
+    .post {
+      background: #1f1f1f;
+      border: 1px solid #333;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      color: #eee;
+    }
+    body.light-mode .post {
+      background: #fff;
+      border: 1px solid #ccc;
+      color: #111;
+    }
+    .post img {
+      max-width: 100%;
+      max-height: 150px;
+      border-radius: 6px;
+      margin: 0.5rem 0;
+    }
+    .hidden {
+      display: none;
+    }
+    .search-bar {
+      margin: 1rem 0;
+      display: flex;
+      gap: 1rem;
+    }
+
+    /* Clear floats */
+    .clearfix::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  </style>
+</head>
+<body>
+  <!-- Login Form -->
+  <div id="login-container">
+    <h2>Admin Login</h2>
+    <div id="error-msg"></div>
+    <form id="login-form" autocomplete="off">
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="dashboard" class="clearfix">
+    <h1>Admin Dashboard</h1>
+    <button id="logoutBtn">Logout</button>
+    <button id="toggleTheme" title="Toggle Light/Dark Mode">🌙</button>
+
+    <div>
+      <h2 id="formTitle">Add Blog Post</h2>
+      <form id="blogForm">
+        <input type="text" id="title" placeholder="Title" required />
+        <select id="category" required>
+          <option value="">Select Category</option>
+          <option value="home">Home</option>
+          <option value="trailer">Trailer</option>
+          <option value="about">About</option>
+        </select>
+        <textarea id="content" rows="4" placeholder="Content" required></textarea>
+        <input type="file" id="imageUpload" accept="image/*" />
+        <img id="imagePreview" src="#" alt="Preview" class="hidden" />
+        <button type="submit" class="btn-primary" id="submitBtn">Post</button>
+        <button type="button" class="btn-secondary hidden" id="cancelEditBtn">Cancel</button>
+        <div id="statusMsg"></div>
+      </form>
+    </div>
+
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search by title..." />
+      <select id="filterCategory">
+        <option value="">All Categories</option>
+        <option value="home">Home</option>
+        <option value="trailer">Trailer</option>
+        <option value="about">About</option>
+      </select>
+    </div>
+
+    <div id="blogList">Loading...</div>
+    <button id="loadMoreBtn" class="btn-primary hidden">Load More</button>
+  </div>
+
+  <script type="module" src="./firebase-config.js"></script>
+  <script type="module" src="./admin.js"></script>
+  <script type="module" src="./dashboard.js"></script>
+
+  <script>
+    // Simple view toggle logic and theme toggle setup
+    const loginContainer = document.getElementById('login-container');
+    const dashboard = document.getElementById('dashboard');
+    const errorMsg = document.getElementById('error-msg');
+    const toggleThemeBtn = document.getElementById('toggleTheme');
+
+    // Initialize theme based on saved preference
+    if (localStorage.getItem('theme') === 'light') {
+      document.body.classList.add('light-mode');
+      toggleThemeBtn.textContent = '🌙';
+    } else {
+      toggleThemeBtn.textContent = '☀️';
+    }
+
+    toggleThemeBtn.addEventListener('click', () => {
+      document.body.classList.toggle('light-mode');
+      const isLight = document.body.classList.contains('light-mode');
+      toggleThemeBtn.textContent = isLight ? '🌙' : '☀️';
+      localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    });
+
+    // Admin login logic (simple example - replace with your Firebase Auth logic)
+    const loginForm = document.getElementById('login-form');
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = loginForm.email.value;
+      const password = loginForm.password.value;
+      errorMsg.style.display = 'none';
+
+      try {
+        // Replace with your Firebase Auth sign-in
+        // Example:
+        // await firebase.auth().signInWithEmailAndPassword(email, password);
+        
+        // For demo: accept any non-empty login
+        if (email && password) {
+          loginContainer.style.display = 'none';
+          dashboard.style.display = 'block';
+        } else {
+          throw new Error('Invalid credentials');
+        }
+      } catch (error) {
+        errorMsg.textContent = error.message || 'Login failed';
+        errorMsg.style.display = 'block';
+      }
+    });
+
+    // Logout logic example (replace with your actual logout code)
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      // Example:
+      // await firebase.auth().signOut();
+      // For demo:
+      dashboard.style.display = 'none';
+      loginContainer.style.display = 'block';
+    });
+  </script>
+</body>
+</html>
