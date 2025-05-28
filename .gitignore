@@ -62,3 +62,7 @@ logs/
 *.log
 *.tgz
 *.zip
+
+# Firebase config (optional if you move it)
+public/admin/firebase-config.js
+
