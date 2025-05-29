@@ -2,31 +2,111 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>About – CineNovaTv</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us - CineNovaTv</title>
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #111827;
+      color: #f3f4f6;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #1f2937;
+      padding: 1rem;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      color: #10b981;
+    }
+    main {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+    .about-post {
+      background-color: #1e293b;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    }
+    .about-post h2 {
+      margin-top: 0;
+      color: #60a5fa;
+    }
+    .about-post img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
+  </style>
 </head>
 <body>
-
-  <nav style="background:#111; padding: 1rem; text-align:center;">
-    <a href="index.html" style="color:#10b981; margin: 0 1rem;">Home</a>
-    <a href="trailers.html" style="color:#10b981; margin: 0 1rem;">Trailers</a>
-    <a href="about.html" style="color:#10b981; margin: 0 1rem;">About</a>
-  </nav>
-
-  <main style="padding: 2rem;">
+  <header>
     <h1>About CineNovaTv</h1>
-    <p>CineNovaTv is a platform for film lovers. We share the latest trailers, industry news, and global film culture content.</p>
+  </header>
 
-    <h2>Contact Us</h2>
-    <p>Email: contact@cinenovatv.com</p>
-    <p>Instagram: <a href="https://instagram.com/yourhandle" target="_blank">@yourhandle</a></p>
-    <p>Twitter: <a href="https://twitter.com/yourhandle" target="_blank">@yourhandle</a></p>
+  <main id="aboutContent">
+    <p>Loading content...</p>
   </main>
 
-  <footer class="footer" style="text-align:center; padding:1rem;">
-    &copy; 2025 CineNovaTv
-  </footer>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+    import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
 
+    // Your Firebase configuration (replace with your actual values)
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Load About content
+    async function loadAboutPosts() {
+      const container = document.getElementById('aboutContent');
+      container.innerHTML = "<p>Loading...</p>";
+
+      try {
+        const q = query(collection(db, "posts"), where("category", "==", "about"));
+        const snapshot = await getDocs(q);
+
+        if (snapshot.empty) {
+          container.innerHTML = "<p>No About content found.</p>";
+          return;
+        }
+
+        container.innerHTML = '';
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          const postEl = document.createElement('div');
+          postEl.className = 'about-post';
+
+          postEl.innerHTML = `
+            <h2>${data.title}</h2>
+            <p>${data.content}</p>
+            ${data.imageURL ? `<img src="${data.imageURL}" alt="${data.title}" />` : ''}
+          `;
+
+          container.appendChild(postEl);
+        });
+      } catch (err) {
+        console.error(err);
+        container.innerHTML = "<p>Error loading content.</p>";
+      }
+    }
+
+    loadAboutPosts();
+  </script>
 </body>
 </html>
