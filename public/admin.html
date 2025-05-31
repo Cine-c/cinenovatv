@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin</title>
+  <style>
+    /* Reset & base */
+    * {
+      box-sizing: border-box;
+    }
+    body, html {
+      margin: 0; padding: 0; height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: url('./public/images/bg.jpg') no-repeat center center/cover;
+      color: #f0f0f0;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      overflow: hidden;
+    }
+    body.dark-mode {
+      background-color: #121212;
+      color: #ddd;
+      background-image: none;
+    }
+
+    .container {
+      height: 100vh;
+      width: 100vw;
+      backdrop-filter: blur(8px);
+      background-color: rgba(0, 0, 0, 0.75);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 2rem;
+      overflow-y: auto;
+    }
+
+    h1 {
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      font-size: 2.5rem;
+      text-align: center;
+      color: #00ff99;
+      text-shadow: 0 0 8px #00ff99aa;
+    }
+
+    form, #dashboard {
+      width: 100%;
+      max-width: 700px;
+      background-color: #222;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow:
+        0 0 10px #00ff99aa,
+        0 0 20px #ffa500aa,
+        0 0 30px #007bffaa;
+    }
+
+    #login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    input, textarea {
+      padding: 0.8rem 1rem;
+      font-size: 1.1rem;
+      border-radius: 6px;
+      border: 2px solid transparent;
+      background-color: #333;
+      color: #eee;
+      transition: border-color 0.3s ease, background-color 0.3s ease;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #00ff99;
+      background-color: #222;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    button {
+      font-weight: 700;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      padding: 0.5rem 0.8rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 0 10px transparent;
+      color: white;
+      margin-top: 0.5rem;
+    }
+
+    button:hover {
+      box-shadow: 0 0 15px currentColor;
+    }
+
+    button[type="submit"] {
+      background-color: #ffa500;
+    }
+    button[type="submit"]:hover {
+      background-color: #cc8400;
+    }
+
+    #logout-btn {
+      background-color: #00b300;
+      margin-bottom: 1rem;
+      width: 100%;
+      font-size: 1rem;
+      padding: 0.5rem;
+    }
+    #logout-btn:hover {
+      background-color: #007a00;
+    }
+
+    #load-more-btn {
+      background-color: #007bff;
+      margin-top: 1rem;
+      width: 100%;
+      font-size: 1rem;
+      padding: 0.5rem;
+    }
+    #load-more-btn:hover {
+      background-color: #0056b3;
+    }
+
+    #theme-toggle {
+      background-color: #6c757d;
+      width: 100%;
+      margin-top: 0.5rem;
+      font-size: 1rem;
+      padding: 0.5rem;
+    }
+    #theme-toggle:hover {
+      background-color: #495057;
+    }
+
+    #image-preview {
+      max-width: 100px;
+      margin-top: 0.5rem;
+      border-radius: 8px;
+      box-shadow: 0 0 12px #00ff99aa;
+    }
+
+    #posts-list {
+      list-style: none;
+      padding: 0.5rem;
+      max-height: 220px;
+      overflow-y: auto;
+      background-color: #111;
+      border-radius: 8px;
+      margin-top: 1rem;
+      color: #eee;
+      border: 1px solid #00ff99;
+      box-shadow: 0 0 8px #00ff99aa inset;
+    }
+
+    #posts-list li {
+      padding: 0.5rem 0.8rem;
+      border-bottom: 1px solid #333;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 0.9rem;
+    }
+    #posts-list li:hover {
+      background-color: #007bff;
+      color: white;
+    }
+
+    #filter-input {
+      margin-top: 1.5rem;
+      padding: 0.6rem 0.8rem;
+      border-radius: 6px;
+      border: none;
+      font-size: 1rem;
+      width: 100%;
+      max-width: 700px;
+      background-color: #222;
+      color: #eee;
+      border: 2px solid transparent;
+      transition: border-color 0.3s ease;
+    }
+    #filter-input:focus {
+      outline: none;
+      border-color: #007bff;
+    }
+
+    #create-post-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+
+    @media (max-width: 720px) {
+      form, #dashboard, #filter-input {
+        max-width: 100%;
+        padding: 1.5rem;
+      }
+      button, #logout-btn, #load-more-btn, #theme-toggle {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.6rem;
+      }
+      #image-preview {
+        max-width: 80px;
+      }
+      #posts-list {
+        max-height: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Admin Dashboard</h1>
+    <form id="login-form">
+      <input id="email" type="email" placeholder="Email" required autocomplete="username" />
+      <input id="password" type="password" placeholder="Password" required autocomplete="current-password" />
+      <label style="font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem;">
+        <input type="checkbox" id="show-password" />
+        Show Password
+      </label>
+      <button type="submit">Login</button>
+    </form>
+
+    <div id="dashboard" style="display:none;">
+      <button id="logout-btn">Logout</button>
+      <form id="create-post-form">
+        <input id="title" type="text" placeholder="Title" required />
+        <textarea id="content" placeholder="Content" required></textarea>
+        <input id="image" type="file" accept="image/*" />
+        <img id="image-preview" alt="Image preview" />
+        <button type="submit">Create Post</button>
+      </form>
+
+      <input id="filter-input" type="text" placeholder="Search posts..." />
+      <ul id="posts-list"></ul>
+      <button id="load-more-btn">Load More</button>
+      <button id="theme-toggle">Toggle Dark Mode</button>
+    </div>
+  </div>
+  <script type="module" src="./admin.js"></script>
+</body>
+</html>

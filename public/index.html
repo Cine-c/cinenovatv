@@ -4,35 +4,60 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CineNovaTv – Blogs</title>
-  <link rel="stylesheet" href="styles.css" />
-  <style>
-    /* Basic page styles */
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #0f2027; /* dark gradient base */
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      color: #f9fafb;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
 
+  <!-- Minimal critical CSS to avoid FOUC -->
+  <style>
+    body {
+      background: #000;#f9fafb
+      color: #f9fafb;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      visibility: hidden; /* Hide content until fully loaded */
+    }
+  </style>
+
+  <!-- All styles internal now -->
+  <style>
     nav {
-      background: #111;
+      background: Black; /* Black background behind nav links */
       padding: 1rem;
       text-align: center;
+      border-top: 5px solid blue; /* blue line on top */
+      background-image: url('https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1920&q=80'); /* space background */
+      background-size: cover;
+      background-position: center top;
+      position: relative;
     }
 
-    nav a {
-      color: #10b981;
-      margin: 0 1rem;
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.3s ease;
+nav a {
+  color: black;          /* Black text */
+  font-weight: bold;     /* Bold text */
+  margin: 0 1rem;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.7); /* Optional: light background to improve visibility on dark nav */
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+}
+
+
+    /* Hover and active background colors */
+    nav a.home:hover,
+    nav a.home.active {
+      background-color: #f44336; /* red */
+      color: black;
     }
-    nav a:hover {
-      color: #f97316;
+
+    nav a.trailer:hover,
+    nav a.trailer.active {
+      background-color: #22c55e; /* green */
+      color: orange;
+    }
+
+    nav a.about:hover,
+    nav a.about.active {
+      background-color: #f97316; /* orange */
+      color: black;
     }
 
     header {
@@ -55,7 +80,6 @@
       color: #ccc;
     }
 
-    /* Spinner animation styles */
     @keyframes spin {
       0%   { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
@@ -70,29 +94,53 @@
       border-radius: 50%;
       animation: spin 1s linear infinite;
     }
+
+    .read-more-btn {
+      color: #10b981;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      font-weight: 600;
+      font-size: 1rem;
+      margin-top: 0.3rem;
+      display: inline-block;
+    }
+
+    article p.post-date {
+      font-size: 0.9rem;
+      color: #999;
+      margin-top: -1rem;
+      margin-bottom: 1rem;
+      font-style: italic;
+    }
   </style>
+
+  <script>
+    // Show content after all resources are loaded
+    window.addEventListener('load', () => {
+      document.body.style.visibility = 'visible';
+    });
+  </script>
 </head>
 <body>
 
   <nav>
-    <a href="index.html">Home</a>
-    <a href="trailers.html">Trailers</a>
-    <a href="about.html">About</a>
+    <a href="index.html" class="home active">Home</a>
+    <a href="trailers.html" class="trailer">Trailers</a>
+    <a href="about.html" class="about">About</a>
   </nav>
 
   <header>
-    <h1>Welcome to CineNovaTv</h1>
     <p>Your source for cinema news, reviews, and insights.</p>
   </header>
 
   <main>
     <section id="blogList">
-      <!-- Loading spinner shown while fetching blogs -->
       <div class="spinner"></div>
       <p style="text-align:center; margin-top: 1rem; color: #ccc;">
         Loading blog articles...
       </p>
-      <!-- Blogs will replace this spinner and message dynamically -->
     </section>
   </main>
 
@@ -100,6 +148,81 @@
     &copy; 2025 CineNovaTv
   </footer>
 
-  <script type="module" src="index.js"></script>
+  <script type="module">
+    import { db } from './firebase-config.js';
+    import { collection, getDocs, orderBy, query, Timestamp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+
+    const blogList = document.getElementById("blogList");
+
+    function truncateText(text, maxLength = 150) {
+      if (text.length <= maxLength) return text;
+      return text.slice(0, maxLength) + '...';
+    }
+
+    async function loadBlogs() {
+      blogList.innerHTML = '<div class="spinner"></div><p style="text-align:center; margin-top: 1rem; color: #ccc;">Loading blog articles...</p>';
+
+      try {
+        const postsQuery = query(collection(db, "posts"), orderBy("createdAt", "desc"));
+        const snapshot = await getDocs(postsQuery);
+
+        if (snapshot.empty) {
+          blogList.innerHTML = "<p style='text-align:center; color:#ccc;'>No blog posts available yet.</p>";
+          return;
+        }
+
+        blogList.innerHTML = "";
+
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          const post = document.createElement("article");
+          post.style.marginBottom = "2rem";
+
+          const fullContent = data.content || "";
+          const previewContent = truncateText(fullContent);
+
+          let dateStr = "";
+          if (data.createdAt && data.createdAt instanceof Timestamp) {
+            dateStr = data.createdAt.toDate().toLocaleDateString(undefined, {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            });
+          }
+
+          post.innerHTML = `
+            <h2>${data.title}</h2>
+            ${data.category ? `<p style="color: #10b981; font-weight: 600; margin-top: -0.5rem; margin-bottom: 0.5rem;">Category: ${data.category}</p>` : ""}
+            ${dateStr ? `<p class="post-date">Published on: ${dateStr}</p>` : ""}
+            ${data.posterUrl ? `<img src="${data.posterUrl}" alt="${data.title} poster" style="max-width: 100%; border-radius: 10px; margin-bottom: 1rem;" />` : ""}
+            <p class="post-content-preview">${previewContent}</p>
+            ${fullContent.length > previewContent.length ? '<button class="read-more-btn">Read more</button>' : ""}
+            ${data.trailerUrl ? `<p><a href="${data.trailerUrl}" target="_blank" style="color: #10b981;">Watch Trailer</a></p>` : ""}
+          `;
+
+          if(fullContent.length > previewContent.length) {
+            const btn = post.querySelector(".read-more-btn");
+            const p = post.querySelector(".post-content-preview");
+
+            btn.addEventListener("click", () => {
+              if(btn.textContent === "Read more") {
+                p.textContent = fullContent;
+                btn.textContent = "Show less";
+              } else {
+                p.textContent = previewContent;
+                btn.textContent = "Read more";
+              }
+            });
+          }
+
+          blogList.appendChild(post);
+        });
+      } catch (error) {
+        blogList.innerHTML = `<p style="text-align:center; color:red;">Failed to load blogs: ${error.message}</p>`;
+      }
+    }
+
+    loadBlogs();
+  </script>
 </body>
 </html>

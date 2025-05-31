@@ -1,28 +1,27 @@
-# -------------------
-# Node & NPM
-# -------------------
+# Node & npm
 node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 package-lock.json
+yarn.lock
 
-# -------------------
-# Vercel deployment
-# -------------------
-.vercel/
+# Logs
+logs/
+*.log
+*.tgz
+*.zip
 
-# -------------------
-# Environment files
-# -------------------
+# Environment variables
 .env
 .env.local
 .env.development
 .env.production
 
-# -------------------
-# Firebase
-# -------------------
+# Vercel deployment
+.vercel/
+
+# Firebase (if using firebase functions or local config)
 .firebaserc
 .firebase/
 firebase-debug.log
@@ -35,34 +34,19 @@ functions/node_modules/
 functions/lib/
 functions/.env
 
-# -------------------
-# Build outputs
-# -------------------
+# Build outputs (if any build step, e.g. bundling)
 dist/
 build/
 coverage/
 
-# -------------------
 # OS generated files
-# -------------------
 .DS_Store
 Thumbs.db
 
-# -------------------
-# IDEs & editors
-# -------------------
+# Editors/IDE files
 .vscode/
 .idea/
 *.swp
 
-# -------------------
-# Logs & Misc
-# -------------------
-logs/
-*.log
-*.tgz
-*.zip
-
-# Firebase config (optional if you move it)
-public/admin/firebase-config.js
-
+# Firebase config (if you want to keep it out of repo)
+public/firebase-config.js
