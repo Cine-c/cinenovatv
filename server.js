@@ -9,12 +9,19 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Fix MIME type for .js files (serve as application/javascript)
+app.use((req, res, next) => {
+  if (req.path.endsWith('.js')) {
+    res.setHeader('Content-Type', 'application/javascript');
+  }
+  next();
+});
+
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // === Custom Routes for Static HTML Pages ===
 
-// Optional: Send index.html on root
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
