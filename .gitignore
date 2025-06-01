@@ -47,6 +47,3 @@ Thumbs.db
 .vscode/
 .idea/
 *.swp
-
-# Firebase config (if you want to keep it out of repo)
-public/firebase-config.js
