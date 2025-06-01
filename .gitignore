@@ -47,3 +47,6 @@ Thumbs.db
 .vscode/
 .idea/
 *.swp
+
+# No longer ignore firebase-config.js
+# (Make sure this file is placed in /lib/ not /public/)
