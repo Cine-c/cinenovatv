@@ -145,6 +145,7 @@
       margin-top: 0.5rem;
       border-radius: 8px;
       box-shadow: 0 0 12px #00ff99aa;
+      display: none;
     }
 
     #posts-list {
@@ -170,6 +171,11 @@
     #posts-list li:hover {
       background-color: #007bff;
       color: white;
+    }
+
+    #posts-list li.selected {
+      background-color: #ffa500;
+      color: #000;
     }
 
     #filter-input {
@@ -218,6 +224,8 @@
 <body>
   <div class="container">
     <h1>Admin Dashboard</h1>
+
+    <!-- Login Form -->
     <form id="login-form">
       <input id="email" type="email" placeholder="Email" required autocomplete="username" />
       <input id="password" type="password" placeholder="Password" required autocomplete="current-password" />
@@ -228,16 +236,21 @@
       <button type="submit">Login</button>
     </form>
 
+    <!-- Dashboard -->
     <div id="dashboard" style="display:none;">
       <button id="logout-btn">Logout</button>
+
+      <!-- Create/Edit Post Form -->
       <form id="create-post-form">
         <input id="title" type="text" placeholder="Title" required />
         <textarea id="content" placeholder="Content" required></textarea>
         <input id="image" type="file" accept="image/*" />
         <img id="image-preview" alt="Image preview" />
+        <input type="hidden" id="post-id" />
         <button type="submit">Create Post</button>
       </form>
 
+      <!-- Search + List -->
       <input id="filter-input" type="text" placeholder="Search posts..." />
       <ul id="posts-list"></ul>
       <button id="load-more-btn">Load More</button>
