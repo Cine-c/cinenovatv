@@ -5,84 +5,170 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CineNovaTv – Blogs</title>
 
-  <!-- Minimal critical CSS to avoid FOUC -->
-  <style>
-    body {
-      background: #000;#f9fafb
-      color: #f9fafb;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      visibility: hidden; /* Hide content until fully loaded */
-    }
-  </style>
+  <!-- Google AdSense script -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8747979755893623"
+     crossorigin="anonymous"></script>
 
-  <!-- All styles internal now -->
   <style>
+    :root {
+      --bg-color: #f0f0f0;
+      --card-bg: #1a1a1a;
+      --accent: #10b981;
+      --text-light: #0b0b0b;
+      --text-muted: #444;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-light);
+      font-family: 'Inter', 'Segoe UI', Tahoma, sans-serif;
+      margin: 0;
+      line-height: 1.7;
+      visibility: hidden;
+    }
+
     nav {
-      background: Black; /* Black background behind nav links */
+      background: linear-gradient(270deg, #0b0b0b, #1a1a1a, #0b0b0b);
+      background-size: 600% 600%;
+      animation: navBackgroundAnim 15s ease infinite;
       padding: 1rem;
       text-align: center;
-      border-top: 5px solid blue; /* blue line on top */
-      background-image: url('https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1920&q=80'); /* space background */
-      background-size: cover;
-      background-position: center top;
-      position: relative;
+      border-bottom: 1px solid #222;
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
 
-nav a {
-  color: black;          /* Black text */
-  font-weight: bold;     /* Bold text */
-  margin: 0 1rem;
-  text-decoration: none;
-  transition: color 0.3s ease;
-  background-color: rgba(255, 255, 255, 0.7); /* Optional: light background to improve visibility on dark nav */
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-}
-
-
-    /* Hover and active background colors */
-    nav a.home:hover,
-    nav a.home.active {
-      background-color: #f44336; /* red */
-      color: black;
+    @keyframes navBackgroundAnim {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
-    nav a.trailer:hover,
-    nav a.trailer.active {
-      background-color: #22c55e; /* green */
-      color: orange;
+    nav a {
+      color: var(--text-muted);
+      font-weight: 600;
+      margin: 0 1rem;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      display: inline-block;
     }
 
-    nav a.about:hover,
-    nav a.about.active {
-      background-color: #f97316; /* orange */
-      color: black;
+    nav a:hover,
+    nav a.active {
+      background: var(--accent);
+      color: #000;
     }
 
     header {
       text-align: center;
-      padding: 2rem;
+      padding: 2rem 1rem;
+      background: #111;
+      border-bottom: 1px solid #222;
+      color: white;
+    }
+
+    header p {
+      max-width: 600px;
+      margin: 0 auto;
+      color: #bbb;
+      font-size: 1.1rem;
     }
 
     main {
-      flex-grow: 1;
-      padding: 2rem;
-      max-width: 800px;
+      padding: 2rem 1rem;
+      max-width: 1200px;
       margin: 0 auto;
     }
 
-    footer.footer {
-      text-align: center;
-      padding: 1rem;
-      background: #111;
-      font-size: 0.9rem;
-      color: #ccc;
+    #blogList {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 2rem;
     }
 
-    @keyframes spin {
-      0%   { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    article {
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      color: white;
+    }
+
+    article:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+
+    article h2 {
+      margin-top: 0;
+      font-size: 1.3rem;
+      color: var(--text-light);
+      position: relative;
+      z-index: 1;
+    }
+
+    article h2::before {
+      content: "";
+      position: absolute;
+      top: -10%;
+      left: -5%;
+      right: -5%;
+      bottom: -10%;
+      background: radial-gradient(circle, rgba(16,185,129,0.1), transparent);
+      animation: titleGlow 4s ease-in-out infinite alternate;
+      z-index: -1;
+      border-radius: 8px;
+    }
+
+    @keyframes titleGlow {
+      0% { opacity: 0.3; transform: scale(1); }
+      100% { opacity: 0.6; transform: scale(1.05); }
+    }
+
+    .description-block {
+      color: var(--text-light);
+      font-style: italic;
+      margin: 0.5rem 0 1rem;
+    }
+
+    .post-date {
+      font-size: 0.85rem;
+      color: #888;
+      margin-bottom: 1rem;
+    }
+
+    .read-more-btn {
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 1rem;
+      display: inline-block;
+      margin-top: 0.5rem;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .read-more-btn:hover {
+      color: #22c55e;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      background: #111;
+      border-top: 1px solid #222;
+      font-size: 0.9rem;
+      color: #888;
     }
 
     .spinner {
@@ -90,34 +176,32 @@ nav a {
       width: 48px;
       height: 48px;
       border: 5px solid rgba(255, 255, 255, 0.2);
-      border-top-color: #10b981;
+      border-top-color: var(--accent);
       border-radius: 50%;
       animation: spin 1s linear infinite;
     }
 
-    .read-more-btn {
-      color: #10b981;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0;
-      font-weight: 600;
-      font-size: 1rem;
-      margin-top: 0.3rem;
-      display: inline-block;
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
 
-    article p.post-date {
-      font-size: 0.9rem;
-      color: #999;
-      margin-top: -1rem;
-      margin-bottom: 1rem;
-      font-style: italic;
+    @media (max-width: 600px) {
+      nav a {
+        display: block;
+        margin: 0.5rem auto;
+      }
+
+      header p {
+        font-size: 1rem;
+      }
+
+      article h2 {
+        font-size: 1.1rem;
+      }
     }
   </style>
 
   <script>
-    // Show content after all resources are loaded
     window.addEventListener('load', () => {
       document.body.style.visibility = 'visible';
     });
@@ -128,7 +212,6 @@ nav a {
   <nav>
     <a href="index.html" class="home active">Home</a>
     <a href="trailers.html" class="trailer">Trailers</a>
-    <a href="about.html" class="about">About</a>
   </nav>
 
   <header>
@@ -138,10 +221,19 @@ nav a {
   <main>
     <section id="blogList">
       <div class="spinner"></div>
-      <p style="text-align:center; margin-top: 1rem; color: #ccc;">
-        Loading blog articles...
-      </p>
+      <p style="text-align:center; margin-top: 1rem; color: #666;">Loading blog articles...</p>
     </section>
+
+    <!-- Google AdSense Ad -->
+    <ins class="adsbygoogle"
+         style="display:block; margin: 2rem auto; text-align:center;"
+         data-ad-client="ca-pub-8747979755893623"
+         data-ad-slot="1594520752"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
   </main>
 
   <footer class="footer">
@@ -155,19 +247,18 @@ nav a {
     const blogList = document.getElementById("blogList");
 
     function truncateText(text, maxLength = 150) {
-      if (text.length <= maxLength) return text;
-      return text.slice(0, maxLength) + '...';
+      return text.length <= maxLength ? text : text.slice(0, maxLength) + '...';
     }
 
     async function loadBlogs() {
-      blogList.innerHTML = '<div class="spinner"></div><p style="text-align:center; margin-top: 1rem; color: #ccc;">Loading blog articles...</p>';
+      blogList.innerHTML = '<div class="spinner"></div><p style="text-align:center; margin-top: 1rem; color: #666;">Loading blog articles...</p>';
 
       try {
         const postsQuery = query(collection(db, "posts"), orderBy("createdAt", "desc"));
         const snapshot = await getDocs(postsQuery);
 
         if (snapshot.empty) {
-          blogList.innerHTML = "<p style='text-align:center; color:#ccc;'>No blog posts available yet.</p>";
+          blogList.innerHTML = "<p style='text-align:center; color:#888;'>No blog posts available yet.</p>";
           return;
         }
 
@@ -176,8 +267,6 @@ nav a {
         snapshot.forEach(doc => {
           const data = doc.data();
           const post = document.createElement("article");
-          post.style.marginBottom = "2rem";
-
           const fullContent = data.content || "";
           const previewContent = truncateText(fullContent);
 
@@ -192,28 +281,14 @@ nav a {
 
           post.innerHTML = `
             <h2>${data.title}</h2>
-            ${data.category ? `<p style="color: #10b981; font-weight: 600; margin-top: -0.5rem; margin-bottom: 0.5rem;">Category: ${data.category}</p>` : ""}
+            ${data.category ? `<p style="color: var(--accent); font-weight: 600;">Category: ${data.category}</p>` : ""}
             ${dateStr ? `<p class="post-date">Published on: ${dateStr}</p>` : ""}
-            ${data.posterUrl ? `<img src="${data.posterUrl}" alt="${data.title} poster" style="max-width: 100%; border-radius: 10px; margin-bottom: 1rem;" />` : ""}
-            <p class="post-content-preview">${previewContent}</p>
-            ${fullContent.length > previewContent.length ? '<button class="read-more-btn">Read more</button>' : ""}
-            ${data.trailerUrl ? `<p><a href="${data.trailerUrl}" target="_blank" style="color: #10b981;">Watch Trailer</a></p>` : ""}
+            ${data.posterUrl ? `<img src="${data.posterUrl}" alt="${data.title} poster" />` : ""}
+            ${data.description ? `<p class="description-block">${data.description}</p>` : ""}
+            ${fullContent ? `<p class="post-content-preview">${previewContent}</p>` : ""}
+            ${fullContent.length > previewContent.length ? `<p><a class="read-more-btn" href="blog.html?id=${doc.id}">Read more</a></p>` : ""}
+            ${data.trailerUrl ? `<p><a href="${data.trailerUrl}" target="_blank" style="color: var(--accent);">Watch Trailer</a></p>` : ""}
           `;
-
-          if(fullContent.length > previewContent.length) {
-            const btn = post.querySelector(".read-more-btn");
-            const p = post.querySelector(".post-content-preview");
-
-            btn.addEventListener("click", () => {
-              if(btn.textContent === "Read more") {
-                p.textContent = fullContent;
-                btn.textContent = "Show less";
-              } else {
-                p.textContent = previewContent;
-                btn.textContent = "Read more";
-              }
-            });
-          }
 
           blogList.appendChild(post);
         });

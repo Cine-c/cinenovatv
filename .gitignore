@@ -48,5 +48,9 @@ Thumbs.db
 .idea/
 *.swp
 
-# No longer ignore firebase-config.js
-# (Make sure this file is placed in /lib/ not /public/)
+
+# Ignore dynamically generated Firebase config in public
+/public/config.js
+
+# Firebase config - DO NOT COMMIT
+public/firebase-config.js
