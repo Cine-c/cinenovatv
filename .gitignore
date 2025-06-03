@@ -54,3 +54,4 @@ Thumbs.db
 
 # Firebase config - DO NOT COMMIT
 public/firebase-config.js
+.vercel
