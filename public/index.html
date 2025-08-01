@@ -3,305 +3,214 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CineNovaTv – Blogs</title>
-
+  <title>CineNovaTv Blog</title>
   <!-- Google AdSense script -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8747979755893623"
      crossorigin="anonymous"></script>
-
   <style>
     :root {
-      --bg-color: #f0f0f0;
-      --card-bg: #1a1a1a;
-      --accent: #10b981;
-      --text-light: #0b0b0b;
-      --text-muted: #444;
+      --bg-color: #0b0b10;
+      --card-bg: #1a1a2d;
+      --accent: #00f0ff;
+      --text-light: #e2e8f0;
+      --text-muted: #94a3b8;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
     }
 
     body {
       background-color: var(--bg-color);
       color: var(--text-light);
-      font-family: 'Inter', 'Segoe UI', Tahoma, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       margin: 0;
-      line-height: 1.7;
-      visibility: hidden;
+      padding: 0;
     }
 
     nav {
-      background: linear-gradient(270deg, #0b0b0b, #1a1a1a, #0b0b0b);
-      background-size: 600% 600%;
-      animation: navBackgroundAnim 15s ease infinite;
-      padding: 1rem;
-      text-align: center;
+      background: #111;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       border-bottom: 1px solid #222;
-      position: sticky;
-      top: 0;
-      z-index: 10;
     }
 
-    @keyframes navBackgroundAnim {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    .logo {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: var(--accent);
     }
 
     nav a {
-      color: var(--text-muted);
-      font-weight: 600;
       margin: 0 1rem;
       text-decoration: none;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      transition: all 0.3s ease;
-      display: inline-block;
+      color: var(--text-muted);
+      font-weight: 500;
     }
 
-    nav a:hover,
-    nav a.active {
-      background: var(--accent);
-      color: #000;
+    nav a:hover {
+      color: var(--accent);
     }
 
     header {
+      background: url('https://images.unsplash.com/photo-1611078481816-e1fdd6eafdd2?fit=crop&w=1470&q=80') center/cover no-repeat;
+      height: 70vh;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       text-align: center;
-      padding: 2rem 1rem;
-      background: #111;
-      border-bottom: 1px solid #222;
-      color: white;
     }
 
-    header p {
-      max-width: 600px;
-      margin: 0 auto;
-      color: #bbb;
-      font-size: 1.1rem;
+    header::before {
+      content: "";
+      background: rgba(0, 0, 0, 0.7);
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
     }
 
-    main {
-      padding: 2rem 1rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    #blogList {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-    }
-
-    article {
-      background-color: var(--card-bg);
-      border-radius: 12px;
-      padding: 1.5rem;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.4);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      color: white;
-    }
-
-    article:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-    }
-
-    article h2 {
-      margin-top: 0;
-      font-size: 1.3rem;
-      color: var(--text-light);
+    .hero-text {
       position: relative;
       z-index: 1;
     }
 
-    article h2::before {
-      content: "";
-      position: absolute;
-      top: -10%;
-      left: -5%;
-      right: -5%;
-      bottom: -10%;
-      background: radial-gradient(circle, rgba(16,185,129,0.1), transparent);
-      animation: titleGlow 4s ease-in-out infinite alternate;
-      z-index: -1;
-      border-radius: 8px;
-    }
-
-    @keyframes titleGlow {
-      0% { opacity: 0.3; transform: scale(1); }
-      100% { opacity: 0.6; transform: scale(1.05); }
-    }
-
-    .description-block {
-      color: var(--text-light);
-      font-style: italic;
-      margin: 0.5rem 0 1rem;
-    }
-
-    .post-date {
-      font-size: 0.85rem;
-      color: #888;
+    .hero-text h1 {
+      font-size: 3rem;
+      color: var(--accent);
       margin-bottom: 1rem;
     }
 
-    .read-more-btn {
+    .hero-text p {
+      color: var(--text-muted);
+      font-size: 1.2rem;
+    }
+
+    .section-title {
+      text-align: center;
+      margin: 3rem 0 1rem;
+      font-size: 2rem;
       color: var(--accent);
-      font-weight: 600;
-      font-size: 1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      padding: 0 2rem 3rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.15);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.25);
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .card a {
       display: inline-block;
       margin-top: 0.5rem;
+      color: var(--accent);
       text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    .read-more-btn:hover {
-      color: #22c55e;
-    }
-
-    img {
-      width: 100%;
-      height: auto;
-      border-radius: 10px;
-      margin: 1rem 0;
+      font-weight: bold;
     }
 
     .footer {
+      background: #111;
       text-align: center;
       padding: 2rem;
-      background: #111;
+      color: #888;
       border-top: 1px solid #222;
       font-size: 0.9rem;
-      color: #888;
-    }
-
-    .spinner {
-      margin: 2rem auto;
-      width: 48px;
-      height: 48px;
-      border: 5px solid rgba(255, 255, 255, 0.2);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    @media (max-width: 768px) {
-      nav a {
-        display: block;
-        margin: 0.5rem auto;
-      }
-
-      header p {
-        font-size: 1rem;
-      }
-
-      article h2 {
-        font-size: 1.1rem;
-      }
-
-      main {
-        padding: 1rem;
-      }
     }
   </style>
-
-  <script>
-    window.addEventListener('load', () => {
-      document.body.style.visibility = 'visible';
-    });
-  </script>
 </head>
 <body>
 
   <nav>
-    <a href="index.html" class="home active">Home</a>
-    <a href="trailers.html" class="trailer">Trailers</a>
+    <div class="logo">CineNovaTv</div>
+    <div>
+      <a href="index.html">Home</a>
+      <a href="trailers.html">Trailers</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
+    </div>
   </nav>
 
   <header>
-    <p>Your source for cinema news, reviews, and insights.</p>
+    <div class="hero-text">
+      <h1>Explore the latest movie trailers, blogs, and exclusive updates</h1>
+      <!-- You can add a subtitle or remove this empty <p> -->
+      <p></p>
+    </div>
   </header>
 
-  <main>
-    <section id="blogList">
-      <div class="spinner"></div>
-      <p style="text-align:center; margin-top: 1rem; color: #666;">Loading blog articles...</p>
-    </section>
-
-    <!-- Google AdSense Ad -->
-    <ins class="adsbygoogle"
-         style="display:block; margin: 2rem auto; text-align:center;"
-         data-ad-client="ca-pub-8747979755893623"
-         data-ad-slot="1594520752"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-    <script>
-         (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-  </main>
+  <h2 class="section-title">Featured Blog Posts</h2>
+  <section class="grid" id="featured-posts">
+    <!-- Cards load dynamically -->
+  </section>
 
   <footer class="footer">
-    &copy; 2025 CineNovaTv
+    &copy; 2025 CineNovaTv. All rights reserved.
   </footer>
 
+  <!-- Firebase Script -->
   <script type="module">
     import { db } from './firebase-config.js';
-    import { collection, getDocs, orderBy, query, Timestamp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+    import { collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
-    const blogList = document.getElementById("blogList");
+    const container = document.getElementById("featured-posts");
 
-    function truncateText(text, maxLength = 150) {
-      return text.length <= maxLength ? text : text.slice(0, maxLength) + '...';
-    }
-
-    async function loadBlogs() {
-      blogList.innerHTML = '<div class="spinner"></div><p style="text-align:center; margin-top: 1rem; color: #666;">Loading blog articles...</p>';
-
+    async function loadPosts() {
       try {
-        const postsQuery = query(collection(db, "posts"), orderBy("createdAt", "desc"));
-        const snapshot = await getDocs(postsQuery);
+        const q = query(collection(db, "posts"), orderBy("createdAt", "desc"), limit(6));
+        const snapshot = await getDocs(q);
 
-        if (snapshot.empty) {
-          blogList.innerHTML = "<p style='text-align:center; color:#888;'>No blog posts available yet.</p>";
-          return;
-        }
-
-        blogList.innerHTML = "";
-
+        let html = '';
         snapshot.forEach(doc => {
           const data = doc.data();
-          const post = document.createElement("article");
-          const fullContent = data.content || "";
-          const previewContent = truncateText(fullContent);
-
-          let dateStr = "";
-          if (data.createdAt && data.createdAt instanceof Timestamp) {
-            dateStr = data.createdAt.toDate().toLocaleDateString(undefined, {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric'
-            });
-          }
-
-          post.innerHTML = `
-            <h2>${data.title}</h2>
-            ${data.category ? `<p style="color: var(--accent); font-weight: 600;">Category: ${data.category}</p>` : ""}
-            ${dateStr ? `<p class="post-date">Published on: ${dateStr}</p>` : ""}
-            ${data.posterUrl ? `<img src="${data.posterUrl}" alt="${data.title} poster" />` : ""}
-            ${data.description ? `<p class="description-block">${data.description}</p>` : ""}
-            ${fullContent ? `<p class="post-content-preview">${previewContent}</p>` : ""}
-            ${fullContent.length > previewContent.length ? `<p><a class="read-more-btn" href="blog.html?id=${doc.id}">Read more</a></p>` : ""}
-            ${data.trailerUrl ? `<p><a href="${data.trailerUrl}" target="_blank" style="color: var(--accent);">Watch Trailer</a></p>` : ""}
+          html += `
+            <div class="card">
+              ${data.posterUrl ? `<img src="${data.posterUrl}" alt="${data.title || 'Blog post image'}" />` : ''}
+              <h3>${data.title}</h3>
+              <p>${data.description?.substring(0, 100)}...</p>
+              <a href="blog.html?id=${doc.id}">Read More →</a>
+            </div>
           `;
-
-          blogList.appendChild(post);
         });
-      } catch (error) {
-        blogList.innerHTML = `<p style="text-align:center; color:red;">Failed to load blogs: ${error.message}</p>`;
+
+        container.innerHTML = html || '<p style="text-align:center;color:#ccc;">No posts available.</p>';
+      } catch (err) {
+        container.innerHTML = `<p style="color:red;text-align:center;">Failed to load posts: ${err.message}</p>`;
       }
     }
 
-    loadBlogs();
+    loadPosts();
   </script>
 </body>
 </html>
