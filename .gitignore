@@ -1,57 +1,6 @@
-# Node & npm
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-package-lock.json
-yarn.lock
-
-# Logs
-logs/
-*.log
-*.tgz
-*.zip
-
-# Environment variables
+## Ignore environment variable files
 .env
-.env.local
-.env.development
-.env.production
 
-# Vercel deployment
-.vercel/
-
-# Firebase (if using firebase functions or local config)
-.firebaserc
-.firebase/
-firebase-debug.log
-firebase-debug.*
-firebase.json
-firestore.indexes.json
-firestore.rules
-storage.rules
-functions/node_modules/
-functions/lib/
-functions/.env
-
-# Build outputs (if any build step, e.g. bundling)
-dist/
-build/
-coverage/
-
-# OS generated files
-.DS_Store
-Thumbs.db
-
-# Editors/IDE files
-.vscode/
-.idea/
-*.swp
-
-
-# Ignore dynamically generated Firebase config in public
-/public/config.js
-
-# Firebase config - DO NOT COMMIT
-public/firebase-config.js
-.vercel
+# Ignore Firebase config with sensitive info
+config.js
+firebase-config.js

@@ -1,81 +1,30 @@
+// server.js
 const express = require('express');
 const path = require('path');
-const dotenv = require('dotenv');
-const fetch = require('node-fetch');
-const cors = require('cors');
-
-dotenv.config();
+require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
-// Fix MIME type for .js files (serve as application/javascript)
-app.use((req, res, next) => {
-  if (req.path.endsWith('.js')) {
-    res.setHeader('Content-Type', 'application/javascript');
-  }
-  next();
-});
-
-app.use(cors());
+// Serve static files (like admin.html)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// === Custom Routes for Static HTML Pages ===
-
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+// Route: Firebase config for frontend
+app.get('/firebase-config.js', (req, res) => {
+  res.type('application/javascript');
+  res.send(`
+    const firebaseConfig = {
+      apiKey: "${process.env.FIREBASE_API_KEY}",
+      authDomain: "${process.env.FIREBASE_AUTH_DOMAIN}",
+      projectId: "${process.env.FIREBASE_PROJECT_ID}",
+      storageBucket: "${process.env.FIREBASE_STORAGE_BUCKET}",
+      messagingSenderId: "${process.env.FIREBASE_MESSAGING_SENDER_ID}",
+      appId: "${process.env.FIREBASE_APP_ID}",
+      measurementId: "${process.env.FIREBASE_MEASUREMENT_ID}"
+    };
+  `);
 });
 
-app.get('/trailer', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'trailer.html'));
-});
-
-app.get('/about', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'about.html'));
-});
-
-app.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'login.html'));
-});
-
-app.get('/admin', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
-});
-
-// === TMDB API Routes ===
-
-app.get('/api/trending/:time', async (req, res) => {
-  const { time } = req.params;
-  const url = `https://api.themoviedb.org/3/trending/movie/${time}?api_key=${process.env.TMDB_API_KEY}`;
-  const response = await fetch(url);
-  const data = await response.json();
-  res.json(data);
-});
-
-app.get('/api/genres', async (req, res) => {
-  const url = `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.TMDB_API_KEY}`;
-  const response = await fetch(url);
-  const data = await response.json();
-  res.json(data);
-});
-
-app.get('/api/search', async (req, res) => {
-  const { query, page } = req.query;
-  const url = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}&page=${page}&api_key=${process.env.TMDB_API_KEY}`;
-  const response = await fetch(url);
-  const data = await response.json();
-  res.json(data);
-});
-
-app.get('/api/movie/:id/trailer', async (req, res) => {
-  const { id } = req.params;
-  const url = `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${process.env.TMDB_API_KEY}`;
-  const response = await fetch(url);
-  const data = await response.json();
-  res.json(data);
-});
-
-// Start server
 app.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
+  console.log(`Server running at http://localhost:${PORT}`);
 });
