@@ -4,22 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cinenovatv</title>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-34VS9X2N8G"></script> 
- <nav style="background:#111; padding: 1rem; text-align:center;">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-34VS9X2N8G"></script> 
+  <nav style="background:#111; padding: 1rem; text-align:center;">
     <a href="index.html" style="color:#10b981; margin: 0 1rem;">Home</a>
     <a href="trailers.html" style="color:#10b981; margin: 0 1rem;">Trailers</a>
   </nav>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-34VS9X2N8G');
-</script>
- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8747979755893623"
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-34VS9X2N8G');
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8747979755893623"
      crossorigin="anonymous"></script>
-<link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css" />
   <style>
     .filters { display: flex; justify-content: center; gap: 1rem; margin: 1rem auto; flex-wrap: wrap; }
     .filters select, .filters button {
@@ -204,14 +203,25 @@
       loadMovies();
     });
 
-    loadMoreBtn.onclick = () => {
-      currentPage++;
-      loadMovies();
-    };
+    // Removed manual loadMoreBtn.onclick to use infinite scroll instead
 
-    // Initial Load
+    // Initial Load and infinite scroll
     window.onload = () => {
       loadGenres().then(() => loadMovies());
+
+      // Hide the Load More button since we are using infinite scroll
+      loadMoreBtn.style.display = 'none';
+
+      // Infinite scroll listener
+      window.addEventListener('scroll', () => {
+        if (
+          window.innerHeight + window.scrollY >= document.body.offsetHeight - 300 &&
+          !loadMoreBtn.disabled
+        ) {
+          currentPage++;
+          loadMovies();
+        }
+      });
     };
   </script>
 
