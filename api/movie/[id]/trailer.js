@@ -20,16 +20,33 @@ export default async function handler(req, res) {
     const response = await fetch(url);
 
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error(`TMDB API error (${response.status}):`, errorText);
-      return res.status(response.status).json({ error: 'TMDB API error', details: errorText });
+      const contentType = response.headers.get('content-type') || '';
+      let errorDetails;
+
+      if (contentType.includes('application/json')) {
+        const errorJson = await response.json();
+        errorDetails = errorJson;
+      } else {
+        const text = await response.text();
+        errorDetails = { message: text.slice(0, 300) }; // trim to avoid huge logs
+      }
+
+      console.error(`TMDB API error (${response.status}):`, errorDetails);
+      return res.status(response.status).json({
+        error: 'TMDB API error',
+        status: response.status,
+        details: errorDetails
+      });
     }
 
     const data = await response.json();
-    res.status(200).json(data);
+    return res.status(200).json(data);
 
   } catch (err) {
     console.error('Failed to fetch trailer:', err);
-    res.status(500).json({ error: 'Internal server error', details: err.message });
+    return res.status(500).json({
+      error: 'Internal server error',
+      details: err.message
+    });
   }
 }

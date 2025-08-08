@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cinenovatv</title>
+
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-34VS9X2N8G"></script> 
   <nav style="background:#111; padding: 1rem; text-align:center;">
@@ -16,9 +17,11 @@
     gtag('js', new Date());
     gtag('config', 'G-34VS9X2N8G');
   </script>
+
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8747979755893623"
      crossorigin="anonymous"></script>
   <link rel="stylesheet" href="styles.css" />
+
   <style>
     .filters { display: flex; justify-content: center; gap: 1rem; margin: 1rem auto; flex-wrap: wrap; }
     .filters select, .filters button {
@@ -83,7 +86,6 @@
   </footer>
 
   <!-- Trailer Modal -->
-
   <div class="modal" id="trailerModal">
     <div class="modal-content">
       <button class="close-btn" onclick="closeTrailer()">×</button>
@@ -155,17 +157,33 @@
       loadMoreBtn.disabled = false;
     }
 
+    // ✅ Updated showTrailer function with error handling
     function showTrailer(movieId) {
       fetch(`${API_BASE}/movie/${movieId}/trailer`)
-        .then(res => res.json())
+        .then(async res => {
+          if (!res.ok) {
+            const text = await res.text();
+            throw new Error(`Server error ${res.status}: ${text}`);
+          }
+          return res.json();
+        })
         .then(data => {
+          if (!data.results || !Array.isArray(data.results)) {
+            throw new Error('Unexpected trailer data format');
+          }
+
           const trailer = data.results.find(v => v.type === 'Trailer' && v.site === 'YouTube');
+
           if (trailer) {
             trailerFrame.src = `https://www.youtube.com/embed/${trailer.key}`;
             trailerModal.style.display = 'flex';
           } else {
             alert('Trailer not available');
           }
+        })
+        .catch(error => {
+          console.error('Failed to load trailer:', error.message);
+          alert('An error occurred while loading the trailer.');
         });
     }
 
@@ -203,16 +221,11 @@
       loadMovies();
     });
 
-    // Removed manual loadMoreBtn.onclick to use infinite scroll instead
-
-    // Initial Load and infinite scroll
     window.onload = () => {
       loadGenres().then(() => loadMovies());
 
-      // Hide the Load More button since we are using infinite scroll
       loadMoreBtn.style.display = 'none';
 
-      // Infinite scroll listener
       window.addEventListener('scroll', () => {
         if (
           window.innerHeight + window.scrollY >= document.body.offsetHeight - 300 &&
@@ -224,6 +237,5 @@
       });
     };
   </script>
-
 </body>
 </html>

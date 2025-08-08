@@ -1,6 +1,1 @@
-## Ignore environment variable files
-.env
 
-# Ignore Firebase config with sensitive info
-config.js
-firebase-config.js
