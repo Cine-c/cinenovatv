@@ -1,1 +1,15 @@
+# Firebase config
+firebase-config.js
+lib/firebase.js
+public/config.js
 
+# Env vars
+.env
+.env.local
+
+# Next.js build output
+.next/
+out/
+
+# Node modules
+node_modules/

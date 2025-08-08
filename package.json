@@ -12,6 +12,7 @@
     "live-server": "^1.2.2"
   },
   "dependencies": {
+    "firebase": "^12.1.0",
     "node-fetch": "^2.7.0"
   }
 }
