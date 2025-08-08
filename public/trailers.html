@@ -55,6 +55,13 @@
       padding: 0.3rem 0.6rem; cursor: pointer;
       font-size: 1.2rem;
     }
+    .visually-hidden {
+      position: absolute !important;
+      height: 1px; width: 1px;
+      overflow: hidden;
+      clip: rect(1px, 1px, 1px, 1px);
+      white-space: nowrap;
+    }
   </style>
 </head>
 <body>
@@ -86,9 +93,10 @@
   </footer>
 
   <!-- Trailer Modal -->
-  <div class="modal" id="trailerModal">
+  <div class="modal" id="trailerModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true" tabindex="-1">
     <div class="modal-content">
-      <button class="close-btn" onclick="closeTrailer()">×</button>
+      <button class="close-btn" onclick="closeTrailer()" aria-label="Close trailer modal">×</button>
+      <h2 id="modalTitle" class="visually-hidden">Trailer Video</h2>
       <iframe id="trailerFrame" src="" frameborder="0" allowfullscreen></iframe>
     </div>
   </div>
@@ -109,6 +117,18 @@
     let currentGenre = '';
     let currentPage = 1;
     let searchQuery = '';
+
+    // Focus trap variables
+    let lastFocusedElement = null;
+    let firstTabStop = null;
+    let lastTabStop = null;
+    let modalFocusHandler = null;
+
+    const focusableElementsString = `
+      a[href], area[href], input:not([disabled]), select:not([disabled]),
+      textarea:not([disabled]), button:not([disabled]), iframe, object, embed,
+      [tabindex="0"], [contenteditable]
+    `;
 
     async function loadGenres() {
       const res = await fetch(`${API_BASE}/genres`);
@@ -157,8 +177,48 @@
       loadMoreBtn.disabled = false;
     }
 
-    // ✅ Updated showTrailer function with error handling
+    function trapFocus(modal) {
+      const focusableElements = modal.querySelectorAll(focusableElementsString);
+      if (focusableElements.length === 0) return;
+
+      firstTabStop = focusableElements[0];
+      lastTabStop = focusableElements[focusableElements.length - 1];
+
+      firstTabStop.focus();
+
+      modalFocusHandler = function(e) {
+        if (e.key === 'Tab') {
+          if (e.shiftKey) {
+            if (document.activeElement === firstTabStop) {
+              e.preventDefault();
+              lastTabStop.focus();
+            }
+          } else {
+            if (document.activeElement === lastTabStop) {
+              e.preventDefault();
+              firstTabStop.focus();
+            }
+          }
+        } else if (e.key === 'Escape' || e.key === 'Esc') {
+          e.preventDefault();
+          closeTrailer();
+        }
+      };
+
+      modal.addEventListener('keydown', modalFocusHandler);
+    }
+
+    function releaseFocusTrap() {
+      if (modalFocusHandler) {
+        trailerModal.removeEventListener('keydown', modalFocusHandler);
+        modalFocusHandler = null;
+      }
+    }
+
+    // Updated showTrailer function with focus management
     function showTrailer(movieId) {
+      lastFocusedElement = document.activeElement;
+
       fetch(`${API_BASE}/movie/${movieId}/trailer`)
         .then(async res => {
           if (!res.ok) {
@@ -177,6 +237,8 @@
           if (trailer) {
             trailerFrame.src = `https://www.youtube.com/embed/${trailer.key}`;
             trailerModal.style.display = 'flex';
+            trailerModal.setAttribute('aria-hidden', 'false');
+            trapFocus(trailerModal);
           } else {
             alert('Trailer not available');
           }
@@ -190,6 +252,9 @@
     function closeTrailer() {
       trailerFrame.src = '';
       trailerModal.style.display = 'none';
+      trailerModal.setAttribute('aria-hidden', 'true');
+      releaseFocusTrap();
+      if (lastFocusedElement) lastFocusedElement.focus();
     }
 
     // Event handlers
