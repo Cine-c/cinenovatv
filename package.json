@@ -4,15 +4,19 @@
   "description": "CineNovaTv website",
   "main": "index.js",
   "scripts": {
-    "dev": "live-server"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "live-server": "^1.2.2"
-  },
   "dependencies": {
+    "disqus-react": "^1.1.7",
     "firebase": "^12.1.0",
-    "node-fetch": "^2.7.0"
+    "firebase-admin": "^13.4.0",
+    "next": "^16.1.6",
+    "node-fetch": "^3.3.2",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
   }
 }

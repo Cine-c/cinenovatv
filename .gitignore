@@ -13,3 +13,14 @@ out/
 
 # Node modules
 node_modules/
+
+.vercel
+
+# Claude Code
+.claude/
+
+serviceAccountKey.json
+setAdmin.js
+
+# Windows artifacts
+nul
