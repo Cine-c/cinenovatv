@@ -1,6 +1,5 @@
-# Firebase config
+# Firebase config (files with hardcoded keys)
 firebase-config.js
-lib/firebase.js
 public/config.js
 
 # Env vars
