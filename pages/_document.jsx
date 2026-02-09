@@ -17,14 +17,14 @@ export default function Document() {
         <link rel="dns-prefetch" href="https://image.tmdb.org" />
         <link rel="dns-prefetch" href="https://www.youtube.com" />
         {/* Google Analytics */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-CV0Y648BT5" />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-81S7GHHRSB" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-CV0Y648BT5');
+              gtag('config', 'G-81S7GHHRSB');
             `,
           }}
         />
