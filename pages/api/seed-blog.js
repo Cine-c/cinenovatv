@@ -42,6 +42,9 @@ function markdownToHtml(md) {
     }
   );
 
+  // Remove category comment
+  html = html.replace(/^<!--\s*category:\s*.+?\s*-->\n*/m, "");
+
   // Convert paragraphs - split by double newlines
   const blocks = html.split(/\n\n+/);
   html = blocks
@@ -50,6 +53,7 @@ function markdownToHtml(md) {
       if (!block) return "";
       if (block.startsWith("<h2>")) return block;
       if (block.startsWith("<ul>")) return block;
+      if (block.startsWith("<img")) return block;
       return `<p>${block}</p>`;
     })
     .filter(Boolean)
@@ -78,11 +82,20 @@ function extractExcerpt(md) {
   const lines = md.split("\n\n");
   for (const line of lines) {
     const trimmed = line.trim();
-    if (trimmed && !trimmed.startsWith("#")) {
+    if (trimmed && !trimmed.startsWith("#") && !trimmed.startsWith("<!--")) {
       return trimmed.slice(0, 200) + (trimmed.length > 200 ? "..." : "");
     }
   }
   return "";
+}
+
+function extractCategory(md) {
+  const match = md.match(/^<!--\s*category:\s*(.+?)\s*-->/m);
+  return match ? match[1] : "actors";
+}
+
+function stripMeta(md) {
+  return md.replace(/^<!--\s*category:\s*.+?\s*-->\n*/m, "");
 }
 
 export default async function handler(req, res) {
@@ -101,7 +114,9 @@ export default async function handler(req, res) {
     const results = [];
 
     for (const file of files) {
-      const md = readFileSync(join(contentDir, file), "utf8");
+      const raw = readFileSync(join(contentDir, file), "utf8");
+      const category = extractCategory(raw);
+      const md = stripMeta(raw);
       const title = extractTitle(md);
       const slug = slugify(title);
       const excerpt = extractExcerpt(md);
@@ -126,7 +141,7 @@ export default async function handler(req, res) {
         slug,
         excerpt,
         content,
-        category: "actors",
+        category,
         status: "published",
         imageUrl: "",
         createdAt: now,
@@ -135,7 +150,7 @@ export default async function handler(req, res) {
         author: "CineNovaTV",
       });
 
-      results.push({ file, title, slug, status: "created" });
+      results.push({ file, title, slug, category, status: "created" });
     }
 
     return res.status(200).json({
