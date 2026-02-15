@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
-import { getConsentStatus, ADSENSE_CLIENT } from './CookieConsent';
+import { getConsentStatus, TABOOLA_PUBLISHER } from './CookieConsent';
 
-export default function AdSlot({ slot, format = 'auto', responsive = true }) {
-  const adRef = useRef(null);
-  const pushed = useRef(false);
+export default function TaboolaWidget({
+  mode = 'thumbnails-a',
+  placement = 'Below Article Thumbnails',
+  containerId = 'taboola-below-article-thumbnails',
+}) {
   const [consented, setConsented] = useState(false);
+  const pushed = useRef(false);
 
   useEffect(() => {
     setConsented(getConsentStatus() === 'accepted');
@@ -26,17 +29,17 @@ export default function AdSlot({ slot, format = 'auto', responsive = true }) {
   }, []);
 
   useEffect(() => {
-    if (!consented || pushed.current || !adRef.current) return;
+    if (!consented || pushed.current) return;
 
-    // Poll for adsbygoogle to be available after dynamic script load
     const interval = setInterval(() => {
-      if (window.adsbygoogle) {
-        try {
-          window.adsbygoogle.push({});
-          pushed.current = true;
-        } catch (e) {
-          // ad already pushed
-        }
+      if (window._taboola) {
+        window._taboola.push({
+          mode,
+          container: containerId,
+          placement,
+          target_type: 'mix',
+        });
+        pushed.current = true;
         clearInterval(interval);
       }
     }, 500);
@@ -47,27 +50,19 @@ export default function AdSlot({ slot, format = 'auto', responsive = true }) {
       clearInterval(interval);
       clearTimeout(timeout);
     };
-  }, [consented]);
+  }, [consented, mode, containerId, placement]);
 
-  if (!ADSENSE_CLIENT || !consented) {
+  if (!consented) {
     return (
-      <div className="ad-container">
-        <div className="ad-placeholder">Advertisement</div>
+      <div className="taboola-container">
+        <div className="taboola-placeholder">Recommended Content</div>
       </div>
     );
   }
 
   return (
-    <div className="ad-container">
-      <ins
-        ref={adRef}
-        className="adsbygoogle"
-        style={{ display: 'block' }}
-        data-ad-client={ADSENSE_CLIENT}
-        data-ad-slot={slot}
-        data-ad-format={format}
-        data-full-width-responsive={responsive}
-      />
+    <div className="taboola-container">
+      <div id={containerId} />
     </div>
   );
 }

@@ -1,11 +1,20 @@
+import { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import SEOHead from '../../components/seo/SEOHead';
 import { BlogPostingJsonLd } from '../../components/seo/JsonLd';
 import { getPostBySlug, getAllPublishedPosts, getAllPostSlugs } from '../../lib/firebase';
 import Disqus from '../../components/Disqus';
+import TaboolaWidget from '../../components/TaboolaWidget';
+import { getConsentStatus } from '../../components/CookieConsent';
 
 export default function BlogPost({ post, relatedPosts }) {
+  useEffect(() => {
+    if (post && getConsentStatus() === 'accepted' && window._taboola) {
+      window._taboola.push({ flush: true });
+    }
+  }, [post]);
+
   if (!post) {
     return (
       <div className="blog-post">
@@ -76,6 +85,8 @@ export default function BlogPost({ post, relatedPosts }) {
             Back to Blog
           </Link>
         </nav>
+
+        <TaboolaWidget />
 
         {/* Related Posts */}
         {relatedPosts && relatedPosts.length > 0 && (

@@ -19,7 +19,7 @@ export default function Header() {
           aria-label="Toggle menu"
           aria-expanded={menuOpen}
         >
-          <span className="hamburger"></span>
+          <span className={`hamburger ${menuOpen ? 'active' : ''}`}></span>
         </button>
 
         <nav className={`nav-menu ${menuOpen ? 'open' : ''}`}>

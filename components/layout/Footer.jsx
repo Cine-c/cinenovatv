@@ -26,6 +26,12 @@ export default function Footer() {
             <Link href="/blog">Blog</Link>
             <Link href="/about">About</Link>
             <Link href="/privacy">Privacy Policy</Link>
+            <button
+              className="footer-cookie-btn"
+              onClick={() => window.dispatchEvent(new Event('openCookieSettings'))}
+            >
+              Cookie Settings
+            </button>
           </nav>
         </div>
 

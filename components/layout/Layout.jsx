@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Header from './Header';
 import Footer from './Footer';
+import CookieConsent from '../CookieConsent';
 
 export default function Layout({ children }) {
   return (
@@ -13,6 +14,8 @@ export default function Layout({ children }) {
       <Link href="/" className="floating-logo" aria-label="Go to home">
         <span className="floating-n">N</span>
       </Link>
+
+      <CookieConsent />
     </div>
   );
 }
