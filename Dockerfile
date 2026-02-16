@@ -39,7 +39,9 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 
-# Set correct permissions
+# Set correct permissions so ISR can update cached pages
+RUN chown -R nextjs:nodejs ./.next
+
 USER nextjs
 
 # Expose port
