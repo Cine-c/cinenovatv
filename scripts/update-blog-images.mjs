@@ -29,7 +29,7 @@ const imageMap = {
   "cillian-murphy": "/blog/cillian-murphy.jpg",
   "austin-butler": "/blog/austin-butler.jpg",
   "sydney-sweeney": "/blog/sydney-sweeney.jpg",
-  "alexandra-daddario": "/blog/alexandra-daddario-texas-chainsaw-1.jpg",
+  "alexandra-daddario": "/blog/alexandra-daddario-texas-chainsaw-2.jpg",
 };
 
 async function updateImages() {
