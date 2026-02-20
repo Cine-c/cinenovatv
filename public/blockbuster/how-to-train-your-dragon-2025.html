@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>How to Train Your Dragon (2025) | Film Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#04060a;--srf:#070a10;--crd:#0c1018;
+  --acc:#60a8e0;--acc2:#3070a0;
+  --txt:#d0e8f8;--mut:#406080;--brd:#101820;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:'Lora',sans-serif;font-size:17px;line-height:1.8}
+.hero{position:relative;width:100%;height:80vh;min-height:480px;overflow:hidden;display:flex;align-items:flex-end;background:linear-gradient(135deg,var(--bg) 0%,color-mix(in srgb,var(--acc) 15%,var(--bg)) 100%)}
+.hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%,color-mix(in srgb,var(--acc) 20%,transparent) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,color-mix(in srgb,var(--acc2) 10%,transparent) 0%,transparent 50%)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 0%,transparent 70%)}
+.hero-content{position:relative;z-index:2;padding:0 48px 56px;max-width:900px}
+.genre-tag{display:inline-block;font-family:'Cinzel',sans-serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--acc);border:1px solid color-mix(in srgb,var(--acc) 40%,transparent);padding:5px 16px;border-radius:999px;margin-bottom:20px}
+.hero h1{font-family:'Cinzel',sans-serif;font-size:clamp(36px,7vw,80px);line-height:1.05;letter-spacing:-.01em;color:var(--txt);margin-bottom:10px}
+.hero h1 span{color:var(--acc)}
+.hero-sub{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-bottom:12px}
+.hero-tagline{font-size:19px;font-style:italic;color:color-mix(in srgb,var(--txt) 80%,transparent)}
+.meta-bar{background:var(--srf);border-bottom:1px solid var(--brd);padding:16px 48px;display:flex;gap:36px;flex-wrap:wrap;align-items:center}
+.meta-item{display:flex;flex-direction:column;gap:2px}
+.meta-label{font-size:8px;font-family:'Cinzel',sans-serif;letter-spacing:.3em;text-transform:uppercase;color:var(--mut)}
+.meta-value{font-size:13px;color:var(--txt)}
+.rating-badge{margin-left:auto;display:flex;gap:10px}
+.r-pill{display:flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--brd);border-radius:8px}
+.r-num{font-family:'Cinzel',sans-serif;font-weight:800;font-size:20px;color:var(--acc);line-height:1}
+.r-src{font-size:8px;letter-spacing:.15em;color:var(--mut)}
+.wrap{max-width:1100px;margin:0 auto;padding:56px 48px 100px;display:grid;grid-template-columns:1fr 280px;gap:60px;align-items:start}
+.article h2{font-family:'Cinzel',sans-serif;font-size:22px;color:var(--acc);margin:44px 0 12px;border-bottom:1px solid var(--brd);padding-bottom:8px}
+.article p{margin-bottom:20px;color:color-mix(in srgb,var(--txt) 80%,transparent);font-size:16px}
+.intro{font-size:20px!important;font-style:italic;color:var(--txt)!important;line-height:1.65;margin-bottom:32px!important}
+.pq{margin:32px 0;padding:24px 28px;background:var(--crd);border-left:4px solid var(--acc);border-radius:0 8px 8px 0}
+.pq p{font-size:19px!important;font-style:italic;color:var(--txt)!important;margin:0!important;line-height:1.55}
+.pq cite{display:block;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-top:8px}
+
+.verdict{background:color-mix(in srgb,var(--acc) 8%,var(--crd));border:1px solid color-mix(in srgb,var(--acc) 30%,transparent);border-radius:8px;padding:28px;margin-top:44px}
+.verdict-lbl{font-size:9px;font-family:'Cinzel',sans-serif;letter-spacing:.25em;text-transform:uppercase;color:var(--acc);margin-bottom:10px}
+.verdict p{font-style:italic;color:var(--txt)!important;margin:0!important;font-size:15px!important}
+.sidebar{position:sticky;top:24px}
+.sc{background:var(--crd);border:1px solid var(--brd);border-radius:8px;padding:22px;margin-bottom:18px}
+.sc h3{font-family:'Cinzel',sans-serif;font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--acc);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--brd)}
+.cast-item{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--brd);font-size:13px}
+.cast-item:last-child{border-bottom:none}
+.cast-role{color:var(--mut);font-style:italic;font-size:12px}
+.detail-row{display:flex;flex-direction:column;padding:7px 0;border-bottom:1px solid var(--brd);font-size:13px}
+.detail-row:last-child{border-bottom:none}
+.detail-key{font-size:8px;font-family:'Cinzel',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-bottom:2px}
+.tags-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.tag{background:color-mix(in srgb,var(--acc) 10%,transparent);border:1px solid color-mix(in srgb,var(--acc) 25%,transparent);padding:4px 12px;border-radius:999px;font-size:9px;font-family:'Cinzel',sans-serif;letter-spacing:.1em;color:var(--acc)}
+@media(max-width:768px){.wrap{grid-template-columns:1fr}.hero-content,.meta-bar{padding-left:20px;padding-right:20px}.rating-badge{margin-left:0}}
+</style>
+</head>
+<body>
+<a href="/blockbuster" style="position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:rgba(0,0,0,0.7);backdrop-filter:blur(12px);color:#fff;font-family:sans-serif;font-size:13px;font-weight:500;text-decoration:none;border-radius:999px;border:1px solid rgba(255,255,255,0.1);transition:all 0.2s ease;" onmouseover="this.style.background='rgba(139,92,246,0.8)'" onmouseout="this.style.background='rgba(0,0,0,0.7)'"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>CineNovaTV</a>
+<header class="hero">
+  <div class="hero-glow"></div>
+  
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="genre-tag">Family · Fantasy · Adventure · 2025</div>
+    <h1><span>How to Train Your Dragon</span></h1>
+    <div class="hero-sub">Dean DeBlois &nbsp;·&nbsp; Universal Pictures</div>
+    <p class="hero-tagline">The legend takes flight in live action.</p>
+  </div>
+</header>
+
+<div class="meta-bar">
+  <div class="meta-item"><span class="meta-label">Director</span><span class="meta-value">Dean DeBlois</span></div>
+  <div class="meta-item"><span class="meta-label">Stars</span><span class="meta-value">Mason Thames, Nico Parker, Gerard Butler, Cate Blanchett</span></div>
+  <div class="meta-item"><span class="meta-label">Studio</span><span class="meta-value">Universal Pictures</span></div>
+  <div class="meta-item"><span class="meta-label">Runtime</span><span class="meta-value">2h 4min · Rated PG</span></div>
+  <div class="rating-badge">
+    <div class="r-pill"><div><div class="r-num">7.4</div><div class="r-src">IMDb</div></div></div>
+    <div class="r-pill"><div><div class="r-num" style="color:color-mix(in srgb,var(--acc) 80%,var(--txt))">88%</div><div class="r-src">RT Score</div></div></div>
+    <div class="r-pill"><div><div class="r-num" style="color:var(--mut);font-size:14px">$498M worldwide</div><div class="r-src">Box Office</div></div></div>
+  </div>
+</div>
+
+<main class="wrap">
+  <article class="article">
+    <p class="intro">Directed by the original animated trilogy's own Dean DeBlois, the live-action remake is a rare remake that feels like genuine love rather than corporate calculation — beautiful, heartfelt, and surprisingly faithful.</p>
+    
+    <h2>DeBlois Returns to Berk</h2><p>The decision to bring back DeBlois — who wrote and directed all three animated films — paid enormous dividends. This is a direct retelling of the original story, elevated by live-action tools while honoring its emotional bones. Mason Thames is an inspired casting choice for Hiccup — awkward, earnest, funny. The visual rendering of Toothless, through a combination of practical and digital animation, is breathtaking in a way that creates entirely different emotional texture from the original.</p><div class="pq"><p>"A rare remake with genuine soul. DeBlois knows what made people fall in love with this story and delivers it with tenderness and craft."</p><cite>— Variety</cite></div><h2>Toothless Reimagined</h2><p>Toothless translates. The animation team created a dragon simultaneously recognizable from the original and newly wondrous in the tangible physical world. The first flight sequence is one of the year's most purely cinematic experiences. At $498M worldwide, audiences clearly agreed.</p><h2>The Verdict</h2><p>An emotionally resonant, visually spectacular family film that earns its existence. DeBlois understood the assignment, and then some.</p>
+    <div class="verdict"><div class="verdict-lbl">✦ Our Verdict</div><p>Directed by the original animated trilogy's own Dean DeBlois, the live-action remake is a rare remake that feels like genuine love rather than corporate calculation — beautiful, heartfelt, and surprisingly faithful.</p></div>
+  </article>
+  <aside class="sidebar">
+    <div class="sc"><h3>Cast</h3><div class="cast-item"><span>Mason Thames</span><span class="cast-role">Hiccup</span></div><div class="cast-item"><span>Nico Parker</span><span class="cast-role">Astrid</span></div><div class="cast-item"><span>Gerard Butler</span><span class="cast-role">Stoick the Vast</span></div><div class="cast-item"><span>Cate Blanchett</span><span class="cast-role">Valka</span></div><div class="cast-item"><span>Nick Frost</span><span class="cast-role">Gobber</span></div></div>
+    <div class="sc"><h3>Film Details</h3><div class="detail-row"><span class="detail-key">Director</span><span>Dean DeBlois</span></div><div class="detail-row"><span class="detail-key">Studio</span><span>Universal</span></div><div class="detail-row"><span class="detail-key">Release</span><span>June 13, 2025</span></div><div class="detail-row"><span class="detail-key">Rating</span><span>PG · 2h 4min</span></div><div class="detail-row"><span class="detail-key">Box Office</span><span>$498M worldwide</span></div></div>
+    <div class="sc"><h3>Tags</h3><div class="tags-row"><span class="tag">FANTASY</span><span class="tag">FAMILY</span><span class="tag">LIVE-ACTION</span></div></div>
+  </aside>
+</main>
+</body>
+</html>

@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Scream 7 (2026) | Film Review</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Raleway:ital,wght@0,200;0,400;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070508;
+      --surface: #0c0a0e;
+      --card: #110e14;
+      --accent: #cc1a1a;
+      --accent2: #8a0f0f;
+      --silver: #b8bac8;
+      --text: #dddae8;
+      --muted: #6a6578;
+      --border: #1d1820;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Raleway', sans-serif;
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 90vh;
+      min-height: 560px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      opacity: 0.45;
+      background: radial-gradient(ellipse at 30% 30%, #2a0808 0%, #0e0510 40%, #070508 100%);
+    }
+
+    
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, #070508 0%, rgba(7,5,8,0.2) 55%, transparent 100%);
+    }
+
+    /* Blood drip decorative element */
+    .blood-drip {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, transparent 0%, var(--accent) 30%, var(--accent2) 60%, transparent 100%);
+      z-index: 5;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 52px 68px;
+      max-width: 820px;
+    }
+
+    .category-tag {
+      display: inline-block;
+      font-family: 'Raleway', sans-serif;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(56px, 10vw, 110px);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: 0.06em;
+      color: #fff;
+      text-shadow: 0 0 60px rgba(204,26,26,0.5), 0 4px 20px rgba(0,0,0,0.8);
+      margin-bottom: 10px;
+    }
+
+    .hero h1 .seven {
+      color: var(--accent);
+      text-shadow: 0 0 40px rgba(204,26,26,0.9);
+    }
+
+    .hero-date {
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      font-weight: 200;
+      letter-spacing: 0.35em;
+      color: var(--muted);
+      margin-bottom: 18px;
+      text-transform: uppercase;
+    }
+
+    .hero-tagline {
+      font-size: 18px;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--silver);
+      max-width: 460px;
+    }
+
+    /* ── META BAR ── */
+    .meta-bar {
+      background: var(--surface);
+      border-top: 2px solid var(--accent2);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 52px;
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .meta-item { display: flex; flex-direction: column; gap: 2px; }
+    .meta-label {
+      font-size: 9px;
+      font-weight: 400;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .meta-value { font-size: 14px; color: var(--text); font-weight: 400; }
+
+    .rating-badge { margin-left: auto; display: flex; gap: 14px; align-items: center; }
+    .r-box {
+      text-align: center;
+      padding: 8px 14px;
+      border: 1px solid var(--border);
+      min-width: 60px;
+    }
+    .r-num {
+      font-family: 'Cinzel', serif;
+      font-size: 22px;
+      color: var(--accent);
+      line-height: 1.1;
+    }
+    .r-src {
+      font-size: 8px;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+    }
+
+    /* ── BODY ── */
+    .article-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 70px 52px 100px;
+      display: grid;
+      grid-template-columns: 1fr 290px;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .article-body h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 48px 0 14px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+
+    .article-body p {
+      margin-bottom: 22px;
+      color: #bfbcd0;
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    .intro-p {
+      font-size: 20px !important;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--text) !important;
+      line-height: 1.65;
+      margin-bottom: 36px !important;
+    }
+
+    .pull-quote {
+      position: relative;
+      margin: 36px 0;
+      padding: 24px 28px 24px 40px;
+      background: var(--card);
+      border-left: 4px solid var(--accent);
+    }
+
+    .pull-quote::before {
+      content: '"';
+      position: absolute;
+      top: -10px;
+      left: 20px;
+      font-family: 'Cinzel', serif;
+      font-size: 80px;
+      color: var(--accent2);
+      opacity: 0.4;
+      line-height: 1;
+    }
+
+    .pull-quote p {
+      font-size: 20px !important;
+      font-style: italic;
+      color: var(--text) !important;
+      margin: 0 !important;
+    }
+
+    .pull-quote cite {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    
+
+    .verdict-box {
+      border: 1px solid var(--accent2);
+      padding: 28px;
+      margin-top: 48px;
+      background: linear-gradient(135deg, rgba(138,15,15,0.12) 0%, transparent 100%);
+    }
+
+    .verd-label {
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .verdict-box p {
+      font-style: italic;
+      color: var(--text) !important;
+      margin: 0 !important;
+      font-size: 15px !important;
+    }
+
+    /* COMING SOON BANNER */
+    .coming-soon-banner {
+      background: linear-gradient(90deg, var(--accent2), var(--accent), var(--accent2));
+      padding: 12px 24px;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .csb-icon { font-size: 18px; }
+    .csb-text {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar { position: sticky; top: 30px; }
+
+    .sidebar-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .sidebar-card h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cast-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+    .cast-item:last-child { border-bottom: none; }
+    .cast-role { color: var(--muted); font-style: italic; font-size: 12px; }
+
+    .detail-row {
+      display: flex;
+      flex-direction: column;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+    .detail-row:last-child { border-bottom: none; }
+    .detail-key {
+      font-size: 8px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+
+    .legacy-badge {
+      background: rgba(204,26,26,0.1);
+      border: 1px solid var(--accent2);
+      padding: 10px 14px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .legacy-badge span:first-child { font-size: 16px; }
+    .legacy-badge-text { font-size: 12px; color: var(--silver); }
+    .legacy-badge-text strong { color: var(--accent); font-weight: 400; display: block; font-size: 13px; }
+
+    @media (max-width: 768px) {
+      .article-wrapper { grid-template-columns: 1fr; }
+      .hero-content { padding: 0 20px 44px; }
+      .meta-bar { padding: 16px 20px; }
+      .rating-badge { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="/blockbuster" style="
+  position:fixed;top:16px;left:16px;z-index:9999;
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 16px;
+  background:rgba(0,0,0,0.7);backdrop-filter:blur(12px);
+  color:#fff;font-family:sans-serif;font-size:13px;font-weight:500;
+  text-decoration:none;border-radius:999px;border:1px solid rgba(255,255,255,0.1);
+  transition:all 0.2s ease;
+" onmouseover="this.style.background='rgba(139,92,246,0.8)'" onmouseout="this.style.background='rgba(0,0,0,0.7)'">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+  CineNovaTV
+</a>
+
+<header class="hero">
+  <div class="blood-drip"></div>
+  
+  <div class="hero-img"></div>
+  
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="category-tag">✦ Horror · Slasher · 2026 ✦</div>
+    <h1>SCREAM <span class="seven">VII</span></h1>
+    <div class="hero-date">In Theaters — February 27, 2026 · IMAX</div>
+    <p class="hero-tagline">
+      Sidney Prescott. Neve Campbell. Kevin Williamson. 
+      Thirty years later — and Ghostface is still calling.
+    </p>
+  </div>
+</header>
+
+<div class="meta-bar">
+  <div class="meta-item">
+    <span class="meta-label">Director</span>
+    <span class="meta-value">Kevin Williamson</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">Stars</span>
+    <span class="meta-value">Neve Campbell · Courteney Cox · Isabel May</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">Studio</span>
+    <span class="meta-value">Paramount Pictures</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">Runtime</span>
+    <span class="meta-value">1h 54min · Rated R · IMAX</span>
+  </div>
+  <div class="rating-badge">
+    <div class="r-box">
+      <div class="r-num">TBD</div>
+      <div class="r-src">IMDb · Feb 27</div>
+    </div>
+  </div>
+</div>
+
+<main class="article-wrapper">
+  <article class="article-body">
+
+    <div class="coming-soon-banner">
+      <span class="csb-icon">🔪</span>
+      <span class="csb-text">In Theaters February 27, 2026 — Reviews drop opening day</span>
+    </div>
+
+    <p class="intro-p">
+      Hello, Sidney. After a rocky road of cast shake-ups, director changes, and behind-the-scenes 
+      drama worthy of its own thriller, <em>Scream 7</em> is finally here — and it brings with it 
+      the one thing fans have been waiting for: the return of Neve Campbell as Sidney Prescott.
+    </p>
+
+    <p>
+      The seventh installment in the iconic franchise is directed by Kevin Williamson — the man who 
+      created Ghostface in the original 1996 film. This marks his first time in the director's chair 
+      for the series he helped build, making it a genuinely historic moment for horror cinema.
+    </p>
+
+    
+
+    <h2>The Road Back</h2>
+    <p>
+      The path to <em>Scream 7</em> was anything but smooth. Melissa Barrera — star of the 2022 
+      and 2023 entries — was fired over social media posts. Jenna Ortega subsequently departed 
+      as well, citing changes in creative direction. The franchise was left without its new 
+      generation of leads, forcing a complete reimagining.
+    </p>
+    <p>
+      The solution: bring back the original final girl. Neve Campbell, who sat out <em>Scream VI</em> 
+      following a pay dispute, returns as Sidney Prescott — now a mother, now living a quiet life in 
+      Pine Grove, Indiana. And of course, Ghostface refuses to let her rest.
+    </p>
+
+    <div class="pull-quote">
+      <p>"It's a coming-home story. Kevin Williamson is the mastermind behind the entire mythology — 
+      watching their shorthand together on set, I wanted that kind of relationship with a 
+      director. It's the real thing."</p>
+      <cite>— Anna Camp (cast member), on-set</cite>
+    </div>
+
+    <h2>The Story</h2>
+    <p>
+      Sidney has rebuilt her life with her husband Mark (Joel McHale) and teenage daughter 
+      Tatum (Isabel May). When a new Ghostface killer sets their sights on Tatum, Sidney is 
+      dragged back into the nightmare she thought she'd left behind. Determined to protect her 
+      family, she must face the horrors of her past to end it once and for all.
+    </p>
+    <p>
+      Williamson and co-writer Guy Busick have woven a script that pays deep homage to the 
+      original 1996 film while pushing the franchise forward. The return of Matthew Lillard 
+      (Stu Macher) and Scott Foley (Roman Bridger) — both characters killed in previous films — 
+      adds a layer of mystery that has fans theorizing non-stop.
+    </p>
+
+    
+
+    <h2>The Legacy Cast</h2>
+    <p>
+      This may be the most star-studded Ghostface roster in franchise history. Alongside Campbell 
+      and Cox (Gale Weathers, who has now appeared in every single Scream film), the film features 
+      David Arquette's Dewey Riley returning in some form despite his death in 2022's reboot, 
+      rising star Isabel May as Tatum, newcomers Anna Camp and Joel McHale rounding out a cast 
+      that crackles with potential.
+    </p>
+    <p>
+      Mckenna Grace, Jasmin Savoy Brown, Mason Gooding, and Mark Consuelos complete the ensemble. 
+      Marco Beltrami — who scored the original Craven films — is back composing, restoring the 
+      dark orchestral DNA of the franchise. Even Charli xcx's collaborator connection to the 
+      moment feels apt: the film's original songs include "Twisting the Knife" by Ice Nine Kills 
+      featuring Mckenna Grace.
+    </p>
+
+    <h2>What to Expect</h2>
+    <p>
+      Williamson has described the film as a tribute to the entire franchise while returning to 
+      the spirit of the 1996 original. Trailers show Sidney coaching Tatum over the phone on how 
+      to fight Ghostface — a stunning inversion of Sidney's own phone terror thirty years ago. 
+      It's meta, emotional, and deeply personal.
+    </p>
+    <p>
+      Opening weekend tracking projects a $30–35 million domestic debut. The film releases 
+      in IMAX for the first time in franchise history. Early social buzz is enormous — 
+      this is easily one of the most anticipated horror films of 2026.
+    </p>
+
+    <div class="verdict-box">
+      <div class="verd-label">🔪 Anticipation Rating</div>
+      <p>
+        With Kevin Williamson finally in the director's chair, Neve Campbell restored to her 
+        rightful place, and a cast stacked with legacy talent and fresh faces, <em>Scream 7</em> 
+        arrives as the most emotionally significant installment since the original. Whether it 
+        delivers will be clear February 27 — but the setup is impeccable. 
+        <strong style="color:var(--accent);font-style:normal;">Don't answer the phone alone.</strong>
+      </p>
+    </div>
+
+  </article>
+
+  <aside class="sidebar">
+    <div class="sidebar-card">
+      <h3>Legacy Returns</h3>
+      <div class="legacy-badge">
+        <span>👑</span>
+        <div class="legacy-badge-text">
+          <strong>Neve Campbell</strong>
+          Sidney Prescott — Back after Scream VI absence
+        </div>
+      </div>
+      <div class="legacy-badge">
+        <span>📰</span>
+        <div class="legacy-badge-text">
+          <strong>Courteney Cox</strong>
+          Gale Weathers — Every. Single. Film.
+        </div>
+      </div>
+      <div class="legacy-badge">
+        <span>🔪</span>
+        <div class="legacy-badge-text">
+          <strong>Matthew Lillard</strong>
+          Stu Macher — Back from the dead?
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <h3>Full Cast</h3>
+      <div class="cast-item">
+        <span>Neve Campbell</span>
+        <span class="cast-role">Sidney Prescott</span>
+      </div>
+      <div class="cast-item">
+        <span>Courteney Cox</span>
+        <span class="cast-role">Gale Weathers</span>
+      </div>
+      <div class="cast-item">
+        <span>Isabel May</span>
+        <span class="cast-role">Tatum Prescott</span>
+      </div>
+      <div class="cast-item">
+        <span>Joel McHale</span>
+        <span class="cast-role">Mark Evans</span>
+      </div>
+      <div class="cast-item">
+        <span>Mckenna Grace</span>
+        <span class="cast-role">Hannah</span>
+      </div>
+      <div class="cast-item">
+        <span>David Arquette</span>
+        <span class="cast-role">Dewey Riley</span>
+      </div>
+      <div class="cast-item">
+        <span>Matthew Lillard</span>
+        <span class="cast-role">Stu Macher</span>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <h3>Film Details</h3>
+      <div class="detail-row">
+        <span class="detail-key">Director</span>
+        <span>Kevin Williamson</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Writers</span>
+        <span>Guy Busick & Kevin Williamson</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Composer</span>
+        <span>Marco Beltrami</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Studio</span>
+        <span>Paramount / Spyglass</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Release</span>
+        <span>February 27, 2026</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Format</span>
+        <span>IMAX + Standard</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Filming</span>
+        <span>Atlanta, Georgia</span>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <h3>Genre Tags</h3>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;">
+        <span style="background:rgba(204,26,26,0.1);border:1px solid var(--accent2);padding:4px 10px;font-size:9px;letter-spacing:0.1em;color:var(--muted);">HORROR</span>
+        <span style="background:rgba(204,26,26,0.1);border:1px solid var(--accent2);padding:4px 10px;font-size:9px;letter-spacing:0.1em;color:var(--muted);">SLASHER</span>
+        <span style="background:rgba(204,26,26,0.1);border:1px solid var(--accent2);padding:4px 10px;font-size:9px;letter-spacing:0.1em;color:var(--muted);">MYSTERY</span>
+        <span style="background:rgba(204,26,26,0.1);border:1px solid var(--accent2);padding:4px 10px;font-size:9px;letter-spacing:0.1em;color:var(--muted);">FRANCHISE</span>
+      </div>
+    </div>
+  </aside>
+</main>
+
+</body>
+</html>

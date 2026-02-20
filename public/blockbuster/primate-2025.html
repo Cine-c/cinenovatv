@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Primate (2025) | Film Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@200;400;600&family=Source+Sans+3:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#060604;--srf:#0c0c06;--crd:#141406;
+  --acc:#98c840;--acc2:#507020;
+  --txt:#f0f0d8;--mut:#608040;--brd:#181c08;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:'Source Sans 3',sans-serif;font-size:17px;line-height:1.8}
+.hero{position:relative;width:100%;height:80vh;min-height:480px;overflow:hidden;display:flex;align-items:flex-end;background:linear-gradient(135deg,var(--bg) 0%,color-mix(in srgb,var(--acc) 15%,var(--bg)) 100%)}
+.hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%,color-mix(in srgb,var(--acc) 20%,transparent) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,color-mix(in srgb,var(--acc2) 10%,transparent) 0%,transparent 50%)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 0%,transparent 70%)}
+.hero-content{position:relative;z-index:2;padding:0 48px 56px;max-width:900px}
+.genre-tag{display:inline-block;font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--acc);border:1px solid color-mix(in srgb,var(--acc) 40%,transparent);padding:5px 16px;border-radius:999px;margin-bottom:20px}
+.hero h1{font-family:'Josefin Sans',sans-serif;font-size:clamp(36px,7vw,80px);line-height:1.05;letter-spacing:-.01em;color:var(--txt);margin-bottom:10px}
+.hero h1 span{color:var(--acc)}
+.hero-sub{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-bottom:12px}
+.hero-tagline{font-size:19px;font-style:italic;color:color-mix(in srgb,var(--txt) 80%,transparent)}
+.meta-bar{background:var(--srf);border-bottom:1px solid var(--brd);padding:16px 48px;display:flex;gap:36px;flex-wrap:wrap;align-items:center}
+.meta-item{display:flex;flex-direction:column;gap:2px}
+.meta-label{font-size:8px;font-family:'Josefin Sans',sans-serif;letter-spacing:.3em;text-transform:uppercase;color:var(--mut)}
+.meta-value{font-size:13px;color:var(--txt)}
+.rating-badge{margin-left:auto;display:flex;gap:10px}
+.r-pill{display:flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--brd);border-radius:8px}
+.r-num{font-family:'Josefin Sans',sans-serif;font-weight:800;font-size:20px;color:var(--acc);line-height:1}
+.r-src{font-size:8px;letter-spacing:.15em;color:var(--mut)}
+.wrap{max-width:1100px;margin:0 auto;padding:56px 48px 100px;display:grid;grid-template-columns:1fr 280px;gap:60px;align-items:start}
+.article h2{font-family:'Josefin Sans',sans-serif;font-size:22px;color:var(--acc);margin:44px 0 12px;border-bottom:1px solid var(--brd);padding-bottom:8px}
+.article p{margin-bottom:20px;color:color-mix(in srgb,var(--txt) 80%,transparent);font-size:16px}
+.intro{font-size:20px!important;font-style:italic;color:var(--txt)!important;line-height:1.65;margin-bottom:32px!important}
+.pq{margin:32px 0;padding:24px 28px;background:var(--crd);border-left:4px solid var(--acc);border-radius:0 8px 8px 0}
+.pq p{font-size:19px!important;font-style:italic;color:var(--txt)!important;margin:0!important;line-height:1.55}
+.pq cite{display:block;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-top:8px}
+
+.verdict{background:color-mix(in srgb,var(--acc) 8%,var(--crd));border:1px solid color-mix(in srgb,var(--acc) 30%,transparent);border-radius:8px;padding:28px;margin-top:44px}
+.verdict-lbl{font-size:9px;font-family:'Josefin Sans',sans-serif;letter-spacing:.25em;text-transform:uppercase;color:var(--acc);margin-bottom:10px}
+.verdict p{font-style:italic;color:var(--txt)!important;margin:0!important;font-size:15px!important}
+.sidebar{position:sticky;top:24px}
+.sc{background:var(--crd);border:1px solid var(--brd);border-radius:8px;padding:22px;margin-bottom:18px}
+.sc h3{font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--acc);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--brd)}
+.cast-item{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--brd);font-size:13px}
+.cast-item:last-child{border-bottom:none}
+.cast-role{color:var(--mut);font-style:italic;font-size:12px}
+.detail-row{display:flex;flex-direction:column;padding:7px 0;border-bottom:1px solid var(--brd);font-size:13px}
+.detail-row:last-child{border-bottom:none}
+.detail-key{font-size:8px;font-family:'Josefin Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-bottom:2px}
+.tags-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.tag{background:color-mix(in srgb,var(--acc) 10%,transparent);border:1px solid color-mix(in srgb,var(--acc) 25%,transparent);padding:4px 12px;border-radius:999px;font-size:9px;font-family:'Josefin Sans',sans-serif;letter-spacing:.1em;color:var(--acc)}
+@media(max-width:768px){.wrap{grid-template-columns:1fr}.hero-content,.meta-bar{padding-left:20px;padding-right:20px}.rating-badge{margin-left:0}}
+</style>
+</head>
+<body>
+<a href="/blockbuster" style="position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:rgba(0,0,0,0.7);backdrop-filter:blur(12px);color:#fff;font-family:sans-serif;font-size:13px;font-weight:500;text-decoration:none;border-radius:999px;border:1px solid rgba(255,255,255,0.1);transition:all 0.2s ease;" onmouseover="this.style.background='rgba(139,92,246,0.8)'" onmouseout="this.style.background='rgba(0,0,0,0.7)'"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>CineNovaTV</a>
+<header class="hero">
+  <div class="hero-glow"></div>
+  
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="genre-tag">Horror · Creature Feature · 2025</div>
+    <h1><span>Primate</span></h1>
+    <div class="hero-sub">Josh Ruben &nbsp;·&nbsp; Lionsgate</div>
+    <p class="hero-tagline">Something in the jungle is not an animal anymore.</p>
+  </div>
+</header>
+
+<div class="meta-bar">
+  <div class="meta-item"><span class="meta-label">Director</span><span class="meta-value">Josh Ruben</span></div>
+  <div class="meta-item"><span class="meta-label">Stars</span><span class="meta-value">Naomi Watts, Tom Pelphrey, Imogen Poots</span></div>
+  <div class="meta-item"><span class="meta-label">Studio</span><span class="meta-value">Lionsgate</span></div>
+  <div class="meta-item"><span class="meta-label">Runtime</span><span class="meta-value">1h 42min · Rated R</span></div>
+  <div class="rating-badge">
+    <div class="r-pill"><div><div class="r-num">6.6</div><div class="r-src">IMDb</div></div></div>
+    <div class="r-pill"><div><div class="r-num" style="color:color-mix(in srgb,var(--acc) 80%,var(--txt))">78%</div><div class="r-src">RT Score</div></div></div>
+    <div class="r-pill"><div><div class="r-num" style="color:var(--mut);font-size:14px">$38M worldwide</div><div class="r-src">Box Office</div></div></div>
+  </div>
+</div>
+
+<main class="wrap">
+  <article class="article">
+    <p class="intro">A genuinely unsettling creature-horror film about a family at a remote farmhouse attacked by something that might once have been an animal — but has evolved into something considerably worse. Josh Ruben's best film.</p>
+    
+    <h2>Something in the Dark</h2><p>Josh Ruben has been one of horror's more interesting emerging directors (<em>Scare Me</em>, <em>Werewolves Within</em>), and <em>Primate</em> is a significant leap forward in scale and ambition. The premise — a family at a remote farmhouse is attacked by an unseen animal that, as the night stretches on, the father begins to suspect might not be an animal at all — sounds familiar but is executed with a control and dread that separates it from the pack entirely. Naomi Watts grounds the film in recognizable human terror, while Tom Pelphrey's transformation (psychological and potentially literal) provides the film's central unease.</p><div class="pq"><p>"Primate builds dread with the patience of classic Spielberg — the attack sequences are terrifying precisely because of how long Ruben waits to show you what's doing the attacking."</p><cite>— Bloody Disgusting</cite></div><h2>The Verdict</h2><p>A strong, efficient, deeply unsettling horror film that delivers on its premise without exhausting it. An $11M opening weekend on modest budget confirms horror audiences find the goods when they're delivered with craft and restraint.</p>
+    <div class="verdict"><div class="verdict-lbl">✦ Our Verdict</div><p>A genuinely unsettling creature-horror film about a family at a remote farmhouse attacked by something that might once have been an animal — but has evolved into something considerably worse. Josh Ruben's best film.</p></div>
+  </article>
+  <aside class="sidebar">
+    <div class="sc"><h3>Cast</h3><div class="cast-item"><span>Naomi Watts</span><span class="cast-role">Dr. Ellison</span></div><div class="cast-item"><span>Tom Pelphrey</span><span class="cast-role">Miles</span></div><div class="cast-item"><span>Imogen Poots</span><span class="cast-role">Clara</span></div></div>
+    <div class="sc"><h3>Film Details</h3><div class="detail-row"><span class="detail-key">Director</span><span>Josh Ruben</span></div><div class="detail-row"><span class="detail-key">Studio</span><span>Lionsgate</span></div><div class="detail-row"><span class="detail-key">Release</span><span>Jan 9, 2026</span></div><div class="detail-row"><span class="detail-key">Rating</span><span>R · 1h 42min</span></div><div class="detail-row"><span class="detail-key">Box Office</span><span>$38M worldwide</span></div></div>
+    <div class="sc"><h3>Tags</h3><div class="tags-row"><span class="tag">HORROR</span><span class="tag">CREATURE</span><span class="tag">SURVIVAL</span></div></div>
+  </aside>
+</main>
+</body>
+</html>

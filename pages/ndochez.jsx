@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { auth, db, storage } from "../lib/firebase";
 import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
 import {
@@ -15,6 +15,126 @@ import {
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import SEOHead from "../components/seo/SEOHead";
 
+function wordCount(html) {
+  if (!html) return 0;
+  return html.replace(/<[^>]*>/g, " ").split(/\s+/).filter(Boolean).length;
+}
+
+function readingTime(html) {
+  const words = wordCount(html);
+  const minutes = Math.ceil(words / 200);
+  return minutes < 1 ? "< 1 min" : `${minutes} min read`;
+}
+
+function formatDate(timestamp) {
+  if (!timestamp) return "—";
+  const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
+// ── Rich Text Toolbar ──────────────────────────────────────────────
+function RichToolbar({ textareaRef, value, onChange }) {
+  const wrapSelection = useCallback(
+    (before, after) => {
+      const ta = textareaRef.current;
+      if (!ta) return;
+      const start = ta.selectionStart;
+      const end = ta.selectionEnd;
+      const selected = value.substring(start, end);
+      const replacement = before + selected + after;
+      const newValue = value.substring(0, start) + replacement + value.substring(end);
+      onChange(newValue);
+      // Restore cursor position after React re-render
+      requestAnimationFrame(() => {
+        ta.focus();
+        ta.selectionStart = start + before.length;
+        ta.selectionEnd = start + before.length + selected.length;
+      });
+    },
+    [textareaRef, value, onChange]
+  );
+
+  const insertBlock = useCallback(
+    (text) => {
+      const ta = textareaRef.current;
+      if (!ta) return;
+      const start = ta.selectionStart;
+      const newValue = value.substring(0, start) + text + value.substring(start);
+      onChange(newValue);
+      requestAnimationFrame(() => {
+        ta.focus();
+        ta.selectionStart = ta.selectionEnd = start + text.length;
+      });
+    },
+    [textareaRef, value, onChange]
+  );
+
+  const handleLink = useCallback(() => {
+    const url = prompt("Enter URL:");
+    if (!url) return;
+    const ta = textareaRef.current;
+    const start = ta.selectionStart;
+    const end = ta.selectionEnd;
+    const selected = value.substring(start, end) || "link text";
+    const replacement = `<a href="${url}" target="_blank" rel="noopener noreferrer">${selected}</a>`;
+    const newValue = value.substring(0, start) + replacement + value.substring(end);
+    onChange(newValue);
+  }, [textareaRef, value, onChange]);
+
+  const handleImage = useCallback(() => {
+    const url = prompt("Enter image URL:");
+    if (!url) return;
+    const alt = prompt("Enter alt text:", "Image") || "Image";
+    insertBlock(`<img src="${url}" alt="${alt}" />\n`);
+  }, [insertBlock]);
+
+  const buttons = [
+    { label: "B", title: "Bold", action: () => wrapSelection("<strong>", "</strong>"), style: { fontWeight: 700 } },
+    { label: "I", title: "Italic", action: () => wrapSelection("<em>", "</em>"), style: { fontStyle: "italic" } },
+    { label: "U", title: "Underline", action: () => wrapSelection("<u>", "</u>"), style: { textDecoration: "underline" } },
+    { type: "divider" },
+    { label: "H2", title: "Heading 2", action: () => wrapSelection("<h2>", "</h2>") },
+    { label: "H3", title: "Heading 3", action: () => wrapSelection("<h3>", "</h3>") },
+    { type: "divider" },
+    { label: "UL", title: "Bullet List", action: () => insertBlock("<ul>\n  <li></li>\n  <li></li>\n</ul>\n") },
+    { label: "OL", title: "Numbered List", action: () => insertBlock("<ol>\n  <li></li>\n  <li></li>\n</ol>\n") },
+    { type: "divider" },
+    { label: "\"", title: "Blockquote", action: () => wrapSelection("<blockquote>", "</blockquote>") },
+    { label: "<>", title: "Code Block", action: () => wrapSelection("<pre><code>", "</code></pre>") },
+    { type: "divider" },
+    { label: "Link", title: "Insert Link", action: handleLink },
+    { label: "Img", title: "Insert Image", action: handleImage },
+    { label: "P", title: "Paragraph", action: () => wrapSelection("<p>", "</p>") },
+    { label: "HR", title: "Horizontal Rule", action: () => insertBlock("\n<hr />\n") },
+  ];
+
+  return (
+    <div className="rich-toolbar">
+      {buttons.map((btn, i) =>
+        btn.type === "divider" ? (
+          <span key={i} className="rich-toolbar-divider" />
+        ) : (
+          <button
+            key={i}
+            type="button"
+            title={btn.title}
+            className="rich-toolbar-btn"
+            style={btn.style}
+            onClick={btn.action}
+          >
+            {btn.label}
+          </button>
+        )
+      )}
+    </div>
+  );
+}
+
+// ── Main Admin Component ───────────────────────────────────────────
 export default function Admin() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -26,9 +146,10 @@ export default function Admin() {
   // Blog state
   const [posts, setPosts] = useState([]);
   const [postsLoading, setPostsLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState("posts"); // posts, create, edit
+  const [activeTab, setActiveTab] = useState("dashboard");
   const [editingPost, setEditingPost] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [showPreview, setShowPreview] = useState(false);
 
   // Form state
   const [formData, setFormData] = useState({
@@ -44,6 +165,8 @@ export default function Admin() {
   const [imagePreview, setImagePreview] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
+  const contentRef = useRef(null);
+
   const categories = ["News", "Review", "Interview", "Behind the Scenes", "Opinion", "Lists"];
 
   // Monitor auth state
@@ -57,9 +180,7 @@ export default function Admin() {
 
   // Fetch posts when logged in
   useEffect(() => {
-    if (user) {
-      fetchPosts();
-    }
+    if (user) fetchPosts();
   }, [user]);
 
   const fetchPosts = async () => {
@@ -67,9 +188,9 @@ export default function Admin() {
     try {
       const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
       const querySnapshot = await getDocs(q);
-      const postsArray = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
+      const postsArray = querySnapshot.docs.map((d) => ({
+        id: d.id,
+        ...d.data(),
       }));
       setPosts(postsArray);
     } catch (error) {
@@ -93,24 +214,19 @@ export default function Admin() {
 
   const handleLogout = async () => {
     await signOut(auth);
-    setActiveTab("posts");
+    setActiveTab("dashboard");
     setEditingPost(null);
   };
 
-  const generateSlug = (title) => {
-    return title
+  const generateSlug = (title) =>
+    title
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/(^-|-$)/g, "");
-  };
 
   const handleTitleChange = (e) => {
     const title = e.target.value;
-    setFormData({
-      ...formData,
-      title,
-      slug: generateSlug(title),
-    });
+    setFormData({ ...formData, title, slug: generateSlug(title) });
   };
 
   const handleImageChange = (e) => {
@@ -122,9 +238,7 @@ export default function Admin() {
     }
     setImageFile(file);
     const reader = new FileReader();
-    reader.onload = (event) => {
-      setImagePreview(event.target.result);
-    };
+    reader.onload = (event) => setImagePreview(event.target.result);
     reader.readAsDataURL(file);
   };
 
@@ -138,14 +252,9 @@ export default function Admin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
-
     try {
       let imageUrl = formData.imageUrl;
-
-      // Upload new image if selected
-      if (imageFile) {
-        imageUrl = await uploadImage(imageFile);
-      }
+      if (imageFile) imageUrl = await uploadImage(imageFile);
 
       const postData = {
         title: formData.title,
@@ -159,18 +268,15 @@ export default function Admin() {
       };
 
       if (editingPost) {
-        // Update existing post
         await updateDoc(doc(db, "posts", editingPost.id), postData);
         alert("Post updated successfully!");
       } else {
-        // Create new post
         postData.createdAt = serverTimestamp();
         postData.publishedAt = formData.status === "published" ? serverTimestamp() : null;
         await addDoc(collection(db, "posts"), postData);
         alert("Post created successfully!");
       }
 
-      // Reset form
       resetForm();
       fetchPosts();
       setActiveTab("posts");
@@ -200,14 +306,26 @@ export default function Admin() {
 
   const handleDelete = async (postId) => {
     if (!confirm("Are you sure you want to delete this post?")) return;
-
     try {
       await deleteDoc(doc(db, "posts", postId));
-      alert("Post deleted successfully!");
       fetchPosts();
     } catch (error) {
       console.error("Error deleting post:", error);
       alert("Failed to delete post");
+    }
+  };
+
+  const toggleStatus = async (post) => {
+    const newStatus = post.status === "published" ? "draft" : "published";
+    try {
+      const data = { status: newStatus, updatedAt: serverTimestamp() };
+      if (newStatus === "published" && !post.publishedAt) {
+        data.publishedAt = serverTimestamp();
+      }
+      await updateDoc(doc(db, "posts", post.id), data);
+      fetchPosts();
+    } catch (error) {
+      console.error("Error toggling status:", error);
     }
   };
 
@@ -224,6 +342,7 @@ export default function Admin() {
     setImageFile(null);
     setImagePreview("");
     setEditingPost(null);
+    setShowPreview(false);
   };
 
   const filteredPosts = posts.filter(
@@ -231,6 +350,16 @@ export default function Admin() {
       post.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       post.category?.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  // Stats
+  const totalPosts = posts.length;
+  const publishedCount = posts.filter((p) => p.status === "published").length;
+  const draftCount = posts.filter((p) => p.status === "draft").length;
+  const categoryMap = {};
+  posts.forEach((p) => {
+    const cat = p.category || "Uncategorized";
+    categoryMap[cat] = (categoryMap[cat] || 0) + 1;
+  });
 
   if (loading) {
     return (
@@ -312,6 +441,15 @@ export default function Admin() {
             {/* Tabs */}
             <nav className="admin-tabs">
               <button
+                className={`admin-tab ${activeTab === "dashboard" ? "active" : ""}`}
+                onClick={() => {
+                  setActiveTab("dashboard");
+                  resetForm();
+                }}
+              >
+                Overview
+              </button>
+              <button
                 className={`admin-tab ${activeTab === "posts" ? "active" : ""}`}
                 onClick={() => {
                   setActiveTab("posts");
@@ -334,7 +472,96 @@ export default function Admin() {
               )}
             </nav>
 
-            {/* Posts List */}
+            {/* ── Dashboard Overview ────────────────────── */}
+            {activeTab === "dashboard" && (
+              <div className="admin-overview">
+                <div className="stats-grid">
+                  <div className="stat-card">
+                    <span className="stat-number">{totalPosts}</span>
+                    <span className="stat-label">Total Posts</span>
+                  </div>
+                  <div className="stat-card stat-published">
+                    <span className="stat-number">{publishedCount}</span>
+                    <span className="stat-label">Published</span>
+                  </div>
+                  <div className="stat-card stat-draft">
+                    <span className="stat-number">{draftCount}</span>
+                    <span className="stat-label">Drafts</span>
+                  </div>
+                  <div className="stat-card">
+                    <span className="stat-number">{Object.keys(categoryMap).length}</span>
+                    <span className="stat-label">Categories</span>
+                  </div>
+                </div>
+
+                <div className="overview-grid">
+                  {/* Categories breakdown */}
+                  <div className="overview-card">
+                    <h3>Categories</h3>
+                    <div className="category-list">
+                      {Object.entries(categoryMap)
+                        .sort((a, b) => b[1] - a[1])
+                        .map(([cat, count]) => (
+                          <div key={cat} className="category-row">
+                            <span>{cat}</span>
+                            <span className="category-count">{count}</span>
+                          </div>
+                        ))}
+                      {Object.keys(categoryMap).length === 0 && (
+                        <p className="text-muted">No posts yet</p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Recent posts */}
+                  <div className="overview-card">
+                    <h3>Recent Posts</h3>
+                    <div className="recent-posts-list">
+                      {posts.slice(0, 5).map((post) => (
+                        <div
+                          key={post.id}
+                          className="recent-post-row"
+                          onClick={() => handleEdit(post)}
+                        >
+                          <div>
+                            <span className="recent-post-title">{post.title}</span>
+                            <span className="recent-post-date">
+                              {formatDate(post.createdAt)}
+                            </span>
+                          </div>
+                          <span className={`status-badge ${post.status}`}>
+                            {post.status}
+                          </span>
+                        </div>
+                      ))}
+                      {posts.length === 0 && (
+                        <p className="text-muted">No posts yet</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="overview-actions">
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => {
+                      resetForm();
+                      setActiveTab("create");
+                    }}
+                  >
+                    + Create New Post
+                  </button>
+                  <button
+                    className="btn btn-secondary"
+                    onClick={() => setActiveTab("posts")}
+                  >
+                    View All Posts
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* ── Posts List ────────────────────────────── */}
             {activeTab === "posts" && (
               <div className="admin-posts">
                 <div className="admin-posts-header">
@@ -376,13 +603,26 @@ export default function Admin() {
                         )}
                         <div className="admin-post-content">
                           <div className="admin-post-meta">
-                            <span className={`status-badge ${post.status}`}>
+                            <button
+                              className={`status-badge ${post.status}`}
+                              onClick={() => toggleStatus(post)}
+                              title={`Click to ${post.status === "published" ? "unpublish" : "publish"}`}
+                            >
                               {post.status}
-                            </span>
+                            </button>
                             <span className="category-badge">{post.category}</span>
+                            <span className="post-date">{formatDate(post.createdAt)}</span>
                           </div>
                           <h3>{post.title}</h3>
-                          <p>{post.excerpt?.slice(0, 100)}...</p>
+                          <p>{post.excerpt?.slice(0, 120)}...</p>
+                          <div className="admin-post-info">
+                            <span className="post-word-count">
+                              {wordCount(post.content)} words
+                            </span>
+                            <span className="post-reading-time">
+                              {readingTime(post.content)}
+                            </span>
+                          </div>
                           <div className="admin-post-actions">
                             <button
                               onClick={() => handleEdit(post)}
@@ -415,7 +655,7 @@ export default function Admin() {
               </div>
             )}
 
-            {/* Create/Edit Form */}
+            {/* ── Create / Edit Form ───────────────────── */}
             {(activeTab === "create" || activeTab === "edit") && (
               <form onSubmit={handleSubmit} className="admin-form">
                 <div className="admin-form-grid">
@@ -459,17 +699,65 @@ export default function Admin() {
                     </div>
 
                     <div className="form-group">
-                      <label htmlFor="content">Content *</label>
-                      <textarea
-                        id="content"
-                        value={formData.content}
-                        onChange={(e) =>
-                          setFormData({ ...formData, content: e.target.value })
-                        }
-                        placeholder="Write your post content here... (HTML supported)"
-                        rows={15}
-                        required
-                      />
+                      <div className="content-label-row">
+                        <label htmlFor="content">Content *</label>
+                        <div className="editor-toggle">
+                          <button
+                            type="button"
+                            className={`toggle-btn ${!showPreview ? "active" : ""}`}
+                            onClick={() => setShowPreview(false)}
+                          >
+                            Write
+                          </button>
+                          <button
+                            type="button"
+                            className={`toggle-btn ${showPreview ? "active" : ""}`}
+                            onClick={() => setShowPreview(true)}
+                          >
+                            Preview
+                          </button>
+                        </div>
+                      </div>
+
+                      {!showPreview ? (
+                        <>
+                          <RichToolbar
+                            textareaRef={contentRef}
+                            value={formData.content}
+                            onChange={(val) =>
+                              setFormData({ ...formData, content: val })
+                            }
+                          />
+                          <textarea
+                            id="content"
+                            ref={contentRef}
+                            value={formData.content}
+                            onChange={(e) =>
+                              setFormData({ ...formData, content: e.target.value })
+                            }
+                            placeholder="Write your post content here..."
+                            rows={20}
+                            required
+                            className="content-textarea"
+                          />
+                        </>
+                      ) : (
+                        <div className="content-preview">
+                          {formData.content ? (
+                            <div
+                              className="preview-body blog-content"
+                              dangerouslySetInnerHTML={{ __html: formData.content }}
+                            />
+                          ) : (
+                            <p className="text-muted">Nothing to preview yet...</p>
+                          )}
+                        </div>
+                      )}
+
+                      <div className="content-footer">
+                        <span>{wordCount(formData.content)} words</span>
+                        <span>{readingTime(formData.content)}</span>
+                      </div>
                     </div>
                   </div>
 

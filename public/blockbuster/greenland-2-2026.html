@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Greenland 2: Migration (2026) | Film Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#050708;--srf:#080b10;--crd:#0d1018;
+  --acc:#80b0d0;--acc2:#406080;
+  --txt:#d8eaf8;--mut:#507080;--brd:#101820;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:'Barlow',sans-serif;font-size:17px;line-height:1.8}
+.hero{position:relative;width:100%;height:80vh;min-height:480px;overflow:hidden;display:flex;align-items:flex-end;background:linear-gradient(135deg,var(--bg) 0%,color-mix(in srgb,var(--acc) 15%,var(--bg)) 100%)}
+.hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%,color-mix(in srgb,var(--acc) 20%,transparent) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,color-mix(in srgb,var(--acc2) 10%,transparent) 0%,transparent 50%)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 0%,transparent 70%)}
+.hero-content{position:relative;z-index:2;padding:0 48px 56px;max-width:900px}
+.genre-tag{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--acc);border:1px solid color-mix(in srgb,var(--acc) 40%,transparent);padding:5px 16px;border-radius:999px;margin-bottom:20px}
+.hero h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(36px,7vw,80px);line-height:1.05;letter-spacing:-.01em;color:var(--txt);margin-bottom:10px}
+.hero h1 span{color:var(--acc)}
+.hero-sub{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-bottom:12px}
+.hero-tagline{font-size:19px;font-style:italic;color:color-mix(in srgb,var(--txt) 80%,transparent)}
+.meta-bar{background:var(--srf);border-bottom:1px solid var(--brd);padding:16px 48px;display:flex;gap:36px;flex-wrap:wrap;align-items:center}
+.meta-item{display:flex;flex-direction:column;gap:2px}
+.meta-label{font-size:8px;font-family:'Barlow Condensed',sans-serif;letter-spacing:.3em;text-transform:uppercase;color:var(--mut)}
+.meta-value{font-size:13px;color:var(--txt)}
+.rating-badge{margin-left:auto;display:flex;gap:10px}
+.r-pill{display:flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--brd);border-radius:8px}
+.r-num{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:20px;color:var(--acc);line-height:1}
+.r-src{font-size:8px;letter-spacing:.15em;color:var(--mut)}
+.wrap{max-width:1100px;margin:0 auto;padding:56px 48px 100px;display:grid;grid-template-columns:1fr 280px;gap:60px;align-items:start}
+.article h2{font-family:'Barlow Condensed',sans-serif;font-size:22px;color:var(--acc);margin:44px 0 12px;border-bottom:1px solid var(--brd);padding-bottom:8px}
+.article p{margin-bottom:20px;color:color-mix(in srgb,var(--txt) 80%,transparent);font-size:16px}
+.intro{font-size:20px!important;font-style:italic;color:var(--txt)!important;line-height:1.65;margin-bottom:32px!important}
+.pq{margin:32px 0;padding:24px 28px;background:var(--crd);border-left:4px solid var(--acc);border-radius:0 8px 8px 0}
+.pq p{font-size:19px!important;font-style:italic;color:var(--txt)!important;margin:0!important;line-height:1.55}
+.pq cite{display:block;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-top:8px}
+
+.verdict{background:color-mix(in srgb,var(--acc) 8%,var(--crd));border:1px solid color-mix(in srgb,var(--acc) 30%,transparent);border-radius:8px;padding:28px;margin-top:44px}
+.verdict-lbl{font-size:9px;font-family:'Barlow Condensed',sans-serif;letter-spacing:.25em;text-transform:uppercase;color:var(--acc);margin-bottom:10px}
+.verdict p{font-style:italic;color:var(--txt)!important;margin:0!important;font-size:15px!important}
+.sidebar{position:sticky;top:24px}
+.sc{background:var(--crd);border:1px solid var(--brd);border-radius:8px;padding:22px;margin-bottom:18px}
+.sc h3{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--acc);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--brd)}
+.cast-item{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--brd);font-size:13px}
+.cast-item:last-child{border-bottom:none}
+.cast-role{color:var(--mut);font-style:italic;font-size:12px}
+.detail-row{display:flex;flex-direction:column;padding:7px 0;border-bottom:1px solid var(--brd);font-size:13px}
+.detail-row:last-child{border-bottom:none}
+.detail-key{font-size:8px;font-family:'Barlow Condensed',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-bottom:2px}
+.tags-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.tag{background:color-mix(in srgb,var(--acc) 10%,transparent);border:1px solid color-mix(in srgb,var(--acc) 25%,transparent);padding:4px 12px;border-radius:999px;font-size:9px;font-family:'Barlow Condensed',sans-serif;letter-spacing:.1em;color:var(--acc)}
+@media(max-width:768px){.wrap{grid-template-columns:1fr}.hero-content,.meta-bar{padding-left:20px;padding-right:20px}.rating-badge{margin-left:0}}
+</style>
+</head>
+<body>
+<a href="/blockbuster" style="position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:rgba(0,0,0,0.7);backdrop-filter:blur(12px);color:#fff;font-family:sans-serif;font-size:13px;font-weight:500;text-decoration:none;border-radius:999px;border:1px solid rgba(255,255,255,0.1);transition:all 0.2s ease;" onmouseover="this.style.background='rgba(139,92,246,0.8)'" onmouseout="this.style.background='rgba(0,0,0,0.7)'"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>CineNovaTV</a>
+<header class="hero">
+  <div class="hero-glow"></div>
+  
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="genre-tag">Disaster · Action · Survival · 2026</div>
+    <h1><span>Greenland 2: Migration</span></h1>
+    <div class="hero-sub">Ric Roman Waugh &nbsp;·&nbsp; Lionsgate</div>
+    <p class="hero-tagline">The comet passed. The world is not what it was.</p>
+  </div>
+</header>
+
+<div class="meta-bar">
+  <div class="meta-item"><span class="meta-label">Director</span><span class="meta-value">Ric Roman Waugh</span></div>
+  <div class="meta-item"><span class="meta-label">Stars</span><span class="meta-value">Gerard Butler, Morena Baccarin, Roger Dale Floyd</span></div>
+  <div class="meta-item"><span class="meta-label">Studio</span><span class="meta-value">Lionsgate</span></div>
+  <div class="meta-item"><span class="meta-label">Runtime</span><span class="meta-value">2h 1min · Rated PG-13</span></div>
+  <div class="rating-badge">
+    <div class="r-pill"><div><div class="r-num">6.4</div><div class="r-src">IMDb</div></div></div>
+    <div class="r-pill"><div><div class="r-num" style="color:color-mix(in srgb,var(--acc) 80%,var(--txt))">58%</div><div class="r-src">RT Score</div></div></div>
+    <div class="r-pill"><div><div class="r-num" style="color:var(--mut);font-size:14px">$87M worldwide</div><div class="r-src">Box Office</div></div></div>
+  </div>
+</div>
+
+<main class="wrap">
+  <article class="article">
+    <p class="intro">The Garrity family survived the comet. Now they have to survive what came after. Gerard Butler returns in a post-apocalyptic sequel that trades disaster spectacle for grounded survival drama.</p>
+    
+    <h2>Surviving the Aftermath</h2><p><em>Migration</em> begins where the first film ended: the Garrity family emerging from their Greenland bunker into a radically reshaped world. The film follows their journey across a devastated landscape in search of a new home — encountering other survivors, resource conflicts, and the human tendency to rebuild hierarchies and cruelties even in the ruins of civilization. Butler and Baccarin have genuine chemistry and a credible family dynamic that grounds the film's more implausible action sequences. The child actor Roger Dale Floyd, now older, contributes meaningfully to the emotional stakes.</p><div class="pq"><p>"A respectable sequel that wisely shifts focus from disaster spectacle to intimate survival drama. Butler carries it with characteristic conviction."</p><cite>— Variety</cite></div><h2>The Verdict</h2><p>Not as viscerally gripping as the first film, but more emotionally resonant. For fans of the original, a satisfying continuation. For newcomers, start with <em>Greenland</em> first.</p>
+    <div class="verdict"><div class="verdict-lbl">✦ Our Verdict</div><p>The Garrity family survived the comet. Now they have to survive what came after. Gerard Butler returns in a post-apocalyptic sequel that trades disaster spectacle for grounded survival drama.</p></div>
+  </article>
+  <aside class="sidebar">
+    <div class="sc"><h3>Cast</h3><div class="cast-item"><span>Gerard Butler</span><span class="cast-role">John Garrity</span></div><div class="cast-item"><span>Morena Baccarin</span><span class="cast-role">Allison Garrity</span></div><div class="cast-item"><span>Roger Dale Floyd</span><span class="cast-role">Nathan Garrity</span></div><div class="cast-item"><span>Scott Glenn</span><span class="cast-role">Dale</span></div></div>
+    <div class="sc"><h3>Film Details</h3><div class="detail-row"><span class="detail-key">Director</span><span>Ric Roman Waugh</span></div><div class="detail-row"><span class="detail-key">Studio</span><span>Lionsgate</span></div><div class="detail-row"><span class="detail-key">Release</span><span>Jan 9, 2026</span></div><div class="detail-row"><span class="detail-key">Rating</span><span>PG-13 · 2h 1min</span></div><div class="detail-row"><span class="detail-key">Box Office</span><span>$87M worldwide</span></div></div>
+    <div class="sc"><h3>Tags</h3><div class="tags-row"><span class="tag">DISASTER</span><span class="tag">ACTION</span><span class="tag">SEQUEL</span></div></div>
+  </aside>
+</main>
+</body>
+</html>

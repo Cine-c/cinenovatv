@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Iron Lung (2026) | Film Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700;800&family=Exo+2:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#040408;--srf:#080810;--crd:#0e1018;
+  --acc:#3050b8;--acc2:#182060;
+  --txt:#d8e0f8;--mut:#405080;--brd:#0c1020;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:'Exo 2',sans-serif;font-size:17px;line-height:1.8}
+.hero{position:relative;width:100%;height:80vh;min-height:480px;overflow:hidden;display:flex;align-items:flex-end;background:linear-gradient(135deg,var(--bg) 0%,color-mix(in srgb,var(--acc) 15%,var(--bg)) 100%)}
+.hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%,color-mix(in srgb,var(--acc) 20%,transparent) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,color-mix(in srgb,var(--acc2) 10%,transparent) 0%,transparent 50%)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 0%,transparent 70%)}
+.hero-content{position:relative;z-index:2;padding:0 48px 56px;max-width:900px}
+.genre-tag{display:inline-block;font-family:'Exo 2',sans-serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--acc);border:1px solid color-mix(in srgb,var(--acc) 40%,transparent);padding:5px 16px;border-radius:999px;margin-bottom:20px}
+.hero h1{font-family:'Exo 2',sans-serif;font-size:clamp(36px,7vw,80px);line-height:1.05;letter-spacing:-.01em;color:var(--txt);margin-bottom:10px}
+.hero h1 span{color:var(--acc)}
+.hero-sub{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-bottom:12px}
+.hero-tagline{font-size:19px;font-style:italic;color:color-mix(in srgb,var(--txt) 80%,transparent)}
+.meta-bar{background:var(--srf);border-bottom:1px solid var(--brd);padding:16px 48px;display:flex;gap:36px;flex-wrap:wrap;align-items:center}
+.meta-item{display:flex;flex-direction:column;gap:2px}
+.meta-label{font-size:8px;font-family:'Exo 2',sans-serif;letter-spacing:.3em;text-transform:uppercase;color:var(--mut)}
+.meta-value{font-size:13px;color:var(--txt)}
+.rating-badge{margin-left:auto;display:flex;gap:10px}
+.r-pill{display:flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--brd);border-radius:8px}
+.r-num{font-family:'Exo 2',sans-serif;font-weight:800;font-size:20px;color:var(--acc);line-height:1}
+.r-src{font-size:8px;letter-spacing:.15em;color:var(--mut)}
+.wrap{max-width:1100px;margin:0 auto;padding:56px 48px 100px;display:grid;grid-template-columns:1fr 280px;gap:60px;align-items:start}
+.article h2{font-family:'Exo 2',sans-serif;font-size:22px;color:var(--acc);margin:44px 0 12px;border-bottom:1px solid var(--brd);padding-bottom:8px}
+.article p{margin-bottom:20px;color:color-mix(in srgb,var(--txt) 80%,transparent);font-size:16px}
+.intro{font-size:20px!important;font-style:italic;color:var(--txt)!important;line-height:1.65;margin-bottom:32px!important}
+.pq{margin:32px 0;padding:24px 28px;background:var(--crd);border-left:4px solid var(--acc);border-radius:0 8px 8px 0}
+.pq p{font-size:19px!important;font-style:italic;color:var(--txt)!important;margin:0!important;line-height:1.55}
+.pq cite{display:block;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-top:8px}
+
+.verdict{background:color-mix(in srgb,var(--acc) 8%,var(--crd));border:1px solid color-mix(in srgb,var(--acc) 30%,transparent);border-radius:8px;padding:28px;margin-top:44px}
+.verdict-lbl{font-size:9px;font-family:'Exo 2',sans-serif;letter-spacing:.25em;text-transform:uppercase;color:var(--acc);margin-bottom:10px}
+.verdict p{font-style:italic;color:var(--txt)!important;margin:0!important;font-size:15px!important}
+.sidebar{position:sticky;top:24px}
+.sc{background:var(--crd);border:1px solid var(--brd);border-radius:8px;padding:22px;margin-bottom:18px}
+.sc h3{font-family:'Exo 2',sans-serif;font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--acc);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--brd)}
+.cast-item{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--brd);font-size:13px}
+.cast-item:last-child{border-bottom:none}
+.cast-role{color:var(--mut);font-style:italic;font-size:12px}
+.detail-row{display:flex;flex-direction:column;padding:7px 0;border-bottom:1px solid var(--brd);font-size:13px}
+.detail-row:last-child{border-bottom:none}
+.detail-key{font-size:8px;font-family:'Exo 2',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-bottom:2px}
+.tags-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.tag{background:color-mix(in srgb,var(--acc) 10%,transparent);border:1px solid color-mix(in srgb,var(--acc) 25%,transparent);padding:4px 12px;border-radius:999px;font-size:9px;font-family:'Exo 2',sans-serif;letter-spacing:.1em;color:var(--acc)}
+@media(max-width:768px){.wrap{grid-template-columns:1fr}.hero-content,.meta-bar{padding-left:20px;padding-right:20px}.rating-badge{margin-left:0}}
+</style>
+</head>
+<body>
+<a href="/blockbuster" style="position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:rgba(0,0,0,0.7);backdrop-filter:blur(12px);color:#fff;font-family:sans-serif;font-size:13px;font-weight:500;text-decoration:none;border-radius:999px;border:1px solid rgba(255,255,255,0.1);transition:all 0.2s ease;" onmouseover="this.style.background='rgba(139,92,246,0.8)'" onmouseout="this.style.background='rgba(0,0,0,0.7)'"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>CineNovaTV</a>
+<header class="hero">
+  <div class="hero-glow"></div>
+  
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="genre-tag">Horror · Thriller · 2026</div>
+    <h1><span>Iron Lung</span></h1>
+    <div class="hero-sub">Markiplier (Mark Fischbach) &nbsp;·&nbsp; DFTBA Records</div>
+    <p class="hero-tagline">Breathe. You can't. Survive anyway.</p>
+  </div>
+</header>
+
+<div class="meta-bar">
+  <div class="meta-item"><span class="meta-label">Director</span><span class="meta-value">Markiplier (Mark Fischbach)</span></div>
+  <div class="meta-item"><span class="meta-label">Stars</span><span class="meta-value">Mark Fischbach, Caleb McLaughlin, Matilda Lawler</span></div>
+  <div class="meta-item"><span class="meta-label">Studio</span><span class="meta-value">DFTBA Records</span></div>
+  <div class="meta-item"><span class="meta-label">Runtime</span><span class="meta-value">1h 38min · Rated R</span></div>
+  <div class="rating-badge">
+    <div class="r-pill"><div><div class="r-num">7.1</div><div class="r-src">IMDb</div></div></div>
+    <div class="r-pill"><div><div class="r-num" style="color:color-mix(in srgb,var(--acc) 80%,var(--txt))">84%</div><div class="r-src">RT Score</div></div></div>
+    <div class="r-pill"><div><div class="r-num" style="color:var(--mut);font-size:14px">$52M worldwide</div><div class="r-src">Box Office</div></div></div>
+  </div>
+</div>
+
+<main class="wrap">
+  <article class="article">
+    <p class="intro">YouTuber-turned-director Markiplier adapts his own video game adaptation into a feature that defied every expectation — a genuinely harrowing, inventive horror film that opens as a body-horror experience and becomes something far more disturbing.</p>
+    
+    <h2>From YouTube to Cinema</h2><p>Mark Fischbach (Markiplier) is one of YouTube's most successful creators, best known for gaming content. His directorial debut, based on the indie horror game <em>Iron Lung</em>, was treated as a curiosity by mainstream media and dismissed by many film critics ahead of release. The $17.8M opening weekend changed the conversation immediately — and the subsequent critical re-evaluation has been remarkable, with many acknowledging that Fischbach has made something genuinely accomplished: a claustrophobic horror film set inside a submarine sub-vehicle exploring a moon of blood, where the horror is less what's outside than what being trapped inside does to the human mind.</p><div class="pq"><p>"Iron Lung is a serious horror film and Markiplier is a serious director. Anyone who doubted this owes themselves an admission of error and a viewing."</p><cite>— Sight & Sound</cite></div><h2>The Verdict</h2><p>$52M worldwide on an indie budget from a YouTuber's directorial debut. Cinema is still full of surprises, and this is one of the best. A remarkable achievement and a genuinely terrifying film.</p>
+    <div class="verdict"><div class="verdict-lbl">✦ Our Verdict</div><p>YouTuber-turned-director Markiplier adapts his own video game adaptation into a feature that defied every expectation — a genuinely harrowing, inventive horror film that opens as a body-horror experience and becomes something far more disturbing.</p></div>
+  </article>
+  <aside class="sidebar">
+    <div class="sc"><h3>Cast</h3><div class="cast-item"><span>Mark Fischbach</span><span class="cast-role">Narrator / The Warden</span></div><div class="cast-item"><span>Caleb McLaughlin</span><span class="cast-role">The Patient</span></div><div class="cast-item"><span>Matilda Lawler</span><span class="cast-role">The Nurse</span></div></div>
+    <div class="sc"><h3>Film Details</h3><div class="detail-row"><span class="detail-key">Director</span><span>Mark Fischbach (Markiplier)</span></div><div class="detail-row"><span class="detail-key">Studio</span><span>DFTBA Records</span></div><div class="detail-row"><span class="detail-key">Release</span><span>January 2026</span></div><div class="detail-row"><span class="detail-key">Rating</span><span>R · 1h 38min</span></div><div class="detail-row"><span class="detail-key">Box Office</span><span>$52M on indie budget</span></div></div>
+    <div class="sc"><h3>Tags</h3><div class="tags-row"><span class="tag">HORROR</span><span class="tag">INDIE</span><span class="tag">GAMING</span></div></div>
+  </aside>
+</main>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Sinners (2025) | Film Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Source+Serif+4:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#050808;--srf:#0a0d0d;--crd:#100e0c;
+  --acc:#b5362a;--acc2:#7a1e14;
+  --txt:#e8ddd5;--mut:#6a5a52;--brd:#1e1412;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:'Source Serif 4',sans-serif;font-size:17px;line-height:1.8}
+.hero{position:relative;width:100%;height:80vh;min-height:480px;overflow:hidden;display:flex;align-items:flex-end;background:linear-gradient(135deg,var(--bg) 0%,color-mix(in srgb,var(--acc) 15%,var(--bg)) 100%)}
+.hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%,color-mix(in srgb,var(--acc) 20%,transparent) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,color-mix(in srgb,var(--acc2) 10%,transparent) 0%,transparent 50%)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 0%,transparent 70%)}
+.hero-content{position:relative;z-index:2;padding:0 48px 56px;max-width:900px}
+.genre-tag{display:inline-block;font-family:'Abril Fatface',sans-serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--acc);border:1px solid color-mix(in srgb,var(--acc) 40%,transparent);padding:5px 16px;border-radius:999px;margin-bottom:20px}
+.hero h1{font-family:'Abril Fatface',sans-serif;font-size:clamp(36px,7vw,80px);line-height:1.05;letter-spacing:-.01em;color:var(--txt);margin-bottom:10px}
+.hero h1 span{color:var(--acc)}
+.hero-sub{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-bottom:12px}
+.hero-tagline{font-size:19px;font-style:italic;color:color-mix(in srgb,var(--txt) 80%,transparent)}
+.meta-bar{background:var(--srf);border-bottom:1px solid var(--brd);padding:16px 48px;display:flex;gap:36px;flex-wrap:wrap;align-items:center}
+.meta-item{display:flex;flex-direction:column;gap:2px}
+.meta-label{font-size:8px;font-family:'Abril Fatface',sans-serif;letter-spacing:.3em;text-transform:uppercase;color:var(--mut)}
+.meta-value{font-size:13px;color:var(--txt)}
+.rating-badge{margin-left:auto;display:flex;gap:10px}
+.r-pill{display:flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--brd);border-radius:8px}
+.r-num{font-family:'Abril Fatface',sans-serif;font-weight:800;font-size:20px;color:var(--acc);line-height:1}
+.r-src{font-size:8px;letter-spacing:.15em;color:var(--mut)}
+.wrap{max-width:1100px;margin:0 auto;padding:56px 48px 100px;display:grid;grid-template-columns:1fr 280px;gap:60px;align-items:start}
+.article h2{font-family:'Abril Fatface',sans-serif;font-size:22px;color:var(--acc);margin:44px 0 12px;border-bottom:1px solid var(--brd);padding-bottom:8px}
+.article p{margin-bottom:20px;color:color-mix(in srgb,var(--txt) 80%,transparent);font-size:16px}
+.intro{font-size:20px!important;font-style:italic;color:var(--txt)!important;line-height:1.65;margin-bottom:32px!important}
+.pq{margin:32px 0;padding:24px 28px;background:var(--crd);border-left:4px solid var(--acc);border-radius:0 8px 8px 0}
+.pq p{font-size:19px!important;font-style:italic;color:var(--txt)!important;margin:0!important;line-height:1.55}
+.pq cite{display:block;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-top:8px}
+
+.verdict{background:color-mix(in srgb,var(--acc) 8%,var(--crd));border:1px solid color-mix(in srgb,var(--acc) 30%,transparent);border-radius:8px;padding:28px;margin-top:44px}
+.verdict-lbl{font-size:9px;font-family:'Abril Fatface',sans-serif;letter-spacing:.25em;text-transform:uppercase;color:var(--acc);margin-bottom:10px}
+.verdict p{font-style:italic;color:var(--txt)!important;margin:0!important;font-size:15px!important}
+.sidebar{position:sticky;top:24px}
+.sc{background:var(--crd);border:1px solid var(--brd);border-radius:8px;padding:22px;margin-bottom:18px}
+.sc h3{font-family:'Abril Fatface',sans-serif;font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--acc);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--brd)}
+.cast-item{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--brd);font-size:13px}
+.cast-item:last-child{border-bottom:none}
+.cast-role{color:var(--mut);font-style:italic;font-size:12px}
+.detail-row{display:flex;flex-direction:column;padding:7px 0;border-bottom:1px solid var(--brd);font-size:13px}
+.detail-row:last-child{border-bottom:none}
+.detail-key{font-size:8px;font-family:'Abril Fatface',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-bottom:2px}
+.tags-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.tag{background:color-mix(in srgb,var(--acc) 10%,transparent);border:1px solid color-mix(in srgb,var(--acc) 25%,transparent);padding:4px 12px;border-radius:999px;font-size:9px;font-family:'Abril Fatface',sans-serif;letter-spacing:.1em;color:var(--acc)}
+@media(max-width:768px){.wrap{grid-template-columns:1fr}.hero-content,.meta-bar{padding-left:20px;padding-right:20px}.rating-badge{margin-left:0}}
+</style>
+</head>
+<body>
+<a href="/blockbuster" style="position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:rgba(0,0,0,0.7);backdrop-filter:blur(12px);color:#fff;font-family:sans-serif;font-size:13px;font-weight:500;text-decoration:none;border-radius:999px;border:1px solid rgba(255,255,255,0.1);transition:all 0.2s ease;" onmouseover="this.style.background='rgba(139,92,246,0.8)'" onmouseout="this.style.background='rgba(0,0,0,0.7)'"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>CineNovaTV</a>
+<header class="hero">
+  <div class="hero-glow"></div>
+  <img style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;opacity:0.45;mix-blend-mode:luminosity;" src="https://www.impawards.com/2025/posters/sinners.jpg" alt="Poster">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="genre-tag">Horror · Southern Gothic · Drama · 2025</div>
+    <h1><span>Sinners</span></h1>
+    <div class="hero-sub">Ryan Coogler &nbsp;·&nbsp; Warner Bros. Pictures</div>
+    <p class="hero-tagline">Some sins can never be washed clean.</p>
+  </div>
+</header>
+
+<div class="meta-bar">
+  <div class="meta-item"><span class="meta-label">Director</span><span class="meta-value">Ryan Coogler</span></div>
+  <div class="meta-item"><span class="meta-label">Stars</span><span class="meta-value">Michael B. Jordan, Hailee Steinfeld, Jack O'Connell, Delroy Lindo</span></div>
+  <div class="meta-item"><span class="meta-label">Studio</span><span class="meta-value">Warner Bros. Pictures</span></div>
+  <div class="meta-item"><span class="meta-label">Runtime</span><span class="meta-value">2h 17min · Rated R</span></div>
+  <div class="rating-badge">
+    <div class="r-pill"><div><div class="r-num">8.4</div><div class="r-src">IMDb</div></div></div>
+    <div class="r-pill"><div><div class="r-num" style="color:color-mix(in srgb,var(--acc) 80%,var(--txt))">99%</div><div class="r-src">RT Score</div></div></div>
+    <div class="r-pill"><div><div class="r-num" style="color:var(--mut);font-size:14px">$363M worldwide</div><div class="r-src">Box Office</div></div></div>
+  </div>
+</div>
+
+<main class="wrap">
+  <article class="article">
+    <p class="intro">Ryan Coogler's Southern Gothic masterpiece is the most viscerally alive American film in years — a blues-soaked vampire horror that doubles as a searing meditation on Black history, joy, and survival.</p>
+    <div style="width:100%;display:flex;justify-content:center;margin:40px 0"><img src="https://www.impawards.com/2025/posters/sinners.jpg" alt="Official movie poster" style="max-width:300px;width:100%;border-radius:8px;box-shadow:0 12px 56px rgba(0,0,0,0.7);display:block"></div>
+    <h2>A New American Classic</h2><p>Set in 1932 Mississippi Delta, <em>Sinners</em> follows twin brothers Smoke and Stack (Michael B. Jordan in a stunning dual performance), who return home to open a juke joint, only to find an ancient evil waiting. Coogler builds the film around music as both weapon and salvation — there's a sequence where the camera rotates through time as a blues musician plays, pulling generations of Black American music forward and backward through a single riff. It's breathtaking.</p><div class="pq"><p>"Perhaps Coogler's most assured effort to date — Sinners sinks its teeth into the vampire genre in entertaining and thought-provoking fashion."</p><cite>— Critics Consensus</cite></div><h2>Jordan's Career Best</h2><p>Playing twin brothers with distinct personalities and moral weight, Jordan delivers what many critics are calling a generational performance. Hailee Steinfeld matches him beat for beat. Jack O'Connell is genuinely frightening as Remmick, a vampire whose seduction is inseparable from music. Delroy Lindo as the blues elder provides the film's moral anchor in a performance of incredible grace.</p><h2>The Verdict</h2><p>With 99% on RT and $363M worldwide on a $90M budget, <em>Sinners</em> is both critical triumph and commercial success for original adult cinema. Already discussed for multiple Oscars, this reminded the world why Coogler is one of the most important filmmakers working today.</p>
+    <div class="verdict"><div class="verdict-lbl">✦ Our Verdict</div><p>Ryan Coogler's Southern Gothic masterpiece is the most viscerally alive American film in years — a blues-soaked vampire horror that doubles as a searing meditation on Black history, joy, and survival.</p></div>
+  </article>
+  <aside class="sidebar">
+    <div class="sc"><h3>Cast</h3><div class="cast-item"><span>Michael B. Jordan</span><span class="cast-role">Smoke / Stack</span></div><div class="cast-item"><span>Hailee Steinfeld</span><span class="cast-role">Mary</span></div><div class="cast-item"><span>Jack O'Connell</span><span class="cast-role">Remmick</span></div><div class="cast-item"><span>Wunmi Mosaku</span><span class="cast-role">Annie</span></div><div class="cast-item"><span>Delroy Lindo</span><span class="cast-role">Delta Slim</span></div></div>
+    <div class="sc"><h3>Film Details</h3><div class="detail-row"><span class="detail-key">Director</span><span>Ryan Coogler</span></div><div class="detail-row"><span class="detail-key">Composer</span><span>Ludwig Göransson</span></div><div class="detail-row"><span class="detail-key">Studio</span><span>Warner Bros.</span></div><div class="detail-row"><span class="detail-key">Release</span><span>April 18, 2025</span></div><div class="detail-row"><span class="detail-key">Rating</span><span>R · 2h 17min</span></div><div class="detail-row"><span class="detail-key">Box Office</span><span>$363M worldwide</span></div></div>
+    <div class="sc"><h3>Tags</h3><div class="tags-row"><span class="tag">HORROR</span><span class="tag">DRAMA</span><span class="tag">GOTHIC</span></div></div>
+  </aside>
+</main>
+</body>
+</html>

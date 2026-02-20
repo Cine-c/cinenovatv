@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wuthering Heights (2026) | Film Review</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@200;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0b09;
+      --surface: #141210;
+      --card: #1a1714;
+      --accent: #c8956a;
+      --accent2: #7c3f2a;
+      --gold: #d4a76a;
+      --text: #e8e0d5;
+      --muted: #8a7f72;
+      --border: #2e2820;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      line-height: 1.75;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 85vh;
+      min-height: 520px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    /* IMAGE PLACEHOLDER — replace src with your actual image */
+    .hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      opacity: 0.55;
+      /* ↓ Gradient placeholder — delete the background when you add an image */
+      background: linear-gradient(135deg, #3a1f14 0%, #1a0e08 40%, #0d0b09 100%);
+    }
+
+    /* PLACEHOLDER LABEL — delete this element when you add a real image */
+    
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, #0d0b09 0%, rgba(13,11,9,0.4) 50%, transparent 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      padding: 0 40px 60px;
+    }
+
+    .category-tag {
+      display: inline-block;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent2);
+      padding: 5px 14px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(44px, 7vw, 80px);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+    }
+
+    .hero-year {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 200;
+      letter-spacing: 0.3em;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .hero-tagline {
+      font-style: italic;
+      font-size: 21px;
+      font-weight: 300;
+      color: var(--gold);
+      max-width: 500px;
+    }
+
+    /* ── META BAR ── */
+    .meta-bar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 40px;
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .meta-label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .meta-value {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text);
+    }
+
+    .rating-badge {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .rating-circle {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .rating-num {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .rating-source {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 8px;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    /* ── BODY LAYOUT ── */
+    .article-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 60px 40px 100px;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 60px;
+      align-items: start;
+    }
+
+    /* ── ARTICLE BODY ── */
+    .article-body h2 {
+      font-size: 28px;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--gold);
+      margin: 48px 0 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .article-body p {
+      margin-bottom: 22px;
+      color: #cfc8bf;
+      font-size: 17px;
+    }
+
+    .pull-quote {
+      border-left: 3px solid var(--accent);
+      padding: 16px 28px;
+      margin: 36px 0;
+      background: var(--card);
+    }
+
+    .pull-quote p {
+      font-size: 22px;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--text);
+      margin: 0;
+      line-height: 1.55;
+    }
+
+    .pull-quote cite {
+      display: block;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    /* image slot inside article */
+    
+
+    
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      position: sticky;
+      top: 30px;
+    }
+
+    .sidebar-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+
+    .sidebar-card h3 {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cast-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 15px;
+    }
+
+    .cast-item:last-child { border-bottom: none; }
+    .cast-actor { color: var(--text); }
+    .cast-role { color: var(--muted); font-style: italic; font-size: 13px; }
+
+    .detail-row {
+      display: flex;
+      flex-direction: column;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+    .detail-row:last-child { border-bottom: none; }
+    .detail-key {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+    .detail-val { color: var(--text); }
+
+    /* verdict box */
+    .verdict-box {
+      background: linear-gradient(135deg, var(--accent2) 0%, #3a1a0e 100%);
+      border: 1px solid var(--accent);
+      padding: 28px;
+      margin-top: 48px;
+    }
+    .verdict-box .verd-label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .verdict-box p {
+      font-size: 16px;
+      font-style: italic;
+      color: var(--text);
+      margin: 0;
+    }
+
+    /* responsive */
+    @media (max-width: 768px) {
+      .article-wrapper { grid-template-columns: 1fr; }
+      .hero-content { padding: 0 20px 40px; }
+      .meta-bar { padding: 16px 20px; }
+      .rating-badge { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="/blockbuster" style="
+  position:fixed;top:16px;left:16px;z-index:9999;
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 16px;
+  background:rgba(0,0,0,0.7);backdrop-filter:blur(12px);
+  color:#fff;font-family:sans-serif;font-size:13px;font-weight:500;
+  text-decoration:none;border-radius:999px;border:1px solid rgba(255,255,255,0.1);
+  transition:all 0.2s ease;
+" onmouseover="this.style.background='rgba(139,92,246,0.8)'" onmouseout="this.style.background='rgba(0,0,0,0.7)'">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+  CineNovaTV
+</a>
+
+<header class="hero">
+  
+  <div class="hero-img"></div>
+  
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="category-tag">Romance · Drama · 2026</div>
+    <h1>"Wuthering Heights"</h1>
+    <div class="hero-year">IN THEATERS — FEBRUARY 13, 2026</div>
+    <p class="hero-tagline">Come Undone.</p>
+  </div>
+</header>
+
+<div class="meta-bar">
+  <div class="meta-item">
+    <span class="meta-label">Director</span>
+    <span class="meta-value">Emerald Fennell</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">Stars</span>
+    <span class="meta-value">Margot Robbie · Jacob Elordi</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">Studio</span>
+    <span class="meta-value">Warner Bros. Pictures</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">Runtime</span>
+    <span class="meta-value">2h 16min · Rated R</span>
+  </div>
+  <div class="rating-badge">
+    <div class="rating-circle">
+      <span class="rating-num">6.3</span>
+      <span class="rating-source">IMDb</span>
+    </div>
+    <div class="rating-circle" style="border-color:var(--muted)">
+      <span class="rating-num" style="color:var(--muted)">$92M</span>
+      <span class="rating-source">Worldwide</span>
+    </div>
+  </div>
+</div>
+
+<main class="article-wrapper">
+  <article class="article-body">
+
+    <p style="font-size:21px; font-style:italic; color:var(--text); line-height:1.6; margin-bottom:32px;">
+      Emerald Fennell's bold, unabashedly erotic reimagining of Emily Brontë's gothic masterpiece arrives 
+      just in time for Valentine's Day — drenched in blazing color, anachronistic flair, and enough 
+      sexual tension to fog every window on the Yorkshire moors.
+    </p>
+
+    <p>
+      There's a certain audacity to putting Brontë's title in quotation marks. By doing so, director 
+      Emerald Fennell signals that this is not an adaptation so much as a primal emotional response to 
+      the source material — the book as she felt it at 14, reborn onscreen as spectacle, lust, and operatic 
+      grief. Whether you find that admirable or infuriating will determine your entire experience with 
+      <em>"Wuthering Heights."</em>
+    </p>
+
+    
+    
+
+    <h2>Fennell's Daring Vision</h2>
+    <p>
+      Following <em>Promising Young Woman</em> (2020) and <em>Saltburn</em> (2023), Fennell has now 
+      established herself as one of cinema's most divisive provocateurs. Here, she leans fully into her 
+      instincts — replacing Brontë's generational saga with a laser focus on Catherine and Heathcliff's 
+      toxic, all-consuming desire. The result is a film that rewards viewers willing to surrender to its 
+      maximalist vision.
+    </p>
+    <p>
+      Shot by cinematographer Linus Sandgren with a Lisa Frank–meets–gothic-romance color palette, the 
+      film is visually extraordinary. Every frame seems deliberately composed as an act of provocation — 
+      from a blood-red lacquered floor in the Linton mansion to the wind-swept moors bathed in an almost 
+      supernatural amber glow. Production designer Suzie Davis and costume designer Jacqueline Durran 
+      have created something that feels both period and entirely timeless.
+    </p>
+
+    <div class="pull-quote">
+      <p>"Pulpy, provocative, drenched in blazing color and opulent design — Wuthering Heights is 
+      Brontë for the Bridgerton generation."</p>
+      <cite>— The Hollywood Reporter</cite>
+    </div>
+
+    <h2>The Performances</h2>
+    <p>
+      Margot Robbie is the engine of the film. Her Cathy is monstrous, magnetic, and achingly real — a 
+      woman who weaponizes her charm and beauty even as she's destroyed by the one person she cannot 
+      control. There's a scene where she delivers swift kicks to her dead father's corpse, pivoting from 
+      tears to contempt in an instant, that encapsulates everything great about this performance.
+    </p>
+    <p>
+      Jacob Elordi, at 6'5", is a physically overwhelming Heathcliff — brooding and animalistic in the 
+      film's first half, sleek and dangerous after his return. Critics debate whether his vulnerability 
+      serves or undermines the character, but his screen presence is undeniable. The chemistry between 
+      the two leads is electric, even if the film's script sometimes gets in the way of the emotion it's 
+      trying to generate.
+    </p>
+    <p>
+      The supporting cast — particularly Hong Chau as the sardonic Nelly, Alison Oliver as Isabella, 
+      and Shazad Latif as the doomed Edgar — adds texture and humanity that the central romance 
+      occasionally lacks.
+    </p>
+
+    
+    
+
+    <h2>The Soundtrack & Craft</h2>
+    <p>
+      One of the film's genuine triumphs is its anachronistic Charli xcx soundtrack. The pop star 
+      contributed an entire album of original songs — the lead single "House" featuring John Cale 
+      soundtracks Heathcliff galloping on horseback in a moment of pure cinematic bliss. The score by 
+      Anthony Willis (who worked on Saltburn) complements the songs perfectly. Whether you call it 
+      genius or gimmick, the music ensures you'll never mistake this for another period drama.
+    </p>
+
+    <h2>The Verdict</h2>
+    <p>
+      Critics have been divided — The Hollywood Reporter called it "a ripe and juicy bodice-ripper," 
+      while others found the style-over-substance approach frustrating. What's undeniable is that 
+      Fennell has made a film impossible to ignore. At $92 million worldwide in its opening week, 
+      audiences are showing up in droves to see Margot Robbie and Jacob Elordi "come undone."
+    </p>
+    <p>
+      If you approach it as Fennell intended — as an emotional sense-memory, a primal response to one 
+      of literature's most consuming love stories — there is genuine power here. If you come expecting 
+      Brontë's nuanced class and race commentary, look elsewhere. This is Wuthering Heights as 
+      Instagram aesthetic and Gothic fever dream. Make of that what you will.
+    </p>
+
+    <div class="verdict-box">
+      <div class="verd-label">⭐ Our Verdict</div>
+      <p>
+        A gorgeous, indulgent, deeply divisive adaptation that lives and dies by Fennell's maximalist 
+        conviction. Robbie and Elordi sizzle — even when the script leaves them stranded. Best 
+        experienced with no preconceptions and an open heart.
+      </p>
+    </div>
+
+  </article>
+
+  
+  <aside class="sidebar">
+    <div class="sidebar-card">
+      <h3>Cast</h3>
+      <div class="cast-item">
+        <span class="cast-actor">Margot Robbie</span>
+        <span class="cast-role">Catherine Earnshaw</span>
+      </div>
+      <div class="cast-item">
+        <span class="cast-actor">Jacob Elordi</span>
+        <span class="cast-role">Heathcliff</span>
+      </div>
+      <div class="cast-item">
+        <span class="cast-actor">Hong Chau</span>
+        <span class="cast-role">Nelly Dean</span>
+      </div>
+      <div class="cast-item">
+        <span class="cast-actor">Shazad Latif</span>
+        <span class="cast-role">Edgar Linton</span>
+      </div>
+      <div class="cast-item">
+        <span class="cast-actor">Alison Oliver</span>
+        <span class="cast-role">Isabella</span>
+      </div>
+      <div class="cast-item">
+        <span class="cast-actor">Martin Clunes</span>
+        <span class="cast-role">Mr. Earnshaw</span>
+      </div>
+      <div class="cast-item">
+        <span class="cast-actor">Ewan Mitchell</span>
+        <span class="cast-role">Joseph</span>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <h3>Film Details</h3>
+      <div class="detail-row">
+        <span class="detail-key">Director</span>
+        <span class="detail-val">Emerald Fennell</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Writer</span>
+        <span class="detail-val">Emerald Fennell</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Based On</span>
+        <span class="detail-val">Novel by Emily Brontë (1847)</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Cinematography</span>
+        <span class="detail-val">Linus Sandgren</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Music</span>
+        <span class="detail-val">Anthony Willis + Charli xcx</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Release Date</span>
+        <span class="detail-val">February 13, 2026</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Rating</span>
+        <span class="detail-val">R · 2h 16min</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Box Office</span>
+        <span class="detail-val">$92M worldwide</span>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <h3>Genre Tags</h3>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;">
+        <span style="background:var(--border);padding:4px 12px;font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:0.1em;color:var(--muted);">ROMANCE</span>
+        <span style="background:var(--border);padding:4px 12px;font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:0.1em;color:var(--muted);">PERIOD DRAMA</span>
+        <span style="background:var(--border);padding:4px 12px;font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:0.1em;color:var(--muted);">GOTHIC</span>
+        <span style="background:var(--border);padding:4px 12px;font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:0.1em;color:var(--muted);">LITERARY</span>
+      </div>
+    </div>
+  </aside>
+</main>
+
+</body>
+</html>

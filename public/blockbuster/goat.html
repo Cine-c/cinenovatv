@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GOAT (2026) | Film Review</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050814;
+      --surface: #0a0f1e;
+      --card: #0f1628;
+      --accent: #38e5a0;
+      --accent2: #1db87e;
+      --orange: #ff7a3c;
+      --purple: #8b5cf6;
+      --text: #e0eeff;
+      --muted: #6478a0;
+      --border: #1a2540;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 85vh;
+      min-height: 500px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 15% 50%, rgba(56,229,160,0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 85% 20%, rgba(139,92,246,0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 80%, rgba(255,122,60,0.1) 0%, transparent 50%),
+        linear-gradient(180deg, #080e20 0%, #050814 100%);
+    }
+
+    /* animated floating orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.12;
+      animation: float 8s ease-in-out infinite;
+    }
+    .orb-1 { width: 400px; height: 400px; background: var(--accent); top: -100px; left: -100px; animation-delay: 0s; }
+    .orb-2 { width: 300px; height: 300px; background: var(--purple); top: 50px; right: -50px; animation-delay: -3s; }
+    .orb-3 { width: 250px; height: 250px; background: var(--orange); bottom: 100px; left: 40%; animation-delay: -5s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.45;
+    }
+
+    
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, #050814 0%, rgba(5,8,20,0.3) 55%, transparent 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 48px 64px;
+      max-width: 820px;
+    }
+
+    .category-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Syne', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(56,229,160,0.1);
+      border: 1px solid rgba(56,229,160,0.25);
+      padding: 6px 16px;
+      border-radius: 999px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(80px, 14vw, 160px);
+      line-height: 0.88;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #38e5a0 0%, #8b5cf6 50%, #ff7a3c 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }
+
+    .hero-sub {
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .hero-tagline {
+      font-size: 19px;
+      font-style: italic;
+      font-weight: 300;
+      color: rgba(224,238,255,0.8);
+      max-width: 500px;
+    }
+
+    /* ── META BAR ── */
+    .meta-bar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 48px;
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .meta-item { display: flex; flex-direction: column; gap: 2px; }
+    .meta-label {
+      font-size: 9px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .meta-value { font-size: 14px; color: var(--text); }
+
+    .rating-badge { margin-left: auto; display: flex; gap: 12px; align-items: center; }
+    .r-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+    }
+    .r-num {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 20px;
+      color: var(--accent);
+    }
+    .r-src { font-size: 9px; letter-spacing: 0.15em; color: var(--muted); }
+
+    /* ── ARTICLE ── */
+    .article-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 64px 48px 100px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .article-body h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 24px;
+      letter-spacing: -0.01em;
+      color: var(--accent);
+      margin: 48px 0 14px;
+    }
+
+    .article-body p {
+      margin-bottom: 22px;
+      color: #a8bcdc;
+      font-size: 16px;
+    }
+
+    .intro-p {
+      font-size: 20px !important;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--text) !important;
+      line-height: 1.65;
+      margin-bottom: 36px !important;
+    }
+
+    .pull-quote {
+      position: relative;
+      margin: 36px 0;
+      padding: 28px 28px 28px 32px;
+      background: var(--card);
+      border-radius: 8px;
+      border-left: 4px solid var(--accent);
+    }
+
+    .pull-quote p {
+      font-size: 20px !important;
+      font-style: italic;
+      color: var(--text) !important;
+      margin: 0 !important;
+      line-height: 1.55;
+    }
+
+    .pull-quote cite {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    
+
+    /* Scorecard */
+    .scorecard {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 36px 0;
+    }
+
+    .score-item {
+      background: var(--card);
+      border-radius: 8px;
+      padding: 16px;
+      border: 1px solid var(--border);
+    }
+
+    .score-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .score-bar-bg {
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      margin-bottom: 6px;
+    }
+
+    .score-bar-fill {
+      height: 100%;
+      border-radius: 2px;
+    }
+
+    .score-value {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 22px;
+    }
+
+    .verdict-box {
+      background: linear-gradient(135deg, rgba(56,229,160,0.08) 0%, rgba(139,92,246,0.05) 100%);
+      border: 1px solid rgba(56,229,160,0.25);
+      border-radius: 8px;
+      padding: 28px;
+      margin-top: 48px;
+    }
+
+    .verd-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .verdict-box p {
+      font-style: italic;
+      color: var(--text) !important;
+      margin: 0 !important;
+      font-size: 15px !important;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar { position: sticky; top: 30px; }
+
+    .sidebar-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .sidebar-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cast-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+    .cast-item:last-child { border-bottom: none; }
+    .cast-role { color: var(--muted); font-style: italic; font-size: 12px; }
+
+    .detail-row {
+      display: flex;
+      flex-direction: column;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+    .detail-row:last-child { border-bottom: none; }
+    .detail-key {
+      font-family: 'Syne', sans-serif;
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+
+    @media (max-width: 768px) {
+      .article-wrapper { grid-template-columns: 1fr; }
+      .hero-content { padding: 0 20px 44px; }
+      .meta-bar { padding: 16px 20px; }
+      .rating-badge { margin-left: 0; }
+      .scorecard { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="/blockbuster" style="
+  position:fixed;top:16px;left:16px;z-index:9999;
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 16px;
+  background:rgba(0,0,0,0.7);backdrop-filter:blur(12px);
+  color:#fff;font-family:sans-serif;font-size:13px;font-weight:500;
+  text-decoration:none;border-radius:999px;border:1px solid rgba(255,255,255,0.1);
+  transition:all 0.2s ease;
+" onmouseover="this.style.background='rgba(139,92,246,0.8)'" onmouseout="this.style.background='rgba(0,0,0,0.7)'">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+  CineNovaTV
+</a>
+
+<header class="hero">
+  <div class="hero-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  
+  
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="category-tag">🐐 Animation · Sports · 2026</div>
+    <h1>GOAT</h1>
+    <div class="hero-sub">Greatest Of All Time · Sony Pictures Animation</div>
+    <p class="hero-tagline">
+      In a world where "smalls" don't ball — one little goat is about to rewrite the rulebook.
+    </p>
+  </div>
+</header>
+
+<div class="meta-bar">
+  <div class="meta-item">
+    <span class="meta-label">Director</span>
+    <span class="meta-value">Tyree Dillihay & Adam Rosette</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">Voices</span>
+    <span class="meta-value">McLaughlin · Union · Curry · Coughlan</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">Studio</span>
+    <span class="meta-value">Sony Pictures Animation</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">Runtime</span>
+    <span class="meta-value">1h 40min · PG</span>
+  </div>
+  <div class="rating-badge">
+    <div class="r-pill">
+      <div>
+        <div class="r-num">7.0</div>
+        <div class="r-src">IMDb</div>
+      </div>
+    </div>
+    <div class="r-pill">
+      <div>
+        <div class="r-num" style="color:var(--accent2)">82%</div>
+        <div class="r-src">RT Fresh</div>
+      </div>
+    </div>
+    <div class="r-pill">
+      <div>
+        <div class="r-num" style="color:var(--muted)">$54M</div>
+        <div class="r-src">Worldwide</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="article-wrapper">
+  <article class="article-body">
+
+    <p class="intro-p">
+      Sony Pictures Animation has delivered another visual knockout. <em>GOAT</em> may not reinvent 
+      the underdog playbook, but it plays its familiar game with enough heart, kinetic energy, 
+      and jaw-dropping animation that you'll forget to care about the predictable plot — at least 
+      for most of its brisk 100-minute runtime.
+    </p>
+
+    <p>
+      Timed perfectly to release alongside the 2026 NBA All-Star Game in Los Angeles, 
+      <em>GOAT</em> follows Will Harris (Caleb McLaughlin, <em>Stranger Things</em>), a teenage 
+      Boer goat living in a world divided between "bigs" and "smalls" — the large, powerful animals 
+      who dominate the high-contact sport of Roarball, and everyone else. Will has the talent. 
+      He just needs the shot.
+    </p>
+
+    
+
+    <h2>The Animation: Breathtaking</h2>
+    <p>
+      Let's be clear — <em>GOAT</em> is visually extraordinary. Built using Epic Games' Unreal Engine 
+      alongside Sony's Spider-Verse animation pipeline, the film achieves a style that looks 
+      genuinely unlike anything else currently in cinemas. Backgrounds blur into painterly smears 
+      of color during action sequences while the foreground characters burst with crisp detail. 
+      Roarball itself — played on shifting, hazardous courts with lava pits, jungle vines, 
+      and zero-gravity zones — is an animator's dream, and the film delivers.
+    </p>
+    <p>
+      Owen Gleiberman of Variety called it "a vibrant surprise — a sports fable with a hip-hop vibe 
+      and an off-kilter cosmology," while the AP's Mark Kennedy praised visuals as "spectacular." 
+      Rotten Tomatoes' critical consensus sums it up well: "Sporting a terrific voice cast, nifty 
+      animation, and a solid moral for youngsters, GOAT plays a familiar game with enough style 
+      and finesse to come close to the greats."
+    </p>
+
+    
+    <div class="scorecard">
+      <div class="score-item">
+        <div class="score-label">Animation Quality</div>
+        <div class="score-bar-bg"><div class="score-bar-fill" style="width:96%;background:var(--accent)"></div></div>
+        <div class="score-value" style="color:var(--accent)">9.6/10</div>
+      </div>
+      <div class="score-item">
+        <div class="score-label">Story Originality</div>
+        <div class="score-bar-bg"><div class="score-bar-fill" style="width:45%;background:var(--orange)"></div></div>
+        <div class="score-value" style="color:var(--orange)">4.5/10</div>
+      </div>
+      <div class="score-item">
+        <div class="score-label">Voice Cast</div>
+        <div class="score-bar-bg"><div class="score-bar-fill" style="width:82%;background:var(--purple)"></div></div>
+        <div class="score-value" style="color:var(--purple)">8.2/10</div>
+      </div>
+      <div class="score-item">
+        <div class="score-label">Family Fun</div>
+        <div class="score-bar-bg"><div class="score-bar-fill" style="width:88%;background:var(--accent2)"></div></div>
+        <div class="score-value" style="color:var(--accent2)">8.8/10</div>
+      </div>
+    </div>
+
+    <div class="pull-quote">
+      <p>"Sony Animation continues its hot streak of fantastic visuals with great storytelling. 
+      GOAT is a movie for all audiences — and the action in the matches is absolutely frenetic."</p>
+      <cite>— Rotten Tomatoes Audience Review</cite>
+    </div>
+
+    <h2>The Voice Cast</h2>
+    <p>
+      Caleb McLaughlin brings genuine warmth to Will — his is the kind of heartfelt lead 
+      performance that makes you root for a character even when the script keeps putting him through 
+      formula paces. Gabrielle Union is a delight as Jett Fillmore, the black panther superstar who 
+      initially views Will with contempt. Their dynamic — pride vs. humility, fame vs. hunger — 
+      gives the film its emotional core.
+    </p>
+    <p>
+      NBA legend Stephen Curry, who produced the film, voices Lenny Williamson, a giraffe on the 
+      team. David Harbour is reliably entertaining as the rhinoceros enforcer Archie, while 
+      Nicola Coughlan and Nick Kroll bring comedy to their animal teammates. The real-world 
+      basketball cameos — Dwyane Wade, A'ja Wilson, Kevin Love, Angel Reese — add a fun layer 
+      of authenticity for NBA fans.
+    </p>
+
+    
+
+    <h2>The Verdict</h2>
+    <p>
+      The script leans hard on every underdog trope in the book — the tragic backstory, 
+      the unbelieving teammates, the key injury, the buzzer-beater. Critics like the LA Times and 
+      Empire weren't convinced it transcends those limitations. And they're right: this is 
+      no Spider-Verse. But for families looking for an exciting, visually spectacular, emotionally 
+      honest animated film — especially young kids who dream of playing a sport they love — 
+      <em>GOAT</em> delivers where it counts.
+    </p>
+    <p>
+      At $54M worldwide in its opening week and an 82% on Rotten Tomatoes, audiences are 
+      clearly enjoying themselves. Predictable? Absolutely. Fun? Indisputably. Beautiful 
+      to look at? Unlike almost anything else in theaters right now.
+    </p>
+
+    <div class="verdict-box">
+      <div class="verd-label">🐐 Our Verdict</div>
+      <p>
+        A visual feast from Sony Pictures Animation that delivers exactly what it promises — 
+        a big-hearted underdog story rendered in stunning, genre-defining animation. If you 
+        have kids, this is your February must-watch. If you love basketball, you'll grin 
+        throughout. Bring your dreams.
+      </p>
+    </div>
+
+  </article>
+
+  <aside class="sidebar">
+    <div class="sidebar-card">
+      <h3>Voice Cast</h3>
+      <div class="cast-item">
+        <span>Caleb McLaughlin</span>
+        <span class="cast-role">Will Harris (Goat)</span>
+      </div>
+      <div class="cast-item">
+        <span>Gabrielle Union</span>
+        <span class="cast-role">Jett Fillmore (Panther)</span>
+      </div>
+      <div class="cast-item">
+        <span>Stephen Curry</span>
+        <span class="cast-role">Lenny Williamson (Giraffe)</span>
+      </div>
+      <div class="cast-item">
+        <span>Aaron Pierre</span>
+        <span class="cast-role">Mane Attraction (Horse)</span>
+      </div>
+      <div class="cast-item">
+        <span>Nicola Coughlan</span>
+        <span class="cast-role">Olivia Burke (Ostrich)</span>
+      </div>
+      <div class="cast-item">
+        <span>David Harbour</span>
+        <span class="cast-role">Archie Everhardt (Rhino)</span>
+      </div>
+      <div class="cast-item">
+        <span>Nick Kroll</span>
+        <span class="cast-role">Modo (Komodo Dragon)</span>
+      </div>
+      <div class="cast-item">
+        <span>Jennifer Hudson</span>
+        <span class="cast-role">Special Role</span>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <h3>Film Details</h3>
+      <div class="detail-row">
+        <span class="detail-key">Director</span>
+        <span>Tyree Dillihay & Adam Rosette</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Producer</span>
+        <span>Stephen Curry (NBA)</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Animation</span>
+        <span>Sony Imageworks + Unreal Engine</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Music</span>
+        <span>Kris Bowers</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Studio</span>
+        <span>Sony Pictures Animation</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Release</span>
+        <span>February 13, 2026</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Rating</span>
+        <span>PG · 1h 40min</span>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <h3>Genre Tags</h3>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;">
+        <span style="background:rgba(56,229,160,0.1);border:1px solid rgba(56,229,160,0.2);padding:4px 12px;border-radius:999px;font-size:9px;letter-spacing:0.1em;font-family:'Syne',sans-serif;font-weight:700;color:var(--accent);">ANIMATION</span>
+        <span style="background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.2);padding:4px 12px;border-radius:999px;font-size:9px;letter-spacing:0.1em;font-family:'Syne',sans-serif;font-weight:700;color:var(--purple);">SPORTS</span>
+        <span style="background:rgba(255,122,60,0.1);border:1px solid rgba(255,122,60,0.2);padding:4px 12px;border-radius:999px;font-size:9px;letter-spacing:0.1em;font-family:'Syne',sans-serif;font-weight:700;color:var(--orange);">FAMILY</span>
+        <span style="background:rgba(56,229,160,0.08);border:1px solid var(--border);padding:4px 12px;border-radius:999px;font-size:9px;letter-spacing:0.1em;font-family:'Syne',sans-serif;font-weight:700;color:var(--muted);">COMEDY</span>
+      </div>
+    </div>
+  </aside>
+</main>
+
+</body>
+</html>

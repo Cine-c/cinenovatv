@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>How to Make a Killing (2026) | Film Review</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Barlow:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f4f0e8;
+      --surface: #ede8de;
+      --card: #e8e2d5;
+      --accent: #1a1208;
+      --red: #b5200e;
+      --gold: #8b6914;
+      --text: #1a1208;
+      --muted: #7a7260;
+      --border: #d5cfc0;
+      --ink: #2c2416;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Barlow', sans-serif;
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    /* ── MASTHEAD ── */
+    .masthead {
+      background: var(--accent);
+      padding: 12px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .masthead-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 13px;
+      font-style: italic;
+      color: #c8a84a;
+      letter-spacing: 0.05em;
+    }
+
+    .masthead-date {
+      font-family: 'Barlow', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #8a7a5a;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 80vh;
+      min-height: 500px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.35;
+      background: linear-gradient(135deg, #2c1a08 0%, #1a1208 100%);
+    }
+
+    
+
+    .hero-texture {
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px),
+        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 4px);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, var(--bg) 0%, rgba(244,240,232,0.2) 55%, transparent 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 52px 60px;
+      max-width: 840px;
+    }
+
+    .edition-tag {
+      display: inline-block;
+      font-family: 'Barlow', sans-serif;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--red);
+      border-bottom: 1px solid var(--red);
+      padding-bottom: 3px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: clamp(42px, 6.5vw, 80px);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+
+    .hero h1 em {
+      color: var(--red);
+      font-style: italic;
+    }
+
+    .hero-sub {
+      font-family: 'Barlow', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .hero-tagline {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    /* ── META BAR ── */
+    .meta-bar {
+      background: var(--accent);
+      padding: 16px 52px;
+      display: flex;
+      gap: 36px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .meta-item { display: flex; flex-direction: column; gap: 2px; }
+    .meta-label {
+      font-size: 8px;
+      font-family: 'Barlow', sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #6a5a3a;
+    }
+    .meta-value { font-size: 13px; color: #e8d8a8; }
+
+    .rating-badge { margin-left: auto; display: flex; gap: 14px; }
+    .r-box {
+      text-align: center;
+      padding: 10px 14px;
+      border: 1px solid #3a2c10;
+      min-width: 60px;
+    }
+    .r-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: #c8a84a;
+      line-height: 1;
+    }
+    .r-src {
+      font-size: 8px;
+      letter-spacing: 0.2em;
+      color: #6a5a3a;
+    }
+
+    /* ── ARTICLE ── */
+    .article-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 64px 52px 100px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .article-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 48px 0 14px;
+      border-bottom: 2px solid var(--red);
+      padding-bottom: 8px;
+    }
+
+    .article-body p {
+      margin-bottom: 22px;
+      color: #3a3228;
+      font-size: 16px;
+    }
+
+    .intro-p {
+      font-family: 'Playfair Display', serif !important;
+      font-size: 21px !important;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--ink) !important;
+      line-height: 1.6;
+      margin-bottom: 36px !important;
+    }
+
+    .drop-cap::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 72px;
+      font-weight: 900;
+      float: left;
+      line-height: 0.8;
+      padding-right: 10px;
+      padding-top: 8px;
+      color: var(--red);
+    }
+
+    .pull-quote {
+      margin: 36px 0;
+      padding: 24px 32px;
+      border-top: 3px double var(--ink);
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .pull-quote p {
+      font-family: 'Playfair Display', serif !important;
+      font-size: 22px !important;
+      font-style: italic;
+      color: var(--ink) !important;
+      margin: 0 !important;
+      line-height: 1.5;
+    }
+
+    .pull-quote cite {
+      display: block;
+      font-family: 'Barlow', sans-serif;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 12px;
+    }
+
+    
+
+    /* Kill list graphic */
+    .kill-list {
+      background: var(--accent);
+      padding: 28px 32px;
+      margin: 36px 0;
+    }
+
+    .kill-list-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 13px;
+      font-style: italic;
+      color: #c8a84a;
+      letter-spacing: 0.05em;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #3a2c10;
+    }
+
+    .kill-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0;
+      border-bottom: 1px solid #2a1e08;
+      font-size: 13px;
+      color: #c8b880;
+    }
+
+    .kill-item:last-child { border-bottom: none; }
+
+    .kill-item .status {
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .kill-item .name { font-family: 'Playfair Display', serif; font-style: italic; flex: 1; }
+    .kill-item .actor { color: #7a6a40; font-size: 12px; }
+
+    .verdict-box {
+      border: 2px solid var(--accent);
+      padding: 28px 32px;
+      margin-top: 48px;
+      background: var(--card);
+    }
+
+    .verd-label {
+      font-family: 'Barlow', sans-serif;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 10px;
+    }
+
+    .verdict-box p {
+      font-family: 'Playfair Display', serif !important;
+      font-style: italic;
+      color: var(--ink) !important;
+      margin: 0 !important;
+      font-size: 17px !important;
+      line-height: 1.6;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar { position: sticky; top: 30px; }
+
+    .sidebar-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .sidebar-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--red);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cast-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+    .cast-item:last-child { border-bottom: none; }
+    .cast-role { color: var(--muted); font-style: italic; font-size: 12px; }
+
+    .detail-row {
+      display: flex;
+      flex-direction: column;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+    .detail-row:last-child { border-bottom: none; }
+    .detail-key {
+      font-family: 'Barlow', sans-serif;
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+
+    @media (max-width: 768px) {
+      .article-wrapper { grid-template-columns: 1fr; }
+      .hero-content { padding: 0 20px 44px; }
+      .meta-bar { padding: 16px 20px; }
+      .rating-badge { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="/blockbuster" style="
+  position:fixed;top:16px;left:16px;z-index:9999;
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 16px;
+  background:rgba(0,0,0,0.7);backdrop-filter:blur(12px);
+  color:#fff;font-family:sans-serif;font-size:13px;font-weight:500;
+  text-decoration:none;border-radius:999px;border:1px solid rgba(255,255,255,0.1);
+  transition:all 0.2s ease;
+" onmouseover="this.style.background='rgba(139,92,246,0.8)'" onmouseout="this.style.background='rgba(0,0,0,0.7)'">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+  CineNovaTV
+</a>
+
+<div class="masthead">
+  <span class="masthead-title">The Cinematic Chronicle</span>
+  <span class="masthead-date">February 20, 2026 — In Theaters Now</span>
+</div>
+
+<header class="hero">
+  <div class="hero-texture"></div>
+  
+  <div class="hero-img"></div>
+  
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="edition-tag">A24 · Dark Comedy · Now Playing</div>
+    <h1>How to Make a <em>Killing</em></h1>
+    <div class="hero-sub">A Film by John Patton Ford · Inspired by Kind Hearts & Coronets</div>
+    <p class="hero-tagline">"Call me when you've killed them all."</p>
+  </div>
+</header>
+
+<div class="meta-bar">
+  <div class="meta-item">
+    <span class="meta-label">Director</span>
+    <span class="meta-value">John Patton Ford</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">Stars</span>
+    <span class="meta-value">Glen Powell · Margaret Qualley · Ed Harris</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">Studio</span>
+    <span class="meta-value">A24</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">Runtime</span>
+    <span class="meta-value">1h 45min · Rated R</span>
+  </div>
+  <div class="rating-badge">
+    <div class="r-box">
+      <div class="r-num">6.8</div>
+      <div class="r-src">IMDb</div>
+    </div>
+  </div>
+</div>
+
+<main class="article-wrapper">
+  <article class="article-body">
+
+    <p class="intro-p">
+      Becket Redfellow has seven relatives standing between him and a billion-dollar inheritance. 
+      He has nothing but time, a bespoke suit, and a very convenient talent for making 
+      accidents look like accidents. Glen Powell has never been more charming. The movie 
+      has never been more frustratingly half-baked.
+    </p>
+
+    <p class="drop-cap">
+      John Patton Ford's <em>How to Make a Killing</em> arrives with an impeccable pedigree: 
+      an A24 release, a cast of extraordinary depth, a wickedly appealing premise loosely 
+      inspired by the 1949 British comedy classic <em>Kind Hearts and Coronets</em>, 
+      and two of Hollywood's most watchable stars in their prime. On paper, this should be 
+      a knockout. In practice, it's a film that promises more than it delivers — though it 
+      delivers enough to be worth your Friday night.
+    </p>
+
+    
+
+    <h2>The Setup</h2>
+    <p>
+      The film opens on death row, four hours before execution. Becket Redfellow (Powell), 
+      calm and perfectly groomed in a satin sleeping mask, tells his life story to a prison 
+      chaplain. His mother, disowned at 18 when she refused to abort her pregnancy, raised him 
+      in Newark with stories of the family fortune he was owed. After she died, he decided to 
+      collect — starting with the seven Redfellow cousins, uncles, and aunts standing in the 
+      line of succession ahead of him.
+    </p>
+    <p>
+      Each murder is tailored to its victim's fatal flaw. A party-bro cousin meets his end 
+      on a yacht. A self-serious "white Basquiat" artist gets blown up in his own darkroom 
+      (spectacularly, and to great comedic effect). A finance-bro cousin can barely find 
+      the cliff he's about to drive off. The film has a mischievous delight in the 
+      inventiveness of its kills — at its best, it's genuinely funny.
+    </p>
+
+    
+    <div class="kill-list">
+      <div class="kill-list-title">✦ The Redfellow Inheritance — A Status Update ✦</div>
+      <div class="kill-item">
+        <span class="status">☑</span>
+        <span class="name">Taylor Redfellow</span>
+        <span class="actor">Raff Law · Party boy · Yachting "accident"</span>
+      </div>
+      <div class="kill-item">
+        <span class="status">☑</span>
+        <span class="name">Noah Redfellow</span>
+        <span class="actor">Zach Woods · "White Basquiat" · Darkroom incident</span>
+      </div>
+      <div class="kill-item">
+        <span class="status">⋯</span>
+        <span class="name">Five more Redfellows</span>
+        <span class="actor">Various actors · Classified</span>
+      </div>
+      <div class="kill-item">
+        <span class="status">💰</span>
+        <span class="name">Warren Redfellow (Uncle)</span>
+        <span class="actor">Bill Camp · The kind one. This complicates things.</span>
+      </div>
+    </div>
+
+    <div class="pull-quote">
+      <p>"Powell reconfirms that he's cut out for the leading-man spotlight. He's so good 
+      that he makes you believe someone who looks like Chris Hemsworth—sorry, Glen Powell—
+      could be awkward around women."</p>
+      <cite>— Variety</cite>
+    </div>
+
+    <h2>Powell & Qualley</h2>
+    <p>
+      Glen Powell, following the success of <em>Hit Man</em>, once again demonstrates 
+      that his particular gift is weaponizing likeability. Becket is fundamentally doing 
+      monstrous things — and yet Powell keeps you rooting for him because he plays the 
+      character not as cold or calculated, but as earnestly confused about whether what 
+      he's doing is actually wrong. It's subtle, surprisingly nuanced work.
+    </p>
+    <p>
+      Margaret Qualley, as his childhood love Julia — now a femme fatale who discovers 
+      Becket's scheme and uses it as leverage — is electric in her scenes but criminally 
+      underused. Critics have noted that her performance feels slightly misaligned with 
+      the film's tone: while Powell plays the whole thing as a breezily arch dark comedy, 
+      Qualley commits to something more genuinely sinister. The friction is interesting 
+      but never quite resolves. When she's onscreen, the movie crackles. When she's not, 
+      you feel the absence.
+    </p>
+    <p>
+      The supporting ensemble — Ed Harris as the cold Redfellow patriarch, Bill Camp as 
+      the unexpectedly kind uncle, Zach Woods as the most amusingly insufferable art-bro 
+      since Patrick Bateman — is largely excellent, even if the film's structure means 
+      most of them disappear before you've had enough time with them.
+    </p>
+
+    
+
+    <h2>The Verdict</h2>
+    <p>
+      The critical consensus on <em>How to Make a Killing</em> lands somewhere between 
+      "pleasant surprise" and "frustrating near-miss." IndieWire criticized its heavy 
+      voiceover narration as exposition-heavy. The Seattle Times called it "a disappointment." 
+      But The Daily Beast and Variety found it a brisk, entertaining lark that succeeds 
+      on Powell's charisma alone.
+    </p>
+    <p>
+      Where you land will depend on your expectations. As a dark comedy satire of wealth 
+      and class in the tradition of <em>Succession</em> or <em>The Menu</em>, it doesn't 
+      fully land its punches. As a slickly made, darkly funny 105-minute ride anchored by 
+      two megawatt stars at peak watchability — it's a good time at the movies.
+    </p>
+
+    <div class="verdict-box">
+      <div class="verd-label">✦ Our Verdict</div>
+      <p>
+        A glossy, darkly amusing inheritance comedy that succeeds precisely as far as 
+        Glen Powell's charisma carries it — and he carries it quite far. Margaret Qualley 
+        deserved more screen time, the script deserved more bite, but the whole 
+        enterprise is exactly the kind of entertaining lark that February cinema was 
+        made for.
+      </p>
+    </div>
+
+  </article>
+
+  <aside class="sidebar">
+    <div class="sidebar-card">
+      <h3>Cast</h3>
+      <div class="cast-item">
+        <span>Glen Powell</span>
+        <span class="cast-role">Becket Redfellow</span>
+      </div>
+      <div class="cast-item">
+        <span>Margaret Qualley</span>
+        <span class="cast-role">Julia Steinway</span>
+      </div>
+      <div class="cast-item">
+        <span>Jessica Henwick</span>
+        <span class="cast-role">Ruth</span>
+      </div>
+      <div class="cast-item">
+        <span>Ed Harris</span>
+        <span class="cast-role">Whitelaw Redfellow</span>
+      </div>
+      <div class="cast-item">
+        <span>Bill Camp</span>
+        <span class="cast-role">Uncle Warren</span>
+      </div>
+      <div class="cast-item">
+        <span>Zach Woods</span>
+        <span class="cast-role">Noah</span>
+      </div>
+      <div class="cast-item">
+        <span>Topher Grace</span>
+        <span class="cast-role">Redfellow family member</span>
+      </div>
+      <div class="cast-item">
+        <span>Raff Law</span>
+        <span class="cast-role">Taylor</span>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <h3>Film Details</h3>
+      <div class="detail-row">
+        <span class="detail-key">Director</span>
+        <span>John Patton Ford</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Inspired By</span>
+        <span>Kind Hearts and Coronets (1949)</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Studio</span>
+        <span>A24</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Cinematography</span>
+        <span>Todd Banhazl</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Release</span>
+        <span>February 20, 2026</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Rating</span>
+        <span>R · 1h 45min</span>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <h3>Genre Tags</h3>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;">
+        <span style="background:rgba(181,32,14,0.1);border:1px solid rgba(181,32,14,0.3);padding:4px 12px;font-size:10px;font-family:'Barlow',sans-serif;font-weight:600;letter-spacing:0.1em;color:var(--red);">DARK COMEDY</span>
+        <span style="background:var(--surface);border:1px solid var(--border);padding:4px 12px;font-size:10px;font-family:'Barlow',sans-serif;font-weight:600;letter-spacing:0.1em;color:var(--muted);">THRILLER</span>
+        <span style="background:var(--surface);border:1px solid var(--border);padding:4px 12px;font-size:10px;font-family:'Barlow',sans-serif;font-weight:600;letter-spacing:0.1em;color:var(--muted);">SATIRE</span>
+        <span style="background:var(--surface);border:1px solid var(--border);padding:4px 12px;font-size:10px;font-family:'Barlow',sans-serif;font-weight:600;letter-spacing:0.1em;color:var(--muted);">NOIR</span>
+      </div>
+    </div>
+  </aside>
+</main>
+
+</body>
+</html>

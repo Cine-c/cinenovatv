@@ -9,7 +9,7 @@ export function OrganizationJsonLd() {
     name: 'CineNovaTV',
     url: siteUrl,
     logo: `${siteUrl}/logo.png`,
-    sameAs: [],
+    sameAs: ['https://x.com/CineNovaTV'],
     description: 'Your source for movie trailers, reviews, and the latest film news.',
   };
 

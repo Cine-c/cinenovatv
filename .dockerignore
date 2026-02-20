@@ -26,6 +26,12 @@ Thumbs.db
 # Firebase
 serviceAccountKey.json
 
+# React Native app (separate project)
+cinenovatv-app
+
+# Build scripts (not needed in Docker)
+scripts
+
 # Misc
 README.md
 README.txt

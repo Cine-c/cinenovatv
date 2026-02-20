@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Crime 101 (2026) | Film Review</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400&family=IBM+Plex+Serif:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #08090a;
+      --surface: #0f1012;
+      --card: #13151a;
+      --accent: #f0c040;
+      --accent2: #c8922a;
+      --red: #d44a2a;
+      --text: #dde0e8;
+      --muted: #6a7080;
+      --border: #1e2128;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'IBM Plex Serif', serif;
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 88vh;
+      min-height: 540px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0.5;
+      background: linear-gradient(135deg, #1a1208 0%, #0a0c10 50%, #08090a 100%);
+    }
+
+    
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, #08090a 0%, rgba(8,9,10,0.3) 55%, transparent 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 48px 64px;
+      max-width: 860px;
+    }
+
+    .category-tag {
+      display: inline-block;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(240,192,64,0.1);
+      border-left: 3px solid var(--accent);
+      padding: 4px 12px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(72px, 12vw, 140px);
+      line-height: 0.92;
+      letter-spacing: 0.03em;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .hero h1 span {
+      color: var(--accent);
+    }
+
+    .hero-year {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .hero-tagline {
+      font-size: 19px;
+      font-style: italic;
+      font-weight: 300;
+      color: rgba(221,224,232,0.75);
+      border-left: 2px solid var(--accent2);
+      padding-left: 16px;
+      max-width: 480px;
+    }
+
+    /* ── META BAR ── */
+    .meta-bar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 48px;
+      display: flex;
+      gap: 36px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .meta-item { display: flex; flex-direction: column; gap: 2px; }
+    .meta-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 8px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .meta-value { font-size: 14px; color: var(--text); }
+
+    .rating-badge { margin-left: auto; display: flex; gap: 12px; }
+    .r-box {
+      padding: 10px 16px;
+      border: 1px solid var(--border);
+      text-align: center;
+      min-width: 64px;
+    }
+    .r-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .r-src {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 8px;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+    }
+
+    /* ── BODY ── */
+    .article-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 64px 48px 100px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .article-body h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      margin: 48px 0 14px;
+    }
+
+    .article-body p {
+      margin-bottom: 22px;
+      color: #c5c9d5;
+      font-size: 16px;
+    }
+
+    .intro-p {
+      font-size: 20px !important;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--text) !important;
+      line-height: 1.65;
+      margin-bottom: 36px !important;
+    }
+
+    .pull-quote {
+      border-top: 2px solid var(--accent);
+      border-bottom: 1px solid var(--border);
+      padding: 22px 0;
+      margin: 36px 0;
+    }
+
+    .pull-quote p {
+      font-size: 23px !important;
+      font-family: 'IBM Plex Serif', serif;
+      font-style: italic;
+      color: var(--text) !important;
+      margin: 0 !important;
+    }
+
+    .pull-quote cite {
+      display: block;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    
+
+    .verdict-box {
+      border: 1px solid var(--accent);
+      padding: 28px;
+      margin-top: 48px;
+      background: linear-gradient(135deg, rgba(240,192,64,0.06) 0%, transparent 100%);
+    }
+
+    .verd-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .verdict-box p {
+      font-size: 15px !important;
+      color: var(--text) !important;
+      margin: 0 !important;
+      font-style: italic;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar { position: sticky; top: 30px; }
+
+    .sidebar-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .sidebar-card h3 {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cast-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+    .cast-item:last-child { border-bottom: none; }
+    .cast-role { color: var(--muted); font-style: italic; font-size: 12px; }
+
+    .detail-row {
+      display: flex;
+      flex-direction: column;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+    .detail-row:last-child { border-bottom: none; }
+    .detail-key {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 8px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+
+    @media (max-width: 768px) {
+      .article-wrapper { grid-template-columns: 1fr; }
+      .hero-content { padding: 0 20px 40px; }
+      .meta-bar { padding: 16px 20px; }
+      .rating-badge { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="/blockbuster" style="
+  position:fixed;top:16px;left:16px;z-index:9999;
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 16px;
+  background:rgba(0,0,0,0.7);backdrop-filter:blur(12px);
+  color:#fff;font-family:sans-serif;font-size:13px;font-weight:500;
+  text-decoration:none;border-radius:999px;border:1px solid rgba(255,255,255,0.1);
+  transition:all 0.2s ease;
+" onmouseover="this.style.background='rgba(139,92,246,0.8)'" onmouseout="this.style.background='rgba(0,0,0,0.7)'">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+  CineNovaTV
+</a>
+
+<header class="hero">
+  
+  <div class="hero-img"></div>
+  
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="category-tag">// Crime · Thriller · 2026</div>
+    <h1>CRIME <span>101</span></h1>
+    <div class="hero-year">[ IN THEATERS — FEBRUARY 13, 2026 ]</div>
+    <p class="hero-tagline">
+      In a city built on corruption, the only code that matters is your own.
+    </p>
+  </div>
+</header>
+
+<div class="meta-bar">
+  <div class="meta-item">
+    <span class="meta-label">Director</span>
+    <span class="meta-value">Bart Layton</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">Stars</span>
+    <span class="meta-value">Hemsworth · Ruffalo · Berry · Keoghan</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">Studio</span>
+    <span class="meta-value">Amazon MGM Studios</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">Runtime</span>
+    <span class="meta-value">2h 20min · Rated R</span>
+  </div>
+  <div class="rating-badge">
+    <div class="r-box">
+      <div class="r-num">7.2</div>
+      <div class="r-src">IMDb</div>
+    </div>
+    <div class="r-box">
+      <div class="r-num" style="color:var(--muted)">$28M</div>
+      <div class="r-src">Worldwide</div>
+    </div>
+  </div>
+</div>
+
+<main class="article-wrapper">
+  <article class="article-body">
+
+    <p class="intro-p">
+      It feels like a gift — a lean, mean, old-fashioned crime thriller that doesn't pander, 
+      doesn't inflate itself with CGI spectacle, and trusts its impeccable cast to deliver. 
+      <em>Crime 101</em> is the kind of movie Hollywood stopped making, and Bart Layton just 
+      made it anyway.
+    </p>
+
+    <p>
+      Based on Don Winslow's 2020 novella, the film is set against the neon-streaked grit of 
+      Los Angeles, where Mike Davis (Chris Hemsworth) executes clockwork jewelry heists along 
+      the 101 Freeway — meticulous, bloodless, and invisible to law enforcement. Until now.
+    </p>
+
+    
+
+    <h2>THE HEIST MOVIE REBORN</h2>
+    <p>
+      Director Bart Layton, best known for <em>American Animals</em>, has crafted something 
+      that reviewers have compared to Michael Mann's <em>Heat</em> and William Friedkin's 
+      <em>To Live and Die in L.A.</em> — and the comparisons aren't hyperbolic. The film 
+      opens with a stunning set piece that launches from 0 to 100mph in seconds, establishing 
+      a pulse that rarely slows. Blanck Mass's pulsating score amplifies every moment of 
+      tension with menacing precision.
+    </p>
+    <p>
+      This isn't a heist thriller in the Ocean's Eleven sense. There are no elaborate trap-door 
+      reveals. Instead, Layton builds a rich tapestry of compromised characters, each one 
+      trapped in a corrupt world while trying to maintain some personal code of honor. It's 
+      more character study than caper — four damaged people on a collision course.
+    </p>
+
+    <div class="pull-quote">
+      <p>"Crime 101 is an excellent throwback thriller — the kind they simply don't make 
+      anymore. Hemsworth has the range to make us believe someone who looks like Chris 
+      Hemsworth could be fearfully hanging onto a persona while running from a darker past."</p>
+      <cite>— Commentary Track / Matt Goldberg</cite>
+    </div>
+
+    <h2>THE CAST</h2>
+    <p>
+      Chris Hemsworth is a revelation. Post-Avengers, it would be easy to cast him as 
+      invulnerable action hero — but Layton finds the cracks in that armor. His Mike Davis 
+      is stoic, controlled, masterful at his craft, yet radiates a barely-submerged dread. 
+      He has trouble holding eye contact. He's running from something he'll never name. 
+      Hemsworth sells every frame of it.
+    </p>
+    <p>
+      Mark Ruffalo, doughy and unshaven, plays Lou — the last honest detective in a department 
+      that has become a corporation, obsessed with closing cases rather than finding truth. 
+      His Lou is the film's moral compass, and Ruffalo's sly understatement is a constant 
+      delight. Meanwhile, Halle Berry is quietly electrifying as Sharon, an insurance broker 
+      who gets pulled into the web and explodes when cornered.
+    </p>
+    <p>
+      Barry Keoghan, with comically bleached hair, plays Ormon — a volatile, impulsive 
+      young thief whose recklessness unravels everything. It's a performance that injects 
+      chaos into the film's otherwise cool, controlled atmosphere.
+    </p>
+
+    
+
+    <h2>THE VERDICT</h2>
+    <p>
+      <em>Crime 101</em> isn't flawless. Its 140-minute runtime strains in the middle, and 
+      some subplots feel superfluous. A few critics flagged that the final act outstays its 
+      welcome by 10 minutes. But these are minor complaints against a film that accomplishes 
+      something rare: it reminds you why you fell in love with going to the movies.
+    </p>
+    <p>
+      With a 7.2 on IMDb and overwhelming critical praise, this is the sleeper hit of 
+      February 2026. For fans of intelligent, adult crime cinema — think <em>Heat</em>, 
+      <em>Thief</em>, <em>The Thomas Crown Affair</em> — this is essential viewing.
+    </p>
+
+    <div class="verdict-box">
+      <div class="verd-label">★ Our Verdict</div>
+      <p>
+        A supremely crafted throwback thriller powered by Hemsworth's best dramatic performance 
+        to date. Layton has delivered a modern LA noir with soul, style, and an extraordinary 
+        ensemble. Don't miss it.
+      </p>
+    </div>
+
+  </article>
+
+  <aside class="sidebar">
+    <div class="sidebar-card">
+      <h3>Cast</h3>
+      <div class="cast-item">
+        <span>Chris Hemsworth</span>
+        <span class="cast-role">Mike Davis</span>
+      </div>
+      <div class="cast-item">
+        <span>Mark Ruffalo</span>
+        <span class="cast-role">Det. Lou Lubesnick</span>
+      </div>
+      <div class="cast-item">
+        <span>Halle Berry</span>
+        <span class="cast-role">Sharon</span>
+      </div>
+      <div class="cast-item">
+        <span>Barry Keoghan</span>
+        <span class="cast-role">Ormon</span>
+      </div>
+      <div class="cast-item">
+        <span>Monica Barbaro</span>
+        <span class="cast-role">Maya</span>
+      </div>
+      <div class="cast-item">
+        <span>Nick Nolte</span>
+        <span class="cast-role">Money</span>
+      </div>
+      <div class="cast-item">
+        <span>Jennifer Jason Leigh</span>
+        <span class="cast-role">Lou's wife</span>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <h3>Film Details</h3>
+      <div class="detail-row">
+        <span class="detail-key">Director</span>
+        <span>Bart Layton</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Based On</span>
+        <span>Novella by Don Winslow (2020)</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Cinematography</span>
+        <span>Erik Alexander Wilson</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Score</span>
+        <span>Blanck Mass</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Studio</span>
+        <span>Amazon MGM Studios</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Release</span>
+        <span>February 13, 2026</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Budget</span>
+        <span>$90 million</span>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <h3>Genre Tags</h3>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;">
+        <span style="background:rgba(240,192,64,0.08);border:1px solid var(--border);padding:4px 10px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.1em;color:var(--muted);">CRIME</span>
+        <span style="background:rgba(240,192,64,0.08);border:1px solid var(--border);padding:4px 10px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.1em;color:var(--muted);">THRILLER</span>
+        <span style="background:rgba(240,192,64,0.08);border:1px solid var(--border);padding:4px 10px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.1em;color:var(--muted);">NOIR</span>
+        <span style="background:rgba(240,192,64,0.08);border:1px solid var(--border);padding:4px 10px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.1em;color:var(--muted);">HEIST</span>
+      </div>
+    </div>
+  </aside>
+</main>
+
+</body>
+</html>
