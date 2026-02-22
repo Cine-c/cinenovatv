@@ -10,6 +10,9 @@ public/config.js
 .next/
 out/
 
+# OpenNext / Cloudflare build output
+.open-next/
+
 # Node modules
 node_modules/
 

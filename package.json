@@ -7,13 +7,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "pages:build": "npx @cloudflare/next-on-pages",
-    "pages:dev": "npx wrangler pages dev .vercel/output/static --compatibility-date=2024-12-01 --compatibility-flags=nodejs_compat"
+    "pages:build": "npx opennextjs-cloudflare build",
+    "pages:dev": "npx opennextjs-cloudflare dev"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@cloudflare/next-on-pages": "^1"
+    "@opennextjs/cloudflare": "^1"
   },
   "dependencies": {
     "disqus-react": "^1.1.7",
