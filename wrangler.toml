@@ -5,6 +5,11 @@ compatibility_flags = ["nodejs_compat"]
 
 assets = { directory = ".open-next/assets", binding = "ASSETS" }
 
+routes = [
+  { pattern = "cinenovatv.com/*", zone_name = "cinenovatv.com" },
+  { pattern = "www.cinenovatv.com/*", zone_name = "cinenovatv.com" },
+]
+
 [vars]
 NODE_ENV = "production"
 
