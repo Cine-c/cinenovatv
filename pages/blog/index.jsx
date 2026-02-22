@@ -4,7 +4,6 @@ import Image from 'next/image';
 import SEOHead from '../../components/seo/SEOHead';
 import { ItemListJsonLd } from '../../components/seo/JsonLd';
 import BlogList from '../../components/blog/BlogList';
-import { getAllPublishedPosts } from '../../lib/firebase';
 
 const POSTS_PER_PAGE = 9;
 
@@ -214,6 +213,7 @@ export async function getStaticProps() {
   let posts = [];
 
   try {
+    const { getAllPublishedPosts } = await import('../../lib/firebase');
     posts = await getAllPublishedPosts();
   } catch (err) {
     console.error('Error fetching posts:', err);

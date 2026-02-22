@@ -1,4 +1,3 @@
-import { getAllPostSlugs } from '../../lib/firebase';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.cinenovatv.com';
 
@@ -41,6 +40,7 @@ export default async function handler(req, res) {
   let posts = [];
 
   try {
+    const { getAllPostSlugs } = await import('../../lib/firebase');
     posts = await getAllPostSlugs();
   } catch (err) {
     console.error('Error fetching posts for sitemap:', err);

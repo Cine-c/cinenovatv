@@ -3,7 +3,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import SEOHead from '../../components/seo/SEOHead';
 import { BlogPostingJsonLd } from '../../components/seo/JsonLd';
-import { getPostBySlug, getAllPublishedPosts, getAllPostSlugs } from '../../lib/firebase';
 import Disqus from '../../components/Disqus';
 import TaboolaWidget from '../../components/TaboolaWidget';
 import { getConsentStatus } from '../../components/CookieConsent';
@@ -138,6 +137,7 @@ export default function BlogPost({ post, relatedPosts }) {
 export async function getStaticPaths() {
   let slugs = [];
   try {
+    const { getAllPostSlugs } = await import('../../lib/firebase');
     slugs = await getAllPostSlugs();
   } catch (err) {
     console.error('Error fetching slugs:', err);
@@ -155,6 +155,7 @@ export async function getStaticProps({ params }) {
   let post = null;
   let relatedPosts = [];
   try {
+    const { getPostBySlug, getAllPublishedPosts } = await import('../../lib/firebase');
     post = await getPostBySlug(slug);
 
     if (post) {

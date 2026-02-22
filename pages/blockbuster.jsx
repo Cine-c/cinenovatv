@@ -3,7 +3,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import SEOHead from '../components/seo/SEOHead';
 import { ItemListJsonLd } from '../components/seo/JsonLd';
-import { getAllPublishedPosts } from '../lib/firebase';
 
 export default function Blockbuster({ posts, categories }) {
   const [activeCategory, setActiveCategory] = useState('');
@@ -277,6 +276,7 @@ export default function Blockbuster({ posts, categories }) {
 export async function getStaticProps() {
   let posts = [];
   try {
+    const { getAllPublishedPosts } = await import('../lib/firebase');
     posts = await getAllPublishedPosts();
   } catch (err) {
     console.error('Error fetching posts:', err);
