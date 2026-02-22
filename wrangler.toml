@@ -12,7 +12,5 @@ routes = [
 
 [vars]
 NODE_ENV = "production"
-
-# Environment variables containing secrets (TMDB_API_KEY, Firebase keys, etc.)
-# are set via wrangler CLI or the Cloudflare dashboard.
-# Dashboard: Workers & Pages → cinenovatv → Settings → Environment variables
+TMDB_API_KEY = "be15cf50e79cec926bbbddb3ab5dd819"
+OMDB_API_KEY = "9a684507"
