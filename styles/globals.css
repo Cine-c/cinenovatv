@@ -3100,7 +3100,7 @@ a:focus-visible {
 /* Ad Container */
 .ad-container {
   max-width: var(--max-width);
-  margin: 1rem auto;
+  margin: 0.25rem auto;
   padding: 0 1.5rem;
 }
 
@@ -3134,8 +3134,8 @@ a:focus-visible {
 /* Home Sections */
 .home-section {
   max-width: var(--max-width);
-  margin: 0 auto 1.5rem;
-  padding: 1rem 1.5rem;
+  margin: 0 auto 1rem;
+  padding: 0.5rem 1.5rem;
 }
 
 .section-header {
@@ -6842,7 +6842,7 @@ a:focus-visible {
   .ad-container {
     padding-left: 0;
     padding-right: 0;
-    margin: 0.75rem auto;
+    margin: 0.25rem auto;
   }
 
   /* Hero full-bleed on mobile */
