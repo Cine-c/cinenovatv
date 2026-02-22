@@ -138,7 +138,7 @@ export async function getStaticPaths() {
   let slugs = [];
 
   try {
-    const { getAllPostSlugs } = await import('../../lib/firebase');
+    const { getAllPostSlugs } = await import('../../lib/firestore');
     slugs = await getAllPostSlugs();
   } catch (err) {
     console.error('Error fetching slugs:', err);
@@ -157,7 +157,7 @@ export async function getStaticProps({ params }) {
   let relatedPosts = [];
 
   try {
-    const { getPostBySlug, getAllPublishedPosts } = await import('../../lib/firebase');
+    const { getPostBySlug, getAllPublishedPosts } = await import('../../lib/firestore');
     post = await getPostBySlug(slug);
 
     if (post) {

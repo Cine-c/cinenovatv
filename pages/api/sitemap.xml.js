@@ -40,7 +40,7 @@ export default async function handler(req, res) {
   let posts = [];
 
   try {
-    const { getAllPostSlugs } = await import('../../lib/firebase');
+    const { getAllPostSlugs } = await import('../../lib/firestore');
     posts = await getAllPostSlugs();
   } catch (err) {
     console.error('Error fetching posts for sitemap:', err);

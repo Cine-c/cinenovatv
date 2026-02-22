@@ -273,7 +273,7 @@ export async function getStaticProps() {
 
   // Fetch blog posts
   try {
-    const { getPublishedPosts } = await import('../lib/firebase');
+    const { getPublishedPosts } = await import('../lib/firestore');
     posts = await getPublishedPosts(4);
   } catch (err) {
     console.error('Error fetching posts:', err);
