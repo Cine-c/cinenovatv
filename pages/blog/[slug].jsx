@@ -135,13 +135,8 @@ export default function BlogPost({ post, relatedPosts }) {
 }
 
 export async function getStaticPaths() {
-  let slugs = [];
-  try {
-    const { getAllPostSlugs } = await import('../../lib/firebase');
-    slugs = await getAllPostSlugs();
-  } catch (err) {
-    console.error('Error fetching slugs:', err);
-  }
+  const { getAllPostSlugs } = await import('../../lib/firebase');
+  const slugs = await getAllPostSlugs();
 
   return {
     paths: slugs.map((s) => ({ params: { slug: s.slug } })),
@@ -151,28 +146,20 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const { slug } = params;
+  const { getPostBySlug, getAllPublishedPosts } = await import('../../lib/firebase');
 
-  let post = null;
-  let relatedPosts = [];
-  try {
-    const { getPostBySlug, getAllPublishedPosts } = await import('../../lib/firebase');
-    post = await getPostBySlug(slug);
-
-    if (post) {
-      const allPosts = await getAllPublishedPosts();
-      relatedPosts = allPosts
-        .filter((p) => p.slug !== slug)
-        .slice(0, 3);
-    }
-  } catch (err) {
-    console.error('Error fetching post:', err);
-  }
+  const post = await getPostBySlug(slug);
 
   if (!post) {
     return {
       notFound: true,
     };
   }
+
+  const allPosts = await getAllPublishedPosts();
+  const relatedPosts = allPosts
+    .filter((p) => p.slug !== slug)
+    .slice(0, 3);
 
   return {
     props: {
