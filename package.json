@@ -6,10 +6,15 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "pages:build": "npx @cloudflare/next-on-pages",
+    "pages:dev": "npx wrangler pages dev .vercel/output/static --compatibility-date=2024-12-01 --compatibility-flags=nodejs_compat"
   },
   "author": "",
   "license": "ISC",
+  "devDependencies": {
+    "@cloudflare/next-on-pages": "^1"
+  },
   "dependencies": {
     "disqus-react": "^1.1.7",
     "firebase": "^12.1.0",

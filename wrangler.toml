@@ -1,0 +1,10 @@
+name = "cinenovatv"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+NODE_ENV = "production"
+
+# Environment variables containing secrets (TMDB_API_KEY, Firebase keys, etc.)
+# should be set via the Cloudflare dashboard, NOT in this file.
+# Dashboard: Workers & Pages → cinenovatv → Settings → Environment variables

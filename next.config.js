@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  output: 'standalone',
+  // 'standalone' for Docker builds, omit for Cloudflare Pages
+  ...(process.env.STANDALONE === 'true' ? { output: 'standalone' } : {}),
   images: {
     remotePatterns: [
       {

@@ -1,18 +1,24 @@
-import { readFileSync, readdirSync } from "fs";
-import { join } from "path";
-import admin from "firebase-admin";
+// Node.js-only imports are loaded dynamically to support Edge environments (Cloudflare Pages)
+let _db = null;
 
-// Initialize Firebase Admin (only once)
-if (!admin.apps.length) {
-  const serviceAccount = JSON.parse(
-    readFileSync(join(process.cwd(), "serviceAccountKey.json"), "utf8")
-  );
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-  });
+async function getFirestoreDb() {
+  if (_db) return _db;
+  const { readFileSync } = await import("fs");
+  const { join } = await import("path");
+  const admin = (await import("firebase-admin")).default;
+
+  if (!admin.apps.length) {
+    const serviceAccount = JSON.parse(
+      readFileSync(join(process.cwd(), "serviceAccountKey.json"), "utf8")
+    );
+    admin.initializeApp({
+      credential: admin.credential.cert(serviceAccount),
+    });
+  }
+
+  _db = admin.firestore();
+  return _db;
 }
-
-const db = admin.firestore();
 
 // Simple markdown to HTML converter
 function markdownToHtml(md) {
@@ -107,7 +113,18 @@ export default async function handler(req, res) {
     });
   }
 
+  // This endpoint requires Node.js (fs, firebase-admin) — not available on Cloudflare Pages
   try {
+    var { readFileSync, readdirSync } = await import("fs");
+    var { join } = await import("path");
+  } catch {
+    return res.status(503).json({
+      error: "This endpoint requires a Node.js server environment. Use the admin dashboard instead.",
+    });
+  }
+
+  try {
+    const db = await getFirestoreDb();
     const contentDir = join(process.cwd(), "content", "blog");
     const files = readdirSync(contentDir).filter((f) => f.endsWith(".md"));
 
@@ -134,6 +151,7 @@ export default async function handler(req, res) {
         continue;
       }
 
+      const admin = (await import("firebase-admin")).default;
       const now = admin.firestore.FieldValue.serverTimestamp();
 
       await db.collection("posts").add({
