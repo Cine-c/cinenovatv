@@ -272,8 +272,12 @@ export async function getStaticProps() {
   }
 
   // Fetch blog posts
-  const { getPublishedPosts } = await import('../lib/firebase');
-  posts = await getPublishedPosts(4);
+  try {
+    const { getPublishedPosts } = await import('../lib/firebase');
+    posts = await getPublishedPosts(4);
+  } catch (err) {
+    console.error('Error fetching posts:', err);
+  }
 
   return {
     props: {
@@ -281,6 +285,5 @@ export async function getStaticProps() {
       posts,
       blockbusterFilms,
     },
-    revalidate: 300,
   };
 }

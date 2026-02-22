@@ -210,8 +210,14 @@ export default function BlogIndex({ posts, categories }) {
 }
 
 export async function getStaticProps() {
-  const { getAllPublishedPosts } = await import('../../lib/firebase');
-  const posts = await getAllPublishedPosts();
+  let posts = [];
+
+  try {
+    const { getAllPublishedPosts } = await import('../../lib/firebase');
+    posts = await getAllPublishedPosts();
+  } catch (err) {
+    console.error('Error fetching posts:', err);
+  }
 
   const categories = [...new Set(posts.map((p) => p.category).filter(Boolean))];
 
@@ -220,6 +226,5 @@ export async function getStaticProps() {
       posts,
       categories,
     },
-    revalidate: 300,
   };
 }
