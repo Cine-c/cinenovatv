@@ -6784,6 +6784,51 @@ a:focus-visible {
     -webkit-mask-image: linear-gradient(to right, transparent, black 0.5rem, black calc(100% - 1rem), transparent);
     mask-image: linear-gradient(to right, transparent, black 0.5rem, black calc(100% - 1rem), transparent);
   }
+
+  /* Homepage font size fixes */
+  .section-title {
+    font-size: 1.35rem;
+  }
+
+  .section-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .featured-overview {
+    font-size: 0.95rem;
+  }
+
+  .featured-hero-content h1 {
+    font-size: 1.5rem;
+  }
+
+  .bb-home-card-title {
+    font-size: 0.85rem;
+  }
+
+  .blog-compact-title {
+    font-size: 0.85rem;
+  }
+
+  .insight-card h3 {
+    font-size: 0.95rem;
+  }
+
+  .insight-card p {
+    font-size: 0.85rem;
+  }
+
+  .view-all-link {
+    font-size: 0.85rem;
+  }
+
+  .cta-content h2 {
+    font-size: 1.4rem;
+  }
+
+  .cta-content p {
+    font-size: 0.9rem;
+  }
 }
 
 /* Small mobile: btn-large full width */
@@ -6864,6 +6909,14 @@ a:focus-visible {
   .blog-filter-btn {
     font-size: 0.8rem;
     padding: 0.5rem 0.75rem;
+  }
+
+  .section-title {
+    font-size: 1.2rem;
+  }
+
+  .featured-hero-content h1 {
+    font-size: 1.25rem;
   }
 }
 

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Subscribe from '../components/Subscribe';
 import AdSlot from '../components/AdSlot';
 
-export default function Home({ featuredMovie, posts, iconicScenes, blockbusterFilms }) {
+export default function Home({ featuredMovie, posts, blockbusterFilms }) {
   return (
     <>
       <SEOHead
@@ -70,6 +70,43 @@ export default function Home({ featuredMovie, posts, iconicScenes, blockbusterFi
       {/* Ad Placeholder 1 */}
       <AdSlot slot="homepage" />
 
+      {/* Blockbuster Film Reviews */}
+      <section className="home-section">
+        <div className="section-header">
+          <div>
+            <h2 className="section-title">
+              <span className="section-icon">🎬</span>
+              Blockbuster Film Reviews
+            </h2>
+            <p className="section-subtitle">In-depth editorial coverage of the biggest releases</p>
+          </div>
+          <Link href="/blockbuster" className="view-all-link">
+            View All
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </Link>
+        </div>
+        <div className="bb-home-grid">
+          {blockbusterFilms.map((film) => (
+            <a key={film.slug} href={`/blockbuster/${film.slug}.html`} className="bb-home-card">
+              <div className="bb-home-card-img">
+                <img src={film.tmdb} alt={film.title} loading="lazy" />
+                <div className="bb-home-card-overlay" />
+              </div>
+              <div className="bb-home-card-info">
+                <span className="bb-badge-sm" style={{ color: film.accent, background: `${film.accent}20` }}>{film.genre}</span>
+                <h3 className="bb-home-card-title">{film.title}</h3>
+                <p className="bb-home-card-tagline">{film.tagline}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      {/* Ad Placeholder 2 */}
+      <AdSlot slot="homepage" />
+
       {/* Latest News & Reviews */}
       <section className="home-section">
         <div className="section-header">
@@ -117,94 +154,6 @@ export default function Home({ featuredMovie, posts, iconicScenes, blockbusterFi
             <p>No posts yet. Check back soon for movie news and reviews!</p>
           </div>
         )}
-      </section>
-
-      {/* Ad Placeholder 2 */}
-      <AdSlot slot="homepage" />
-
-      {/* Iconic Movie Scenes */}
-      <section className="home-section">
-        <div className="section-header">
-          <div>
-            <h2 className="section-title">
-              <span className="section-icon">🎬</span>
-              Iconic Movie Scenes
-            </h2>
-            <p className="section-subtitle">Unforgettable moments in cinema history</p>
-          </div>
-          <Link href="/scenes" className="view-all-link">
-            View All
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </Link>
-        </div>
-        <div className="scenes-grid">
-          {iconicScenes.slice(0, 6).map((scene, index) => (
-            <Link key={index} href={`/scenes/${scene.slug}`} className="scene-card-link-home">
-              <article className="scene-card">
-                <div className="scene-card-image">
-                  <Image
-                    src={scene.image}
-                    alt={scene.title}
-                    width={500}
-                    height={280}
-                    loading="lazy"
-                    style={{ objectFit: 'cover' }}
-                  />
-                  <div className="scene-card-overlay">
-                    <span className="scene-movie-title">{scene.movie}</span>
-                  </div>
-                </div>
-                <div className="scene-card-content">
-                  <h3 className="scene-card-title">{scene.title}</h3>
-                  <p className="scene-card-description">{scene.description}</p>
-                  <div className="scene-card-meta">
-                    <span className="scene-year">{scene.year}</span>
-                    <span className="scene-director">Dir: {scene.director}</span>
-                  </div>
-                </div>
-              </article>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* Ad Placeholder 3 */}
-      <AdSlot slot="homepage" />
-
-      {/* Blockbuster Film Reviews */}
-      <section className="home-section">
-        <div className="section-header">
-          <div>
-            <h2 className="section-title">
-              <span className="section-icon">🎬</span>
-              Blockbuster Film Reviews
-            </h2>
-            <p className="section-subtitle">In-depth editorial coverage of the biggest releases</p>
-          </div>
-          <Link href="/blockbuster" className="view-all-link">
-            View All
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </Link>
-        </div>
-        <div className="bb-home-grid">
-          {blockbusterFilms.map((film) => (
-            <a key={film.slug} href={`/blockbuster/${film.slug}.html`} className="bb-home-card">
-              <div className="bb-home-card-img">
-                <img src={film.tmdb} alt={film.title} loading="lazy" />
-                <div className="bb-home-card-overlay" />
-              </div>
-              <div className="bb-home-card-info">
-                <span className="bb-badge-sm" style={{ color: film.accent, background: `${film.accent}20` }}>{film.genre}</span>
-                <h3 className="bb-home-card-title">{film.title}</h3>
-                <p className="bb-home-card-tagline">{film.tagline}</p>
-              </div>
-            </a>
-          ))}
-        </div>
       </section>
 
       {/* Movie Insights Section */}
@@ -267,64 +216,6 @@ export async function getStaticProps() {
 
   let featuredMovie = null;
   let posts = [];
-
-  // Iconic movie scenes data
-  const iconicScenes = [
-    {
-      slug: "ill-be-back-terminator",
-      title: "I'll Be Back",
-      movie: "The Terminator",
-      year: "1984",
-      director: "James Cameron",
-      description: "Arnold Schwarzenegger's robotic promise became one of cinema's most quoted lines, defining an era of action movies.",
-      image: "https://image.tmdb.org/t/p/w500/qvktm0BHcnmDpul4Hz01GIazWPr.jpg"
-    },
-    {
-      slug: "heres-looking-at-you-casablanca",
-      title: "Here's Looking at You, Kid",
-      movie: "Casablanca",
-      year: "1942",
-      director: "Michael Curtiz",
-      description: "Humphrey Bogart's tender farewell to Ingrid Bergman remains the gold standard for romantic cinema moments.",
-      image: "https://image.tmdb.org/t/p/w500/5K7cOHoay2mZusSLezBOY0Qxh8a.jpg"
-    },
-    {
-      slug: "bullet-time-matrix",
-      title: "The Bullet Time",
-      movie: "The Matrix",
-      year: "1999",
-      director: "The Wachowskis",
-      description: "Neo's rooftop dodge revolutionized visual effects and inspired countless imitations in action filmmaking.",
-      image: "https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg"
-    },
-    {
-      slug: "i-am-your-father-empire-strikes-back",
-      title: "I Am Your Father",
-      movie: "The Empire Strikes Back",
-      year: "1980",
-      director: "Irvin Kershner",
-      description: "The greatest plot twist in cinema history that shocked audiences and redefined the Star Wars saga forever.",
-      image: "https://image.tmdb.org/t/p/w500/nNAeTmF4CtdSgMDplXTDPOpYzsX.jpg"
-    },
-    {
-      slug: "shower-scene-psycho",
-      title: "The Shower Scene",
-      movie: "Psycho",
-      year: "1960",
-      director: "Alfred Hitchcock",
-      description: "78 camera setups, 52 cuts, and pure terror. Hitchcock's masterpiece changed horror forever.",
-      image: "https://image.tmdb.org/t/p/w500/yz4QVqPx3h1hD1DfqqQkCq3rmxW.jpg"
-    },
-    {
-      slug: "you-talking-to-me-taxi-driver",
-      title: "You Talking to Me?",
-      movie: "Taxi Driver",
-      year: "1976",
-      director: "Martin Scorsese",
-      description: "Robert De Niro's improvised mirror monologue became an iconic symbol of urban isolation and madness.",
-      image: "https://image.tmdb.org/t/p/w500/ekstpH614fwDX8DUln1a2Opz0N8.jpg"
-    }
-  ];
 
   const allBlockbusterFilms = [
     { slug: 'sinners-2025', title: 'Sinners', genre: 'Horror', accent: '#b5362a', tagline: 'Some sins can never be washed clean.', tmdb: 'https://image.tmdb.org/t/p/w500/qTvFWCGeGXgBRaINLY1zqgTPSpn.jpg' },
@@ -392,7 +283,6 @@ export async function getStaticProps() {
     props: {
       featuredMovie,
       posts,
-      iconicScenes,
       blockbusterFilms,
     },
     revalidate: 300,
