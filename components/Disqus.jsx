@@ -1,7 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 export default function Disqus({ identifier, title, url }) {
+  const loaded = useRef(false);
+
   useEffect(() => {
+    if (!identifier || !url) return;
+
     // Reset Disqus if it's already loaded
     if (window.DISQUS) {
       window.DISQUS.reset({
@@ -14,6 +18,9 @@ export default function Disqus({ identifier, title, url }) {
       });
       return;
     }
+
+    if (loaded.current) return;
+    loaded.current = true;
 
     // Load Disqus
     window.disqus_config = function() {
@@ -29,7 +36,6 @@ export default function Disqus({ identifier, title, url }) {
     document.body.appendChild(script);
 
     return () => {
-      // Cleanup
       const disqusThread = document.getElementById('disqus_thread');
       if (disqusThread) {
         disqusThread.innerHTML = '';

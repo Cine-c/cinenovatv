@@ -127,7 +127,7 @@ export default function BlogPost({ post, relatedPosts }) {
         <Disqus
           identifier={`blog-${post.slug}`}
           title={post.title}
-          url={typeof window !== 'undefined' ? `${window.location.origin}/blog/${post.slug}` : ''}
+          url={`https://www.cinenovatv.com/blog/${post.slug}`}
         />
       </article>
     </>
