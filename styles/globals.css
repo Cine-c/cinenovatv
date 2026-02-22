@@ -2349,7 +2349,7 @@ a:focus-visible {
 
 /* Home Sections */
 .home-section {
-  margin-bottom: 4rem;
+  margin-bottom: 1.5rem;
 }
 
 .section-header {
@@ -2971,8 +2971,11 @@ a:focus-visible {
 /* Featured Hero Section */
 .featured-hero {
   position: relative;
-  width: 100%;
-  margin-bottom: 2rem;
+  width: calc(100% + 3rem);
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
+  margin-top: -2.5rem;
+  margin-bottom: 0;
 }
 
 .featured-hero-backdrop {
@@ -3097,7 +3100,7 @@ a:focus-visible {
 /* Ad Container */
 .ad-container {
   max-width: var(--max-width);
-  margin: 2rem auto;
+  margin: 1rem auto;
   padding: 0 1.5rem;
 }
 
@@ -3131,8 +3134,8 @@ a:focus-visible {
 /* Home Sections */
 .home-section {
   max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 2rem 1.5rem;
+  margin: 0 auto 1.5rem;
+  padding: 1rem 1.5rem;
 }
 
 .section-header {
@@ -3347,7 +3350,7 @@ a:focus-visible {
   }
 
   .home-section {
-    padding: 3rem 2rem;
+    padding: 2rem 2rem;
   }
 
   .section-title {
@@ -6828,6 +6831,26 @@ a:focus-visible {
 
   .cta-content p {
     font-size: 0.9rem;
+  }
+
+  /* Fix double horizontal padding: main-content already provides side padding */
+  .home-section {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .ad-container {
+    padding-left: 0;
+    padding-right: 0;
+    margin: 0.75rem auto;
+  }
+
+  /* Hero full-bleed on mobile */
+  .featured-hero {
+    width: calc(100% + 2rem);
+    margin-left: -1rem;
+    margin-right: -1rem;
+    margin-top: -1.5rem;
   }
 }
 
