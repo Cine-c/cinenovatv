@@ -168,26 +168,34 @@ export default function Home({ featuredMovie, posts, blockbusterFilms }) {
           </div>
         </div>
         <div className="insights-grid">
-          <article className="insight-card">
-            <div className="insight-icon">🎭</div>
-            <h3>Acting Masterclass</h3>
-            <p>Discover the techniques that made legendary performances unforgettable. From method acting to improvisation.</p>
-          </article>
-          <article className="insight-card">
-            <div className="insight-icon">🎥</div>
-            <h3>Cinematography</h3>
-            <p>Explore how directors of photography create visual magic through lighting, framing, and camera movement.</p>
-          </article>
-          <article className="insight-card">
-            <div className="insight-icon">🎵</div>
-            <h3>Film Scores</h3>
-            <p>The music that moves us. Learn how composers craft the emotional backbone of your favorite films.</p>
-          </article>
-          <article className="insight-card">
-            <div className="insight-icon">✂️</div>
-            <h3>Editing Magic</h3>
-            <p>The invisible art that shapes storytelling. See how editors create tension, emotion, and flow.</p>
-          </article>
+          <Link href="/academy/acting-masterclass" className="insight-card-link">
+            <article className="insight-card">
+              <div className="insight-icon">🎭</div>
+              <h3>Acting Masterclass</h3>
+              <p>Discover the techniques that made legendary performances unforgettable. From method acting to improvisation.</p>
+            </article>
+          </Link>
+          <Link href="/academy/cinematography" className="insight-card-link">
+            <article className="insight-card">
+              <div className="insight-icon">🎥</div>
+              <h3>Cinematography</h3>
+              <p>Explore how directors of photography create visual magic through lighting, framing, and camera movement.</p>
+            </article>
+          </Link>
+          <Link href="/academy/film-scores" className="insight-card-link">
+            <article className="insight-card">
+              <div className="insight-icon">🎵</div>
+              <h3>Film Scores</h3>
+              <p>The music that moves us. Learn how composers craft the emotional backbone of your favorite films.</p>
+            </article>
+          </Link>
+          <Link href="/academy/editing-magic" className="insight-card-link">
+            <article className="insight-card">
+              <div className="insight-icon">✂️</div>
+              <h3>Editing Magic</h3>
+              <p>The invisible art that shapes storytelling. See how editors create tension, emotion, and flow.</p>
+            </article>
+          </Link>
         </div>
       </section>
 
