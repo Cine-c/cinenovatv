@@ -10,34 +10,22 @@ export function getConsentStatus() {
   return localStorage.getItem(STORAGE_KEY);
 }
 
-function initConsentMode() {
-  window.dataLayer = window.dataLayer || [];
-  function gtag() { window.dataLayer.push(arguments); }
-  window.gtag = gtag;
-
-  gtag('consent', 'default', {
-    ad_storage: 'denied',
-    ad_user_data: 'denied',
-    ad_personalization: 'denied',
-  });
-}
-
 function grantConsent() {
-  window.gtag('consent', 'update', {
+  window.gtag?.('consent', 'update', {
     ad_storage: 'granted',
     ad_user_data: 'granted',
     ad_personalization: 'granted',
+    analytics_storage: 'granted',
   });
 }
 
-function loadScripts() {
-  // Load Google AdSense (skip if already loaded)
+function loadAdSense() {
   if (!document.querySelector('script[src*="pagead2.googlesyndication.com"]')) {
-    const adsScript = document.createElement('script');
-    adsScript.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`;
-    adsScript.async = true;
-    adsScript.crossOrigin = 'anonymous';
-    document.head.appendChild(adsScript);
+    const s = document.createElement('script');
+    s.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`;
+    s.async = true;
+    s.crossOrigin = 'anonymous';
+    document.head.appendChild(s);
   }
 }
 
@@ -45,12 +33,10 @@ export default function CookieConsent() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    initConsentMode();
-
     const consent = getConsentStatus();
     if (consent === 'accepted') {
       grantConsent();
-      loadScripts();
+      loadAdSense();
     } else if (!consent) {
       setVisible(true);
     }
@@ -63,7 +49,7 @@ export default function CookieConsent() {
   const handleAccept = () => {
     localStorage.setItem(STORAGE_KEY, 'accepted');
     grantConsent();
-    loadScripts();
+    loadAdSense();
     window.dispatchEvent(new CustomEvent(CONSENT_EVENT, { detail: 'accepted' }));
     setVisible(false);
   };
@@ -80,7 +66,7 @@ export default function CookieConsent() {
     <div className="cookie-banner" role="dialog" aria-label="Cookie consent">
       <div className="cookie-banner-content">
         <p className="cookie-banner-text">
-          We use cookies for advertising. You can accept or reject non-essential cookies.
+          We use cookies for analytics and advertising. You can accept or reject non-essential cookies.
         </p>
         <div className="cookie-banner-actions">
           <button className="btn btn-primary cookie-btn" onClick={handleAccept}>
