@@ -4,6 +4,7 @@ import Image from 'next/image';
 import SEOHead from '../../components/seo/SEOHead';
 import { ItemListJsonLd } from '../../components/seo/JsonLd';
 import BlogList from '../../components/blog/BlogList';
+import AdSlot from '../../components/AdSlot';
 
 const POSTS_PER_PAGE = 9;
 
@@ -139,6 +140,8 @@ export default function BlogIndex({ posts, categories }) {
           </div>
         </article>
       )}
+
+      <AdSlot />
 
       <BlogList posts={paginatedPosts} />
 

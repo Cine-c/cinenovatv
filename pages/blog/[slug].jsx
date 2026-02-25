@@ -1,18 +1,11 @@
-import { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import SEOHead from '../../components/seo/SEOHead';
 import { BlogPostingJsonLd } from '../../components/seo/JsonLd';
 import Disqus from '../../components/Disqus';
-import TaboolaWidget from '../../components/TaboolaWidget';
-import { getConsentStatus } from '../../components/CookieConsent';
+import AdSlot from '../../components/AdSlot';
 
 export default function BlogPost({ post, relatedPosts }) {
-  useEffect(() => {
-    if (post && getConsentStatus() === 'accepted' && window._taboola) {
-      window._taboola.push({ flush: true });
-    }
-  }, [post]);
 
   if (!post) {
     return (
@@ -85,7 +78,7 @@ export default function BlogPost({ post, relatedPosts }) {
           </Link>
         </nav>
 
-        <TaboolaWidget />
+        <AdSlot />
 
         {/* Related Posts */}
         {relatedPosts && relatedPosts.length > 0 && (

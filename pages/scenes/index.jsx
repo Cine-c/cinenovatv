@@ -1,6 +1,8 @@
+import React from 'react';
 import SEOHead from '../../components/seo/SEOHead';
 import Link from 'next/link';
 import Image from 'next/image';
+import AdSlot from '../../components/AdSlot';
 
 const iconicScenes = [
   {
@@ -131,9 +133,10 @@ export default function ScenesPage() {
         {/* Scenes Grid */}
         <section className="scenes-main">
           <div className="scenes-grid-page">
-            {iconicScenes.map((scene) => (
+            {iconicScenes.map((scene, index) => (
+              <React.Fragment key={scene.slug}>
+              {index === 4 && <AdSlot />}
               <Link
-                key={scene.slug}
                 href={`/scenes/${scene.slug}`}
                 className="scene-card-link"
               >
@@ -171,6 +174,7 @@ export default function ScenesPage() {
                   </div>
                 </article>
               </Link>
+              </React.Fragment>
             ))}
           </div>
         </section>

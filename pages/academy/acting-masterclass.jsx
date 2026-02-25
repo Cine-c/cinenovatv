@@ -1,4 +1,5 @@
 import SEOHead from '../../components/seo/SEOHead';
+import AdSlot from '../../components/AdSlot';
 
 export default function ActingMasterclass() {
   return (
@@ -63,6 +64,8 @@ export default function ActingMasterclass() {
               <p>Acting at its highest level is a discipline of radical honesty &mdash; the studied practice of getting out of your own way and letting something true emerge. Whether through emotional memory, physical transformation, or pure improvisation, every great performance begins with the same question: what is real here? The techniques are just different roads to the same destination.</p>
             </div>
           </article>
+
+          <AdSlot />
 
           <aside className="academy-sidebar">
             <div className="academy-sc">

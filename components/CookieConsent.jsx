@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 const GA_ID = 'G-81S7GHHRSB';
 export const ADSENSE_CLIENT = 'ca-pub-8747979755893623';
-export const TABOOLA_PUBLISHER = 'your-taboola-publisher-id';
+
 const STORAGE_KEY = 'cookieConsent';
 const CONSENT_EVENT = 'consentChange';
 
@@ -54,14 +54,6 @@ function loadScripts() {
     document.head.appendChild(adsScript);
   }
 
-  // Load Taboola (skip if already loaded)
-  window._taboola = window._taboola || [];
-  if (!document.querySelector('script[src*="cdn.taboola.com"]')) {
-    const taboolaScript = document.createElement('script');
-    taboolaScript.src = `https://cdn.taboola.com/libtrc/${TABOOLA_PUBLISHER}/loader.js`;
-    taboolaScript.async = true;
-    document.head.appendChild(taboolaScript);
-  }
 }
 
 export default function CookieConsent() {

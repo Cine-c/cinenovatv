@@ -3146,23 +3146,6 @@ a:focus-visible {
   font-size: 0.875rem;
 }
 
-/* Taboola Container */
-.taboola-container {
-  max-width: var(--max-width);
-  margin: 2rem auto;
-  padding: 0 1.5rem;
-}
-
-.taboola-placeholder {
-  background: var(--bg-card);
-  border: 1px dashed var(--border-light);
-  border-radius: var(--radius-md);
-  padding: 2rem;
-  text-align: center;
-  color: var(--text-muted);
-  font-size: 0.875rem;
-}
-
 /* Home Sections */
 .home-section {
   max-width: var(--max-width);
