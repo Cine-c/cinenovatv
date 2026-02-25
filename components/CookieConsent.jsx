@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 
-const GA_ID = 'G-81S7GHHRSB';
 export const ADSENSE_CLIENT = 'ca-pub-8747979755893623';
 
 const STORAGE_KEY = 'cookieConsent';
@@ -20,7 +19,6 @@ function initConsentMode() {
     ad_storage: 'denied',
     ad_user_data: 'denied',
     ad_personalization: 'denied',
-    analytics_storage: 'denied',
   });
 }
 
@@ -29,22 +27,10 @@ function grantConsent() {
     ad_storage: 'granted',
     ad_user_data: 'granted',
     ad_personalization: 'granted',
-    analytics_storage: 'granted',
   });
 }
 
 function loadScripts() {
-  // Load Google Analytics (skip if already loaded)
-  if (!document.querySelector(`script[src*="googletagmanager.com/gtag/js?id=${GA_ID}"]`)) {
-    const gaScript = document.createElement('script');
-    gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
-    gaScript.async = true;
-    document.head.appendChild(gaScript);
-  }
-
-  window.gtag('js', new Date());
-  window.gtag('config', GA_ID);
-
   // Load Google AdSense (skip if already loaded)
   if (!document.querySelector('script[src*="pagead2.googlesyndication.com"]')) {
     const adsScript = document.createElement('script');
@@ -53,7 +39,6 @@ function loadScripts() {
     adsScript.crossOrigin = 'anonymous';
     document.head.appendChild(adsScript);
   }
-
 }
 
 export default function CookieConsent() {
@@ -95,7 +80,7 @@ export default function CookieConsent() {
     <div className="cookie-banner" role="dialog" aria-label="Cookie consent">
       <div className="cookie-banner-content">
         <p className="cookie-banner-text">
-          We use cookies for analytics and advertising. You can accept or reject non-essential cookies.
+          We use cookies for advertising. You can accept or reject non-essential cookies.
         </p>
         <div className="cookie-banner-actions">
           <button className="btn btn-primary cookie-btn" onClick={handleAccept}>
