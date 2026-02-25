@@ -1,16 +1,10 @@
 import Link from 'next/link';
-import Subscribe from '../Subscribe';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
     <footer className="site-footer">
-      {/* Newsletter Section */}
-      <div className="footer-newsletter">
-        <Subscribe variant="inline" />
-      </div>
-
       <div className="footer-container">
         <div className="footer-section">
           <h3>CineNovaTV</h3>

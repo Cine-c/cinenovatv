@@ -62,9 +62,8 @@ export default function Cinematography() {
               <div className="academy-verdict-lbl">The Takeaway</div>
               <p>Cinematography is the art of making the invisible felt. It operates entirely below the threshold of conscious observation for most viewers &mdash; which is, of course, the point. When the work is truly great, you don&rsquo;t see the camera. You simply feel what it wants you to feel, and you have no idea why.</p>
             </div>
+            <AdSlot />
           </article>
-
-          <AdSlot />
 
           <aside className="academy-sidebar">
             <div className="academy-sc">

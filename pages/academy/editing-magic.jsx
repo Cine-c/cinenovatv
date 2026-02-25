@@ -63,9 +63,8 @@ export default function EditingMagic() {
               <div className="academy-verdict-lbl">The Takeaway</div>
               <p>Editing is cinema thinking. Every cut is a decision about what the audience needs to know, what they should feel, and when. It is the most invisible art in film precisely because when it works, it doesn&rsquo;t look like art at all &mdash; it looks like life, flowing forward in the only direction it knows how to go.</p>
             </div>
+            <AdSlot />
           </article>
-
-          <AdSlot />
 
           <aside className="academy-sidebar">
             <div className="academy-sc">

@@ -2,7 +2,6 @@ import SEOHead from '../components/seo/SEOHead';
 import { WebSiteJsonLd } from '../components/seo/JsonLd';
 import Link from 'next/link';
 import Image from 'next/image';
-import Subscribe from '../components/Subscribe';
 import AdSlot from '../components/AdSlot';
 
 export default function Home({ featuredMovie, posts, blockbusterFilms }) {
@@ -66,9 +65,6 @@ export default function Home({ featuredMovie, posts, blockbusterFilms }) {
           </div>
         </section>
       )}
-
-      {/* Ad Placeholder 1 */}
-      <AdSlot slot="homepage" />
 
       {/* Blockbuster Film Reviews */}
       <section className="home-section">
@@ -198,9 +194,6 @@ export default function Home({ featuredMovie, posts, blockbusterFilms }) {
           </Link>
         </div>
       </section>
-
-      {/* Subscribe Section */}
-      <Subscribe />
 
       {/* CTA Section */}
       <section className="cta-section">

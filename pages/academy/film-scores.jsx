@@ -63,9 +63,8 @@ export default function FilmScores() {
               <div className="academy-verdict-lbl">The Takeaway</div>
               <p>Film music is the emotional contract between a story and its audience &mdash; the thread that runs beneath every scene, every cut, every silence, holding the experience together at a level below language. To understand how it works is not to demystify it; it is to appreciate it more deeply. Great scores don&rsquo;t just accompany films. They complete them.</p>
             </div>
+            <AdSlot />
           </article>
-
-          <AdSlot />
 
           <aside className="academy-sidebar">
             <div className="academy-sc">
