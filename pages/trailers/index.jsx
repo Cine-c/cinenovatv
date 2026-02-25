@@ -317,8 +317,6 @@ export default function TrailersPage({ initialMovies, genres, totalResults, init
           )}
         </section>
 
-        <AdSlot />
-
         {/* Results Header */}
         <section className="results-header">
           <div className="results-info">
@@ -381,6 +379,8 @@ export default function TrailersPage({ initialMovies, genres, totalResults, init
         ) : (
           <>
             <MovieGrid movies={movies} onWatchTrailer={handleWatchTrailer} />
+
+            <AdSlot />
 
             {page < totalPages && (
               <div className="load-more-section">
