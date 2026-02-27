@@ -116,7 +116,7 @@ export default function BlogPost({ post, relatedPosts }) {
           </section>
         )}
 
-        <AdSlot format="rectangle" />
+        <AdSlot />
 
         {/* Disqus Comments */}
         <Disqus

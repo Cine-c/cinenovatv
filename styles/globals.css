@@ -3133,45 +3133,39 @@ a:focus-visible {
   border: 1px solid var(--border);
 }
 
-/* Ad Container */
+/* Ad Container — subtle, blends with dark theme */
 .ad-container {
   position: relative;
   z-index: 0;
-  max-width: var(--max-width);
-  margin: 0.75rem auto;
-  padding: 0 1rem;
-  min-height: 0;
-  max-height: 280px;
-  overflow: hidden;
+  max-width: 728px;
+  margin: 1.5rem auto;
   text-align: center;
-  contain: layout style;
   clear: both;
+  overflow: hidden;
+  contain: layout;
+  isolation: isolate;
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.ad-container.ad-visible {
+  opacity: 1;
 }
 
 .ad-container .adsbygoogle {
   margin: 0 auto;
-  max-height: 280px;
+  max-width: 100%;
 }
 
-.ad-container.ad-collapsed {
-  min-height: 0;
-  margin: 0;
-  padding: 0;
-  max-height: 0;
-}
-
-.ad-placeholder {
-  background: var(--bg-card);
-  border: 1px dashed var(--border-light);
-  border-radius: var(--radius-md);
-  padding: 0.75rem;
-  text-align: center;
+.ad-label {
+  display: block;
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--text-muted);
-  font-size: 0.75rem;
-  min-height: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  opacity: 0.5;
+  margin-bottom: 0.25rem;
+  user-select: none;
 }
 
 /* Home Sections */
@@ -6689,21 +6683,8 @@ a:focus-visible {
   }
 
   .ad-container {
-    padding-left: 0;
-    padding-right: 0;
-    margin: 0.5rem auto;
-    max-height: 200px;
-  }
-
-  .ad-container .adsbygoogle {
-    max-height: 200px;
-  }
-
-  /* Prevent ad from overlapping hero sections on mobile */
-  .featured-hero + .home-section + .ad-container,
-  .featured-hero ~ .ad-container {
-    z-index: 0;
-    position: relative;
+    margin: 1rem auto;
+    max-width: 100%;
   }
 
   /* Hero full-bleed on mobile */
@@ -6718,12 +6699,7 @@ a:focus-visible {
 /* Small mobile: btn-large full width */
 @media (max-width: 480px) {
   .ad-container {
-    margin: 0.125rem auto;
-    max-height: 150px;
-  }
-
-  .ad-container .adsbygoogle {
-    max-height: 150px;
+    margin: 0.75rem auto;
   }
 
   .bb-reviews-grid {

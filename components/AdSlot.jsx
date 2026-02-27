@@ -3,55 +3,40 @@ import { useRouter } from 'next/router';
 import { getConsentStatus, ADSENSE_CLIENT } from './CookieConsent';
 import { useAdFree } from './AdFreeContext';
 
-// Manual ad size presets (high-performing formats)
-const AD_SIZES = {
-  leaderboard:       { width: 728, height: 90 },
-  rectangle:         { width: 300, height: 250 },
-  'large-rectangle': { width: 336, height: 280 },
-  'mobile-banner':   { width: 320, height: 100 },
-};
-
-// Native AdSense formats
+// Native AdSense formats (fluid, blend with content)
 const NATIVE_FORMATS = {
   'in-article': { format: 'fluid', layoutKey: '-gw-3+1f-3d+2z' },
   'in-feed':    { format: 'fluid', layoutKey: '-fb+5w+4e-db+86' },
 };
 
-/**
- * @param {string} [slot] - AdSense ad slot ID
- * @param {string} [format='auto'] - 'auto', a size preset, or a native format ('in-article'/'in-feed')
- * @param {boolean} [responsive=true] - Enable responsive sizing
- */
 export default function AdSlot({ slot, format = 'auto', responsive = true }) {
   const router = useRouter();
   const { adFree } = useAdFree();
 
   if (adFree) return null;
 
-  const preset = AD_SIZES[format];
   const native = NATIVE_FORMATS[format];
 
   return (
     <AdSlotInner
       key={router.asPath}
       slot={slot}
-      format={preset || native ? undefined : format}
-      responsive={preset || native ? false : responsive}
-      preset={preset}
+      format={native ? undefined : format}
+      responsive={native ? false : responsive}
       native={native}
     />
   );
 }
 
-function AdSlotInner({ slot, format, responsive, preset, native }) {
+function AdSlotInner({ slot, format, responsive, native }) {
   const adRef = useRef(null);
   const pushed = useRef(false);
   const retried = useRef(false);
   const [consented, setConsented] = useState(false);
   const [inView, setInView] = useState(false);
   const [adFailed, setAdFailed] = useState(false);
+  const [adLoaded, setAdLoaded] = useState(false);
 
-  // Track consent status
   useEffect(() => {
     setConsented(getConsentStatus() === 'accepted');
 
@@ -68,7 +53,6 @@ function AdSlotInner({ slot, format, responsive, preset, native }) {
     };
   }, []);
 
-  // Lazy load: only mark in-view when the ad container enters the viewport
   useEffect(() => {
     const el = adRef.current;
     if (!el) return;
@@ -87,7 +71,6 @@ function AdSlotInner({ slot, format, responsive, preset, native }) {
     return () => observer.disconnect();
   }, [consented]);
 
-  // Push the ad only when: consented + in viewport + adsbygoogle is ready
   useEffect(() => {
     if (!consented || !inView || pushed.current) return;
 
@@ -97,10 +80,10 @@ function AdSlotInner({ slot, format, responsive, preset, native }) {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
         pushed.current = true;
 
-        // Check if the ad filled after a delay, retry once if empty
         setTimeout(() => {
           const ins = adRef.current?.querySelector?.('ins.adsbygoogle') || adRef.current;
-          if (ins && ins.dataset.adStatus === 'unfilled' && !retried.current) {
+          const status = ins?.dataset?.adStatus;
+          if (status === 'unfilled' && !retried.current) {
             retried.current = true;
             pushed.current = false;
             try {
@@ -110,11 +93,11 @@ function AdSlotInner({ slot, format, responsive, preset, native }) {
               setAdFailed(true);
             }
           }
+          if (status === 'filled') setAdLoaded(true);
         }, 3000);
       } catch (e) {
         if (!retried.current) {
           retried.current = true;
-          // Retry once after 2s if first push fails
           setTimeout(() => {
             try {
               (window.adsbygoogle = window.adsbygoogle || []).push({});
@@ -139,37 +122,27 @@ function AdSlotInner({ slot, format, responsive, preset, native }) {
     return () => window.removeEventListener('adsenseReady', handleReady);
   }, [consented, inView]);
 
-  if (!ADSENSE_CLIENT || !consented) {
-    return (
-      <div className="ad-container">
-        <div className="ad-placeholder">Advertisement</div>
-      </div>
-    );
-  }
+  // Show nothing until consent is given — no placeholder, no gap
+  if (!ADSENSE_CLIENT || !consented) return null;
 
-  // If ad failed after retry, collapse the container gracefully
-  if (adFailed) {
-    return <div className="ad-container ad-collapsed" />;
-  }
+  // Collapse completely if the ad failed
+  if (adFailed) return null;
 
-  // Build styles and data attributes based on format type
-  let adStyle;
+  let adStyle = { display: 'block' };
   let extraProps = {};
 
   if (native) {
     adStyle = { display: 'block', textAlign: 'center' };
     extraProps['data-ad-format'] = native.format;
     extraProps['data-ad-layout-key'] = native.layoutKey;
-  } else if (preset) {
-    adStyle = { display: 'inline-block', width: preset.width, height: preset.height };
   } else {
-    adStyle = { display: 'block' };
     if (format) extraProps['data-ad-format'] = format;
     if (responsive) extraProps['data-full-width-responsive'] = true;
   }
 
   return (
-    <div className="ad-container" ref={adRef}>
+    <div className={`ad-container${adLoaded ? ' ad-visible' : ''}`} ref={adRef}>
+      <span className="ad-label">Ad</span>
       <ins
         className="adsbygoogle"
         style={adStyle}
