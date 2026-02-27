@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Layout from '../components/layout/Layout';
 import { OrganizationJsonLd } from '../components/seo/JsonLd';
 import { WatchLaterProvider } from '../components/WatchLaterContext';
+import { AdFreeProvider } from '../components/AdFreeContext';
 import '../styles/globals.css';
 
 const GA_ID = 'G-81S7GHHRSB';
@@ -26,9 +27,11 @@ export default function App({ Component, pageProps }) {
   }, [router.events]);
 
   return (
-    <WatchLaterProvider>
-      <OrganizationJsonLd />
-      {getLayout(<Component {...pageProps} />)}
-    </WatchLaterProvider>
+    <AdFreeProvider>
+      <WatchLaterProvider>
+        <OrganizationJsonLd />
+        {getLayout(<Component {...pageProps} />)}
+      </WatchLaterProvider>
+    </AdFreeProvider>
   );
 }

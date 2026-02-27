@@ -69,6 +69,8 @@ export default function BlogPost({ post, relatedPosts }) {
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
 
+        <AdSlot format="in-article" />
+
         <nav className="blog-post-nav">
           <Link href="/blog" className="back-to-blog">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -77,8 +79,6 @@ export default function BlogPost({ post, relatedPosts }) {
             Back to Blog
           </Link>
         </nav>
-
-        <AdSlot />
 
         {/* Related Posts */}
         {relatedPosts && relatedPosts.length > 0 && (
@@ -115,6 +115,8 @@ export default function BlogPost({ post, relatedPosts }) {
             </div>
           </section>
         )}
+
+        <AdSlot format="rectangle" />
 
         {/* Disqus Comments */}
         <Disqus

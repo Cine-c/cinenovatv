@@ -25,6 +25,9 @@ function loadAdSense() {
     s.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`;
     s.async = true;
     s.crossOrigin = 'anonymous';
+    s.onload = () => {
+      window.dispatchEvent(new Event('adsenseReady'));
+    };
     document.head.appendChild(s);
   }
 }

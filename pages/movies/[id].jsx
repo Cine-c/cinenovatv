@@ -167,7 +167,7 @@ export default function MovieDetailPage({ movie, credits, videos, ratings }) {
               </div>
             )}
 
-            <AdSlot />
+            <AdSlot format="in-article" />
 
             {/* Cast */}
             {cast.length > 0 && (
@@ -241,6 +241,8 @@ export default function MovieDetailPage({ movie, credits, videos, ratings }) {
                 </div>
               </div>
             )}
+
+            <AdSlot />
 
             {/* Movie Info Sidebar */}
             <div className="movie-detail-section">

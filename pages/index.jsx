@@ -195,6 +195,8 @@ export default function Home({ featuredMovie, posts, blockbusterFilms }) {
         </div>
       </section>
 
+      <AdSlot />
+
       {/* CTA Section */}
       <section className="cta-section">
         <div className="cta-content">

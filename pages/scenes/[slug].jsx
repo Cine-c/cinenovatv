@@ -1,3 +1,4 @@
+import React from 'react';
 import SEOHead from '../../components/seo/SEOHead';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -212,7 +213,10 @@ export default function SceneDetail({ scene }) {
               <div className="scene-detail-text">
                 <h2>The Scene</h2>
                 {scene.fullDescription.split('\n\n').map((paragraph, index) => (
-                  <p key={index}>{paragraph}</p>
+                  <React.Fragment key={index}>
+                    <p>{paragraph}</p>
+                    {index === 0 && <AdSlot format="in-article" />}
+                  </React.Fragment>
                 ))}
               </div>
             </div>
