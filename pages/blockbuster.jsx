@@ -128,8 +128,6 @@ export default function Blockbuster({ posts, categories }) {
           </div>
         </section>
 
-        <AdSlot />
-
         {/* ── Hero ────────────────────────────────── */}
         {hero && (
           <section className="bb-hero">
@@ -222,6 +220,8 @@ export default function Blockbuster({ posts, categories }) {
             ))}
           </section>
         )}
+
+        <AdSlot />
 
         {/* ── Grid ───────────────────────────────── */}
         {rest.length > 0 && (

@@ -137,7 +137,7 @@ function AdSlotInner({ slot, format, responsive, native }) {
     extraProps['data-ad-layout-key'] = native.layoutKey;
   } else {
     extraProps['data-ad-format'] = format || 'auto';
-    extraProps['data-full-width-responsive'] = 'true';
+    extraProps['data-full-width-responsive'] = 'false';
   }
 
   return (
