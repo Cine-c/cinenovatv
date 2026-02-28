@@ -21,6 +21,12 @@ function grantConsent() {
 
 function loadAdSense() {
   if (!document.querySelector('script[src*="pagead2.googlesyndication.com"]')) {
+    // Disable Auto Ads (vignettes, anchors, overlays) — only use manual placements
+    (window.adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: ADSENSE_CLIENT,
+      enable_page_level_ads: false,
+    });
+
     const s = document.createElement('script');
     s.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`;
     s.async = true;
