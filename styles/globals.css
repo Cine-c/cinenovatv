@@ -6626,14 +6626,30 @@ a:focus-visible {
     font-size: 1rem;
   }
 
-  /* Hero section: fix iframe overflow on small viewports */
+  /* Hero section: compact on mobile */
   .featured-hero-backdrop {
-    min-height: 55vh;
+    min-height: 40vh;
   }
 
   .featured-hero-video iframe {
-    width: 220%;
-    height: 220%;
+    width: 300%;
+    height: 300%;
+  }
+
+  .featured-hero-content {
+    padding: 1.5rem 1rem;
+  }
+
+  .featured-hero-content h1 {
+    font-size: 1.3rem;
+  }
+
+  .featured-overview {
+    font-size: 0.85rem;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   /* Load More button: constrain width */
@@ -6701,11 +6717,11 @@ a:focus-visible {
   }
 
   .ad-container {
-    margin: 1rem auto;
+    margin: 0.75rem auto;
     padding-left: 0;
     padding-right: 0;
-    max-width: 250px !important;
-    max-height: 60px !important;
+    max-width: 200px !important;
+    max-height: 50px !important;
     overflow: hidden !important;
     width: 100%;
   }
@@ -6714,8 +6730,8 @@ a:focus-visible {
   .ad-container ins,
   .ad-container iframe,
   .ad-container > div {
-    max-height: 60px !important;
-    max-width: 250px !important;
+    max-height: 50px !important;
+    max-width: 200px !important;
     overflow: hidden !important;
   }
 
@@ -6731,9 +6747,9 @@ a:focus-visible {
 /* Small mobile: btn-large full width */
 @media (max-width: 480px) {
   .ad-container {
-    margin: 0.75rem auto;
-    max-width: 200px !important;
-    max-height: 50px !important;
+    margin: 0.5rem auto;
+    max-width: 160px !important;
+    max-height: 40px !important;
     overflow: hidden !important;
     width: 100%;
   }
@@ -6742,8 +6758,8 @@ a:focus-visible {
   .ad-container ins,
   .ad-container iframe,
   .ad-container > div {
-    max-height: 50px !important;
-    max-width: 200px !important;
+    max-height: 40px !important;
+    max-width: 160px !important;
     overflow: hidden !important;
   }
 
@@ -6785,7 +6801,7 @@ a:focus-visible {
   }
 
   .featured-hero-backdrop {
-    min-height: 45vh;
+    min-height: 35vh;
   }
 
   .hero-stats {
