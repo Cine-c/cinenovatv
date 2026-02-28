@@ -35,7 +35,6 @@ function AdSlotInner({ slot, format, responsive, native }) {
   const [consented, setConsented] = useState(false);
   const [inView, setInView] = useState(false);
   const [adFailed, setAdFailed] = useState(false);
-  const [adLoaded, setAdLoaded] = useState(false);
 
   useEffect(() => {
     setConsented(getConsentStatus() === 'accepted');
@@ -93,7 +92,6 @@ function AdSlotInner({ slot, format, responsive, native }) {
               setAdFailed(true);
             }
           }
-          if (status === 'filled') setAdLoaded(true);
         }, 3000);
       } catch (e) {
         if (!retried.current) {
@@ -141,7 +139,7 @@ function AdSlotInner({ slot, format, responsive, native }) {
   }
 
   return (
-    <div className={`ad-container${adLoaded ? ' ad-visible' : ''}`} ref={adRef}>
+    <div className="ad-container" ref={adRef}>
       <span className="ad-label">Ad</span>
       <ins
         className="adsbygoogle"

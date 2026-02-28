@@ -3138,7 +3138,6 @@ a:focus-visible {
   position: relative !important;
   z-index: 0 !important;
   max-width: 728px !important;
-  max-height: 90px !important;
   min-height: 0;
   margin: 1.5rem auto;
   padding: 0 1rem;
@@ -3147,12 +3146,6 @@ a:focus-visible {
   overflow: hidden !important;
   contain: layout style;
   isolation: isolate;
-  opacity: 0;
-  transition: opacity var(--transition-normal);
-}
-
-.ad-container.ad-visible {
-  opacity: 1;
 }
 
 .ad-container .adsbygoogle,
@@ -3161,8 +3154,6 @@ a:focus-visible {
 .ad-container > div {
   margin: 0 auto;
   max-width: 100% !important;
-  max-height: 90px !important;
-  overflow: hidden !important;
 }
 
 /* Prevent ads from overlapping hero sections */
@@ -6721,7 +6712,6 @@ a:focus-visible {
     padding-left: 0;
     padding-right: 0;
     max-width: 320px !important;
-    max-height: 100px !important;
     overflow: hidden !important;
     width: 100%;
   }
@@ -6730,9 +6720,7 @@ a:focus-visible {
   .ad-container ins,
   .ad-container iframe,
   .ad-container > div {
-    max-height: 100px !important;
     max-width: 320px !important;
-    overflow: hidden !important;
   }
 
   /* Hero full-bleed on mobile */
@@ -6749,7 +6737,6 @@ a:focus-visible {
   .ad-container {
     margin: 0.5rem auto;
     max-width: 320px !important;
-    max-height: 100px !important;
     overflow: hidden !important;
     width: 100%;
   }
@@ -6758,9 +6745,7 @@ a:focus-visible {
   .ad-container ins,
   .ad-container iframe,
   .ad-container > div {
-    max-height: 100px !important;
     max-width: 320px !important;
-    overflow: hidden !important;
   }
 
   .bb-reviews-grid {
