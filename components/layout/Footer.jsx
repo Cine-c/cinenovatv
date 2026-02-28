@@ -1,10 +1,12 @@
 import Link from 'next/link';
+import AdSlot from '../AdSlot';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
     <footer className="site-footer">
+      <AdSlot />
       <div className="footer-container">
         <div className="footer-section">
           <h3>CineNovaTV</h3>
