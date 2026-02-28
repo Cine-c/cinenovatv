@@ -2,7 +2,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import SEOHead from '../../components/seo/SEOHead';
 import TrailerModal from '../../components/trailers/TrailerModal';
-import AdSlot from '../../components/AdSlot';
 import { useWatchLater } from '../../components/WatchLaterContext';
 import { useState } from 'react';
 
@@ -166,8 +165,6 @@ export default function MovieDetailPage({ movie, credits, videos, ratings }) {
                 )}
               </div>
             )}
-
-            <AdSlot format="in-article" />
 
             {/* Cast */}
             {cast.length > 0 && (

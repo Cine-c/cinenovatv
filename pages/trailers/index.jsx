@@ -4,7 +4,6 @@ import SEOHead from '../../components/seo/SEOHead';
 import { ItemListJsonLd } from '../../components/seo/JsonLd';
 import MovieGrid from '../../components/trailers/MovieGrid';
 import TrailerModal from '../../components/trailers/TrailerModal';
-import AdSlot from '../../components/AdSlot';
 import { MovieGridSkeleton } from '../../components/SkeletonCard';
 
 const CATEGORIES = [
@@ -379,8 +378,6 @@ export default function TrailersPage({ initialMovies, genres, totalResults, init
         ) : (
           <>
             <MovieGrid movies={movies} onWatchTrailer={handleWatchTrailer} />
-
-            <AdSlot />
 
             {page < totalPages && (
               <div className="load-more-section">

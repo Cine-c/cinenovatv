@@ -3,7 +3,7 @@ import Link from 'next/link';
 import SEOHead from '../../components/seo/SEOHead';
 import { BlogPostingJsonLd } from '../../components/seo/JsonLd';
 import Disqus from '../../components/Disqus';
-import AdSlot from '../../components/AdSlot';
+
 
 export default function BlogPost({ post, relatedPosts }) {
 
@@ -68,8 +68,6 @@ export default function BlogPost({ post, relatedPosts }) {
           className="blog-post-content"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
-
-        <AdSlot format="in-article" />
 
         <nav className="blog-post-nav">
           <Link href="/blog" className="back-to-blog">

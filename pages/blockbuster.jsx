@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import SEOHead from '../components/seo/SEOHead';
 import { ItemListJsonLd } from '../components/seo/JsonLd';
-import AdSlot from '../components/AdSlot';
+
 
 export default function Blockbuster({ posts, categories }) {
   const [activeCategory, setActiveCategory] = useState('');
@@ -220,8 +220,6 @@ export default function Blockbuster({ posts, categories }) {
             ))}
           </section>
         )}
-
-        <AdSlot />
 
         {/* ── Grid ───────────────────────────────── */}
         {rest.length > 0 && (
