@@ -3133,14 +3133,14 @@ a:focus-visible {
   border: 1px solid var(--border);
 }
 
-/* Ad Container — small, subtle, blends with dark theme */
+/* Ad Container — clean, non-intrusive, properly spaced */
 .ad-container {
   position: relative;
   z-index: 0;
-  max-width: 468px;
-  max-height: 90px;
+  max-width: 728px;
+  max-height: 250px;
   min-height: 0;
-  margin: 1rem auto;
+  margin: 2rem auto;
   padding: 0 1rem;
   text-align: center;
   clear: both;
@@ -3158,12 +3158,15 @@ a:focus-visible {
 .ad-container .adsbygoogle {
   margin: 0 auto;
   max-width: 100%;
-  max-height: 90px;
+  max-height: 250px;
 }
 
 /* Prevent ads from overlapping hero sections */
 .featured-hero + .home-section + .ad-container,
-.featured-hero ~ .ad-container {
+.featured-hero ~ .ad-container,
+.movie-detail-hero ~ .ad-container,
+.scene-detail-hero ~ .ad-container,
+.bb-hero ~ .ad-container {
   z-index: 0;
   position: relative;
 }
@@ -3174,7 +3177,7 @@ a:focus-visible {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-muted);
-  opacity: 0.5;
+  opacity: 0.4;
   margin-bottom: 0.25rem;
   user-select: none;
 }
@@ -6694,15 +6697,15 @@ a:focus-visible {
   }
 
   .ad-container {
-    margin: 0.75rem auto;
+    margin: 1.5rem auto;
     padding-left: 0;
     padding-right: 0;
     max-width: 320px;
-    max-height: 60px;
+    max-height: 100px;
   }
 
   .ad-container .adsbygoogle {
-    max-height: 60px;
+    max-height: 100px;
   }
 
   /* Hero full-bleed on mobile */
@@ -6717,7 +6720,7 @@ a:focus-visible {
 /* Small mobile: btn-large full width */
 @media (max-width: 480px) {
   .ad-container {
-    margin: 0.5rem auto;
+    margin: 1rem auto;
     max-width: 300px;
     max-height: 50px;
   }
