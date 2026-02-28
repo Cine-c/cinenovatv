@@ -267,8 +267,6 @@ export default function SceneDetail({ scene }) {
           </div>
         </section>
 
-        <AdSlot />
-
         {/* Disqus Comments */}
         <section className="scene-comments">
           <div className="scene-comments-container">

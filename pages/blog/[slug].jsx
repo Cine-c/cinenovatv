@@ -116,8 +116,6 @@ export default function BlogPost({ post, relatedPosts }) {
           </section>
         )}
 
-        <AdSlot />
-
         {/* Disqus Comments */}
         <Disqus
           identifier={`blog-${post.slug}`}

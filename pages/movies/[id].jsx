@@ -242,8 +242,6 @@ export default function MovieDetailPage({ movie, credits, videos, ratings }) {
               </div>
             )}
 
-            <AdSlot />
-
             {/* Movie Info Sidebar */}
             <div className="movie-detail-section">
               <h2>Details</h2>
