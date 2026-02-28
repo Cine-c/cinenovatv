@@ -143,6 +143,14 @@ export async function getStaticPaths() {
   };
 }
 
+// Strip dangerous HTML at build time to prevent XSS
+function sanitizeHtml(html) {
+  if (!html) return '';
+  return html
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+    .replace(/\son\w+\s*=\s*("[^"]*"|'[^']*'|[^\s>]*)/gi, '');
+}
+
 export async function getStaticProps({ params }) {
   const { slug } = params;
 
@@ -150,14 +158,12 @@ export async function getStaticProps({ params }) {
   let relatedPosts = [];
 
   try {
-    const { getPostBySlug, getAllPublishedPosts } = await import('../../lib/firestore');
+    const { getPostBySlug, getRelatedPosts } = await import('../../lib/firestore');
     post = await getPostBySlug(slug);
 
     if (post) {
-      const allPosts = await getAllPublishedPosts();
-      relatedPosts = allPosts
-        .filter((p) => p.slug !== slug)
-        .slice(0, 3);
+      post.content = sanitizeHtml(post.content);
+      relatedPosts = await getRelatedPosts(slug, 3);
     }
   } catch (err) {
     console.error('Error fetching post:', err);
@@ -174,5 +180,6 @@ export async function getStaticProps({ params }) {
       post,
       relatedPosts,
     },
+    revalidate: 3600,
   };
 }

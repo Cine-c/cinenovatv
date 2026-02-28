@@ -26,4 +26,9 @@ setAdmin.js
 
 # Windows artifacts
 nul
-.vercel
+
+# Zip archives
+*.zip
+
+# App directory
+cinenovatv-app/

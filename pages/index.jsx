@@ -101,7 +101,7 @@ export default function Home({ featuredMovie, posts, blockbusterFilms }) {
       </section>
 
       {/* Ad Placeholder 2 */}
-      <AdSlot slot="homepage" />
+      <AdSlot />
 
       {/* Latest News & Reviews */}
       <section className="home-section">

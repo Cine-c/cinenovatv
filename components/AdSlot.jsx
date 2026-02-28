@@ -136,8 +136,8 @@ function AdSlotInner({ slot, format, responsive, native }) {
     extraProps['data-ad-format'] = native.format;
     extraProps['data-ad-layout-key'] = native.layoutKey;
   } else {
-    if (format) extraProps['data-ad-format'] = format;
-    extraProps['data-full-width-responsive'] = false;
+    extraProps['data-ad-format'] = format || 'auto';
+    extraProps['data-full-width-responsive'] = 'true';
   }
 
   return (
@@ -147,7 +147,7 @@ function AdSlotInner({ slot, format, responsive, native }) {
         className="adsbygoogle"
         style={adStyle}
         data-ad-client={ADSENSE_CLIENT}
-        data-ad-slot={slot}
+        {...(slot ? { 'data-ad-slot': slot } : {})}
         {...extraProps}
       />
     </div>

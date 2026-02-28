@@ -280,8 +280,8 @@ export async function getStaticProps() {
   let posts = [];
 
   try {
-    const { getAllPublishedPosts } = await import('../lib/firestore');
-    posts = await getAllPublishedPosts();
+    const { getAllPostsMeta } = await import('../lib/firestore');
+    posts = await getAllPostsMeta();
   } catch (err) {
     console.error('Error fetching posts:', err);
   }
@@ -290,5 +290,6 @@ export async function getStaticProps() {
 
   return {
     props: { posts, categories },
+    revalidate: 3600,
   };
 }

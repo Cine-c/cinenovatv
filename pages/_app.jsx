@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Layout from '../components/layout/Layout';
+import ErrorBoundary from '../components/ErrorBoundary';
 import { OrganizationJsonLd } from '../components/seo/JsonLd';
 import { WatchLaterProvider } from '../components/WatchLaterContext';
 import { AdFreeProvider } from '../components/AdFreeContext';
@@ -27,11 +28,13 @@ export default function App({ Component, pageProps }) {
   }, [router.events]);
 
   return (
-    <AdFreeProvider>
-      <WatchLaterProvider>
-        <OrganizationJsonLd />
-        {getLayout(<Component {...pageProps} />)}
-      </WatchLaterProvider>
-    </AdFreeProvider>
+    <ErrorBoundary>
+      <AdFreeProvider>
+        <WatchLaterProvider>
+          <OrganizationJsonLd />
+          {getLayout(<Component {...pageProps} />)}
+        </WatchLaterProvider>
+      </AdFreeProvider>
+    </ErrorBoundary>
   );
 }
