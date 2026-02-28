@@ -51,6 +51,18 @@ gtag('config','${GA_ID}',{send_page_view:false});`,
         <link rel="dns-prefetch" href="https://googleads.g.doubleclick.net" />
       </Head>
       <body>
+        {/* Kill AdSense Auto Ads (vignettes, anchors, overlays) via CSS.
+            Our manual ads live inside .ad-container — anything outside is auto-injected. */}
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+ins.adsbygoogle:not(.ad-container ins){display:none!important;height:0!important;max-height:0!important;overflow:hidden!important;visibility:hidden!important}
+body>div[style*="position: fixed"],body>div[style*="position:fixed"]{display:none!important}
+div[id^="google_ads_iframe"]:not(.ad-container div){display:none!important}
+iframe[id^="aswift_"]:not(.ad-container iframe){display:none!important}
+`,
+          }}
+        />
         <Main />
         <NextScript />
       </body>

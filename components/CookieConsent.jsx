@@ -19,6 +19,35 @@ function grantConsent() {
   });
 }
 
+function killAutoAds() {
+  // Remove any auto-injected ad elements not inside our .ad-container
+  document.querySelectorAll('ins.adsbygoogle:not(.ad-container ins)').forEach((el) => el.remove());
+  // Remove fixed-position overlays (vignettes, anchors) injected by auto ads
+  document.querySelectorAll('body > div[style*="position: fixed"], body > div[style*="position:fixed"]').forEach((el) => {
+    if (!el.classList.contains('cookie-banner') && !el.closest('.ad-container')) el.remove();
+  });
+
+  // Watch for future auto ad injections and kill them
+  const observer = new MutationObserver((mutations) => {
+    for (const m of mutations) {
+      for (const node of m.addedNodes) {
+        if (node.nodeType !== 1) continue;
+        // Auto-injected ins outside our container
+        if (node.tagName === 'INS' && node.classList.contains('adsbygoogle') && !node.closest('.ad-container')) {
+          node.remove();
+          continue;
+        }
+        // Fixed overlays (vignettes/anchors)
+        const style = node.getAttribute?.('style') || '';
+        if (node.parentElement === document.body && /position:\s*fixed/i.test(style) && !node.classList.contains('cookie-banner')) {
+          node.remove();
+        }
+      }
+    }
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
+}
+
 function loadAdSense() {
   if (!document.querySelector('script[src*="pagead2.googlesyndication.com"]')) {
     const s = document.createElement('script');
@@ -28,6 +57,7 @@ function loadAdSense() {
     s.async = true;
     s.crossOrigin = 'anonymous';
     s.onload = () => {
+      killAutoAds();
       window.dispatchEvent(new Event('adsenseReady'));
     };
     document.head.appendChild(s);
