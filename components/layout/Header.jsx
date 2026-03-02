@@ -1,10 +1,12 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { useWatchLater } from '../WatchLaterContext';
+import { useAuth } from '../AuthContext';
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { items } = useWatchLater();
+  const { user, loading: authLoading } = useAuth();
 
   return (
     <header className="site-header">
@@ -47,6 +49,26 @@ export default function Header() {
           <Link href="/about" onClick={() => setMenuOpen(false)}>
             About
           </Link>
+          <Link href="/premium" className="nav-premium" onClick={() => setMenuOpen(false)}>
+            Premium
+          </Link>
+          {!authLoading && (
+            user ? (
+              <Link href="/account" className="nav-user" onClick={() => setMenuOpen(false)}>
+                {user.photoURL ? (
+                  <img src={user.photoURL} alt="" className="nav-avatar" referrerPolicy="no-referrer" />
+                ) : (
+                  <span className="nav-avatar-fallback">
+                    {(user.email || '?')[0].toUpperCase()}
+                  </span>
+                )}
+              </Link>
+            ) : (
+              <Link href="/login" className="nav-signin" onClick={() => setMenuOpen(false)}>
+                Sign In
+              </Link>
+            )
+          )}
         </nav>
       </div>
     </header>

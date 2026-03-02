@@ -1,4 +1,5 @@
 import SEOHead from '../components/seo/SEOHead';
+import SupportButton from '../components/SupportButton';
 
 export default function AboutPage() {
   return (
@@ -40,6 +41,16 @@ export default function AboutPage() {
               <p>Founder & Editor-in-Chief</p>
             </div>
           </div>
+        </section>
+        <section className="support-section">
+          <h2 className="section-title" style={{ textAlign: 'center' }}>
+            Support Our Work
+          </h2>
+          <p style={{ textAlign: 'center', color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>
+            If you enjoy CineNovaTV, consider supporting us so we can keep
+            bringing you great movie content.
+          </p>
+          <SupportButton />
         </section>
       </div>
     </>

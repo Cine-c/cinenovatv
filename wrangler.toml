@@ -12,5 +12,3 @@ routes = [
 
 [vars]
 NODE_ENV = "production"
-TMDB_API_KEY = "be15cf50e79cec926bbbddb3ab5dd819"
-OMDB_API_KEY = "9a684507"

@@ -3,6 +3,8 @@ import Link from 'next/link';
 import SEOHead from '../../components/seo/SEOHead';
 import { BlogPostingJsonLd } from '../../components/seo/JsonLd';
 import Disqus from '../../components/Disqus';
+import NewsletterSignup from '../../components/NewsletterSignup';
+import AdSlot from '../../components/AdSlot';
 
 
 export default function BlogPost({ post, relatedPosts }) {
@@ -77,6 +79,12 @@ export default function BlogPost({ post, relatedPosts }) {
             Back to Blog
           </Link>
         </nav>
+
+        {/* Matched Content */}
+        <AdSlot slot="2051432628" format="autorelaxed" />
+
+        {/* Newsletter CTA */}
+        <NewsletterSignup variant="inline" />
 
         {/* Related Posts */}
         {relatedPosts && relatedPosts.length > 0 && (

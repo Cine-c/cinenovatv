@@ -2,10 +2,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import SEOHead from '../../components/seo/SEOHead';
 import TrailerModal from '../../components/trailers/TrailerModal';
+import WatchProviders from '../../components/WatchProviders';
 import { useWatchLater } from '../../components/WatchLaterContext';
 import { useState } from 'react';
+import AdSlot from '../../components/AdSlot';
 
-export default function MovieDetailPage({ movie, credits, videos, ratings }) {
+export default function MovieDetailPage({ movie, credits, videos, ratings, watchProviders }) {
   const [showTrailer, setShowTrailer] = useState(false);
   const { toggle, has } = useWatchLater();
   const saved = has(movie?.id);
@@ -166,6 +168,18 @@ export default function MovieDetailPage({ movie, credits, videos, ratings }) {
               </div>
             )}
 
+            {/* Where to Watch */}
+            {watchProviders && (
+              <div className="movie-detail-section">
+                <WatchProviders
+                  providers={watchProviders}
+                  movieTitle={movie.title}
+                  movieYear={releaseYear}
+                  tmdbLink={watchProviders.link}
+                />
+              </div>
+            )}
+
             {/* Cast */}
             {cast.length > 0 && (
               <div className="movie-detail-section">
@@ -288,6 +302,9 @@ export default function MovieDetailPage({ movie, credits, videos, ratings }) {
           </div>
         </section>
 
+        {/* Matched Content */}
+        <AdSlot slot="2051432628" format="autorelaxed" />
+
         {/* Back link */}
         <section className="movie-detail-nav">
           <Link href="/trailers" className="back-to-blog">
@@ -325,15 +342,22 @@ export async function getServerSideProps({ params }) {
 
     const data = await detailsRes.json();
 
-    // Fetch OMDb ratings
+    // Fetch OMDb ratings + watch providers in parallel
     let ratings = null;
+    let watchProviders = null;
     const omdbKey = process.env.OMDB_API_KEY;
-    if (omdbKey && data.imdb_id) {
-      try {
-        const omdbRes = await fetch(`https://www.omdbapi.com/?i=${data.imdb_id}&apikey=${omdbKey}`);
-        ratings = await omdbRes.json();
-      } catch {}
-    }
+
+    const [omdbResult, wpResult] = await Promise.allSettled([
+      omdbKey && data.imdb_id
+        ? fetch(`https://www.omdbapi.com/?i=${data.imdb_id}&apikey=${omdbKey}`).then(r => r.json())
+        : Promise.resolve(null),
+      fetch(`https://api.themoviedb.org/3/movie/${id}/watch/providers?api_key=${apiKey}`)
+        .then(r => r.json())
+        .then(d => d.results?.US || null),
+    ]);
+
+    if (omdbResult.status === 'fulfilled') ratings = omdbResult.value;
+    if (wpResult.status === 'fulfilled') watchProviders = wpResult.value;
 
     return {
       props: {
@@ -379,6 +403,7 @@ export async function getServerSideProps({ params }) {
             })),
         },
         ratings,
+        watchProviders,
       },
     };
   } catch {

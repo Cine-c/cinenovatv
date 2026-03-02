@@ -4,6 +4,7 @@ import Layout from '../components/layout/Layout';
 import ErrorBoundary from '../components/ErrorBoundary';
 import { OrganizationJsonLd } from '../components/seo/JsonLd';
 import { WatchLaterProvider } from '../components/WatchLaterContext';
+import { AuthProvider } from '../components/AuthContext';
 import { AdFreeProvider } from '../components/AdFreeContext';
 import '../styles/globals.css';
 
@@ -29,12 +30,14 @@ export default function App({ Component, pageProps }) {
 
   return (
     <ErrorBoundary>
-      <AdFreeProvider>
-        <WatchLaterProvider>
-          <OrganizationJsonLd />
-          {getLayout(<Component {...pageProps} />)}
-        </WatchLaterProvider>
-      </AdFreeProvider>
+      <AuthProvider>
+        <AdFreeProvider>
+          <WatchLaterProvider>
+            <OrganizationJsonLd />
+            {getLayout(<Component {...pageProps} />)}
+          </WatchLaterProvider>
+        </AdFreeProvider>
+      </AuthProvider>
     </ErrorBoundary>
   );
 }

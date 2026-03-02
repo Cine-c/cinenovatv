@@ -8,7 +8,7 @@ export default function Layout({ children }) {
   return (
     <div className="site-wrapper">
       <Header />
-      <AdSlot />
+      <AdSlot slot="3891486690" />
       <main className="main-content">{children}</main>
       <Footer />
 

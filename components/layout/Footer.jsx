@@ -1,16 +1,20 @@
 import Link from 'next/link';
 import AdSlot from '../AdSlot';
+import NewsletterSignup from '../NewsletterSignup';
+import SupportButton from '../SupportButton';
+import AffiliateDisclosure from '../AffiliateDisclosure';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
     <footer className="site-footer">
-      <AdSlot />
+      <AdSlot slot="2987946050" />
       <div className="footer-container">
         <div className="footer-section">
           <h3>CineNovaTV</h3>
           <p>Your source for movie trailers, reviews, and the latest film news.</p>
+          <NewsletterSignup variant="compact" />
           <div className="footer-social">
             <a
               href="https://x.com/CineNovaTV"
@@ -36,6 +40,7 @@ export default function Footer() {
             <Link href="/blog">Blog</Link>
             <Link href="/blockbuster">Blockbuster</Link>
             <Link href="/about">About</Link>
+            <Link href="/premium">Go Ad-Free</Link>
             <Link href="/privacy">Privacy Policy</Link>
             <button
               className="footer-cookie-btn"
@@ -44,6 +49,11 @@ export default function Footer() {
               Cookie Settings
             </button>
           </nav>
+        </div>
+
+        <div className="footer-section">
+          <h4>Support Us</h4>
+          <SupportButton variant="compact" />
         </div>
 
         <div className="footer-section">
@@ -64,6 +74,7 @@ export default function Footer() {
               height="12"
             />
           </a>
+          <AffiliateDisclosure variant="footer" />
         </div>
       </div>
 
