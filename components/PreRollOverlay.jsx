@@ -67,10 +67,11 @@ export default function PreRollOverlay({ onSkip }) {
       <div className="pre-roll-ad-container" ref={adRef}>
         <ins
           className="adsbygoogle"
-          style={{ display: 'block', width: '100%', height: '100%' }}
+          style={{ display: 'block' }}
           data-ad-client={ADSENSE_CLIENT}
-          data-ad-format="fluid"
-          data-ad-layout-key="-gw-3+1f-3d+2z"
+          data-ad-slot="9919808615"
+          data-ad-format="auto"
+          data-full-width-responsive="true"
         />
       </div>
 
