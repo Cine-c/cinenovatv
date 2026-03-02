@@ -20,7 +20,7 @@ export default function TrailerModal({ movie, onClose }) {
   const isSaved = has(movie?.id);
   const { adFree } = useAdFree();
   const [showPreRoll, setShowPreRoll] = useState(false);
-  const initialTrailerSet = useRef(false);
+  const shouldShowPreRoll = !adFree && getConsentStatus() === 'accepted';
 
   useEffect(() => {
     if (movie?.id) {
@@ -38,11 +38,9 @@ export default function TrailerModal({ movie, onClose }) {
           );
           const key = trailer?.key || null;
           setTrailerKey(key);
-          // Trigger pre-roll only on initial trailer load
-          if (key && !initialTrailerSet.current && !adFree && getConsentStatus() === 'accepted') {
+          if (key && shouldShowPreRoll) {
             setShowPreRoll(true);
           }
-          if (key) initialTrailerSet.current = true;
           setIsLoading(false);
         })
         .catch(() => {
@@ -189,7 +187,7 @@ export default function TrailerModal({ movie, onClose }) {
                     allowFullScreen
                   />
                   {showPreRoll && (
-                    <PreRollOverlay onSkip={() => setShowPreRoll(false)} />
+                    <PreRollOverlay key={trailerKey} onSkip={() => setShowPreRoll(false)} />
                   )}
                 </div>
               ) : backdropUrl ? (
@@ -261,7 +259,10 @@ export default function TrailerModal({ movie, onClose }) {
                     <button
                       key={video.key}
                       className={`trailer-thumb-mini${video.key === trailerKey ? ' active' : ''}`}
-                      onClick={() => setTrailerKey(video.key)}
+                      onClick={() => {
+                        setTrailerKey(video.key);
+                        if (shouldShowPreRoll) setShowPreRoll(true);
+                      }}
                       aria-label={`Play ${video.name}`}
                     >
                       <Image
