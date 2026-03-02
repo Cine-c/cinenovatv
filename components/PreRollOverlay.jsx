@@ -1,11 +1,24 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { ADSENSE_CLIENT } from './CookieConsent';
 
 export default function PreRollOverlay({ onSkip }) {
   const [countdown, setCountdown] = useState(5);
   const [canSkip, setCanSkip] = useState(false);
+  const [adSize, setAdSize] = useState(null);
   const pushed = useRef(false);
+  const overlayRef = useRef(null);
   const adRef = useRef(null);
+
+  // Measure overlay to give the ins element explicit pixel dimensions
+  useEffect(() => {
+    const el = overlayRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    // Use 90% of overlay width, cap height to leave room for countdown/skip
+    const w = Math.floor(rect.width * 0.9);
+    const h = Math.floor(rect.height * 0.75);
+    setAdSize({ width: w, height: h });
+  }, []);
 
   // Countdown timer
   useEffect(() => {
@@ -23,56 +36,73 @@ export default function PreRollOverlay({ onSkip }) {
     return () => clearInterval(interval);
   }, []);
 
-  // Push AdSense ad
+  // Push AdSense ad once we have dimensions
   useEffect(() => {
-    if (pushed.current) return;
+    if (!adSize || pushed.current) return;
 
-    const pushAd = () => {
+    // Small delay to ensure the ins element is in the DOM with correct dimensions
+    const timer = setTimeout(() => {
       if (pushed.current) return;
-      try {
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
-        pushed.current = true;
-      } catch {
-        // AdSense push failed
+
+      const pushAd = () => {
+        if (pushed.current) return;
+        try {
+          (window.adsbygoogle = window.adsbygoogle || []).push({});
+          pushed.current = true;
+        } catch {
+          // AdSense push failed
+        }
+      };
+
+      if (window.adsbygoogle) {
+        pushAd();
+      } else {
+        const handleReady = () => pushAd();
+        window.addEventListener('adsenseReady', handleReady);
+        // Store cleanup ref
+        timer._cleanup = () => window.removeEventListener('adsenseReady', handleReady);
       }
+    }, 100);
+
+    return () => {
+      clearTimeout(timer);
+      if (timer._cleanup) timer._cleanup();
     };
+  }, [adSize]);
 
-    if (window.adsbygoogle) {
-      pushAd();
-    } else {
-      const handleReady = () => pushAd();
-      window.addEventListener('adsenseReady', handleReady);
-      return () => window.removeEventListener('adsenseReady', handleReady);
-    }
-  }, []);
-
-  // Auto-dismiss if ad doesn't fill within 2 seconds
+  // Auto-dismiss if ad doesn't fill within 3 seconds
+  const stableOnSkip = useCallback(onSkip, [onSkip]);
   useEffect(() => {
     const timeout = setTimeout(() => {
       const ins = adRef.current?.querySelector('ins.adsbygoogle');
-      if (ins && ins.getAttribute('data-ad-status') === 'unfilled') {
-        onSkip();
+      if (!ins) return;
+      const status = ins.getAttribute('data-ad-status');
+      // Skip if unfilled or if no ad content rendered (empty innerHTML)
+      if (status === 'unfilled' || (!status && ins.innerHTML.trim() === '')) {
+        stableOnSkip();
       }
-    }, 2000);
+    }, 3000);
 
     return () => clearTimeout(timeout);
-  }, [onSkip]);
+  }, [stableOnSkip]);
 
   return (
-    <div className="pre-roll-overlay">
+    <div className="pre-roll-overlay" ref={overlayRef}>
       <div className="pre-roll-countdown">
         Ad &middot; 0:0{countdown}
       </div>
 
       <div className="pre-roll-ad-container" ref={adRef}>
-        <ins
-          className="adsbygoogle"
-          style={{ display: 'block' }}
-          data-ad-client={ADSENSE_CLIENT}
-          data-ad-slot="9919808615"
-          data-ad-format="auto"
-          data-full-width-responsive="true"
-        />
+        {adSize && (
+          <ins
+            className="adsbygoogle"
+            style={{ display: 'block', width: adSize.width, height: adSize.height }}
+            data-ad-client={ADSENSE_CLIENT}
+            data-ad-slot="9919808615"
+            data-ad-format="auto"
+            data-full-width-responsive="true"
+          />
+        )}
       </div>
 
       {canSkip && (
