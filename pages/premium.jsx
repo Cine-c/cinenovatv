@@ -2,8 +2,8 @@ import SEOHead from '../components/seo/SEOHead';
 import { PREMIUM_PRICING } from '../lib/affiliates';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useAuth } from '../components/AuthContext';
-import { useAdFree } from '../components/AdFreeContext';
+import { useAuth } from '../components/useAuth';
+import { useAdFree } from '../components/useAdFree';
 
 const FEATURES = [
   { icon: '🚫', title: 'Ad-Free Experience', desc: 'Browse without any ads or interruptions' },

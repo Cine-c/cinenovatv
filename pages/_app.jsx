@@ -1,12 +1,21 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 import Layout from '../components/layout/Layout';
 import ErrorBoundary from '../components/ErrorBoundary';
 import { OrganizationJsonLd } from '../components/seo/JsonLd';
 import { WatchLaterProvider } from '../components/WatchLaterContext';
-import { AuthProvider } from '../components/AuthContext';
-import { AdFreeProvider } from '../components/AdFreeContext';
 import '../styles/globals.css';
+
+const AuthProvider = dynamic(
+  () => import('../components/AuthContext').then((mod) => mod.AuthProvider),
+  { ssr: false }
+);
+
+const AdFreeProvider = dynamic(
+  () => import('../components/AdFreeContext').then((mod) => mod.AdFreeProvider),
+  { ssr: false }
+);
 
 const GA_ID = 'G-81S7GHHRSB';
 

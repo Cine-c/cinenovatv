@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import SEOHead from '../components/seo/SEOHead';
-import { useAuth } from '../components/AuthContext';
+import { useAuth } from '../components/useAuth';
 
 export default function LoginPage() {
   const router = useRouter();

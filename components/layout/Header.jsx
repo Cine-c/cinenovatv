@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { useWatchLater } from '../WatchLaterContext';
-import { useAuth } from '../AuthContext';
+import { useAuth } from '../useAuth';
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);

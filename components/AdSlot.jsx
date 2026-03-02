@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { getConsentStatus, ADSENSE_CLIENT } from './CookieConsent';
-import { useAdFree } from './AdFreeContext';
+import { useAdFree } from './useAdFree';
 
 // Native AdSense formats (fluid, blend with content)
 const NATIVE_FORMATS = {

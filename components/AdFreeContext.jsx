@@ -1,7 +1,6 @@
-import { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { useAuth } from './AuthContext';
-
-const AdFreeContext = createContext({ adFree: false, setAdFree: () => {} });
+import { useState, useEffect, useCallback } from 'react';
+import { useAuth } from './useAuth';
+import { AdFreeContext } from './useAdFree';
 
 const STORAGE_KEY = 'adFreeMode';
 
@@ -23,15 +22,8 @@ export function AdFreeProvider({ children }) {
     async function checkSubscription() {
       try {
         const { getFirestore, doc, getDoc } = await import('firebase/firestore');
-        const { initializeApp, getApps } = await import('firebase/app');
-        const app = !getApps().length ? initializeApp({
-          apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-          authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-          projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-          storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-          messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-          appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-        }) : getApps()[0];
+        const { getApps } = await import('firebase/app');
+        const app = getApps()[0];
         const db = getFirestore(app);
 
         const snap = await getDoc(doc(db, 'users', user.uid));
@@ -69,8 +61,4 @@ export function AdFreeProvider({ children }) {
       {children}
     </AdFreeContext.Provider>
   );
-}
-
-export function useAdFree() {
-  return useContext(AdFreeContext);
 }
