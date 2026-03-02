@@ -3,6 +3,7 @@ import { WebSiteJsonLd } from '../components/seo/JsonLd';
 import Link from 'next/link';
 import Image from 'next/image';
 import NewsletterSignup from '../components/NewsletterSignup';
+import AdSlot from '../components/AdSlot';
 
 export default function Home({ featuredMovie, posts, blockbusterFilms }) {
   return (
@@ -148,6 +149,8 @@ export default function Home({ featuredMovie, posts, blockbusterFilms }) {
           </div>
         )}
       </section>
+
+      <AdSlot slot="9497514084" />
 
       {/* Movie Insights Section */}
       <section className="home-section">

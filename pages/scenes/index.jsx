@@ -2,6 +2,7 @@ import React from 'react';
 import SEOHead from '../../components/seo/SEOHead';
 import Link from 'next/link';
 import Image from 'next/image';
+import AdSlot from '../../components/AdSlot';
 
 const iconicScenes = [
   {
@@ -176,6 +177,8 @@ export default function ScenesPage() {
             ))}
           </div>
         </section>
+
+        <AdSlot slot="3891486690" />
 
         {/* CTA Section */}
         <section className="scenes-cta">

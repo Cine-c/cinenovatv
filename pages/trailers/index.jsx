@@ -5,6 +5,7 @@ import { ItemListJsonLd } from '../../components/seo/JsonLd';
 import MovieGrid from '../../components/trailers/MovieGrid';
 import TrailerModal from '../../components/trailers/TrailerModal';
 import { MovieGridSkeleton } from '../../components/SkeletonCard';
+import AdSlot from '../../components/AdSlot';
 
 const CATEGORIES = [
   { id: 'trending', label: 'Trending', icon: '🔥', endpoint: '/api/trending/day' },
@@ -378,6 +379,8 @@ export default function TrailersPage({ initialMovies, genres, totalResults, init
         ) : (
           <>
             <MovieGrid movies={movies} onWatchTrailer={handleWatchTrailer} />
+
+            <AdSlot slot="3307940521" />
 
             {page < totalPages && (
               <div className="load-more-section">

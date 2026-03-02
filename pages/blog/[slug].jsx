@@ -81,7 +81,7 @@ export default function BlogPost({ post, relatedPosts }) {
         </nav>
 
         {/* In-article native ad */}
-        <AdSlot slot="2051432628" format="in-article" />
+        <AdSlot slot="5424270342" format="in-article" />
 
         {/* Newsletter CTA */}
         <NewsletterSignup variant="inline" />
