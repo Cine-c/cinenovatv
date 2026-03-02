@@ -3137,7 +3137,7 @@ a:focus-visible {
 .ad-container {
   position: relative !important;
   z-index: 0 !important;
-  max-width: 728px !important;
+  max-width: 100% !important;
   min-height: 0;
   margin: 1.5rem auto;
   padding: 0 1rem;
@@ -6711,7 +6711,7 @@ a:focus-visible {
     margin: 0.75rem auto;
     padding-left: 0;
     padding-right: 0;
-    max-width: 320px !important;
+    max-width: 100% !important;
     overflow: hidden !important;
     width: 100%;
   }
@@ -6720,7 +6720,7 @@ a:focus-visible {
   .ad-container ins,
   .ad-container iframe,
   .ad-container > div {
-    max-width: 320px !important;
+    max-width: 100% !important;
   }
 
   /* Hero full-bleed on mobile */
@@ -6736,7 +6736,7 @@ a:focus-visible {
 @media (max-width: 480px) {
   .ad-container {
     margin: 0.5rem auto;
-    max-width: 320px !important;
+    max-width: 100% !important;
     overflow: hidden !important;
     width: 100%;
   }
@@ -6745,7 +6745,7 @@ a:focus-visible {
   .ad-container ins,
   .ad-container iframe,
   .ad-container > div {
-    max-width: 320px !important;
+    max-width: 100% !important;
   }
 
   .bb-reviews-grid {

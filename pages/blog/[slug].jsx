@@ -80,8 +80,8 @@ export default function BlogPost({ post, relatedPosts }) {
           </Link>
         </nav>
 
-        {/* Matched Content */}
-        <AdSlot slot="2051432628" format="autorelaxed" />
+        {/* In-article native ad */}
+        <AdSlot slot="2051432628" format="in-article" />
 
         {/* Newsletter CTA */}
         <NewsletterSignup variant="inline" />

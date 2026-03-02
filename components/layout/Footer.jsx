@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import AdSlot from '../AdSlot';
 import NewsletterSignup from '../NewsletterSignup';
 import SupportButton from '../SupportButton';
 import AffiliateDisclosure from '../AffiliateDisclosure';
@@ -9,7 +8,6 @@ export default function Footer() {
 
   return (
     <footer className="site-footer">
-      <AdSlot slot="2987946050" />
       <div className="footer-container">
         <div className="footer-section">
           <h3>CineNovaTV</h3>

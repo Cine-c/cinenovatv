@@ -302,8 +302,8 @@ export default function MovieDetailPage({ movie, credits, videos, ratings, watch
           </div>
         </section>
 
-        {/* Matched Content */}
-        <AdSlot slot="2051432628" format="autorelaxed" />
+        {/* In-article native ad */}
+        <AdSlot slot="2051432628" format="in-article" />
 
         {/* Back link */}
         <section className="movie-detail-nav">

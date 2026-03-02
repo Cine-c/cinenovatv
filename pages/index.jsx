@@ -2,7 +2,6 @@ import SEOHead from '../components/seo/SEOHead';
 import { WebSiteJsonLd } from '../components/seo/JsonLd';
 import Link from 'next/link';
 import Image from 'next/image';
-import AdSlot from '../components/AdSlot';
 import NewsletterSignup from '../components/NewsletterSignup';
 
 export default function Home({ featuredMovie, posts, blockbusterFilms }) {
@@ -100,9 +99,6 @@ export default function Home({ featuredMovie, posts, blockbusterFilms }) {
           ))}
         </div>
       </section>
-
-      {/* Ad Placeholder 2 */}
-      <AdSlot slot="9497514084" />
 
       {/* Latest News & Reviews */}
       <section className="home-section">

@@ -31,10 +31,8 @@ export default function AdSlot({ slot, format = 'auto', responsive = true }) {
 function AdSlotInner({ slot, format, responsive, native }) {
   const adRef = useRef(null);
   const pushed = useRef(false);
-  const retried = useRef(false);
   const [consented, setConsented] = useState(false);
   const [inView, setInView] = useState(false);
-  const [adFailed, setAdFailed] = useState(false);
 
   useEffect(() => {
     setConsented(getConsentStatus() === 'accepted');
@@ -78,35 +76,8 @@ function AdSlotInner({ slot, format, responsive, native }) {
       try {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
         pushed.current = true;
-
-        setTimeout(() => {
-          const ins = adRef.current?.querySelector?.('ins.adsbygoogle') || adRef.current;
-          const status = ins?.dataset?.adStatus;
-          if (status === 'unfilled' && !retried.current) {
-            retried.current = true;
-            pushed.current = false;
-            try {
-              (window.adsbygoogle = window.adsbygoogle || []).push({});
-              pushed.current = true;
-            } catch {
-              setAdFailed(true);
-            }
-          }
-        }, 3000);
-      } catch (e) {
-        if (!retried.current) {
-          retried.current = true;
-          setTimeout(() => {
-            try {
-              (window.adsbygoogle = window.adsbygoogle || []).push({});
-              pushed.current = true;
-            } catch {
-              setAdFailed(true);
-            }
-          }, 2000);
-        } else {
-          setAdFailed(true);
-        }
+      } catch {
+        // AdSense push failed — ad slot stays empty
       }
     };
 
@@ -120,11 +91,7 @@ function AdSlotInner({ slot, format, responsive, native }) {
     return () => window.removeEventListener('adsenseReady', handleReady);
   }, [consented, inView]);
 
-  // Show nothing until consent is given — no placeholder, no gap
   if (!ADSENSE_CLIENT || !consented) return null;
-
-  // Collapse completely if the ad failed
-  if (adFailed) return null;
 
   let adStyle = { display: 'block' };
   let extraProps = {};
@@ -135,7 +102,7 @@ function AdSlotInner({ slot, format, responsive, native }) {
     extraProps['data-ad-layout-key'] = native.layoutKey;
   } else {
     extraProps['data-ad-format'] = format || 'auto';
-    extraProps['data-full-width-responsive'] = 'false';
+    extraProps['data-full-width-responsive'] = 'true';
   }
 
   return (
