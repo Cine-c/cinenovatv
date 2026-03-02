@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import SEOHead from '../components/seo/SEOHead';
 import { useAuth } from '../components/AuthContext';
-import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../lib/firebase';
 
 export default function AccountPage() {
   const router = useRouter();
@@ -26,6 +24,11 @@ export default function AccountPage() {
 
     async function fetchSub() {
       try {
+        const { getFirestore, doc, getDoc } = await import('firebase/firestore');
+        const { getApps } = await import('firebase/app');
+        const app = getApps()[0];
+        const db = getFirestore(app);
+
         const snap = await getDoc(doc(db, 'users', user.uid));
         if (cancelled) return;
         if (snap.exists()) {
