@@ -2,6 +2,9 @@ import { useEffect, useRef, useCallback, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useWatchLater } from '../WatchLaterContext';
+import { useAdFree } from '../useAdFree';
+import { getConsentStatus } from '../CookieConsent';
+import PreRollOverlay from '../PreRollOverlay';
 
 export default function TrailerModal({ movie, onClose }) {
   const modalRef = useRef(null);
@@ -15,6 +18,9 @@ export default function TrailerModal({ movie, onClose }) {
 
   const { toggle, has } = useWatchLater();
   const isSaved = has(movie?.id);
+  const { adFree } = useAdFree();
+  const [showPreRoll, setShowPreRoll] = useState(false);
+  const initialTrailerSet = useRef(false);
 
   useEffect(() => {
     if (movie?.id) {
@@ -30,7 +36,13 @@ export default function TrailerModal({ movie, onClose }) {
           const trailer = tmdbData.videos?.results?.find(
             (v) => v.type === 'Trailer' && v.site === 'YouTube'
           );
-          setTrailerKey(trailer?.key || null);
+          const key = trailer?.key || null;
+          setTrailerKey(key);
+          // Trigger pre-roll only on initial trailer load
+          if (key && !initialTrailerSet.current && !adFree && getConsentStatus() === 'accepted') {
+            setShowPreRoll(true);
+          }
+          if (key) initialTrailerSet.current = true;
           setIsLoading(false);
         })
         .catch(() => {
@@ -171,11 +183,14 @@ export default function TrailerModal({ movie, onClose }) {
               {trailerKey ? (
                 <div className="video-container">
                   <iframe
-                    src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&rel=0`}
+                    src={`https://www.youtube.com/embed/${trailerKey}?autoplay=${showPreRoll ? 0 : 1}&rel=0`}
                     title={`${movie.title} trailer`}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                   />
+                  {showPreRoll && (
+                    <PreRollOverlay onSkip={() => setShowPreRoll(false)} />
+                  )}
                 </div>
               ) : backdropUrl ? (
                 <div className="trailer-backdrop">
