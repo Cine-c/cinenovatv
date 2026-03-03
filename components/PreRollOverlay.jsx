@@ -2,11 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import { ADSENSE_CLIENT } from './CookieConsent';
 
 export default function PreRollOverlay({ onSkip }) {
-  const [countdown, setCountdown] = useState(3);
+  const [countdown, setCountdown] = useState(5);
   const [canSkip, setCanSkip] = useState(false);
   const [adSize, setAdSize] = useState(null);
-  const [adFilled, setAdFilled] = useState(false);
   const pushed = useRef(false);
+  const adFilledRef = useRef(false);
   const overlayRef = useRef(null);
   const adRef = useRef(null);
   const onSkipRef = useRef(onSkip);
@@ -51,8 +51,7 @@ export default function PreRollOverlay({ onSkip }) {
           (window.adsbygoogle = window.adsbygoogle || []).push({});
           pushed.current = true;
         } catch {
-          // AdSense push failed — dismiss immediately
-          onSkipRef.current();
+          // AdSense push failed
         }
       };
 
@@ -71,36 +70,37 @@ export default function PreRollOverlay({ onSkip }) {
     };
   }, [adSize]);
 
-  // Check if ad actually filled — poll briefly
+  // Check if ad filled — poll and track via ref
   useEffect(() => {
     if (!adSize) return;
 
-    const check = () => {
+    const interval = setInterval(() => {
       const ins = adRef.current?.querySelector('ins.adsbygoogle');
-      if (!ins) return false;
+      if (!ins) return;
       const status = ins.getAttribute('data-ad-status');
-      return status === 'filled' && ins.offsetHeight > 10;
-    };
+      if (status === 'filled' && ins.offsetHeight > 10) {
+        adFilledRef.current = true;
+        clearInterval(interval);
+      }
+    }, 500);
 
-    // Check every 500ms for 2 seconds
-    const checks = [500, 1000, 1500, 2000];
-    const timers = checks.map((ms) =>
-      setTimeout(() => {
-        if (check()) {
-          setAdFilled(true);
-        } else if (ms === 2000 && !adFilled) {
-          // After 2 seconds with no ad, auto-dismiss
-          onSkipRef.current();
-        }
-      }, ms)
-    );
-
-    return () => timers.forEach(clearTimeout);
+    return () => clearInterval(interval);
   }, [adSize]);
 
-  // Hard fallback: always dismiss after 6 seconds no matter what
+  // Auto-dismiss after 4s ONLY if ad never filled (localhost / no inventory)
   useEffect(() => {
-    const timeout = setTimeout(() => onSkipRef.current(), 6000);
+    const timeout = setTimeout(() => {
+      if (!adFilledRef.current) {
+        onSkipRef.current();
+      }
+    }, 4000);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
+  // Hard fallback: always dismiss after 15 seconds no matter what
+  useEffect(() => {
+    const timeout = setTimeout(() => onSkipRef.current(), 15000);
     return () => clearTimeout(timeout);
   }, []);
 
@@ -115,7 +115,7 @@ export default function PreRollOverlay({ onSkip }) {
       </button>
 
       <div className="pre-roll-countdown">
-        {adFilled ? `Ad \u00B7 0:0${countdown}` : 'Loading ad...'}
+        Ad &middot; 0:0{countdown}
       </div>
 
       <div className="pre-roll-ad-container" ref={adRef}>

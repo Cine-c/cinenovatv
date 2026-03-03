@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useWatchLater } from '../WatchLaterContext';
 import { useAuth } from '../useAuth';
-import { AMAZON_TAG } from '../lib/affiliates';
+import { AMAZON_TAG } from '../../lib/affiliates';
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
