@@ -42,6 +42,8 @@ export default function PreRollOverlay({ onSkip }) {
   useEffect(() => {
     if (!adSize || pushed.current) return;
 
+    let cleanupListener = null;
+
     const timer = setTimeout(() => {
       if (pushed.current) return;
 
@@ -60,13 +62,13 @@ export default function PreRollOverlay({ onSkip }) {
       } else {
         const handleReady = () => pushAd();
         window.addEventListener('adsenseReady', handleReady);
-        timer._cleanup = () => window.removeEventListener('adsenseReady', handleReady);
+        cleanupListener = () => window.removeEventListener('adsenseReady', handleReady);
       }
     }, 100);
 
     return () => {
       clearTimeout(timer);
-      if (timer._cleanup) timer._cleanup();
+      if (cleanupListener) cleanupListener();
     };
   }, [adSize]);
 
