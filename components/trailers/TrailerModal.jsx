@@ -6,15 +6,17 @@ import { useAdFree } from '../useAdFree';
 import { getConsentStatus } from '../CookieConsent';
 import PreRollOverlay from '../PreRollOverlay';
 
-export default function TrailerModal({ movie, onClose }) {
+export default function TrailerModal({ movie, movies = [], onNextMovie, onClose }) {
   const modalRef = useRef(null);
   const closeButtonRef = useRef(null);
   const previousActiveElement = useRef(null);
+  const iframeRef = useRef(null);
   const [details, setDetails] = useState(null);
   const [ratings, setRatings] = useState(null);
   const [trailerKey, setTrailerKey] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [copied, setCopied] = useState(false);
+  const [showUpNext, setShowUpNext] = useState(false);
 
   const { toggle, has } = useWatchLater();
   const isSaved = has(movie?.id);
@@ -22,9 +24,75 @@ export default function TrailerModal({ movie, onClose }) {
   const [showPreRoll, setShowPreRoll] = useState(false);
   const shouldShowPreRoll = !adFree && getConsentStatus() === 'accepted';
 
+  // Determine if there's a next movie available
+  const currentIndex = movies.findIndex((m) => m.id === movie?.id);
+  const nextMovie = currentIndex >= 0 && currentIndex < movies.length - 1
+    ? movies[currentIndex + 1]
+    : null;
+  const hasNext = !!nextMovie && !!onNextMovie;
+
+  // YouTube iframe API: detect when video ends via postMessage
+  useEffect(() => {
+    if (!trailerKey || showPreRoll || !hasNext) return;
+
+    const iframe = iframeRef.current;
+    if (!iframe) return;
+
+    // Subscribe to YouTube state changes after iframe loads
+    const sendListening = () => {
+      try {
+        iframe.contentWindow.postMessage(
+          JSON.stringify({ event: 'listening' }),
+          'https://www.youtube.com'
+        );
+        iframe.contentWindow.postMessage(
+          JSON.stringify({ event: 'command', func: 'addEventListener', args: ['onStateChange'] }),
+          'https://www.youtube.com'
+        );
+      } catch {
+        // Cross-origin may block — no-op
+      }
+    };
+
+    // Send after a small delay to ensure YouTube player is ready
+    const timer = setTimeout(sendListening, 1500);
+
+    const handleMessage = (e) => {
+      if (e.origin !== 'https://www.youtube.com') return;
+      try {
+        const data = typeof e.data === 'string' ? JSON.parse(e.data) : e.data;
+        // YouTube posts { event: "onStateChange", info: 0 } when video ends
+        if (data.event === 'onStateChange' && data.info === 0) {
+          setShowUpNext(true);
+        }
+      } catch {
+        // Not a JSON message we care about
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('message', handleMessage);
+    };
+  }, [trailerKey, showPreRoll, hasNext]);
+
+  // "Up Next" countdown — auto-advance after 5 seconds
+  useEffect(() => {
+    if (!showUpNext || !hasNext) return;
+
+    const timer = setTimeout(() => {
+      setShowUpNext(false);
+      onNextMovie();
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [showUpNext, hasNext, onNextMovie]);
+
   useEffect(() => {
     if (movie?.id) {
       setIsLoading(true);
+      setShowUpNext(false);
 
       Promise.all([
         fetch(`/api/movie/${movie.id}/details`).then((res) => res.json()),
@@ -181,13 +249,39 @@ export default function TrailerModal({ movie, onClose }) {
               {trailerKey ? (
                 <div className="video-container">
                   <iframe
-                    src={`https://www.youtube.com/embed/${trailerKey}?autoplay=${showPreRoll ? 0 : 1}&rel=0`}
+                    ref={iframeRef}
+                    src={`https://www.youtube.com/embed/${trailerKey}?autoplay=${showPreRoll ? 0 : 1}&rel=0&enablejsapi=1&origin=${typeof window !== 'undefined' ? window.location.origin : ''}`}
                     title={`${movie.title} trailer`}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                   />
                   {showPreRoll && (
                     <PreRollOverlay key={trailerKey} onSkip={() => setShowPreRoll(false)} />
+                  )}
+                  {showUpNext && nextMovie && (
+                    <div className="up-next-overlay">
+                      <div className="up-next-content">
+                        <span className="up-next-label">Up Next</span>
+                        <span className="up-next-title">{nextMovie.title}</span>
+                        <div className="up-next-progress">
+                          <div className="up-next-progress-bar" />
+                        </div>
+                        <div className="up-next-actions">
+                          <button
+                            className="up-next-play-btn"
+                            onClick={() => { setShowUpNext(false); onNextMovie(); }}
+                          >
+                            Play Now
+                          </button>
+                          <button
+                            className="up-next-cancel-btn"
+                            onClick={() => setShowUpNext(false)}
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </div>
+                    </div>
                   )}
                 </div>
               ) : backdropUrl ? (

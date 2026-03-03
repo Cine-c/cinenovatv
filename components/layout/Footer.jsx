@@ -42,7 +42,13 @@ export default function Footer() {
             <Link href="/privacy">Privacy Policy</Link>
             <button
               className="footer-cookie-btn"
-              onClick={() => window.dispatchEvent(new Event('openCookieSettings'))}
+              onClick={() => {
+                if (window.googlefc?.showRevocationMessage) {
+                  window.googlefc.showRevocationMessage();
+                } else if (typeof window.__tcfapi === 'function') {
+                  window.__tcfapi('showUi', 2, () => {});
+                }
+              }}
             >
               Cookie Settings
             </button>

@@ -21,6 +21,16 @@ gtag('consent','default',{
 });`,
           }}
         />
+        {/* Google Funding Choices CMP — serves IAB TCF v2.3 consent dialog */}
+        <script
+          async
+          src="https://fundingchoicesmessages.google.com/i/pub-8747979755893623?ers=1"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.googlefc=window.googlefc||{};window.googlefc.callbackQueue=window.googlefc.callbackQueue||[];`,
+          }}
+        />
         {/* Global site tag (gtag.js) — loads early, respects consent mode */}
         <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />
         <script
@@ -43,6 +53,7 @@ gtag('config','${GA_ID}',{send_page_view:false});`,
         />
         <link rel="preconnect" href="https://image.tmdb.org" />
         <link rel="preconnect" href="https://www.youtube.com" />
+        <link rel="preconnect" href="https://fundingchoicesmessages.google.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://googleads.g.doubleclick.net" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://image.tmdb.org" />
