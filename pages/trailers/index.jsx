@@ -4,8 +4,10 @@ import SEOHead from '../../components/seo/SEOHead';
 import { ItemListJsonLd } from '../../components/seo/JsonLd';
 import MovieGrid from '../../components/trailers/MovieGrid';
 import TrailerModal from '../../components/trailers/TrailerModal';
+import ReelsView from '../../components/trailers/ReelsView';
 import { MovieGridSkeleton } from '../../components/SkeletonCard';
 import AdSlot from '../../components/AdSlot';
+import useIsMobile from '../../components/hooks/useIsMobile';
 
 const CATEGORIES = [
   { id: 'trending', label: 'Trending', icon: '🔥', endpoint: '/api/trending/day' },
@@ -17,6 +19,7 @@ const CATEGORIES = [
 
 export default function TrailersPage({ initialMovies, genres, totalResults, initialTotalPages }) {
   const router = useRouter();
+  const isMobile = useIsMobile();
   const [movies, setMovies] = useState(initialMovies || []);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('trending');
@@ -203,6 +206,20 @@ export default function TrailersPage({ initialMovies, genres, totalResults, init
 
   const handleCloseModal = () => {
     setSelectedMovie(null);
+  };
+
+  const handleNextMovie = () => {
+    const currentIndex = movies.findIndex((m) => m.id === selectedMovie?.id);
+    if (currentIndex >= 0 && currentIndex < movies.length - 1) {
+      setSelectedMovie(movies[currentIndex + 1]);
+    }
+  };
+
+  const handlePrevMovie = () => {
+    const currentIndex = movies.findIndex((m) => m.id === selectedMovie?.id);
+    if (currentIndex > 0) {
+      setSelectedMovie(movies[currentIndex - 1]);
+    }
   };
 
   const currentCategory = CATEGORIES.find((c) => c.id === activeCategory);
@@ -418,7 +435,17 @@ export default function TrailersPage({ initialMovies, genres, totalResults, init
         )}
 
         {selectedMovie && (
-          <TrailerModal movie={selectedMovie} onClose={handleCloseModal} />
+          isMobile ? (
+            <ReelsView
+              movie={selectedMovie}
+              movies={movies}
+              onNextMovie={handleNextMovie}
+              onPrevMovie={handlePrevMovie}
+              onClose={handleCloseModal}
+            />
+          ) : (
+            <TrailerModal movie={selectedMovie} movies={movies} onNextMovie={handleNextMovie} onClose={handleCloseModal} />
+          )
         )}
       </div>
     </>
