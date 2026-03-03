@@ -1,17 +1,10 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
-import { useAdFree } from '../useAdFree';
-import { getConsentStatus } from '../CookieConsent';
-import PreRollOverlay from '../PreRollOverlay';
 
 export default function ReelSlide({ movie, isActive, onVideoEnd }) {
   const [trailerKey, setTrailerKey] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [showPreRoll, setShowPreRoll] = useState(false);
   const iframeRef = useRef(null);
   const fetchedRef = useRef(null);
-
-  const { adFree } = useAdFree();
-  const shouldShowPreRoll = !adFree && getConsentStatus() === 'accepted';
 
   // Fetch trailer key when slide becomes active
   useEffect(() => {
@@ -28,31 +21,26 @@ export default function ReelSlide({ movie, isActive, onVideoEnd }) {
         const trailer = data.videos?.results?.find(
           (v) => v.type === 'Trailer' && v.site === 'YouTube'
         );
-        const key = trailer?.key || null;
-        setTrailerKey(key);
-        if (key && shouldShowPreRoll) {
-          setShowPreRoll(true);
-        }
+        setTrailerKey(trailer?.key || null);
         setIsLoading(false);
       })
       .catch(() => {
         setIsLoading(false);
       });
-  }, [isActive, movie?.id, shouldShowPreRoll]);
+  }, [isActive, movie?.id]);
 
   // Reset when movie changes (different slide recycled)
   useEffect(() => {
     if (fetchedRef.current !== movie?.id) {
       setTrailerKey(null);
       setIsLoading(true);
-      setShowPreRoll(false);
       fetchedRef.current = null;
     }
   }, [movie?.id]);
 
   // YouTube end detection via postMessage
   useEffect(() => {
-    if (!isActive || !trailerKey || showPreRoll) return;
+    if (!isActive || !trailerKey) return;
 
     const iframe = iframeRef.current;
     if (!iframe) return;
@@ -91,7 +79,7 @@ export default function ReelSlide({ movie, isActive, onVideoEnd }) {
       clearTimeout(timer);
       window.removeEventListener('message', handleMessage);
     };
-  }, [isActive, trailerKey, showPreRoll, onVideoEnd]);
+  }, [isActive, trailerKey, onVideoEnd]);
 
   const releaseYear = movie?.release_date
     ? movie.release_date.split('-')[0]
@@ -110,14 +98,11 @@ export default function ReelSlide({ movie, isActive, onVideoEnd }) {
               <iframe
                 ref={iframeRef}
                 className="reel-iframe"
-                src={`https://www.youtube.com/embed/${trailerKey}?autoplay=${showPreRoll ? 0 : 1}&rel=0&playsinline=1&enablejsapi=1&origin=${typeof window !== 'undefined' ? window.location.origin : ''}`}
+                src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&rel=0&playsinline=1&enablejsapi=1&origin=${typeof window !== 'undefined' ? window.location.origin : ''}`}
                 title={`${movie.title} trailer`}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               />
-              {showPreRoll && (
-                <PreRollOverlay key={trailerKey} onSkip={() => setShowPreRoll(false)} />
-              )}
             </div>
           ) : (
             <div className="reel-no-trailer">

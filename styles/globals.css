@@ -192,6 +192,12 @@ button {
   height: var(--header-height);
 }
 
+.logo-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .logo {
   font-size: 1.75rem;
   font-weight: 800;
@@ -202,6 +208,23 @@ button {
   background-clip: text;
   letter-spacing: -0.5px;
   animation: gradientShift 5s ease infinite;
+}
+
+.header-amazon {
+  display: flex;
+  align-items: center;
+  color: var(--text-muted);
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.header-amazon:hover {
+  opacity: 1;
+}
+
+.header-amazon svg {
+  height: 14px;
+  width: auto;
 }
 
 @keyframes gradientShift {
