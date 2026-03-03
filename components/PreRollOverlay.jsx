@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ADSENSE_CLIENT } from './CookieConsent';
 
 export default function PreRollOverlay({ onSkip }) {
@@ -8,6 +8,8 @@ export default function PreRollOverlay({ onSkip }) {
   const pushed = useRef(false);
   const overlayRef = useRef(null);
   const adRef = useRef(null);
+  const onSkipRef = useRef(onSkip);
+  onSkipRef.current = onSkip;
 
   // Measure overlay to give the ins element explicit pixel dimensions
   useEffect(() => {
@@ -71,23 +73,34 @@ export default function PreRollOverlay({ onSkip }) {
   }, [adSize]);
 
   // Auto-dismiss if ad doesn't fill within 3 seconds
-  const stableOnSkip = useCallback(onSkip, [onSkip]);
   useEffect(() => {
     const timeout = setTimeout(() => {
       const ins = adRef.current?.querySelector('ins.adsbygoogle');
-      if (!ins) return;
+      if (!ins) { onSkipRef.current(); return; }
       const status = ins.getAttribute('data-ad-status');
-      // Skip if unfilled or if no ad content rendered (empty innerHTML)
       if (status === 'unfilled' || (!status && ins.innerHTML.trim() === '')) {
-        stableOnSkip();
+        onSkipRef.current();
       }
     }, 3000);
 
     return () => clearTimeout(timeout);
-  }, [stableOnSkip]);
+  }, []);
+
+  // Hard fallback: always dismiss after 15 seconds no matter what
+  useEffect(() => {
+    const timeout = setTimeout(() => onSkipRef.current(), 15000);
+    return () => clearTimeout(timeout);
+  }, []);
 
   return (
     <div className="pre-roll-overlay" ref={overlayRef}>
+      {/* Always-visible close button */}
+      <button className="pre-roll-close-btn" onClick={onSkip} aria-label="Close ad">
+        <svg viewBox="0 0 24 24" width="20" height="20">
+          <path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+        </svg>
+      </button>
+
       <div className="pre-roll-countdown">
         Ad &middot; 0:0{countdown}
       </div>
