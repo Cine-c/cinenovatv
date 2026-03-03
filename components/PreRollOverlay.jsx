@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { ADSENSE_CLIENT } from './CookieConsent';
 
+const SKIP_DELAY = 3; // seconds to hold ad after it fills (enough for impression)
+
 export default function PreRollOverlay({ onSkip }) {
-  const [countdown, setCountdown] = useState(5);
+  const [countdown, setCountdown] = useState(null); // null = waiting for ad
   const [canSkip, setCanSkip] = useState(false);
   const [adSize, setAdSize] = useState(null);
+  const [adFilled, setAdFilled] = useState(false);
   const pushed = useRef(false);
-  const adFilledRef = useRef(false);
-  const [adPushed, setAdPushed] = useState(false);
   const overlayRef = useRef(null);
   const adRef = useRef(null);
   const onSkipRef = useRef(onSkip);
@@ -21,22 +22,6 @@ export default function PreRollOverlay({ onSkip }) {
     const w = Math.floor(rect.width * 0.9);
     const h = Math.floor(rect.height * 0.7);
     setAdSize({ width: w, height: h });
-  }, []);
-
-  // Countdown timer
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCountdown((prev) => {
-        if (prev <= 1) {
-          clearInterval(interval);
-          setCanSkip(true);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(interval);
   }, []);
 
   // Push AdSense ad once we have dimensions
@@ -53,9 +38,7 @@ export default function PreRollOverlay({ onSkip }) {
         try {
           (window.adsbygoogle = window.adsbygoogle || []).push({});
           pushed.current = true;
-          setAdPushed(true);
         } catch {
-          // AdSense push failed — dismiss overlay
           onSkipRef.current();
         }
       };
@@ -66,11 +49,6 @@ export default function PreRollOverlay({ onSkip }) {
         const handleReady = () => pushAd();
         window.addEventListener('adsenseReady', handleReady);
         cleanupListener = () => window.removeEventListener('adsenseReady', handleReady);
-
-        // If AdSense never loads (adblocker), dismiss after 5s
-        setTimeout(() => {
-          if (!pushed.current) onSkipRef.current();
-        }, 5000);
       }
     }, 100);
 
@@ -80,7 +58,7 @@ export default function PreRollOverlay({ onSkip }) {
     };
   }, [adSize]);
 
-  // Check if ad filled — poll and track via ref
+  // Poll for ad fill — only start countdown once the ad is actually visible
   useEffect(() => {
     if (!adSize) return;
 
@@ -89,31 +67,41 @@ export default function PreRollOverlay({ onSkip }) {
       if (!ins) return;
       const status = ins.getAttribute('data-ad-status');
       if (status === 'filled' && ins.offsetHeight > 10) {
-        adFilledRef.current = true;
+        setAdFilled(true);
         clearInterval(interval);
       }
-    }, 500);
+    }, 300);
 
     return () => clearInterval(interval);
   }, [adSize]);
 
-  // Auto-dismiss 6s after ad was pushed if it never filled (localhost / no inventory)
+  // Start countdown only after ad fills
   useEffect(() => {
-    if (!adPushed) return;
+    if (!adFilled) return;
+    setCountdown(SKIP_DELAY);
+
+    const interval = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          setCanSkip(true);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [adFilled]);
+
+  // If ad never fills within 10s (adblocker, no inventory), dismiss
+  useEffect(() => {
     const timeout = setTimeout(() => {
-      if (!adFilledRef.current) {
-        onSkipRef.current();
-      }
-    }, 6000);
+      if (!adFilled) onSkipRef.current();
+    }, 10000);
 
     return () => clearTimeout(timeout);
-  }, [adPushed]);
-
-  // Hard fallback: always dismiss after 15 seconds no matter what
-  useEffect(() => {
-    const timeout = setTimeout(() => onSkipRef.current(), 15000);
-    return () => clearTimeout(timeout);
-  }, []);
+  }, [adFilled]);
 
   return (
     <div className="pre-roll-overlay" ref={overlayRef}>
@@ -126,7 +114,7 @@ export default function PreRollOverlay({ onSkip }) {
       </button>
 
       <div className="pre-roll-countdown">
-        Ad &middot; 0:0{countdown}
+        {countdown !== null ? `Ad \u00b7 0:0${countdown}` : 'Loading ad\u2026'}
       </div>
 
       <div className="pre-roll-ad-container" ref={adRef}>

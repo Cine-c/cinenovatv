@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import Link from 'next/link';
 
 export default class ErrorBoundary extends Component {
   constructor(props) {
@@ -11,17 +10,30 @@ export default class ErrorBoundary extends Component {
     return { hasError: true };
   }
 
+  componentDidCatch() {
+    // Auto-reload once to recover from chunk load failures
+    const key = 'errorBoundaryReload';
+    const last = sessionStorage.getItem(key);
+    if (!last || Date.now() - Number(last) > 10000) {
+      sessionStorage.setItem(key, String(Date.now()));
+      window.location.reload();
+    }
+  }
+
   render() {
     if (this.state.hasError) {
       return (
         <div style={{ textAlign: 'center', padding: '4rem 1rem' }}>
           <h1>Something went wrong</h1>
           <p style={{ color: '#999', margin: '1rem 0' }}>
-            An unexpected error occurred. Please try refreshing the page.
+            An unexpected error occurred.
           </p>
-          <Link href="/" style={{ color: '#e50914' }}>
-            Go Home
-          </Link>
+          <button
+            onClick={() => window.location.reload()}
+            style={{ color: '#e50914', background: 'none', border: 'none', cursor: 'pointer', fontSize: '1rem' }}
+          >
+            Reload Page
+          </button>
         </div>
       );
     }

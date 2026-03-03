@@ -83,18 +83,17 @@ export default function CookieConsent() {
     // 2. Also try TCF API directly (may already be available)
     listenTcf();
 
-    // 3. Fallback: if no TCF API after 3s (non-EU traffic), check localStorage
+    // 3. For returning users who already consented, load AdSense immediately
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored === 'accepted') {
+      grantConsent();
+      loadAdSense();
+    }
+
+    // 4. Fallback: if no TCF API after 3s (non-EU first-time traffic), grant by default
     const fallbackTimer = setTimeout(() => {
-      if (typeof window.__tcfapi !== 'function') {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        if (stored === 'accepted') {
-          grantConsent();
-          loadAdSense();
-        } else if (!stored) {
-          // Non-EU user with no prior consent: grant by default
-          // (Google CMP only shows dialog in regulated regions)
-          onConsentGranted();
-        }
+      if (typeof window.__tcfapi !== 'function' && !stored) {
+        onConsentGranted();
       }
     }, 3000);
 
