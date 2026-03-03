@@ -2,9 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 import { ADSENSE_CLIENT } from './CookieConsent';
 
 export default function PreRollOverlay({ onSkip }) {
-  const [countdown, setCountdown] = useState(5);
+  const [countdown, setCountdown] = useState(3);
   const [canSkip, setCanSkip] = useState(false);
   const [adSize, setAdSize] = useState(null);
+  const [adFilled, setAdFilled] = useState(false);
   const pushed = useRef(false);
   const overlayRef = useRef(null);
   const adRef = useRef(null);
@@ -16,9 +17,8 @@ export default function PreRollOverlay({ onSkip }) {
     const el = overlayRef.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
-    // Use 90% of overlay width, cap height to leave room for countdown/skip
     const w = Math.floor(rect.width * 0.9);
-    const h = Math.floor(rect.height * 0.75);
+    const h = Math.floor(rect.height * 0.7);
     setAdSize({ width: w, height: h });
   }, []);
 
@@ -42,7 +42,6 @@ export default function PreRollOverlay({ onSkip }) {
   useEffect(() => {
     if (!adSize || pushed.current) return;
 
-    // Small delay to ensure the ins element is in the DOM with correct dimensions
     const timer = setTimeout(() => {
       if (pushed.current) return;
 
@@ -52,7 +51,8 @@ export default function PreRollOverlay({ onSkip }) {
           (window.adsbygoogle = window.adsbygoogle || []).push({});
           pushed.current = true;
         } catch {
-          // AdSense push failed
+          // AdSense push failed — dismiss immediately
+          onSkipRef.current();
         }
       };
 
@@ -61,7 +61,6 @@ export default function PreRollOverlay({ onSkip }) {
       } else {
         const handleReady = () => pushAd();
         window.addEventListener('adsenseReady', handleReady);
-        // Store cleanup ref
         timer._cleanup = () => window.removeEventListener('adsenseReady', handleReady);
       }
     }, 100);
@@ -72,39 +71,51 @@ export default function PreRollOverlay({ onSkip }) {
     };
   }, [adSize]);
 
-  // Auto-dismiss if ad doesn't fill within 3 seconds
+  // Check if ad actually filled — poll briefly
   useEffect(() => {
-    const timeout = setTimeout(() => {
+    if (!adSize) return;
+
+    const check = () => {
       const ins = adRef.current?.querySelector('ins.adsbygoogle');
-      if (!ins) { onSkipRef.current(); return; }
+      if (!ins) return false;
       const status = ins.getAttribute('data-ad-status');
-      // Check if ad actually rendered with visible content
-      const hasVisibleAd = ins.offsetHeight > 10 && status === 'filled';
-      if (!hasVisibleAd) {
-        onSkipRef.current();
-      }
-    }, 3000);
+      return status === 'filled' && ins.offsetHeight > 10;
+    };
 
-    return () => clearTimeout(timeout);
-  }, []);
+    // Check every 500ms for 2 seconds
+    const checks = [500, 1000, 1500, 2000];
+    const timers = checks.map((ms) =>
+      setTimeout(() => {
+        if (check()) {
+          setAdFilled(true);
+        } else if (ms === 2000 && !adFilled) {
+          // After 2 seconds with no ad, auto-dismiss
+          onSkipRef.current();
+        }
+      }, ms)
+    );
 
-  // Hard fallback: always dismiss after 8 seconds no matter what
+    return () => timers.forEach(clearTimeout);
+  }, [adSize]);
+
+  // Hard fallback: always dismiss after 6 seconds no matter what
   useEffect(() => {
-    const timeout = setTimeout(() => onSkipRef.current(), 8000);
+    const timeout = setTimeout(() => onSkipRef.current(), 6000);
     return () => clearTimeout(timeout);
   }, []);
 
   return (
     <div className="pre-roll-overlay" ref={overlayRef}>
-      {/* Always-visible close button */}
+      {/* Always-visible close button — top right */}
       <button className="pre-roll-close-btn" onClick={onSkip} aria-label="Close ad">
-        <svg viewBox="0 0 24 24" width="20" height="20">
+        <svg viewBox="0 0 24 24" width="18" height="18">
           <path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
         </svg>
+        <span>Close</span>
       </button>
 
       <div className="pre-roll-countdown">
-        Ad &middot; 0:0{countdown}
+        {adFilled ? `Ad \u00B7 0:0${countdown}` : 'Loading ad...'}
       </div>
 
       <div className="pre-roll-ad-container" ref={adRef}>

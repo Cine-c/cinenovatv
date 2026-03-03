@@ -6860,29 +6860,30 @@ a:focus-visible {
 
 .pre-roll-close-btn {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 3;
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  color: #fff;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  top: 8px;
+  right: 8px;
+  z-index: 5;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  color: #000;
+  padding: 6px 14px;
+  border-radius: 20px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
 }
 
 .pre-roll-close-btn:hover {
-  background: rgba(255, 255, 255, 0.35);
+  background: #fff;
 }
 
 .pre-roll-close-btn:active {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.7);
 }
 
 .pre-roll-countdown {
@@ -6916,27 +6917,30 @@ a:focus-visible {
 
 .pre-roll-skip-btn {
   position: absolute;
-  bottom: 16px;
-  right: 16px;
-  z-index: 2;
+  bottom: 12px;
+  right: 12px;
+  z-index: 5;
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 16px;
-  background: rgba(0, 0, 0, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 4px;
-  color: #fff;
-  font-size: 0.85rem;
-  font-weight: 600;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 20px;
+  color: #000;
+  font-size: 0.9rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: background 0.2s, border-color 0.2s;
+  transition: background 0.2s;
   animation: preRollSkipSlideIn 0.3s ease-out;
 }
 
+.pre-roll-skip-btn svg {
+  color: #000;
+}
+
 .pre-roll-skip-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.6);
+  background: #fff;
 }
 
 @media (max-width: 767px) {
@@ -6947,10 +6951,17 @@ a:focus-visible {
     padding: 3px 8px;
   }
 
+  .pre-roll-close-btn {
+    top: 6px;
+    right: 6px;
+    padding: 5px 12px;
+    font-size: 0.75rem;
+  }
+
   .pre-roll-skip-btn {
-    bottom: 10px;
-    right: 10px;
-    padding: 6px 12px;
+    bottom: 8px;
+    right: 8px;
+    padding: 8px 16px;
     font-size: 0.8rem;
   }
 }
