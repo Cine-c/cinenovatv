@@ -2,8 +2,6 @@ import { useEffect, useRef, useCallback, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useWatchLater } from '../WatchLaterContext';
-import { useAdFree } from '../useAdFree';
-import PreRollOverlay from '../PreRollOverlay';
 
 export default function TrailerModal({ movie, movies = [], onNextMovie, onClose }) {
   const modalRef = useRef(null);
@@ -19,9 +17,6 @@ export default function TrailerModal({ movie, movies = [], onNextMovie, onClose 
 
   const { toggle, has } = useWatchLater();
   const isSaved = has(movie?.id);
-  const { adFree } = useAdFree();
-  const [showPreRoll, setShowPreRoll] = useState(false);
-  const shouldShowPreRoll = !adFree;
 
   // Determine if there's a next movie available
   const currentIndex = movies.findIndex((m) => m.id === movie?.id);
@@ -32,7 +27,7 @@ export default function TrailerModal({ movie, movies = [], onNextMovie, onClose 
 
   // YouTube iframe API: detect when video ends via postMessage
   useEffect(() => {
-    if (!trailerKey || showPreRoll || !hasNext) return;
+    if (!trailerKey || !hasNext) return;
 
     const iframe = iframeRef.current;
     if (!iframe) return;
@@ -74,7 +69,7 @@ export default function TrailerModal({ movie, movies = [], onNextMovie, onClose 
       clearTimeout(timer);
       window.removeEventListener('message', handleMessage);
     };
-  }, [trailerKey, showPreRoll, hasNext]);
+  }, [trailerKey, hasNext]);
 
   // "Up Next" countdown — auto-advance after 5 seconds
   useEffect(() => {
@@ -103,11 +98,7 @@ export default function TrailerModal({ movie, movies = [], onNextMovie, onClose 
           const trailer = tmdbData.videos?.results?.find(
             (v) => v.type === 'Trailer' && v.site === 'YouTube'
           );
-          const key = trailer?.key || null;
-          setTrailerKey(key);
-          if (key && shouldShowPreRoll) {
-            setShowPreRoll(true);
-          }
+          setTrailerKey(trailer?.key || null);
           setIsLoading(false);
         })
         .catch(() => {
@@ -249,14 +240,11 @@ export default function TrailerModal({ movie, movies = [], onNextMovie, onClose 
                 <div className="video-container">
                   <iframe
                     ref={iframeRef}
-                    src={`https://www.youtube.com/embed/${trailerKey}?autoplay=${showPreRoll ? 0 : 1}&rel=0&enablejsapi=1&origin=${typeof window !== 'undefined' ? window.location.origin : ''}`}
+                    src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&rel=0&enablejsapi=1&origin=${typeof window !== 'undefined' ? window.location.origin : ''}`}
                     title={`${movie.title} trailer`}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                   />
-                  {showPreRoll && (
-                    <PreRollOverlay key={trailerKey} onSkip={() => setShowPreRoll(false)} />
-                  )}
                   {showUpNext && nextMovie && (
                     <div className="up-next-overlay">
                       <div className="up-next-content">
@@ -354,7 +342,6 @@ export default function TrailerModal({ movie, movies = [], onNextMovie, onClose 
                       className={`trailer-thumb-mini${video.key === trailerKey ? ' active' : ''}`}
                       onClick={() => {
                         setTrailerKey(video.key);
-                        if (shouldShowPreRoll) setShowPreRoll(true);
                       }}
                       aria-label={`Play ${video.name}`}
                     >

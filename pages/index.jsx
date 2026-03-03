@@ -1,26 +1,11 @@
-import { useState, useEffect, useRef } from 'react';
 import SEOHead from '../components/seo/SEOHead';
 import { WebSiteJsonLd } from '../components/seo/JsonLd';
 import Link from 'next/link';
 import Image from 'next/image';
 import NewsletterSignup from '../components/NewsletterSignup';
 import AdSlot from '../components/AdSlot';
-import { useAdFree } from '../components/useAdFree';
-import PreRollOverlay from '../components/PreRollOverlay';
 
 export default function Home({ featuredMovie, posts, blockbusterFilms }) {
-  const { adFree } = useAdFree();
-  const [showPreRoll, setShowPreRoll] = useState(false);
-  const preRollTriggered = useRef(false);
-
-  // Show pre-roll on load — AdSense handles consent internally
-  useEffect(() => {
-    if (featuredMovie?.trailerKey && !preRollTriggered.current && !adFree) {
-      setShowPreRoll(true);
-      preRollTriggered.current = true;
-    }
-  }, [featuredMovie, adFree]);
-
   return (
     <>
       <SEOHead
@@ -42,16 +27,13 @@ export default function Home({ featuredMovie, posts, blockbusterFilms }) {
             {featuredMovie.trailerKey && (
               <div className="featured-hero-video">
                 <iframe
-                  src={`https://www.youtube.com/embed/${featuredMovie.trailerKey}?autoplay=${showPreRoll ? 0 : 1}&mute=1&controls=0&showinfo=0&rel=0&loop=1&playlist=${featuredMovie.trailerKey}&modestbranding=1&playsinline=1&disablekb=1&iv_load_policy=3`}
+                  src={`https://www.youtube.com/embed/${featuredMovie.trailerKey}?autoplay=1&mute=1&controls=0&showinfo=0&rel=0&loop=1&playlist=${featuredMovie.trailerKey}&modestbranding=1&playsinline=1&disablekb=1&iv_load_policy=3`}
                   title={`${featuredMovie.title} trailer`}
                   allow="autoplay; encrypted-media"
                   allowFullScreen
                   frameBorder="0"
                 />
               </div>
-            )}
-            {showPreRoll && (
-              <PreRollOverlay onSkip={() => setShowPreRoll(false)} />
             )}
             <div className="featured-hero-overlay"></div>
             <div className="featured-hero-content">
