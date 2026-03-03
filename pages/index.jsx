@@ -6,29 +6,20 @@ import Image from 'next/image';
 import NewsletterSignup from '../components/NewsletterSignup';
 import AdSlot from '../components/AdSlot';
 import { useAdFree } from '../components/useAdFree';
-import { getConsentStatus } from '../components/CookieConsent';
 import PreRollOverlay from '../components/PreRollOverlay';
 
 export default function Home({ featuredMovie, posts, blockbusterFilms }) {
   const { adFree } = useAdFree();
   const [showPreRoll, setShowPreRoll] = useState(false);
   const preRollTriggered = useRef(false);
-  const [consentReady, setConsentReady] = useState(false);
 
-  // Listen for consent — it may arrive after initial render
+  // Show pre-roll on load — AdSense handles consent internally
   useEffect(() => {
-    if (getConsentStatus() === 'accepted') { setConsentReady(true); return; }
-    const handle = (e) => { if (e.detail === 'accepted') setConsentReady(true); };
-    window.addEventListener('consentChange', handle);
-    return () => window.removeEventListener('consentChange', handle);
-  }, []);
-
-  useEffect(() => {
-    if (featuredMovie?.trailerKey && !preRollTriggered.current && !adFree && consentReady) {
+    if (featuredMovie?.trailerKey && !preRollTriggered.current && !adFree) {
       setShowPreRoll(true);
       preRollTriggered.current = true;
     }
-  }, [featuredMovie, adFree, consentReady]);
+  }, [featuredMovie, adFree]);
 
   return (
     <>
