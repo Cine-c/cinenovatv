@@ -7,6 +7,7 @@ export default function PreRollOverlay({ onSkip }) {
   const [adSize, setAdSize] = useState(null);
   const pushed = useRef(false);
   const adFilledRef = useRef(false);
+  const [adPushed, setAdPushed] = useState(false);
   const overlayRef = useRef(null);
   const adRef = useRef(null);
   const onSkipRef = useRef(onSkip);
@@ -52,8 +53,10 @@ export default function PreRollOverlay({ onSkip }) {
         try {
           (window.adsbygoogle = window.adsbygoogle || []).push({});
           pushed.current = true;
+          setAdPushed(true);
         } catch {
-          // AdSense push failed
+          // AdSense push failed — dismiss overlay
+          onSkipRef.current();
         }
       };
 
@@ -63,6 +66,11 @@ export default function PreRollOverlay({ onSkip }) {
         const handleReady = () => pushAd();
         window.addEventListener('adsenseReady', handleReady);
         cleanupListener = () => window.removeEventListener('adsenseReady', handleReady);
+
+        // If AdSense never loads (adblocker), dismiss after 5s
+        setTimeout(() => {
+          if (!pushed.current) onSkipRef.current();
+        }, 5000);
       }
     }, 100);
 
@@ -89,16 +97,17 @@ export default function PreRollOverlay({ onSkip }) {
     return () => clearInterval(interval);
   }, [adSize]);
 
-  // Auto-dismiss after 4s ONLY if ad never filled (localhost / no inventory)
+  // Auto-dismiss 6s after ad was pushed if it never filled (localhost / no inventory)
   useEffect(() => {
+    if (!adPushed) return;
     const timeout = setTimeout(() => {
       if (!adFilledRef.current) {
         onSkipRef.current();
       }
-    }, 4000);
+    }, 6000);
 
     return () => clearTimeout(timeout);
-  }, []);
+  }, [adPushed]);
 
   // Hard fallback: always dismiss after 15 seconds no matter what
   useEffect(() => {

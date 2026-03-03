@@ -13,13 +13,22 @@ export default function Home({ featuredMovie, posts, blockbusterFilms }) {
   const { adFree } = useAdFree();
   const [showPreRoll, setShowPreRoll] = useState(false);
   const preRollTriggered = useRef(false);
+  const [consentReady, setConsentReady] = useState(false);
+
+  // Listen for consent — it may arrive after initial render
+  useEffect(() => {
+    if (getConsentStatus() === 'accepted') { setConsentReady(true); return; }
+    const handle = (e) => { if (e.detail === 'accepted') setConsentReady(true); };
+    window.addEventListener('consentChange', handle);
+    return () => window.removeEventListener('consentChange', handle);
+  }, []);
 
   useEffect(() => {
-    if (featuredMovie?.trailerKey && !preRollTriggered.current && !adFree && getConsentStatus() === 'accepted') {
+    if (featuredMovie?.trailerKey && !preRollTriggered.current && !adFree && consentReady) {
       setShowPreRoll(true);
       preRollTriggered.current = true;
     }
-  }, [featuredMovie, adFree]);
+  }, [featuredMovie, adFree, consentReady]);
 
   return (
     <>

@@ -22,7 +22,17 @@ export default function TrailerModal({ movie, movies = [], onNextMovie, onClose 
   const isSaved = has(movie?.id);
   const { adFree } = useAdFree();
   const [showPreRoll, setShowPreRoll] = useState(false);
-  const shouldShowPreRoll = !adFree && getConsentStatus() === 'accepted';
+  const [consentReady, setConsentReady] = useState(false);
+
+  // Listen for consent — it may arrive after initial render
+  useEffect(() => {
+    if (getConsentStatus() === 'accepted') { setConsentReady(true); return; }
+    const handle = (e) => { if (e.detail === 'accepted') setConsentReady(true); };
+    window.addEventListener('consentChange', handle);
+    return () => window.removeEventListener('consentChange', handle);
+  }, []);
+
+  const shouldShowPreRoll = !adFree && consentReady;
 
   // Determine if there's a next movie available
   const currentIndex = movies.findIndex((m) => m.id === movie?.id);
@@ -106,7 +116,7 @@ export default function TrailerModal({ movie, movies = [], onNextMovie, onClose 
           );
           const key = trailer?.key || null;
           setTrailerKey(key);
-          if (key && shouldShowPreRoll) {
+          if (key && !adFree && getConsentStatus() === 'accepted') {
             setShowPreRoll(true);
           }
           setIsLoading(false);
