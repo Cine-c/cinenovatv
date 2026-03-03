@@ -78,7 +78,9 @@ export default function PreRollOverlay({ onSkip }) {
       const ins = adRef.current?.querySelector('ins.adsbygoogle');
       if (!ins) { onSkipRef.current(); return; }
       const status = ins.getAttribute('data-ad-status');
-      if (status === 'unfilled' || (!status && ins.innerHTML.trim() === '')) {
+      // Check if ad actually rendered with visible content
+      const hasVisibleAd = ins.offsetHeight > 10 && status === 'filled';
+      if (!hasVisibleAd) {
         onSkipRef.current();
       }
     }, 3000);
@@ -86,9 +88,9 @@ export default function PreRollOverlay({ onSkip }) {
     return () => clearTimeout(timeout);
   }, []);
 
-  // Hard fallback: always dismiss after 15 seconds no matter what
+  // Hard fallback: always dismiss after 8 seconds no matter what
   useEffect(() => {
-    const timeout = setTimeout(() => onSkipRef.current(), 15000);
+    const timeout = setTimeout(() => onSkipRef.current(), 8000);
     return () => clearTimeout(timeout);
   }, []);
 
