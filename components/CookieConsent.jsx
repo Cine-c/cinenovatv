@@ -83,16 +83,22 @@ export default function CookieConsent() {
     // 2. Also try TCF API directly (may already be available)
     listenTcf();
 
-    // 3. For returning users who already consented, load AdSense immediately
+    // 3. For returning users who already consented, load AdSense immediately.
+    //    Also clear stale 'rejected' from non-EU users who were wrongly denied
+    //    by the old code (gdprApplies=false bug) — let TCF re-evaluate them.
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored === 'accepted') {
       grantConsent();
       loadAdSense();
+    } else if (stored === 'rejected') {
+      localStorage.removeItem(STORAGE_KEY);
     }
 
-    // 4. Fallback: if no TCF API after 3s (non-EU first-time traffic), grant by default
+    // 4. Fallback: if consent not resolved after 3s, grant by default.
+    //    Covers non-EU users where CMP loads __tcfapi but never fires
+    //    a recognized TCF event (gdprApplies=false, no dialog needed).
     const fallbackTimer = setTimeout(() => {
-      if (typeof window.__tcfapi !== 'function' && !stored) {
+      if (!localStorage.getItem(STORAGE_KEY)) {
         onConsentGranted();
       }
     }, 3000);
@@ -108,6 +114,12 @@ function listenTcf() {
 
   window.__tcfapi('addEventListener', 2, (tcData, success) => {
     if (!success) return;
+
+    // Non-EU: GDPR doesn't apply — no consent needed, grant immediately
+    if (tcData.gdprApplies === false) {
+      onConsentGranted();
+      return;
+    }
 
     if (
       tcData.eventStatus === 'useractioncomplete' ||
