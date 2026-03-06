@@ -89,6 +89,7 @@ export default function TrailerModal({ movie, movies = [], onNextMovie, onClose 
     if (movie?.id) {
       setIsLoading(true);
       setShowUpNext(false);
+      setShowPreRoll(true);
 
       Promise.all([
         fetch(`/api/movie/${movie.id}/details`).then((res) => res.json()),

@@ -3,7 +3,6 @@ import { ADSENSE_CLIENT, getConsentStatus } from './CookieConsent';
 import { useAdFree } from './useAdFree';
 
 const SKIP_DELAY = 3; // seconds to hold ad after it fills (enough for impression)
-const SESSION_KEY = 'preRollShown';
 
 export default function PreRollOverlay({ onSkip }) {
   const [countdown, setCountdown] = useState(null); // null = waiting for ad
@@ -19,25 +18,14 @@ export default function PreRollOverlay({ onSkip }) {
 
   const { adFree } = useAdFree();
 
-  // Gate checks: consent, ad-free, session frequency cap
+  // Gate checks: consent, ad-free
   useEffect(() => {
-    // Ad-free users skip immediately
     if (adFree) {
       setShouldRender(false);
       onSkipRef.current();
       return;
     }
 
-    // Session frequency cap — max 1 pre-roll per session
-    try {
-      if (sessionStorage.getItem(SESSION_KEY)) {
-        setShouldRender(false);
-        onSkipRef.current();
-        return;
-      }
-    } catch {}
-
-    // Consent check — skip if not granted
     const consent = getConsentStatus();
     if (consent === 'rejected') {
       setShouldRender(false);
@@ -71,8 +59,6 @@ export default function PreRollOverlay({ onSkip }) {
         try {
           (window.adsbygoogle = window.adsbygoogle || []).push({});
           pushed.current = true;
-          // Mark session — ad was shown
-          try { sessionStorage.setItem(SESSION_KEY, '1'); } catch {}
         } catch {
           onSkipRef.current();
         }
