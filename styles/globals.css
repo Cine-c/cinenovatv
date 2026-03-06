@@ -6875,7 +6875,9 @@ a:focus-visible {
   position: absolute;
   inset: 0;
   z-index: 15;
-  background: #000;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
