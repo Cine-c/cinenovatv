@@ -1,32 +1,65 @@
 import { useEffect, useRef, useState } from 'react';
-import { ADSENSE_CLIENT } from './CookieConsent';
+import { ADSENSE_CLIENT, getConsentStatus } from './CookieConsent';
+import { useAdFree } from './useAdFree';
 
 const SKIP_DELAY = 3; // seconds to hold ad after it fills (enough for impression)
+const SESSION_KEY = 'preRollShown';
 
 export default function PreRollOverlay({ onSkip }) {
   const [countdown, setCountdown] = useState(null); // null = waiting for ad
   const [canSkip, setCanSkip] = useState(false);
   const [adSize, setAdSize] = useState(null);
   const [adFilled, setAdFilled] = useState(false);
+  const [shouldRender, setShouldRender] = useState(true);
   const pushed = useRef(false);
   const overlayRef = useRef(null);
   const adRef = useRef(null);
   const onSkipRef = useRef(onSkip);
   onSkipRef.current = onSkip;
 
+  const { adFree } = useAdFree();
+
+  // Gate checks: consent, ad-free, session frequency cap
+  useEffect(() => {
+    // Ad-free users skip immediately
+    if (adFree) {
+      setShouldRender(false);
+      onSkipRef.current();
+      return;
+    }
+
+    // Session frequency cap — max 1 pre-roll per session
+    try {
+      if (sessionStorage.getItem(SESSION_KEY)) {
+        setShouldRender(false);
+        onSkipRef.current();
+        return;
+      }
+    } catch {}
+
+    // Consent check — skip if not granted
+    const consent = getConsentStatus();
+    if (consent === 'rejected') {
+      setShouldRender(false);
+      onSkipRef.current();
+      return;
+    }
+  }, [adFree]);
+
   // Measure overlay to give the ins element explicit pixel dimensions
   useEffect(() => {
+    if (!shouldRender) return;
     const el = overlayRef.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
     const w = Math.floor(rect.width * 0.9);
     const h = Math.floor(rect.height * 0.7);
     setAdSize({ width: w, height: h });
-  }, []);
+  }, [shouldRender]);
 
   // Push AdSense ad once we have dimensions
   useEffect(() => {
-    if (!adSize || pushed.current) return;
+    if (!shouldRender || !adSize || pushed.current) return;
 
     let cleanupListener = null;
 
@@ -38,6 +71,8 @@ export default function PreRollOverlay({ onSkip }) {
         try {
           (window.adsbygoogle = window.adsbygoogle || []).push({});
           pushed.current = true;
+          // Mark session — ad was shown
+          try { sessionStorage.setItem(SESSION_KEY, '1'); } catch {}
         } catch {
           onSkipRef.current();
         }
@@ -56,11 +91,11 @@ export default function PreRollOverlay({ onSkip }) {
       clearTimeout(timer);
       if (cleanupListener) cleanupListener();
     };
-  }, [adSize]);
+  }, [shouldRender, adSize]);
 
   // Poll for ad fill — only start countdown once the ad is actually visible
   useEffect(() => {
-    if (!adSize) return;
+    if (!shouldRender || !adSize) return;
 
     const interval = setInterval(() => {
       const ins = adRef.current?.querySelector('ins.adsbygoogle');
@@ -73,7 +108,7 @@ export default function PreRollOverlay({ onSkip }) {
     }, 300);
 
     return () => clearInterval(interval);
-  }, [adSize]);
+  }, [shouldRender, adSize]);
 
   // Start countdown only after ad fills
   useEffect(() => {
@@ -96,12 +131,16 @@ export default function PreRollOverlay({ onSkip }) {
 
   // If ad never fills within 10s (adblocker, no inventory), dismiss
   useEffect(() => {
+    if (!shouldRender) return;
+
     const timeout = setTimeout(() => {
       if (!adFilled) onSkipRef.current();
     }, 10000);
 
     return () => clearTimeout(timeout);
-  }, [adFilled]);
+  }, [shouldRender, adFilled]);
+
+  if (!shouldRender) return null;
 
   return (
     <div className="pre-roll-overlay" ref={overlayRef}>

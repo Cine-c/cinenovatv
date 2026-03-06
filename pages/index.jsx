@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import SEOHead from '../components/seo/SEOHead';
 import { WebSiteJsonLd } from '../components/seo/JsonLd';
 import Link from 'next/link';
@@ -5,7 +7,30 @@ import Image from 'next/image';
 import NewsletterSignup from '../components/NewsletterSignup';
 import AdSlot from '../components/AdSlot';
 
+const PreRollOverlay = dynamic(() => import('../components/PreRollOverlay'), { ssr: false });
+
 export default function Home({ featuredMovie, posts, blockbusterFilms }) {
+  const [heroTrailerKey, setHeroTrailerKey] = useState(featuredMovie?.trailerKey || null);
+  const [showHeroPreRoll, setShowHeroPreRoll] = useState(!!featuredMovie?.trailerKey);
+
+  // Client-side fallback: fetch trailer if not available at build time
+  useEffect(() => {
+    if (featuredMovie?.id && !featuredMovie?.trailerKey) {
+      fetch(`/api/movie/${featuredMovie.id}/trailer`)
+        .then((res) => res.json())
+        .then((data) => {
+          const trailer = (data.results || []).find(
+            (v) => v.site === 'YouTube' && (v.type === 'Trailer' || v.type === 'Teaser')
+          );
+          if (trailer?.key) {
+            setHeroTrailerKey(trailer.key);
+            setShowHeroPreRoll(true);
+          }
+        })
+        .catch(() => {});
+    }
+  }, [featuredMovie?.id, featuredMovie?.trailerKey]);
+
   return (
     <>
       <SEOHead
@@ -24,16 +49,19 @@ export default function Home({ featuredMovie, posts, blockbusterFilms }) {
               backgroundImage: `url(https://image.tmdb.org/t/p/w1280${featuredMovie.backdrop_path})`
             }}
           >
-            {featuredMovie.trailerKey && (
+            {heroTrailerKey && !showHeroPreRoll && (
               <div className="featured-hero-video">
                 <iframe
-                  src={`https://www.youtube.com/embed/${featuredMovie.trailerKey}?autoplay=1&mute=1&controls=0&showinfo=0&rel=0&loop=1&playlist=${featuredMovie.trailerKey}&modestbranding=1&playsinline=1&disablekb=1&iv_load_policy=3`}
+                  src={`https://www.youtube.com/embed/${heroTrailerKey}?autoplay=1&mute=1&controls=0&showinfo=0&rel=0&loop=1&playlist=${heroTrailerKey}&modestbranding=1&playsinline=1&disablekb=1&iv_load_policy=3`}
                   title={`${featuredMovie.title} trailer`}
                   allow="autoplay; encrypted-media"
                   allowFullScreen
                   frameBorder="0"
                 />
               </div>
+            )}
+            {showHeroPreRoll && heroTrailerKey && (
+              <PreRollOverlay onSkip={() => setShowHeroPreRoll(false)} />
             )}
             <div className="featured-hero-overlay"></div>
             <div className="featured-hero-content">

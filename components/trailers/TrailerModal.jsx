@@ -2,6 +2,7 @@ import { useEffect, useRef, useCallback, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useWatchLater } from '../WatchLaterContext';
+import PreRollOverlay from '../PreRollOverlay';
 
 export default function TrailerModal({ movie, movies = [], onNextMovie, onClose }) {
   const modalRef = useRef(null);
@@ -14,6 +15,7 @@ export default function TrailerModal({ movie, movies = [], onNextMovie, onClose 
   const [isLoading, setIsLoading] = useState(true);
   const [copied, setCopied] = useState(false);
   const [showUpNext, setShowUpNext] = useState(false);
+  const [showPreRoll, setShowPreRoll] = useState(true);
 
   const { toggle, has } = useWatchLater();
   const isSaved = has(movie?.id);
@@ -238,9 +240,12 @@ export default function TrailerModal({ movie, movies = [], onNextMovie, onClose 
               {/* Video */}
               {trailerKey ? (
                 <div className="video-container">
+                  {showPreRoll && (
+                    <PreRollOverlay onSkip={() => setShowPreRoll(false)} />
+                  )}
                   <iframe
                     ref={iframeRef}
-                    src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&rel=0&enablejsapi=1&origin=${typeof window !== 'undefined' ? window.location.origin : ''}`}
+                    src={`https://www.youtube.com/embed/${trailerKey}?autoplay=${showPreRoll ? 0 : 1}&rel=0&enablejsapi=1&origin=${typeof window !== 'undefined' ? window.location.origin : ''}`}
                     title={`${movie.title} trailer`}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen

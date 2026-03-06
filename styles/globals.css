@@ -6989,6 +6989,12 @@ a:focus-visible {
   }
 }
 
+/* Hero pre-roll variant — sits above the backdrop image */
+.featured-hero .pre-roll-overlay {
+  position: absolute;
+  z-index: 5;
+}
+
 /* ===== Up Next Overlay ===== */
 .up-next-overlay {
   position: absolute;

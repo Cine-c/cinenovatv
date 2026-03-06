@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useWatchLater } from '../WatchLaterContext';
 import useSwipeGesture from '../hooks/useSwipeGesture';
 import ReelSlide from './ReelSlide';
+import PreRollOverlay from '../PreRollOverlay';
 
 const ANIMATION_MS = 350;
 
@@ -16,6 +17,7 @@ export default function ReelsView({ movie, movies, onNextMovie, onPrevMovie, onC
   const [showUpNext, setShowUpNext] = useState(false);
   const [showHint, setShowHint] = useState(true);
   const [copied, setCopied] = useState(false);
+  const [showPreRoll, setShowPreRoll] = useState(true);
   const containerRef = useRef(null);
 
   const { toggle, has } = useWatchLater();
@@ -139,7 +141,7 @@ export default function ReelsView({ movie, movies, onNextMovie, onPrevMovie, onC
         <div className="reels-slide-wrapper reels-slide-current">
           <ReelSlide
             movie={movie}
-            isActive={!animating}
+            isActive={!animating && !showPreRoll}
             onVideoEnd={handleVideoEnd}
           />
         </div>
@@ -149,6 +151,11 @@ export default function ReelsView({ movie, movies, onNextMovie, onPrevMovie, onC
           {nextMovie && <ReelSlide movie={nextMovie} isActive={false} />}
         </div>
       </div>
+
+      {/* Pre-roll ad overlay */}
+      {showPreRoll && (
+        <PreRollOverlay onSkip={() => setShowPreRoll(false)} />
+      )}
 
       {/* Overlay UI */}
       <div className="reels-overlay">
