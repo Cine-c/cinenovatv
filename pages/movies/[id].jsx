@@ -7,7 +7,7 @@ import { useWatchLater } from '../../components/WatchLaterContext';
 import { useState } from 'react';
 import AdSlot from '../../components/AdSlot';
 
-export default function MovieDetailPage({ movie, credits, videos, ratings, watchProviders }) {
+export default function MovieDetailPage({ movie, credits, videos, ratings, watchProviders, similar }) {
   const [showTrailer, setShowTrailer] = useState(false);
   const { toggle, has } = useWatchLater();
   const saved = has(movie?.id);
@@ -44,11 +44,16 @@ export default function MovieDetailPage({ movie, credits, videos, ratings, watch
   const rottenTomatoes = ratings?.Ratings?.find((r) => r.Source === 'Rotten Tomatoes')?.Value;
   const metacritic = ratings?.Ratings?.find((r) => r.Source === 'Metacritic')?.Value;
 
+  const seoTitle = `${movie.title} (${releaseYear}) — Where to Watch | CineNovaTV`;
+  const seoDescription = `Find where to stream, rent, or buy ${movie.title}. Check streaming availability on Netflix, Prime, Disney+ and more.`;
+
+  const similarMovies = (similar || []).filter((m) => m.poster_path).slice(0, 12);
+
   return (
     <>
       <SEOHead
-        title={`${movie.title} (${releaseYear}) - CineNovaTV`}
-        description={movie.overview || `Watch trailers and details for ${movie.title}`}
+        title={seoTitle}
+        description={seoDescription}
         image={backdropUrl}
         url={`/movies/${movie.id}`}
         type="video.movie"
@@ -138,9 +143,21 @@ export default function MovieDetailPage({ movie, credits, videos, ratings, watch
           </div>
         </section>
 
-        {/* Overview */}
         <section className="movie-detail-body">
           <div className="movie-detail-main">
+            {/* Where to Watch — placed first for discovery */}
+            {watchProviders && (
+              <div className="movie-detail-section">
+                <WatchProviders
+                  providers={watchProviders}
+                  movieTitle={movie.title}
+                  movieYear={releaseYear}
+                  tmdbLink={watchProviders.link}
+                />
+              </div>
+            )}
+
+            {/* Overview */}
             {movie.overview && (
               <div className="movie-detail-section">
                 <h2>Overview</h2>
@@ -165,18 +182,6 @@ export default function MovieDetailPage({ movie, credits, videos, ratings, watch
                     <span className="extra-value">{ratings.Awards}</span>
                   </div>
                 )}
-              </div>
-            )}
-
-            {/* Where to Watch */}
-            {watchProviders && (
-              <div className="movie-detail-section">
-                <WatchProviders
-                  providers={watchProviders}
-                  movieTitle={movie.title}
-                  movieYear={releaseYear}
-                  tmdbLink={watchProviders.link}
-                />
               </div>
             )}
 
@@ -299,6 +304,32 @@ export default function MovieDetailPage({ movie, credits, videos, ratings, watch
                 )}
               </div>
             </div>
+
+            {/* Similar Movies */}
+            {similarMovies.length > 0 && (
+              <div className="movie-detail-section">
+                <h2>Similar Movies</h2>
+                <div className="similar-movies">
+                  {similarMovies.map((m) => (
+                    <Link key={m.id} href={`/movies/${m.id}`} className="similar-movie-card">
+                      <Image
+                        src={`https://image.tmdb.org/t/p/w300${m.poster_path}`}
+                        alt={m.title}
+                        width={150}
+                        height={225}
+                        style={{ objectFit: 'cover' }}
+                      />
+                      <div className="similar-movie-overlay">
+                        <span className="similar-movie-title">{m.title}</span>
+                        {m.release_date && (
+                          <span className="similar-movie-year">{m.release_date.split('-')[0]}</span>
+                        )}
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </section>
 
@@ -323,7 +354,9 @@ export default function MovieDetailPage({ movie, credits, videos, ratings, watch
   );
 }
 
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps({ params, req }) {
+  const getLanguageFromCookies = (await import('../../lib/getLanguageFromCookies')).default;
+  const language = getLanguageFromCookies(req);
   const { id } = params;
   const apiKey = process.env.TMDB_API_KEY;
 
@@ -333,7 +366,7 @@ export async function getServerSideProps({ params }) {
 
   try {
     const detailsRes = await fetch(
-      `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&append_to_response=videos,credits`
+      `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&append_to_response=videos,credits,similar&language=${language}`
     );
 
     if (!detailsRes.ok) {
@@ -404,6 +437,12 @@ export async function getServerSideProps({ params }) {
         },
         ratings,
         watchProviders,
+        similar: (data.similar?.results || []).slice(0, 12).map(m => ({
+          id: m.id,
+          title: m.title,
+          poster_path: m.poster_path,
+          release_date: m.release_date || '',
+        })),
       },
     };
   } catch {

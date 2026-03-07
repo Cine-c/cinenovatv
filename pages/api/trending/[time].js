@@ -1,7 +1,7 @@
 // api/trending/[time].js
 
 export default async function handler(req, res) {
-  const { time, page = 1 } = req.query;
+  const { time, page = 1, language = 'en-US' } = req.query;
   const apiKey = process.env.TMDB_API_KEY;
 
   if (!apiKey) {
@@ -12,7 +12,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Invalid time parameter (must be "day" or "week")' });
   }
 
-  const url = `https://api.themoviedb.org/3/trending/movie/${time}?api_key=${apiKey}&page=${page}`;
+  const url = `https://api.themoviedb.org/3/trending/movie/${time}?api_key=${apiKey}&page=${page}&language=${language}`;
 
   try {
     const response = await fetch(url);

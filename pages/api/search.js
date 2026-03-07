@@ -1,9 +1,9 @@
 export default async function handler(req, res) {
-  const { query, page } = req.query;
+  const { query, page, language = 'en-US' } = req.query;
   if (!query) {
     return res.status(400).json({ error: 'Missing query parameter' });
   }
-  const url = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}&page=${page || 1}&api_key=${process.env.TMDB_API_KEY}`;
+  const url = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}&page=${page || 1}&api_key=${process.env.TMDB_API_KEY}&language=${language}`;
 
   try {
     const response = await fetch(url);

@@ -1,22 +1,149 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import SEOHead from '../components/seo/SEOHead';
 import { WebSiteJsonLd } from '../components/seo/JsonLd';
 import Link from 'next/link';
-import Image from 'next/image';
 import NewsletterSignup from '../components/NewsletterSignup';
 import AdSlot from '../components/AdSlot';
+import MovieCard from '../components/trailers/MovieCard';
+import TrailerModal from '../components/trailers/TrailerModal';
+import ReelsView from '../components/trailers/ReelsView';
+import MatchCard from '../components/sports/MatchCard';
+import useIsMobile from '../components/hooks/useIsMobile';
+import { useLanguage } from '../components/LanguageContext';
 
 const PreRollOverlay = dynamic(() => import('../components/PreRollOverlay'), { ssr: false });
 
-export default function Home({ featuredMovie, posts, blockbusterFilms }) {
+const HOME_SPORTS = [
+  { name: 'Football', icon: '\u26BD', description: 'Live scores, standings & fixtures.', href: '/sports/football', color: '#10b981' },
+  { name: 'Formula 1', icon: '\uD83C\uDFCE\uFE0F', description: 'Race results & driver standings.', href: '/sports/f1', color: '#ef4444', comingSoon: true },
+  { name: 'NBA', icon: '\uD83C\uDFC0', description: 'Basketball scores & stats.', href: '/sports/nba', color: '#f97316', comingSoon: true },
+  { name: 'NFL', icon: '\uD83C\uDFC8', description: 'Football scores & rankings.', href: '/sports/nfl', color: '#3b82f6', comingSoon: true },
+];
+
+function SportsSection() {
+  const [fixtures, setFixtures] = useState([]);
+
+  useEffect(() => {
+    fetch('/api/sports/football/fixtures?league=39')
+      .then((r) => r.json())
+      .then((data) => { if (Array.isArray(data)) setFixtures(data.slice(0, 6)); })
+      .catch(() => {});
+  }, []);
+
+  return (
+    <section className="home-section">
+      <div className="section-header">
+        <div>
+          <h2 className="section-title">
+            <span className="section-icon">{'\uD83C\uDFC6'}</span>
+            Sports Center
+          </h2>
+          <p className="section-subtitle">Live scores, standings & fixtures</p>
+        </div>
+        <Link href="/sports" className="view-all-link">
+          View All
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </Link>
+      </div>
+      {fixtures.length > 0 && (
+        <div className="match-grid" style={{ marginBottom: '1.5rem' }}>
+          {fixtures.map((f) => (
+            <MatchCard key={f.fixture.id} fixture={f} />
+          ))}
+        </div>
+      )}
+      <div className="sport-card-grid sport-card-grid--compact">
+        {HOME_SPORTS.map((sport) => {
+          const card = (
+            <div key={sport.name} className="sport-card" style={{ '--sport-accent': sport.color }}>
+              <div className="sport-card-icon">{sport.icon}</div>
+              <h3 className="sport-card-name">{sport.name}</h3>
+              <p className="sport-card-desc">{sport.description}</p>
+              {sport.comingSoon && <span className="sport-card-badge">Coming Soon</span>}
+            </div>
+          );
+          return sport.comingSoon ? card : (
+            <Link key={sport.name} href={sport.href} className="sport-card-link">{card}</Link>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function HomeMovieRow({ title, movies, viewAllHref, onWatchTrailer }) {
+  const scrollRef = useRef(null);
+
+  const scroll = (direction) => {
+    if (!scrollRef.current) return;
+    const amount = scrollRef.current.offsetWidth * 0.75;
+    scrollRef.current.scrollBy({
+      left: direction === 'left' ? -amount : amount,
+      behavior: 'smooth',
+    });
+  };
+
+  if (!movies || movies.length === 0) return null;
+
+  return (
+    <section className="discover-row">
+      <div className="discover-row-header">
+        <h2>{title}</h2>
+        <Link href={viewAllHref} className="discover-view-all">
+          View All
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </Link>
+      </div>
+      <div className="discover-row-container">
+        <button className="discover-scroll-btn discover-scroll-left" onClick={() => scroll('left')} aria-label="Scroll left">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </button>
+        <div className="discover-row-scroll" ref={scrollRef}>
+          {movies.map((movie) => (
+            <MovieCard key={movie.id} movie={movie} onWatchTrailer={onWatchTrailer} />
+          ))}
+        </div>
+        <button className="discover-scroll-btn discover-scroll-right" onClick={() => scroll('right')} aria-label="Scroll right">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M9 18l6-6-6-6" />
+          </svg>
+        </button>
+      </div>
+    </section>
+  );
+}
+
+export default function Home({ featuredMovie, trending, nowPlaying, upcoming, popular }) {
+  const { language } = useLanguage();
+  const isMobile = useIsMobile();
   const [heroTrailerKey, setHeroTrailerKey] = useState(featuredMovie?.trailerKey || null);
   const [showHeroPreRoll, setShowHeroPreRoll] = useState(!!featuredMovie?.trailerKey);
+  const [selectedMovie, setSelectedMovie] = useState(null);
+
+  const allRowMovies = [...(trending || []), ...(nowPlaying || []), ...(upcoming || []), ...(popular || [])];
+
+  const handleWatchTrailer = (movie) => setSelectedMovie(movie);
+  const handleCloseModal = () => setSelectedMovie(null);
+  const handleNextMovie = () => {
+    const idx = allRowMovies.findIndex((m) => m.id === selectedMovie?.id);
+    if (idx >= 0 && idx < allRowMovies.length - 1) setSelectedMovie(allRowMovies[idx + 1]);
+  };
+  const handlePrevMovie = () => {
+    const idx = allRowMovies.findIndex((m) => m.id === selectedMovie?.id);
+    if (idx > 0) setSelectedMovie(allRowMovies[idx - 1]);
+  };
 
   // Client-side fallback: fetch trailer if not available at build time
   useEffect(() => {
     if (featuredMovie?.id && !featuredMovie?.trailerKey) {
-      fetch(`/api/movie/${featuredMovie.id}/trailer`)
+      fetch(`/api/movie/${featuredMovie.id}/trailer?language=${language}`)
         .then((res) => res.json())
         .then((data) => {
           const trailer = (data.results || []).find(
@@ -95,90 +222,17 @@ export default function Home({ featuredMovie, posts, blockbusterFilms }) {
         </section>
       )}
 
-      {/* Blockbuster Film Reviews */}
-      <section className="home-section">
-        <div className="section-header">
-          <div>
-            <h2 className="section-title">
-              <span className="section-icon">🎬</span>
-              Blockbuster Film Reviews
-            </h2>
-            <p className="section-subtitle">In-depth editorial coverage of the biggest releases</p>
-          </div>
-          <Link href="/blockbuster" className="view-all-link">
-            View All
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </Link>
-        </div>
-        <div className="bb-home-grid">
-          {blockbusterFilms.map((film) => (
-            <a key={film.slug} href={`/blockbuster/${film.slug}.html`} className="bb-home-card">
-              <div className="bb-home-card-img">
-                <img src={film.tmdb} alt={film.title} loading="lazy" />
-                <div className="bb-home-card-overlay" />
-              </div>
-              <div className="bb-home-card-info">
-                <span className="bb-badge-sm" style={{ color: film.accent, background: `${film.accent}20` }}>{film.genre}</span>
-                <h3 className="bb-home-card-title">{film.title}</h3>
-                <p className="bb-home-card-tagline">{film.tagline}</p>
-              </div>
-            </a>
-          ))}
-        </div>
-      </section>
-
-      {/* Latest News & Reviews */}
-      <section className="home-section">
-        <div className="section-header">
-          <div>
-            <h2 className="section-title">
-              <span className="section-icon">📰</span>
-              Latest News & Reviews
-            </h2>
-            <p className="section-subtitle">Stay updated with the film world</p>
-          </div>
-          <Link href="/blog" className="view-all-link">
-            View All
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </Link>
-        </div>
-        {posts && posts.length > 0 ? (
-          <div className="blog-grid-compact">
-            {posts.map((post) => (
-              <Link key={post.id} href={`/blog/${post.slug}`} className="blog-compact-link">
-                <article className="blog-compact-card">
-                  <div className="blog-compact-img">
-                    {post.imageUrl && (
-                      <Image
-                        src={post.imageUrl}
-                        alt={post.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                        style={{ objectFit: 'cover' }}
-                      />
-                    )}
-                    <div className="blog-compact-overlay" />
-                  </div>
-                  <div className="blog-compact-info">
-                    {post.category && <span className="bb-badge-sm">{post.category}</span>}
-                    <h3 className="blog-compact-title">{post.title}</h3>
-                  </div>
-                </article>
-              </Link>
-            ))}
-          </div>
-        ) : (
-          <div className="empty-blog-state">
-            <p>No posts yet. Check back soon for movie news and reviews!</p>
-          </div>
-        )}
-      </section>
+      {/* Dynamic Movie Rows */}
+      <HomeMovieRow title="Trending Now" movies={trending} viewAllHref="/discover" onWatchTrailer={handleWatchTrailer} />
+      <HomeMovieRow title="Now in Theaters" movies={nowPlaying} viewAllHref="/trailers?category=now-playing" onWatchTrailer={handleWatchTrailer} />
 
       <AdSlot slot="9497514084" />
+
+      {/* Sports Section */}
+      <SportsSection />
+
+      <HomeMovieRow title="Coming Soon" movies={upcoming} viewAllHref="/trailers?category=upcoming" onWatchTrailer={handleWatchTrailer} />
+      <HomeMovieRow title="Popular on Streaming" movies={popular} viewAllHref="/discover" onWatchTrailer={handleWatchTrailer} />
 
       {/* Movie Insights Section */}
       <section className="home-section">
@@ -241,46 +295,78 @@ export default function Home({ featuredMovie, posts, blockbusterFilms }) {
           </Link>
         </div>
       </section>
+
+      {/* Trailer Playback */}
+      {selectedMovie && (
+        isMobile ? (
+          <ReelsView
+            movie={selectedMovie}
+            movies={allRowMovies}
+            onNextMovie={handleNextMovie}
+            onPrevMovie={handlePrevMovie}
+            onClose={handleCloseModal}
+          />
+        ) : (
+          <TrailerModal
+            movie={selectedMovie}
+            movies={allRowMovies}
+            onNextMovie={handleNextMovie}
+            onClose={handleCloseModal}
+          />
+        )
+      )}
     </>
   );
+}
+
+function serializeMovies(results) {
+  return (results || []).map((m) => ({
+    id: m.id,
+    title: m.title,
+    poster_path: m.poster_path,
+    backdrop_path: m.backdrop_path,
+    release_date: m.release_date || '',
+    vote_average: m.vote_average || 0,
+    overview: m.overview || '',
+    releaseYear: m.release_date ? m.release_date.split('-')[0] : '',
+  }));
 }
 
 export async function getStaticProps() {
   const apiKey = process.env.TMDB_API_KEY;
 
   let featuredMovie = null;
-  let posts = [];
-
-  const allBlockbusterFilms = [
-    { slug: 'sinners-2025', title: 'Sinners', genre: 'Horror', accent: '#b5362a', tagline: 'Some sins can never be washed clean.', tmdb: 'https://image.tmdb.org/t/p/w500/qTvFWCGeGXgBRaINLY1zqgTPSpn.jpg' },
-    { slug: 'superman-2025', title: 'Superman', genre: 'Superhero', accent: '#3a7ae8', tagline: 'Truth. Justice. A better tomorrow.', tmdb: 'https://image.tmdb.org/t/p/w500/oe5TVF6GQDESLsGiFrN6GyJEekh.jpg' },
-    { slug: 'thunderbolts-2025', title: 'Thunderbolts*', genre: 'Superhero', accent: '#e8c240', tagline: 'Every hero has a dark side. These are the dark sides.', tmdb: 'https://image.tmdb.org/t/p/w500/hqcexYHbiTBfDIdDWxrxPtVndBX.jpg' },
-    { slug: 'mission-impossible-final-reckoning-2025', title: 'Mission: Impossible – The Final Reckoning', genre: 'Action', accent: '#d44020', tagline: 'Every mission has a price. This is the final one.', tmdb: 'https://image.tmdb.org/t/p/w500/z53D72EAOxGRqdr7KXXWp9dJiDe.jpg' },
-    { slug: '28-years-later-2025', title: '28 Years Later', genre: 'Horror', accent: '#c83a00', tagline: 'The infection survived. So did they.', tmdb: 'https://image.tmdb.org/t/p/w500/n5FygjEppOvac6yEaowi26nTyw3.jpg' },
-    { slug: 'avatar-fire-and-ash-2025', title: 'Avatar: Fire and Ash', genre: 'Sci-Fi', accent: '#ff8040', tagline: 'Pandora burns. The Na\'vi rise.', tmdb: 'https://image.tmdb.org/t/p/w500/bRBeSHfGHwkEpImlhxPmOcUsaeg.jpg' },
-    { slug: 'f1-2025', title: 'F1', genre: 'Action', accent: '#e83020', tagline: 'Speed is everything. Survival is everything else.', tmdb: 'https://image.tmdb.org/t/p/w500/vqBmyAj0Xm9LnS1xe1MSlMAJyHq.jpg' },
-    { slug: 'the-housemaid-2025', title: 'The Housemaid', genre: 'Thriller', accent: '#e84060', tagline: 'She was hired to serve. She was meant to survive.', tmdb: 'https://image.tmdb.org/t/p/w500/mJGFduBPAzTKzOeCeTjBBOxnalB.jpg' },
-    { slug: 'scream-7', title: 'Scream VII', genre: 'Horror', accent: '#cc1a1a', tagline: 'Sidney Prescott returns. Ghostface is still calling.', tmdb: 'https://image.tmdb.org/t/p/w500/jjyuk0edLiW8vOSnlfwWCCLpbh5.jpg' },
-    { slug: 'wicked-for-good-2025', title: 'Wicked: For Good', genre: 'Musical', accent: '#c840c8', tagline: 'Because I knew you... I have been changed for good.', tmdb: 'https://image.tmdb.org/t/p/w500/si9tolnefLSUKaqQEGz1bWArOaL.jpg' },
-    { slug: 'lilo-stitch-2025', title: 'Lilo & Stitch', genre: 'Family', accent: '#4a9eff', tagline: 'Ohana means family. Nobody gets left behind.', tmdb: 'https://image.tmdb.org/t/p/w500/ckQzKpQJO4ZQDCN5evdpKcfm7Ys.jpg' },
-    { slug: 'jurassic-world-rebirth-2025', title: 'Jurassic World: Rebirth', genre: 'Sci-Fi', accent: '#b0d038', tagline: 'Life always finds a way. So does danger.', tmdb: 'https://image.tmdb.org/t/p/w500/1RICxzeoNCAO5NpcRMIgg1XT6fm.jpg' },
-  ];
-  // Shuffle and pick 6 for homepage
-  const shuffled = allBlockbusterFilms.sort(() => Math.random() - 0.5);
-  const blockbusterFilms = shuffled.slice(0, 6);
+  let trending = [];
+  let nowPlaying = [];
+  let upcoming = [];
+  let popular = [];
 
   if (apiKey) {
     try {
-      const trendingRes = await fetch(
-        `https://api.themoviedb.org/3/trending/movie/day?api_key=${apiKey}`
-      );
-      const trendingData = await trendingRes.json();
+      const [trendingRes, nowPlayingRes, upcomingRes, popularRes] = await Promise.all([
+        fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${apiKey}`),
+        fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}`),
+        fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${apiKey}`),
+        fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`),
+      ]);
+
+      const [trendingData, nowPlayingData, upcomingData, popularData] = await Promise.all([
+        trendingRes.json(),
+        nowPlayingRes.json(),
+        upcomingRes.json(),
+        popularRes.json(),
+      ]);
+
+      trending = serializeMovies(trendingData.results);
+      nowPlaying = serializeMovies(nowPlayingData.results);
+      upcoming = serializeMovies(upcomingData.results);
+      popular = serializeMovies(popularData.results);
 
       // Featured movie from trending (with backdrop) - randomly shuffled
-      const trending = (trendingData.results || []).filter(m => m.backdrop_path && m.overview);
-      featuredMovie = trending.length > 0
-        ? trending[Math.floor(Math.random() * trending.length)]
-        : (trendingData.results || [])[0];
+      const trendingWithBackdrop = trending.filter(m => m.backdrop_path && m.overview);
+      featuredMovie = trendingWithBackdrop.length > 0
+        ? trendingWithBackdrop[Math.floor(Math.random() * trendingWithBackdrop.length)]
+        : trending[0] || null;
 
       // Fetch trailer for featured movie
       if (featuredMovie?.id) {
@@ -301,23 +387,17 @@ export async function getStaticProps() {
       }
 
     } catch (err) {
-      console.error('Error fetching featured movie:', err);
+      console.error('Error fetching homepage data:', err);
     }
-  }
-
-  // Fetch blog posts
-  try {
-    const { getPublishedPosts } = await import('../lib/firestore');
-    posts = await getPublishedPosts(4);
-  } catch (err) {
-    console.error('Error fetching posts:', err);
   }
 
   return {
     props: {
       featuredMovie,
-      posts,
-      blockbusterFilms,
+      trending,
+      nowPlaying,
+      upcoming,
+      popular,
     },
   };
 }

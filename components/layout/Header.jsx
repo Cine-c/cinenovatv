@@ -1,13 +1,28 @@
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useWatchLater } from '../WatchLaterContext';
 import { useAuth } from '../useAuth';
+import { useLanguage, SUPPORTED_LANGUAGES } from '../LanguageContext';
 import { AMAZON_TAG } from '../../lib/affiliates';
+import SearchBar from '../SearchBar';
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
+  const langRef = useRef(null);
   const { items } = useWatchLater();
   const { user, loading: authLoading } = useAuth();
+  const { language, setLanguage } = useLanguage();
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (langRef.current && !langRef.current.contains(e.target)) {
+        setLangOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
     <header className="site-header">
@@ -31,6 +46,8 @@ export default function Header() {
           </a>
         </div>
 
+        <SearchBar />
+
         <button
           className="mobile-menu-btn"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -44,6 +61,12 @@ export default function Header() {
           <Link href="/" onClick={() => setMenuOpen(false)}>
             Home
           </Link>
+          <Link href="/discover" onClick={() => setMenuOpen(false)}>
+            Discover
+          </Link>
+          <Link href="/sports" onClick={() => setMenuOpen(false)}>
+            Sports
+          </Link>
           <Link href="/trailers" onClick={() => setMenuOpen(false)}>
             Trailers
           </Link>
@@ -56,6 +79,40 @@ export default function Header() {
           <Link href="/blockbuster" onClick={() => setMenuOpen(false)}>
             Blockbuster
           </Link>
+          <div className="lang-switcher" ref={langRef}>
+            <button
+              className="lang-toggle"
+              onClick={() => setLangOpen(!langOpen)}
+              aria-label="Change content language"
+              aria-expanded={langOpen}
+            >
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z" />
+              </svg>
+            </button>
+            {langOpen && (
+              <div className="lang-dropdown">
+                {SUPPORTED_LANGUAGES.map((lang) => (
+                  <button
+                    key={lang.code}
+                    className={`lang-option${language === lang.code ? ' active' : ''}`}
+                    onClick={() => {
+                      setLanguage(lang.code);
+                      setLangOpen(false);
+                    }}
+                  >
+                    {lang.label}
+                    {language === lang.code && (
+                      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="3">
+                        <path d="M20 6L9 17l-5-5" />
+                      </svg>
+                    )}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
           <Link href="/watchlater" className="nav-watchlater" onClick={() => setMenuOpen(false)}>
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />

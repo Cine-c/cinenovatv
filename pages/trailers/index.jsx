@@ -8,6 +8,7 @@ import ReelsView from '../../components/trailers/ReelsView';
 import { MovieGridSkeleton } from '../../components/SkeletonCard';
 import AdSlot from '../../components/AdSlot';
 import useIsMobile from '../../components/hooks/useIsMobile';
+import { useLanguage } from '../../components/LanguageContext';
 
 const CATEGORIES = [
   { id: 'trending', label: 'Trending', icon: '🔥', endpoint: '/api/trending/day' },
@@ -20,6 +21,7 @@ const CATEGORIES = [
 export default function TrailersPage({ initialMovies, genres, totalResults, initialTotalPages }) {
   const router = useRouter();
   const isMobile = useIsMobile();
+  const { language } = useLanguage();
   const [movies, setMovies] = useState(initialMovies || []);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('trending');
@@ -99,7 +101,7 @@ export default function TrailersPage({ initialMovies, genres, totalResults, init
     setIsLoading(true);
     try {
       const separator = endpoint.includes('?') ? '&' : '?';
-      const res = await fetch(`${endpoint}${separator}page=${pageNum}`);
+      const res = await fetch(`${endpoint}${separator}page=${pageNum}&language=${language}`);
       const data = await res.json();
       const withYear = (data.results || []).map(m => ({
         ...m,
@@ -153,7 +155,7 @@ export default function TrailersPage({ initialMovies, genres, totalResults, init
     setIsSearchMode(true);
     setIsLoading(true);
     try {
-      const res = await fetch(`/api/search?query=${encodeURIComponent(query)}`);
+      const res = await fetch(`/api/search?query=${encodeURIComponent(query)}&language=${language}`);
       const data = await res.json();
       setMovies((data.results || []).map(m => ({
         ...m,
@@ -178,7 +180,7 @@ export default function TrailersPage({ initialMovies, genres, totalResults, init
     if (page < totalPages) {
       if (isSearchMode) {
         setIsLoading(true);
-        fetch(`/api/search?query=${encodeURIComponent(searchQuery)}&page=${page + 1}`)
+        fetch(`/api/search?query=${encodeURIComponent(searchQuery)}&page=${page + 1}&language=${language}`)
           .then((res) => res.json())
           .then((data) => {
             const withYear = (data.results || []).map(m => ({
@@ -452,7 +454,9 @@ export default function TrailersPage({ initialMovies, genres, totalResults, init
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ req }) {
+  const getLanguageFromCookies = (await import('../../lib/getLanguageFromCookies')).default;
+  const language = getLanguageFromCookies(req);
   let initialMovies = [];
   let genres = [];
   let totalResults = 0;
@@ -463,10 +467,10 @@ export async function getServerSideProps() {
   if (apiKey) {
     try {
       const [page1Res, page2Res, page3Res, genresRes] = await Promise.all([
-        fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${apiKey}&page=1`),
-        fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${apiKey}&page=2`),
-        fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${apiKey}&page=3`),
-        fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}`),
+        fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${apiKey}&page=1&language=${language}`),
+        fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${apiKey}&page=2&language=${language}`),
+        fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${apiKey}&page=3&language=${language}`),
+        fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=${language}`),
       ]);
 
       const [page1Data, page2Data, page3Data, genresData] = await Promise.all([

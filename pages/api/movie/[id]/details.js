@@ -1,5 +1,5 @@
 export default async function handler(req, res) {
-  const { id } = req.query;
+  const { id, language = 'en-US' } = req.query;
   const apiKey = process.env.TMDB_API_KEY;
 
   if (!id) {
@@ -10,7 +10,7 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Missing TMDB API key' });
   }
 
-  const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&append_to_response=videos,credits`;
+  const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&append_to_response=videos,credits&language=${language}`;
 
   try {
     const response = await fetch(url);

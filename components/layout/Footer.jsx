@@ -34,6 +34,7 @@ export default function Footer() {
           <nav className="footer-nav">
             <Link href="/">Home</Link>
             <Link href="/trailers">Trailers</Link>
+            <Link href="/sports">Sports</Link>
             <Link href="/scenes">Scenes</Link>
             <Link href="/blog">Blog</Link>
             <Link href="/blockbuster">Blockbuster</Link>

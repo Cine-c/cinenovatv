@@ -22,6 +22,7 @@ services:
       - NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=${NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}
       - FIREBASE_SERVICE_ACCOUNT_EMAIL=${FIREBASE_SERVICE_ACCOUNT_EMAIL}
       - FIREBASE_PRIVATE_KEY=${FIREBASE_PRIVATE_KEY}
+      - APISPORTS_KEY=${APISPORTS_KEY}
     restart: unless-stopped
 
   # Development service (use this for local development)
@@ -51,6 +52,7 @@ services:
       - NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=${NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}
       - FIREBASE_SERVICE_ACCOUNT_EMAIL=${FIREBASE_SERVICE_ACCOUNT_EMAIL}
       - FIREBASE_PRIVATE_KEY=${FIREBASE_PRIVATE_KEY}
+      - APISPORTS_KEY=${APISPORTS_KEY}
     command: sh -c "npm install && npx next dev -H 0.0.0.0"
     profiles:
       - dev

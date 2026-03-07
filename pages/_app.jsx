@@ -5,6 +5,7 @@ import Layout from '../components/layout/Layout';
 import ErrorBoundary from '../components/ErrorBoundary';
 import { OrganizationJsonLd } from '../components/seo/JsonLd';
 import { WatchLaterProvider } from '../components/WatchLaterContext';
+import { LanguageProvider } from '../components/LanguageContext';
 import '../styles/globals.css';
 
 const AuthProvider = dynamic(
@@ -39,14 +40,16 @@ export default function App({ Component, pageProps }) {
 
   return (
     <ErrorBoundary>
-      <AuthProvider>
-        <AdFreeProvider>
-          <WatchLaterProvider>
-            <OrganizationJsonLd />
-            {getLayout(<Component {...pageProps} />)}
-          </WatchLaterProvider>
-        </AdFreeProvider>
-      </AuthProvider>
+      <LanguageProvider>
+        <AuthProvider>
+          <AdFreeProvider>
+            <WatchLaterProvider>
+              <OrganizationJsonLd />
+              {getLayout(<Component {...pageProps} />)}
+            </WatchLaterProvider>
+          </AdFreeProvider>
+        </AuthProvider>
+      </LanguageProvider>
     </ErrorBoundary>
   );
 }
