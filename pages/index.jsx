@@ -12,17 +12,6 @@ import MovieCard from '../components/trailers/MovieCard';
 
 const PreRollOverlay = dynamic(() => import('../components/PreRollOverlay'), { ssr: false });
 
-// Genre image mapping using TMDB genre IDs
-const GENRE_IMAGES = {
-  28: 'https://image.tmdb.org/t/p/w500/gPbM0MK8CP8A174rmUwGsADNYKD.jpg',     // Action
-  18: 'https://image.tmdb.org/t/p/w500/1XDDXPXql5dxnx3b5ggknsQleos.jpg',     // Drama
-  878: 'https://image.tmdb.org/t/p/w500/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg',     // Sci-Fi
-  53: 'https://image.tmdb.org/t/p/w500/b2cFBfhnoKoJ0sOgTgFXXzaYhkP.jpg',     // Thriller
-  35: 'https://image.tmdb.org/t/p/w500/v9aFzgBnCllb2B0EZpQmMOmCkvE.jpg',     // Comedy
-  27: 'https://image.tmdb.org/t/p/w500/4YZpsylmjHbqeWzjKpUEF8gcLNW.jpg',     // Horror
-  10749: 'https://image.tmdb.org/t/p/w500/1XDDXPXql5dxnx3b5ggknsQleos.jpg',  // Romance
-  16: 'https://image.tmdb.org/t/p/w500/gPbM0MK8CP8A174rmUwGsADNYKD.jpg',     // Animation
-};
 
 function useScrollReveal() {
   const ref = useRef(null);
@@ -276,7 +265,7 @@ export default function Home({ featuredMovie, nowPlaying, popular, genres }) {
                 key={genre.id}
               >
                 <img
-                  src={GENRE_IMAGES[genre.id] || `https://image.tmdb.org/t/p/w500/gPbM0MK8CP8A174rmUwGsADNYKD.jpg`}
+                  src={genre.image || `https://image.tmdb.org/t/p/w780/gPbM0MK8CP8A174rmUwGsADNYKD.jpg`}
                   alt={genre.name}
                   loading="lazy"
                 />
@@ -368,10 +357,24 @@ export async function getStaticProps() {
         }));
       }
 
-      // Parse genres
+      // Parse genres and fetch a backdrop image for each
       if (genresRes.status === 'fulfilled') {
         const genData = await genresRes.value.json();
-        genres = (genData.genres || []).slice(0, 12);
+        const rawGenres = (genData.genres || []).slice(0, 12);
+        const genreImageResults = await Promise.allSettled(
+          rawGenres.map((g) =>
+            fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${g.id}&sort_by=popularity.desc&page=1`)
+              .then((r) => r.json())
+          )
+        );
+        genres = rawGenres.map((g, i) => {
+          let image = null;
+          if (genreImageResults[i].status === 'fulfilled') {
+            const movie = (genreImageResults[i].value.results || []).find((m) => m.backdrop_path);
+            if (movie) image = `https://image.tmdb.org/t/p/w780${movie.backdrop_path}`;
+          }
+          return { id: g.id, name: g.name, image };
+        });
       }
 
       // Fetch trailer for featured movie
