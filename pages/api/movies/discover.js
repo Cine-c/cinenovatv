@@ -46,6 +46,9 @@ export default async function handler(req, res) {
     }
 
     const response = await fetch(url);
+    if (!response.ok) {
+      return res.status(response.status).json({ error: `TMDB API error: ${response.status}` });
+    }
     const data = await response.json();
     res.status(200).json(data);
   } catch (err) {

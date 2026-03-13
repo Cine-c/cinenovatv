@@ -8,6 +8,7 @@ export function AuthProvider({ children }) {
 
   // Dynamically import firebase/auth + firebase/app client-side only
   useEffect(() => {
+    let unsubscribe;
     Promise.all([
       import('firebase/app'),
       import('firebase/auth'),
@@ -24,12 +25,12 @@ export function AuthProvider({ children }) {
         : appMod.getApps()[0];
       const auth = authMod.getAuth(app);
       setAuthModule({ auth, mod: authMod });
-      const unsubscribe = authMod.onAuthStateChanged(auth, (firebaseUser) => {
+      unsubscribe = authMod.onAuthStateChanged(auth, (firebaseUser) => {
         setUser(firebaseUser);
         setLoading(false);
       });
-      return () => unsubscribe();
     });
+    return () => { if (unsubscribe) unsubscribe(); };
   }, []);
 
   const signIn = useCallback(async (email, password) => {

@@ -9,6 +9,7 @@ import SearchBar from '../SearchBar';
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const langRef = useRef(null);
   const { items } = useWatchLater();
   const { user, loading: authLoading } = useAuth();
@@ -24,12 +25,20 @@ export default function Header() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 80);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <header className="site-header">
+    <header className={`site-header${scrolled ? ' header-scrolled' : ''}`}>
       <div className="header-container">
         <div className="logo-group">
           <Link href="/" className="logo">
-            CineNovaTV
+            Cine<span className="logo-nova">Nova</span>TV
           </Link>
           <a
             href={`https://www.amazon.com/?tag=${AMAZON_TAG}`}
@@ -63,9 +72,6 @@ export default function Header() {
           </Link>
           <Link href="/discover" onClick={() => setMenuOpen(false)}>
             Discover
-          </Link>
-          <Link href="/sports" onClick={() => setMenuOpen(false)}>
-            Sports
           </Link>
           <Link href="/trailers" onClick={() => setMenuOpen(false)}>
             Trailers

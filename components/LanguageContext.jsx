@@ -34,8 +34,17 @@ function detectBrowserLanguage() {
   return match ? match.code : 'en-US';
 }
 
+function getInitialLanguage() {
+  if (typeof window === 'undefined') return 'en-US';
+  try {
+    const stored = localStorage.getItem('tmdb-language');
+    if (stored && LANG_CODES.includes(stored)) return stored;
+  } catch {}
+  return detectBrowserLanguage();
+}
+
 export function LanguageProvider({ children }) {
-  const [language, setLang] = useState('en-US');
+  const [language, setLang] = useState(getInitialLanguage);
 
   useEffect(() => {
     const stored = localStorage.getItem('tmdb-language');

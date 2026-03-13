@@ -20,6 +20,9 @@ export default async function handler(req, res) {
       const tmdbRes = await fetch(
         `https://api.themoviedb.org/3/movie/${id}/external_ids?api_key=${tmdbKey}`
       );
+      if (!tmdbRes.ok) {
+        return res.status(tmdbRes.status).json({ error: `TMDB API error: ${tmdbRes.status}` });
+      }
       const tmdbData = await tmdbRes.json();
       imdbId = tmdbData.imdb_id;
 
@@ -30,8 +33,11 @@ export default async function handler(req, res) {
 
     // Fetch from OMDb
     const omdbRes = await fetch(
-      `http://www.omdbapi.com/?i=${imdbId}&apikey=${omdbKey}&plot=full`
+      `https://www.omdbapi.com/?i=${imdbId}&apikey=${omdbKey}&plot=full`
     );
+    if (!omdbRes.ok) {
+      return res.status(omdbRes.status).json({ error: `OMDb API error: ${omdbRes.status}` });
+    }
     const omdbData = await omdbRes.json();
 
     if (omdbData.Response === 'False') {

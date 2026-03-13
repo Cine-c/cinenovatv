@@ -10,10 +10,11 @@ export default function Footer() {
     <footer className="site-footer">
       <div className="footer-container">
         <div className="footer-section">
-          <h3>CineNovaTV</h3>
-          <p>Your source for movie trailers, reviews, and the latest film news.</p>
-          <NewsletterSignup variant="compact" />
-          <div className="footer-social">
+          <Link href="/" className="logo" style={{ display: 'block', marginBottom: '16px', fontSize: '1.5rem', textDecoration: 'none' }}>
+            Cine<span className="logo-nova">Nova</span>TV
+          </Link>
+          <p>Your guide to the world of cinema. Discover where to watch, what&apos;s trending, and what&apos;s worth your time — across every platform.</p>
+          <div className="footer-social" style={{ display: 'flex', gap: '16px', marginTop: '1.25rem' }}>
             <a
               href="https://x.com/CineNovaTV"
               target="_blank"
@@ -21,25 +22,39 @@ export default function Footer() {
               className="footer-social-link"
               aria-label="Follow CineNovaTV on X"
             >
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
               </svg>
-              <span>@CineNovaTV</span>
             </a>
+          </div>
+          <div style={{ marginTop: '1rem' }}>
+            <SupportButton variant="compact" />
           </div>
         </div>
 
         <div className="footer-section">
-          <h4>Quick Links</h4>
+          <h4>Explore</h4>
           <nav className="footer-nav">
             <Link href="/">Home</Link>
             <Link href="/trailers">Trailers</Link>
-            <Link href="/sports">Sports</Link>
             <Link href="/scenes">Scenes</Link>
-            <Link href="/blog">Blog</Link>
+            <Link href="/discover">Discover</Link>
             <Link href="/blockbuster">Blockbuster</Link>
+          </nav>
+        </div>
+
+        <div className="footer-section">
+          <h4>Learn</h4>
+          <nav className="footer-nav">
+            <Link href="/blog">Blog</Link>
             <Link href="/about">About</Link>
             <Link href="/premium">Go Ad-Free</Link>
+          </nav>
+        </div>
+
+        <div className="footer-section">
+          <h4>Company</h4>
+          <nav className="footer-nav">
             <Link href="/privacy">Privacy Policy</Link>
             <button
               className="footer-cookie-btn"
@@ -54,32 +69,25 @@ export default function Footer() {
               Cookie Settings
             </button>
           </nav>
-        </div>
-
-        <div className="footer-section">
-          <h4>Support Us</h4>
-          <SupportButton variant="compact" />
-        </div>
-
-        <div className="footer-section">
-          <h4>Attribution</h4>
-          <p className="tmdb-attribution">
-            This product uses the TMDB API but is not endorsed or certified by TMDB.
-          </p>
-          <a
-            href="https://www.themoviedb.org"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="tmdb-link"
-          >
-            <img
-              src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"
-              alt="TMDB Logo"
-              width="120"
-              height="12"
-            />
-          </a>
-          <AffiliateDisclosure variant="footer" />
+          <div style={{ marginTop: '1.5rem' }}>
+            <p className="tmdb-attribution">
+              This product uses the TMDB API but is not endorsed or certified by TMDB.
+            </p>
+            <a
+              href="https://www.themoviedb.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="tmdb-link"
+            >
+              <img
+                src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"
+                alt="TMDB Logo"
+                width="120"
+                height="12"
+              />
+            </a>
+            <AffiliateDisclosure variant="footer" />
+          </div>
         </div>
       </div>
 

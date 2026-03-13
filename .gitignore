@@ -30,5 +30,8 @@ nul
 # Zip archives
 *.zip
 
+# Test artifacts
+test_page.html
+
 # App directory
 cinenovatv-app/

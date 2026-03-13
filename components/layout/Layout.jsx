@@ -1,7 +1,9 @@
-import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import Header from './Header';
 import Footer from './Footer';
 import CookieConsent from '../CookieConsent';
+
+const CustomCursor = dynamic(() => import('../CustomCursor'), { ssr: false });
 
 export default function Layout({ children }) {
   return (
@@ -10,10 +12,8 @@ export default function Layout({ children }) {
       <main className="main-content">{children}</main>
       <Footer />
 
-      {/* Floating N Logo */}
-      <Link href="/" className="floating-logo" aria-label="Go to home">
-        <span className="floating-n">N</span>
-      </Link>
+      <div className="film-grain" />
+      <CustomCursor />
 
       <CookieConsent />
     </div>

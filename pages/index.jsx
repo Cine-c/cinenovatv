@@ -3,142 +3,57 @@ import dynamic from 'next/dynamic';
 import SEOHead from '../components/seo/SEOHead';
 import { WebSiteJsonLd } from '../components/seo/JsonLd';
 import Link from 'next/link';
-import NewsletterSignup from '../components/NewsletterSignup';
-import AdSlot from '../components/AdSlot';
-import MovieCard from '../components/trailers/MovieCard';
-import TrailerModal from '../components/trailers/TrailerModal';
-import ReelsView from '../components/trailers/ReelsView';
-import MatchCard from '../components/sports/MatchCard';
-import useIsMobile from '../components/hooks/useIsMobile';
+import Image from 'next/image';
 import { useLanguage } from '../components/LanguageContext';
+import { useRouter } from 'next/router';
+import AdSlot from '../components/AdSlot';
+import NewsletterSignup from '../components/NewsletterSignup';
+import MovieCard from '../components/trailers/MovieCard';
 
 const PreRollOverlay = dynamic(() => import('../components/PreRollOverlay'), { ssr: false });
 
-const HOME_SPORTS = [
-  { name: 'Football', icon: '\u26BD', description: 'Live scores, standings & fixtures.', href: '/sports/football', color: '#10b981' },
-  { name: 'Formula 1', icon: '\uD83C\uDFCE\uFE0F', description: 'Race results & driver standings.', href: '/sports/f1', color: '#ef4444', comingSoon: true },
-  { name: 'NBA', icon: '\uD83C\uDFC0', description: 'Basketball scores & stats.', href: '/sports/nba', color: '#f97316', comingSoon: true },
-  { name: 'NFL', icon: '\uD83C\uDFC8', description: 'Football scores & rankings.', href: '/sports/nfl', color: '#3b82f6', comingSoon: true },
-];
+// Genre image mapping using TMDB genre IDs
+const GENRE_IMAGES = {
+  28: 'https://image.tmdb.org/t/p/w500/gPbM0MK8CP8A174rmUwGsADNYKD.jpg',     // Action
+  18: 'https://image.tmdb.org/t/p/w500/1XDDXPXql5dxnx3b5ggknsQleos.jpg',     // Drama
+  878: 'https://image.tmdb.org/t/p/w500/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg',     // Sci-Fi
+  53: 'https://image.tmdb.org/t/p/w500/b2cFBfhnoKoJ0sOgTgFXXzaYhkP.jpg',     // Thriller
+  35: 'https://image.tmdb.org/t/p/w500/v9aFzgBnCllb2B0EZpQmMOmCkvE.jpg',     // Comedy
+  27: 'https://image.tmdb.org/t/p/w500/4YZpsylmjHbqeWzjKpUEF8gcLNW.jpg',     // Horror
+  10749: 'https://image.tmdb.org/t/p/w500/1XDDXPXql5dxnx3b5ggknsQleos.jpg',  // Romance
+  16: 'https://image.tmdb.org/t/p/w500/gPbM0MK8CP8A174rmUwGsADNYKD.jpg',     // Animation
+};
 
-function SportsSection() {
-  const [fixtures, setFixtures] = useState([]);
-
+function useScrollReveal() {
+  const ref = useRef(null);
   useEffect(() => {
-    fetch('/api/sports/football/fixtures?league=39')
-      .then((r) => r.json())
-      .then((data) => { if (Array.isArray(data)) setFixtures(data.slice(0, 6)); })
-      .catch(() => {});
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+    el.querySelectorAll('.reveal').forEach((child) => observer.observe(child));
+    return () => observer.disconnect();
   }, []);
-
-  return (
-    <section className="home-section">
-      <div className="section-header">
-        <div>
-          <h2 className="section-title">
-            <span className="section-icon">{'\uD83C\uDFC6'}</span>
-            Sports Center
-          </h2>
-          <p className="section-subtitle">Live scores, standings & fixtures</p>
-        </div>
-        <Link href="/sports" className="view-all-link">
-          View All
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </Link>
-      </div>
-      {fixtures.length > 0 && (
-        <div className="match-grid" style={{ marginBottom: '1.5rem' }}>
-          {fixtures.map((f) => (
-            <MatchCard key={f.fixture.id} fixture={f} />
-          ))}
-        </div>
-      )}
-      <div className="sport-card-grid sport-card-grid--compact">
-        {HOME_SPORTS.map((sport) => {
-          const card = (
-            <div key={sport.name} className="sport-card" style={{ '--sport-accent': sport.color }}>
-              <div className="sport-card-icon">{sport.icon}</div>
-              <h3 className="sport-card-name">{sport.name}</h3>
-              <p className="sport-card-desc">{sport.description}</p>
-              {sport.comingSoon && <span className="sport-card-badge">Coming Soon</span>}
-            </div>
-          );
-          return sport.comingSoon ? card : (
-            <Link key={sport.name} href={sport.href} className="sport-card-link">{card}</Link>
-          );
-        })}
-      </div>
-    </section>
-  );
+  return ref;
 }
 
-function HomeMovieRow({ title, movies, viewAllHref, onWatchTrailer }) {
-  const scrollRef = useRef(null);
-
-  const scroll = (direction) => {
-    if (!scrollRef.current) return;
-    const amount = scrollRef.current.offsetWidth * 0.75;
-    scrollRef.current.scrollBy({
-      left: direction === 'left' ? -amount : amount,
-      behavior: 'smooth',
-    });
-  };
-
-  if (!movies || movies.length === 0) return null;
-
-  return (
-    <section className="discover-row">
-      <div className="discover-row-header">
-        <h2>{title}</h2>
-        <Link href={viewAllHref} className="discover-view-all">
-          View All
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M5 12h14M12 5l7 7-7 7" />
-          </svg>
-        </Link>
-      </div>
-      <div className="discover-row-container">
-        <button className="discover-scroll-btn discover-scroll-left" onClick={() => scroll('left')} aria-label="Scroll left">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M15 18l-6-6 6-6" />
-          </svg>
-        </button>
-        <div className="discover-row-scroll" ref={scrollRef}>
-          {movies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} onWatchTrailer={onWatchTrailer} />
-          ))}
-        </div>
-        <button className="discover-scroll-btn discover-scroll-right" onClick={() => scroll('right')} aria-label="Scroll right">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M9 18l6-6-6-6" />
-          </svg>
-        </button>
-      </div>
-    </section>
-  );
-}
-
-export default function Home({ featuredMovie, trending, nowPlaying, upcoming, popular }) {
+export default function Home({ featuredMovie, nowPlaying, popular, genres }) {
   const { language } = useLanguage();
-  const isMobile = useIsMobile();
+  const router = useRouter();
+  const revealRef = useScrollReveal();
+  const spotlightRef = useRef(null);
+  const heroRef = useRef(null);
   const [heroTrailerKey, setHeroTrailerKey] = useState(featuredMovie?.trailerKey || null);
   const [showHeroPreRoll, setShowHeroPreRoll] = useState(!!featuredMovie?.trailerKey);
-  const [selectedMovie, setSelectedMovie] = useState(null);
-
-  const allRowMovies = [...(trending || []), ...(nowPlaying || []), ...(upcoming || []), ...(popular || [])];
-
-  const handleWatchTrailer = (movie) => setSelectedMovie(movie);
-  const handleCloseModal = () => setSelectedMovie(null);
-  const handleNextMovie = () => {
-    const idx = allRowMovies.findIndex((m) => m.id === selectedMovie?.id);
-    if (idx >= 0 && idx < allRowMovies.length - 1) setSelectedMovie(allRowMovies[idx + 1]);
-  };
-  const handlePrevMovie = () => {
-    const idx = allRowMovies.findIndex((m) => m.id === selectedMovie?.id);
-    if (idx > 0) setSelectedMovie(allRowMovies[idx - 1]);
-  };
 
   // Client-side fallback: fetch trailer if not available at build time
   useEffect(() => {
@@ -156,217 +71,308 @@ export default function Home({ featuredMovie, trending, nowPlaying, upcoming, po
         })
         .catch(() => {});
     }
-  }, [featuredMovie?.id, featuredMovie?.trailerKey]);
+  }, [featuredMovie?.id, featuredMovie?.trailerKey, language]);
+
+  // Spotlight mouse follow
+  useEffect(() => {
+    const hero = heroRef.current;
+    const spot = spotlightRef.current;
+    if (!hero || !spot) return;
+    const handleMove = (e) => {
+      const rect = hero.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      spot.style.transform = `translate(calc(${x}px - 50%), calc(${y}px - 50%))`;
+    };
+    hero.addEventListener('mousemove', handleMove);
+    return () => hero.removeEventListener('mousemove', handleMove);
+  }, []);
+
+  // Now playing items for the marquee ticker
+  const tickerItems = (nowPlaying || []).slice(0, 9);
+
+  // Top 4 popular movies for trending grid
+  const trendingMovies = (popular || []).slice(0, 4);
+
+  // Featured article movie — pick the second trending movie
+  const articleMovie = (popular || [])[1] || featuredMovie;
+
+  // First 6 genres for the genre grid
+  const displayGenres = (genres || []).slice(0, 6);
 
   return (
-    <>
+    <div ref={revealRef} className="homepage-full">
       <SEOHead
-        title="CineNovaTV - Movie Trailers, Reviews & Film News"
+        title="CineNovaTV - Discover Your Next Obsession"
         description="Watch the latest movie trailers, read reviews, and stay updated with film news. Discover trending, upcoming, and popular movies all in one place."
         url="/"
       />
       <WebSiteJsonLd />
 
-      {/* Featured Movie Hero */}
-      {featuredMovie && (
-        <section className="featured-hero">
-          <div
-            className="featured-hero-backdrop"
-            style={{
-              backgroundImage: `url(https://image.tmdb.org/t/p/w1280${featuredMovie.backdrop_path})`
-            }}
-          >
-            {heroTrailerKey && !showHeroPreRoll && (
-              <div className="featured-hero-video">
-                <iframe
-                  src={`https://www.youtube.com/embed/${heroTrailerKey}?autoplay=1&mute=1&controls=0&showinfo=0&rel=0&loop=1&playlist=${heroTrailerKey}&modestbranding=1&playsinline=1&disablekb=1&iv_load_policy=3`}
-                  title={`${featuredMovie.title} trailer`}
-                  allow="autoplay; encrypted-media"
-                  allowFullScreen
-                  frameBorder="0"
-                />
-              </div>
-            )}
-            {showHeroPreRoll && heroTrailerKey && (
-              <PreRollOverlay onSkip={() => setShowHeroPreRoll(false)} />
-            )}
-            <div className="featured-hero-overlay"></div>
-            <div className="featured-hero-content">
-              <span className="featured-badge">
-                <span className="badge-icon">🔥</span>
-                Featured Today
-              </span>
-              <h1>{featuredMovie.title}</h1>
-              <p className="featured-overview">
-                {featuredMovie.overview?.slice(0, 200)}...
-              </p>
-              <div className="featured-meta">
-                <span className="featured-rating">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                  </svg>
-                  {featuredMovie.vote_average?.toFixed(1)}
-                </span>
-                <span className="featured-year">
-                  {featuredMovie.release_date?.split('-')[0]}
-                </span>
-              </div>
-              <Link href={`/trailers?play=${featuredMovie.id}`} className="btn btn-primary btn-glow btn-large">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M8 5v14l11-7z"/>
-                </svg>
+      {/* ── HERO SPLIT ── */}
+      <section className="hero-split" ref={heroRef}>
+        <div className="hero-bg" />
+        <div className="spotlight" ref={spotlightRef} />
+
+        <div className="hero-content">
+          <div className="hero-eyebrow">Now Streaming</div>
+          <h1 className="hero-title">
+            Where Every<br />Film Finds
+            <em>Its Audience.</em>
+          </h1>
+          <p className="hero-sub">
+            Discover what&apos;s worth watching tonight — across every platform, every genre. Curated for people who take cinema seriously.
+          </p>
+          <div className="hero-actions">
+            <Link href="/discover" className="btn-primary">
+              <span>Explore Films</span>
+              <span>&rarr;</span>
+            </Link>
+            {featuredMovie && heroTrailerKey && (
+              <Link
+                href={`/trailers?play=${featuredMovie.id}`}
+                className="btn-ghost"
+              >
+                <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                 Watch Trailer
               </Link>
+            )}
+          </div>
+        </div>
+
+        <div className="hero-visual">
+          <div className="card-stack">
+            {(nowPlaying || []).slice(0, 3).map((movie, i) => (
+              <div className="card" key={movie.id}>
+                <img
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                  alt={movie.title}
+                  loading={i < 2 ? 'eager' : 'lazy'}
+                />
+                <div className="card-gradient" />
+                {i === 2 && (
+                  <>
+                    <div className="card-info">
+                      <div className="card-title">{movie.title}</div>
+                      <div className="card-meta">
+                        {movie.release_date?.split('-')[0]} &middot; {movie.vote_average?.toFixed(1)}
+                      </div>
+                    </div>
+                    <div className="badge">New</div>
+                  </>
+                )}
+              </div>
+            ))}
+            <div className="hero-stat">
+              <div className="hero-stat-num">{featuredMovie?.vote_average?.toFixed(1) || '8.5'}</div>
+              <div className="hero-stat-label">Top Rated</div>
             </div>
+            <div className="hero-stat">
+              <div className="hero-stat-num">4K</div>
+              <div className="hero-stat-label">Available Now</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── MARQUEE TICKER ── */}
+      {tickerItems.length > 0 && (
+        <div className="ticker">
+          <div className="ticker-track">
+            {[...tickerItems, ...tickerItems].map((movie, i) => (
+              <div className="ticker-item" key={`${movie.id}-${i}`}>
+                <span className="dot" />
+                {movie.title}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ── TRENDING GRID ── */}
+      {trendingMovies.length > 0 && (
+        <section className="home-section">
+          <div className="section-header reveal">
+            <div>
+              <div className="section-tag">Right Now</div>
+              <h2 className="section-title">Trending <em>This Week</em></h2>
+            </div>
+            <Link href="/discover" className="see-all">View All Films &rarr;</Link>
+          </div>
+          <div className="trending-grid reveal">
+            {trendingMovies.map((movie) => (
+              <MovieCard key={movie.id} movie={movie} onWatchTrailer={() => router.push(`/trailers?play=${movie.id}`)} />
+            ))}
           </div>
         </section>
       )}
 
-      {/* Dynamic Movie Rows */}
-      <HomeMovieRow title="Trending Now" movies={trending} viewAllHref="/discover" onWatchTrailer={handleWatchTrailer} />
-      <HomeMovieRow title="Now in Theaters" movies={nowPlaying} viewAllHref="/trailers?category=now-playing" onWatchTrailer={handleWatchTrailer} />
+      {/* ── AD SLOT 1 ── */}
+      <div className="ad-container" key={router.asPath + '-ad1'}>
+        <AdSlot slot="3307940521" />
+      </div>
 
-      <AdSlot slot="9497514084" />
+      {/* ── STATS BAR ── */}
+      <div className="stats-bar reveal">
+        <div className="stat-item">
+          <div className="stat-num">50K+</div>
+          <div className="stat-label">Films &amp; Series</div>
+        </div>
+        <div className="stat-item">
+          <div className="stat-num">40+</div>
+          <div className="stat-label">Streaming Platforms</div>
+        </div>
+        <div className="stat-item">
+          <div className="stat-num">Daily</div>
+          <div className="stat-label">Updated Picks</div>
+        </div>
+        <div className="stat-item">
+          <div className="stat-num">Free</div>
+          <div className="stat-label">Always &amp; Forever</div>
+        </div>
+      </div>
 
-      {/* Sports Section */}
-      <SportsSection />
-
-      <HomeMovieRow title="Coming Soon" movies={upcoming} viewAllHref="/trailers?category=upcoming" onWatchTrailer={handleWatchTrailer} />
-      <HomeMovieRow title="Popular on Streaming" movies={popular} viewAllHref="/discover" onWatchTrailer={handleWatchTrailer} />
-
-      {/* Movie Insights Section */}
-      <section className="home-section">
-        <div className="section-header">
-          <div>
-            <h2 className="section-title">
-              <span className="section-icon">💡</span>
-              Movie Insights
-            </h2>
-            <p className="section-subtitle">Behind the scenes and trivia</p>
+      {/* ── FEATURED ARTICLE STRIP ── */}
+      {articleMovie && (
+        <div className="feature-strip reveal">
+          <div className="feature-inner">
+            <div className="feature-image">
+              <img
+                src={`https://image.tmdb.org/t/p/w780${articleMovie.backdrop_path || articleMovie.poster_path}`}
+                alt={articleMovie.title}
+              />
+            </div>
+            <div className="feature-text">
+              <div className="feature-tag">&mdash; Editor&apos;s Spotlight</div>
+              <h2 className="feature-title">
+                Why <em>{articleMovie.title}</em> Is Worth Your Time
+              </h2>
+              <p className="feature-excerpt">
+                {articleMovie.overview?.slice(0, 260)}...
+              </p>
+              <Link href={`/trailers?play=${articleMovie.id}`} className="btn-primary">
+                <span>Watch Trailer</span>
+                <span>&rarr;</span>
+              </Link>
+            </div>
           </div>
         </div>
-        <div className="insights-grid">
-          <Link href="/academy/acting-masterclass" className="insight-card-link">
-            <article className="insight-card">
-              <div className="insight-icon">🎭</div>
-              <h3>Acting Masterclass</h3>
-              <p>Discover the techniques that made legendary performances unforgettable. From method acting to improvisation.</p>
-            </article>
-          </Link>
-          <Link href="/academy/cinematography" className="insight-card-link">
-            <article className="insight-card">
-              <div className="insight-icon">🎥</div>
-              <h3>Cinematography</h3>
-              <p>Explore how directors of photography create visual magic through lighting, framing, and camera movement.</p>
-            </article>
-          </Link>
-          <Link href="/academy/film-scores" className="insight-card-link">
-            <article className="insight-card">
-              <div className="insight-icon">🎵</div>
-              <h3>Film Scores</h3>
-              <p>The music that moves us. Learn how composers craft the emotional backbone of your favorite films.</p>
-            </article>
-          </Link>
-          <Link href="/academy/editing-magic" className="insight-card-link">
-            <article className="insight-card">
-              <div className="insight-icon">✂️</div>
-              <h3>Editing Magic</h3>
-              <p>The invisible art that shapes storytelling. See how editors create tension, emotion, and flow.</p>
-            </article>
-          </Link>
-        </div>
-      </section>
-
-      {/* Newsletter */}
-      <section className="home-section">
-        <NewsletterSignup variant="inline" />
-      </section>
-
-      {/* CTA Section */}
-      <section className="cta-section">
-        <div className="cta-content">
-          <h2>Explore All Trailers</h2>
-          <p>Browse thousands of movie trailers from blockbusters to indie films</p>
-          <Link href="/trailers" className="btn btn-primary btn-large">
-            Browse Trailers
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </Link>
-        </div>
-      </section>
-
-      {/* Trailer Playback */}
-      {selectedMovie && (
-        isMobile ? (
-          <ReelsView
-            movie={selectedMovie}
-            movies={allRowMovies}
-            onNextMovie={handleNextMovie}
-            onPrevMovie={handlePrevMovie}
-            onClose={handleCloseModal}
-          />
-        ) : (
-          <TrailerModal
-            movie={selectedMovie}
-            movies={allRowMovies}
-            onNextMovie={handleNextMovie}
-            onClose={handleCloseModal}
-          />
-        )
       )}
-    </>
-  );
-}
 
-function serializeMovies(results) {
-  return (results || []).map((m) => ({
-    id: m.id,
-    title: m.title,
-    poster_path: m.poster_path,
-    backdrop_path: m.backdrop_path,
-    release_date: m.release_date || '',
-    vote_average: m.vote_average || 0,
-    overview: m.overview || '',
-    releaseYear: m.release_date ? m.release_date.split('-')[0] : '',
-  }));
+      {/* ── GENRE GRID ── */}
+      {displayGenres.length > 0 && (
+        <section className="home-section">
+          <div className="section-header reveal">
+            <div>
+              <div className="section-tag">Explore</div>
+              <h2 className="section-title">Browse by <em>Genre</em></h2>
+            </div>
+          </div>
+          <div className="genre-grid reveal">
+            {displayGenres.map((genre) => (
+              <Link
+                href={`/discover?genre=${genre.id}`}
+                className="genre-card"
+                key={genre.id}
+              >
+                <img
+                  src={GENRE_IMAGES[genre.id] || `https://image.tmdb.org/t/p/w500/gPbM0MK8CP8A174rmUwGsADNYKD.jpg`}
+                  alt={genre.name}
+                  loading="lazy"
+                />
+                <div className="genre-name">{genre.name}</div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* ── AD SLOT 2 ── */}
+      <div className="ad-container" key={router.asPath + '-ad2'}>
+        <AdSlot slot="3307940521" />
+      </div>
+
+      {/* ── DECORATIVE LINE ── */}
+      <div className="deco-line" />
+
+      {/* ── NEWSLETTER ── */}
+      <div className="newsletter-section reveal">
+        <h2>Never Miss a <em>New Release.</em></h2>
+        <p>Weekly picks, streaming drops, and critical coverage — straight to your inbox.</p>
+        <NewsletterSignup variant="inline" />
+      </div>
+    </div>
+  );
 }
 
 export async function getStaticProps() {
   const apiKey = process.env.TMDB_API_KEY;
 
   let featuredMovie = null;
-  let trending = [];
   let nowPlaying = [];
-  let upcoming = [];
   let popular = [];
+  let genres = [];
 
   if (apiKey) {
     try {
-      const [trendingRes, nowPlayingRes, upcomingRes, popularRes] = await Promise.all([
+      const [trendingRes, nowPlayingRes, popularRes, genresRes] = await Promise.allSettled([
         fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${apiKey}`),
-        fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}`),
-        fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${apiKey}`),
-        fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`),
+        fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&page=1`),
+        fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&page=1`),
+        fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}`),
       ]);
 
-      const [trendingData, nowPlayingData, upcomingData, popularData] = await Promise.all([
-        trendingRes.json(),
-        nowPlayingRes.json(),
-        upcomingRes.json(),
-        popularRes.json(),
-      ]);
+      // Parse trending
+      if (trendingRes.status === 'fulfilled') {
+        const trendingData = await trendingRes.value.json();
+        const trending = (trendingData.results || []).map((m) => ({
+          id: m.id,
+          title: m.title,
+          poster_path: m.poster_path,
+          backdrop_path: m.backdrop_path,
+          release_date: m.release_date || '',
+          vote_average: m.vote_average || 0,
+          overview: m.overview || '',
+        }));
+        const trendingWithBackdrop = trending.filter((m) => m.backdrop_path && m.overview);
+        featuredMovie = trendingWithBackdrop.length > 0
+          ? trendingWithBackdrop[Math.floor(Math.random() * trendingWithBackdrop.length)]
+          : trending[0] || null;
+      }
 
-      trending = serializeMovies(trendingData.results);
-      nowPlaying = serializeMovies(nowPlayingData.results);
-      upcoming = serializeMovies(upcomingData.results);
-      popular = serializeMovies(popularData.results);
+      // Parse now_playing
+      if (nowPlayingRes.status === 'fulfilled') {
+        const npData = await nowPlayingRes.value.json();
+        nowPlaying = (npData.results || []).slice(0, 12).map((m) => ({
+          id: m.id,
+          title: m.title,
+          poster_path: m.poster_path,
+          backdrop_path: m.backdrop_path,
+          release_date: m.release_date || '',
+          vote_average: m.vote_average || 0,
+          overview: m.overview || '',
+        }));
+      }
 
-      // Featured movie from trending (with backdrop) - randomly shuffled
-      const trendingWithBackdrop = trending.filter(m => m.backdrop_path && m.overview);
-      featuredMovie = trendingWithBackdrop.length > 0
-        ? trendingWithBackdrop[Math.floor(Math.random() * trendingWithBackdrop.length)]
-        : trending[0] || null;
+      // Parse popular
+      if (popularRes.status === 'fulfilled') {
+        const popData = await popularRes.value.json();
+        popular = (popData.results || []).slice(0, 8).map((m) => ({
+          id: m.id,
+          title: m.title,
+          poster_path: m.poster_path,
+          backdrop_path: m.backdrop_path,
+          release_date: m.release_date || '',
+          vote_average: m.vote_average || 0,
+          overview: m.overview || '',
+        }));
+      }
+
+      // Parse genres
+      if (genresRes.status === 'fulfilled') {
+        const genData = await genresRes.value.json();
+        genres = (genData.genres || []).slice(0, 12);
+      }
 
       // Fetch trailer for featured movie
       if (featuredMovie?.id) {
@@ -376,7 +382,7 @@ export async function getStaticProps() {
           );
           const videosData = await videosRes.json();
           const trailer = (videosData.results || []).find(
-            v => v.site === 'YouTube' && (v.type === 'Trailer' || v.type === 'Teaser')
+            (v) => v.site === 'YouTube' && (v.type === 'Trailer' || v.type === 'Teaser')
           );
           if (trailer) {
             featuredMovie.trailerKey = trailer.key;
@@ -385,7 +391,6 @@ export async function getStaticProps() {
           console.error('Error fetching trailer:', e);
         }
       }
-
     } catch (err) {
       console.error('Error fetching homepage data:', err);
     }
@@ -394,10 +399,10 @@ export async function getStaticProps() {
   return {
     props: {
       featuredMovie,
-      trending,
       nowPlaying,
-      upcoming,
       popular,
+      genres,
     },
+    revalidate: 3600,
   };
 }

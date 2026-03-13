@@ -20,7 +20,7 @@ out
 .DS_Store
 Thumbs.db
 
-# Environment files (we pass these via docker-compose)
+# Environment files (keep .env for build-time vars; multi-stage build excludes it from final image)
 .env*.local
 
 # Firebase
@@ -37,5 +37,10 @@ README.md
 README.txt
 *.md
 docker-compose.yml
+docker-compose.prod.yml
 Dockerfile
 .dockerignore
+test_page.html
+*.zip
+deploy.sh
+nul
