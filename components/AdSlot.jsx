@@ -31,11 +31,17 @@ export default function AdSlot({ slot, format = 'auto', responsive = true }) {
 function AdSlotInner({ slot, format, responsive, native }) {
   const adRef = useRef(null);
   const pushed = useRef(false);
-  const [consented, setConsented] = useState(false);
+  const [consented, setConsented] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return getConsentStatus() === 'accepted';
+  });
   const [inView, setInView] = useState(false);
 
+  // Listen for consent changes
   useEffect(() => {
-    setConsented(getConsentStatus() === 'accepted');
+    // Re-check on mount (covers SSR hydration)
+    const current = getConsentStatus() === 'accepted';
+    if (current) setConsented(true);
 
     const handleConsent = (e) => setConsented(e.detail === 'accepted');
     const handleStorage = (e) => {
@@ -50,6 +56,7 @@ function AdSlotInner({ slot, format, responsive, native }) {
     };
   }, []);
 
+  // Track viewport visibility — runs immediately, doesn't wait for consent
   useEffect(() => {
     const el = adRef.current;
     if (!el) return;
@@ -66,8 +73,9 @@ function AdSlotInner({ slot, format, responsive, native }) {
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [consented]);
+  }, []);
 
+  // Push ad when both consent and visibility are ready
   useEffect(() => {
     if (!consented || !inView || pushed.current) return;
 
@@ -91,8 +99,10 @@ function AdSlotInner({ slot, format, responsive, native }) {
     return () => window.removeEventListener('adsenseReady', handleReady);
   }, [consented, inView]);
 
-  if (!ADSENSE_CLIENT || !consented) return null;
+  if (!ADSENSE_CLIENT) return null;
 
+  // Always render the container div so IntersectionObserver can track it.
+  // Only render the <ins> tag when consent is granted.
   let adStyle = { display: 'block' };
   let extraProps = {};
 
@@ -107,14 +117,18 @@ function AdSlotInner({ slot, format, responsive, native }) {
 
   return (
     <div className="ad-container" ref={adRef}>
-      <span className="ad-label">Ad</span>
-      <ins
-        className="adsbygoogle"
-        style={adStyle}
-        data-ad-client={ADSENSE_CLIENT}
-        {...(slot ? { 'data-ad-slot': slot } : {})}
-        {...extraProps}
-      />
+      {consented && (
+        <>
+          <span className="ad-label">Ad</span>
+          <ins
+            className="adsbygoogle"
+            style={adStyle}
+            data-ad-client={ADSENSE_CLIENT}
+            {...(slot ? { 'data-ad-slot': slot } : {})}
+            {...extraProps}
+          />
+        </>
+      )}
     </div>
   );
 }

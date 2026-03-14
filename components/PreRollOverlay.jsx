@@ -8,7 +8,7 @@ export default function PreRollOverlay({ onSkip }) {
   const [countdown, setCountdown] = useState(null);
   const [canSkip, setCanSkip] = useState(false);
   const [adFilled, setAdFilled] = useState(false);
-  const [consented, setConsented] = useState(false);
+  const [consented, setConsented] = useState(() => getConsentStatus() === 'accepted');
   const pushed = useRef(false);
   const adRef = useRef(null);
   const onSkipRef = useRef(onSkip);
@@ -16,9 +16,10 @@ export default function PreRollOverlay({ onSkip }) {
 
   const { adFree } = useAdFree();
 
-  // Consent check — match AdSlot pattern
+  // Consent check — listen for changes
   useEffect(() => {
-    setConsented(getConsentStatus() === 'accepted');
+    const current = getConsentStatus() === 'accepted';
+    if (current) setConsented(true);
 
     const handleConsent = (e) => setConsented(e.detail === 'accepted');
     const handleStorage = (e) => {

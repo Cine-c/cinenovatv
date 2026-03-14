@@ -94,14 +94,15 @@ export default function CookieConsent() {
       localStorage.removeItem(STORAGE_KEY);
     }
 
-    // 4. Fallback: if consent not resolved after 3s, grant by default.
+    // 4. Fallback: if consent not resolved after 800ms, grant by default.
     //    Covers non-EU users where CMP loads __tcfapi but never fires
     //    a recognized TCF event (gdprApplies=false, no dialog needed).
+    //    Google CMP typically loads in ~300ms, so 800ms is generous.
     const fallbackTimer = setTimeout(() => {
       if (!localStorage.getItem(STORAGE_KEY)) {
         onConsentGranted();
       }
-    }, 3000);
+    }, 800);
 
     return () => clearTimeout(fallbackTimer);
   }, []);
