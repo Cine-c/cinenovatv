@@ -367,11 +367,17 @@ export async function getStaticProps() {
               .then((r) => r.json())
           )
         );
+        const usedBackdrops = new Set();
         genres = rawGenres.map((g, i) => {
           let image = null;
           if (genreImageResults[i].status === 'fulfilled') {
-            const movie = (genreImageResults[i].value.results || []).find((m) => m.backdrop_path);
-            if (movie) image = `https://image.tmdb.org/t/p/w780${movie.backdrop_path}`;
+            const movies = (genreImageResults[i].value.results || []).filter((m) => m.backdrop_path);
+            const unique = movies.find((m) => !usedBackdrops.has(m.backdrop_path));
+            const pick = unique || movies[0];
+            if (pick) {
+              usedBackdrops.add(pick.backdrop_path);
+              image = `https://image.tmdb.org/t/p/w780${pick.backdrop_path}`;
+            }
           }
           return { id: g.id, name: g.name, image };
         });
