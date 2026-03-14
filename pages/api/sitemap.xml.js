@@ -4,9 +4,11 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.cinenovatv.com
 function generateSiteMap(posts) {
   const staticPages = [
     { url: '', priority: '1.0', changefreq: 'daily' },
+    { url: '/trailers', priority: '0.9', changefreq: 'daily' },
+    { url: '/discover', priority: '0.9', changefreq: 'daily' },
     { url: '/blog', priority: '0.8', changefreq: 'daily' },
-    { url: '/trailers', priority: '0.8', changefreq: 'daily' },
-    { url: '/about', priority: '0.5', changefreq: 'monthly' },
+    { url: '/blockbuster', priority: '0.7', changefreq: 'weekly' },
+    { url: '/scenes', priority: '0.7', changefreq: 'weekly' },
     { url: '/privacy', priority: '0.3', changefreq: 'yearly' },
   ];
 
