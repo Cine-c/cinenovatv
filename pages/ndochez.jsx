@@ -372,7 +372,7 @@ export default function Admin() {
 
   return (
     <>
-      <SEOHead title="Admin Dashboard - CineNovaTV" url="/admin" />
+      <SEOHead title="Admin Dashboard - CineNovaTV" url="/ndochez" />
 
       <div className="admin-page">
         {!user ? (
@@ -863,3 +863,6 @@ export default function Admin() {
     </>
   );
 }
+
+// Skip the default Layout (Header/Footer/AdSense) — admin page doesn't need ads
+Admin.getLayout = (page) => page;
