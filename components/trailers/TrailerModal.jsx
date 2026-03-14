@@ -2,6 +2,7 @@ import { useEffect, useRef, useCallback, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useWatchLater } from '../WatchLaterContext';
+import AdSlot from '../AdSlot';
 
 export default function TrailerModal({ movie, movies = [], onNextMovie, onClose }) {
   const modalRef = useRef(null);
@@ -362,6 +363,9 @@ export default function TrailerModal({ movie, movies = [], onNextMovie, onClose 
                   ))}
                 </div>
               )}
+
+              {/* Ad below trailer */}
+              <AdSlot slot="3307940521" />
 
               {/* Details */}
               <div className="trailer-details">
