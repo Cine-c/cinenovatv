@@ -153,12 +153,12 @@ export default function Home({ featuredMovie, nowPlaying, popular, genres }) {
               </div>
             ))}
             <div className="hero-stat">
-              <div className="hero-stat-num">{featuredMovie?.vote_average?.toFixed(1) || '8.5'}</div>
+              <div className="hero-stat-num">{featuredMovie?.vote_average ? Math.min(featuredMovie.vote_average, 9.9).toFixed(1) : '8.5'}</div>
               <div className="hero-stat-label">Top Rated</div>
             </div>
             <div className="hero-stat">
-              <div className="hero-stat-num">4K</div>
-              <div className="hero-stat-label">Available Now</div>
+              <div className="hero-stat-num">{nowPlaying?.length || 12}+</div>
+              <div className="hero-stat-label">Now Playing</div>
             </div>
           </div>
         </div>
