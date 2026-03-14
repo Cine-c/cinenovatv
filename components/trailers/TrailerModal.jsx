@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useWatchLater } from '../WatchLaterContext';
 import AdSlot from '../AdSlot';
 
-export default function TrailerModal({ movie, movies = [], onNextMovie, onClose }) {
+export default function TrailerModal({ movie, movies = [], onNextMovie, onClose, onMinimize }) {
   const modalRef = useRef(null);
   const closeButtonRef = useRef(null);
   const previousActiveElement = useRef(null);
@@ -25,6 +25,35 @@ export default function TrailerModal({ movie, movies = [], onNextMovie, onClose 
     ? movies[currentIndex + 1]
     : null;
   const hasNext = !!nextMovie && !!onNextMovie;
+
+  // Ensure autoplay works on iOS: start muted, then unmute after playback begins
+  useEffect(() => {
+    if (!trailerKey) return;
+    const iframe = iframeRef.current;
+    if (!iframe) return;
+
+    const unmuteAfterPlay = () => {
+      try {
+        iframe.contentWindow.postMessage(
+          JSON.stringify({ event: 'command', func: 'playVideo', args: [] }),
+          'https://www.youtube.com'
+        );
+        iframe.contentWindow.postMessage(
+          JSON.stringify({ event: 'command', func: 'unMute', args: [] }),
+          'https://www.youtube.com'
+        );
+        iframe.contentWindow.postMessage(
+          JSON.stringify({ event: 'command', func: 'setVolume', args: [100] }),
+          'https://www.youtube.com'
+        );
+      } catch {
+        // Cross-origin may block — no-op
+      }
+    };
+
+    const timer = setTimeout(unmuteAfterPlay, 1800);
+    return () => clearTimeout(timer);
+  }, [trailerKey]);
 
   // YouTube iframe API: detect when video ends via postMessage
   useEffect(() => {
@@ -214,19 +243,33 @@ export default function TrailerModal({ movie, movies = [], onNextMovie, onClose 
       ref={modalRef}
     >
       <div className="trailer-modal trailer-modal-enhanced">
-        <button
-          ref={closeButtonRef}
-          className="trailer-modal-close-float"
-          onClick={onClose}
-          aria-label="Close"
-        >
-          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
-            <path
-              fill="currentColor"
-              d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
-            />
-          </svg>
-        </button>
+        <div className="trailer-modal-top-actions">
+          {trailerKey && onMinimize && (
+            <button
+              className="trailer-modal-close-float"
+              onClick={() => onMinimize(movie, trailerKey)}
+              aria-label="Minimize to mini player"
+              title="Minimize"
+            >
+              <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+                <path fill="currentColor" d="M19 13H5v-2h14v2z" />
+              </svg>
+            </button>
+          )}
+          <button
+            ref={closeButtonRef}
+            className="trailer-modal-close-float"
+            onClick={onClose}
+            aria-label="Close"
+          >
+            <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+              <path
+                fill="currentColor"
+                d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+              />
+            </svg>
+          </button>
+        </div>
 
         <div className="trailer-modal-content">
           {isLoading ? (
@@ -241,7 +284,7 @@ export default function TrailerModal({ movie, movies = [], onNextMovie, onClose 
                 <div className="video-container">
                   <iframe
                     ref={iframeRef}
-                    src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&rel=0&enablejsapi=1&origin=${typeof window !== 'undefined' ? window.location.origin : ''}`}
+                    src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=1&rel=0&playsinline=1&enablejsapi=1&origin=${typeof window !== 'undefined' ? window.location.origin : ''}`}
                     title={`${movie.title} trailer`}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen

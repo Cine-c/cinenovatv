@@ -1870,11 +1870,17 @@ button {
   max-width: 1100px;
 }
 
-.trailer-modal-close-float {
+.trailer-modal-top-actions {
   position: absolute;
   top: 1.25rem;
   right: 1.25rem;
   z-index: 10;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.trailer-modal-close-float {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10455,6 +10461,147 @@ a.provider-card:hover {
     flex-direction: column;
     gap: 16px;
     text-align: center;
+  }
+}
+
+/* ============================================
+   Floating Picture-in-Picture Player
+   ============================================ */
+
+.floating-player {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  width: 320px;
+  z-index: 998;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(201, 168, 76, 0.2);
+  background: #000;
+  animation: floatingSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.floating-player:fullscreen {
+  width: 100%;
+  bottom: 0;
+  right: 0;
+  border-radius: 0;
+}
+
+.floating-player-video {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.floating-player-video iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.floating-player-controls {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 6px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 2;
+}
+
+.floating-player:hover .floating-player-controls {
+  opacity: 1;
+}
+
+.fp-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.fp-btn:hover {
+  background: var(--gold);
+  color: #000;
+  transform: scale(1.1);
+}
+
+.fp-btn-close:hover {
+  background: #e53e3e;
+  color: #fff;
+}
+
+.floating-player-info {
+  padding: 8px 10px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 100%);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.floating-player:hover .floating-player-info {
+  opacity: 1;
+}
+
+.fp-title {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+@keyframes floatingSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) translateX(20px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) translateX(0) scale(1);
+  }
+}
+
+/* Responsive: smaller on mobile */
+@media (max-width: 480px) {
+  .floating-player {
+    width: 260px;
+    bottom: 12px;
+    right: 12px;
+  }
+}
+
+/* Portrait orientation */
+@media (orientation: portrait) and (max-height: 600px) {
+  .floating-player {
+    bottom: 8px;
+    right: 8px;
+    width: 240px;
   }
 }
 

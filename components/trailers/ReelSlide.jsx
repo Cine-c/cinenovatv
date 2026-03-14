@@ -38,6 +38,35 @@ export default function ReelSlide({ movie, isActive, onVideoEnd }) {
     }
   }, [movie?.id]);
 
+  // Ensure autoplay on iOS: start muted, then unmute after playback begins
+  useEffect(() => {
+    if (!isActive || !trailerKey) return;
+    const iframe = iframeRef.current;
+    if (!iframe) return;
+
+    const unmuteAfterPlay = () => {
+      try {
+        iframe.contentWindow.postMessage(
+          JSON.stringify({ event: 'command', func: 'playVideo', args: [] }),
+          'https://www.youtube.com'
+        );
+        iframe.contentWindow.postMessage(
+          JSON.stringify({ event: 'command', func: 'unMute', args: [] }),
+          'https://www.youtube.com'
+        );
+        iframe.contentWindow.postMessage(
+          JSON.stringify({ event: 'command', func: 'setVolume', args: [100] }),
+          'https://www.youtube.com'
+        );
+      } catch {
+        // Cross-origin may block — no-op
+      }
+    };
+
+    const unmuteTimer = setTimeout(unmuteAfterPlay, 1800);
+    return () => clearTimeout(unmuteTimer);
+  }, [isActive, trailerKey]);
+
   // YouTube end detection via postMessage
   useEffect(() => {
     if (!isActive || !trailerKey) return;
@@ -98,7 +127,7 @@ export default function ReelSlide({ movie, isActive, onVideoEnd }) {
               <iframe
                 ref={iframeRef}
                 className="reel-iframe"
-                src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&rel=0&playsinline=1&enablejsapi=1&origin=${typeof window !== 'undefined' ? window.location.origin : ''}`}
+                src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=1&rel=0&playsinline=1&enablejsapi=1&origin=${typeof window !== 'undefined' ? window.location.origin : ''}`}
                 title={`${movie.title} trailer`}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen

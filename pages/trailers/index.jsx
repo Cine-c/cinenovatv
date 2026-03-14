@@ -5,6 +5,7 @@ import { ItemListJsonLd } from '../../components/seo/JsonLd';
 import MovieGrid from '../../components/trailers/MovieGrid';
 import TrailerModal from '../../components/trailers/TrailerModal';
 import ReelsView from '../../components/trailers/ReelsView';
+import FloatingPlayer from '../../components/trailers/FloatingPlayer';
 import { MovieGridSkeleton } from '../../components/SkeletonCard';
 import AdSlot from '../../components/AdSlot';
 import useIsMobile from '../../components/hooks/useIsMobile';
@@ -28,6 +29,8 @@ export default function TrailersPage({ initialMovies, genres, totalResults, init
   const [activeGenre, setActiveGenre] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [minimizedMovie, setMinimizedMovie] = useState(null);
+  const [minimizedTrailerKey, setMinimizedTrailerKey] = useState(null);
   const [page, setPage] = useState(3);
   const [totalPages, setTotalPages] = useState(initialTotalPages || 1);
   const [totalCount, setTotalCount] = useState(totalResults || 0);
@@ -208,6 +211,23 @@ export default function TrailersPage({ initialMovies, genres, totalResults, init
 
   const handleCloseModal = () => {
     setSelectedMovie(null);
+  };
+
+  const handleMinimize = (movie, trailerKey) => {
+    setMinimizedMovie(movie);
+    setMinimizedTrailerKey(trailerKey);
+    setSelectedMovie(null);
+  };
+
+  const handleExpandFloating = () => {
+    setSelectedMovie(minimizedMovie);
+    setMinimizedMovie(null);
+    setMinimizedTrailerKey(null);
+  };
+
+  const handleCloseFloating = () => {
+    setMinimizedMovie(null);
+    setMinimizedTrailerKey(null);
   };
 
   const handleNextMovie = () => {
@@ -446,8 +466,23 @@ export default function TrailersPage({ initialMovies, genres, totalResults, init
               onClose={handleCloseModal}
             />
           ) : (
-            <TrailerModal movie={selectedMovie} movies={movies} onNextMovie={handleNextMovie} onClose={handleCloseModal} />
+            <TrailerModal
+              movie={selectedMovie}
+              movies={movies}
+              onNextMovie={handleNextMovie}
+              onClose={handleCloseModal}
+              onMinimize={handleMinimize}
+            />
           )
+        )}
+
+        {!selectedMovie && minimizedMovie && minimizedTrailerKey && (
+          <FloatingPlayer
+            movie={minimizedMovie}
+            trailerKey={minimizedTrailerKey}
+            onExpand={handleExpandFloating}
+            onClose={handleCloseFloating}
+          />
         )}
       </div>
     </>
