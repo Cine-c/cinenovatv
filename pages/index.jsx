@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-import dynamic from 'next/dynamic';
 import SEOHead from '../components/seo/SEOHead';
 import { WebSiteJsonLd } from '../components/seo/JsonLd';
 import Link from 'next/link';
@@ -9,9 +8,6 @@ import { useRouter } from 'next/router';
 import AdSlot from '../components/AdSlot';
 import NewsletterSignup from '../components/NewsletterSignup';
 import MovieCard from '../components/trailers/MovieCard';
-
-const PreRollOverlay = dynamic(() => import('../components/PreRollOverlay'), { ssr: false });
-
 
 function useScrollReveal() {
   const ref = useRef(null);
@@ -42,7 +38,6 @@ export default function Home({ featuredMovie, nowPlaying, popular, genres }) {
   const spotlightRef = useRef(null);
   const heroRef = useRef(null);
   const [heroTrailerKey, setHeroTrailerKey] = useState(featuredMovie?.trailerKey || null);
-  const [showHeroPreRoll, setShowHeroPreRoll] = useState(!!featuredMovie?.trailerKey);
 
   // Client-side fallback: fetch trailer if not available at build time
   useEffect(() => {
@@ -55,7 +50,6 @@ export default function Home({ featuredMovie, nowPlaying, popular, genres }) {
           );
           if (trailer?.key) {
             setHeroTrailerKey(trailer.key);
-            setShowHeroPreRoll(true);
           }
         })
         .catch(() => {});
