@@ -172,6 +172,29 @@ export default function Home({ featuredMovie, nowPlaying, popular, genres }) {
         </div>
       )}
 
+      {/* ── OSCARS 2026 BANNER ── */}
+      <Link href="/oscars-2026" className="oscars-banner">
+        <div className="oscars-banner-trophy">
+          <svg viewBox="0 0 120 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="60" cy="32" rx="22" ry="28" fill="#c9a84c"/>
+            <rect x="50" y="58" width="20" height="120" rx="2" fill="#c9a84c"/>
+            <ellipse cx="60" cy="185" rx="32" ry="12" fill="#c9a84c"/>
+            <rect x="35" y="195" width="50" height="18" rx="2" fill="#c9a84c"/>
+            <ellipse cx="60" cy="220" rx="38" ry="10" fill="#c9a84c"/>
+            <rect x="30" y="228" width="60" height="42" rx="3" fill="#c9a84c"/>
+          </svg>
+        </div>
+        <div className="oscars-banner-content">
+          <div className="oscars-banner-eyebrow">98th Academy Awards</div>
+          <div className="oscars-banner-title">The Night <em>One Battle</em> Won the War</div>
+          <div className="oscars-banner-sub">All 23 winners, historic firsts, and five defining moments from Oscar night 2026.</div>
+        </div>
+        <div className="oscars-banner-stamp">98</div>
+        <div className="oscars-banner-arrow">
+          <span>Read Full Coverage &rarr;</span>
+        </div>
+      </Link>
+
       {/* ── TRENDING GRID ── */}
       {trendingMovies.length > 0 && (
         <section className="home-section">
