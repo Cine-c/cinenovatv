@@ -4,6 +4,7 @@ import Image from 'next/image';
 import SEOHead from '../../components/seo/SEOHead';
 import { ItemListJsonLd } from '../../components/seo/JsonLd';
 import BlogList from '../../components/blog/BlogList';
+import AdSlot from '../../components/AdSlot';
 
 
 const POSTS_PER_PAGE = 9;
@@ -49,8 +50,8 @@ export default function BlogIndex({ posts, categories }) {
   return (
     <>
       <SEOHead
-        title="Blog"
-        description="Read the latest movie news, reviews, and entertainment articles on CineNovaTV."
+        title="Movie News, Reviews & Entertainment Articles"
+        description="Movie news, reviews, and entertainment articles from the CineNovaTV team. Actor spotlights, film analysis, and streaming guides."
         url="/blog"
       />
       <ItemListJsonLd items={posts.slice(0, 10)} type="BlogPosting" />
@@ -140,6 +141,9 @@ export default function BlogIndex({ posts, categories }) {
           </div>
         </article>
       )}
+
+      {/* Ad: between featured post and post grid */}
+      <AdSlot slot="3307940521" />
 
       <BlogList posts={paginatedPosts} />
 

@@ -71,6 +71,9 @@ export default function BlogPost({ post, relatedPosts }) {
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
 
+        {/* Ad: after blog content */}
+        <AdSlot slot="5424270342" format="in-article" />
+
         <nav className="blog-post-nav">
           <Link href="/blog" className="back-to-blog">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -79,9 +82,6 @@ export default function BlogPost({ post, relatedPosts }) {
             Back to Blog
           </Link>
         </nav>
-
-        {/* In-article native ad */}
-        <AdSlot slot="5424270342" format="in-article" />
 
         {/* Newsletter CTA */}
         <NewsletterSignup variant="inline" />
@@ -121,6 +121,9 @@ export default function BlogPost({ post, relatedPosts }) {
             </div>
           </section>
         )}
+
+        {/* Ad: between Related Posts and Disqus */}
+        <AdSlot slot="5424270342" format="in-article" />
 
         {/* Disqus Comments */}
         <Disqus

@@ -366,7 +366,7 @@ export default function DiscoverPage({
   return (
     <>
       <SEOHead
-        title={isFilterMode ? `${filterSummary} - Discover` : 'Discover Movies - Browse Trending, Popular & New Releases'}
+        title={isFilterMode ? `${filterSummary} - Discover` : 'Discover Movies by Genre, Streaming Service & Year'}
         description="Browse thousands of movies by genre, streaming service, and release date. Find where to watch any movie with CineNovaTV."
         url="/discover"
       />

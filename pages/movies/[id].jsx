@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import SEOHead from '../../components/seo/SEOHead';
+import { MovieJsonLd } from '../../components/seo/JsonLd';
 import TrailerModal from '../../components/trailers/TrailerModal';
 import WatchProviders from '../../components/WatchProviders';
 import { useWatchLater } from '../../components/WatchLaterContext';
@@ -44,8 +45,12 @@ export default function MovieDetailPage({ movie, credits, videos, ratings, watch
   const rottenTomatoes = ratings?.Ratings?.find((r) => r.Source === 'Rotten Tomatoes')?.Value;
   const metacritic = ratings?.Ratings?.find((r) => r.Source === 'Metacritic')?.Value;
 
-  const seoTitle = `${movie.title} (${releaseYear}) — Where to Watch | CineNovaTV`;
-  const seoDescription = `Find where to stream, rent, or buy ${movie.title}. Check streaming availability on Netflix, Prime, Disney+ and more.`;
+  const seoTitle = `${movie.title} (${releaseYear}) — Where to Watch, Stream & Rent`;
+  const seoDescription = `${movie.title} (${releaseYear}) — ${movie.overview?.slice(0, 120)}... Stream, rent, or buy on Netflix, Prime, Disney+ and 40+ platforms.`;
+
+  const trailerUrl = trailers.length > 0
+    ? `https://www.youtube.com/embed/${trailers[0].key}`
+    : null;
 
   const similarMovies = (similar || []).filter((m) => m.poster_path).slice(0, 12);
 
@@ -58,6 +63,7 @@ export default function MovieDetailPage({ movie, credits, videos, ratings, watch
         url={`/movies/${movie.id}`}
         type="video.movie"
       />
+      <MovieJsonLd movie={movie} trailerUrl={trailerUrl} />
 
       <div className="movie-detail-page">
         {/* Hero */}
@@ -157,6 +163,9 @@ export default function MovieDetailPage({ movie, credits, videos, ratings, watch
               </div>
             )}
 
+            {/* Ad: after Where to Watch */}
+            <AdSlot slot="1594520752" format="in-article" />
+
             {/* Overview */}
             {movie.overview && (
               <div className="movie-detail-section">
@@ -227,6 +236,9 @@ export default function MovieDetailPage({ movie, credits, videos, ratings, watch
                 </div>
               </div>
             )}
+
+            {/* Ad: between Cast and Trailers */}
+            <AdSlot slot="1594520752" format="in-article" />
 
             {/* Trailers */}
             {trailers.length > 1 && (

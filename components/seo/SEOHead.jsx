@@ -11,7 +11,9 @@ export default function SEOHead({
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.cinenovatv.com';
   const fullUrl = url ? `${siteUrl}${url}` : siteUrl;
   const fullImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
-  const fullTitle = title === 'CineNovaTV' ? title : `${title} | CineNovaTV`;
+  const fullTitle = title === 'CineNovaTV' || title.includes('CineNovaTV')
+    ? title
+    : `${title} | CineNovaTV`;
 
   return (
     <Head>
