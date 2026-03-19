@@ -23,6 +23,7 @@ services:
       - FIREBASE_SERVICE_ACCOUNT_EMAIL=${FIREBASE_SERVICE_ACCOUNT_EMAIL}
       - FIREBASE_PRIVATE_KEY=${FIREBASE_PRIVATE_KEY}
       - APISPORTS_KEY=${APISPORTS_KEY}
+      - GNEWS_API_KEY=${GNEWS_API_KEY}
     restart: unless-stopped
 
   # Development service (use this for local development)
@@ -53,6 +54,7 @@ services:
       - FIREBASE_SERVICE_ACCOUNT_EMAIL=${FIREBASE_SERVICE_ACCOUNT_EMAIL}
       - FIREBASE_PRIVATE_KEY=${FIREBASE_PRIVATE_KEY}
       - APISPORTS_KEY=${APISPORTS_KEY}
+      - GNEWS_API_KEY=${GNEWS_API_KEY}
     command: sh -c "npm install && npx next dev -H 0.0.0.0"
     profiles:
       - dev
