@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import SEOHead from '../../components/seo/SEOHead';
@@ -112,13 +111,9 @@ export default function CelebrityPage({ celebrity, wikiImage }) {
           <div className="celeb-hero-content">
             <div className="celeb-hero-portrait">
               {wikiImage ? (
-                <Image
+                <img
                   src={wikiImage}
                   alt={celebrity.name}
-                  width={320}
-                  height={400}
-                  priority
-                  style={{ objectFit: 'cover' }}
                 />
               ) : (
                 <div className="celeb-portrait-placeholder">

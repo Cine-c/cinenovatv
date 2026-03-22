@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import SEOHead from '../../components/seo/SEOHead';
@@ -69,12 +68,10 @@ export default function CelebritiesIndex({ celebrities, wikiImages }) {
               <Link key={c.slug} href={`/celebrity/${c.slug}`} className="celeb-index-card">
                 <div className="celeb-index-card-img">
                   {wikiImages[c.slug] ? (
-                    <Image
+                    <img
                       src={wikiImages[c.slug]}
                       alt={c.name}
-                      width={240}
-                      height={300}
-                      style={{ objectFit: 'cover' }}
+                      loading="lazy"
                     />
                   ) : (
                     <div className="celeb-index-placeholder">
