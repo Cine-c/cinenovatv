@@ -11365,6 +11365,73 @@ a.provider-card:hover {
   }
 }
 
+/* --- Homepage Celebrity Strip --- */
+.celeb-strip {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  padding: 0.5rem 0 1rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.celeb-strip::-webkit-scrollbar { display: none; }
+.celeb-strip-card {
+  flex-shrink: 0;
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  gap: 0.5rem;
+  transition: transform var(--transition-fast);
+}
+.celeb-strip-card:hover {
+  transform: translateY(-4px);
+}
+.celeb-strip-img {
+  width: 100px;
+  height: 100px;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  border: 2px solid var(--border);
+  transition: border-color var(--transition-fast);
+  background: var(--bg-tertiary);
+}
+.celeb-strip-card:hover .celeb-strip-img {
+  border-color: var(--gold);
+}
+.celeb-strip-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.celeb-strip-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.celeb-strip-name {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+.celeb-strip-role {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
 /* ===========================
    CELEBRITY PAGES
    =========================== */

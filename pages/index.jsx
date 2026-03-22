@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import AdSlot from '../components/AdSlot';
 import NewsletterSignup from '../components/NewsletterSignup';
 import MovieCard from '../components/trailers/MovieCard';
+import CelebrityStrip from '../components/CelebrityStrip';
 
 function useScrollReveal() {
   const ref = useRef(null);
@@ -31,7 +32,7 @@ function useScrollReveal() {
   return ref;
 }
 
-export default function Home({ featuredMovie, nowPlaying, popular, genres }) {
+export default function Home({ featuredMovie, nowPlaying, popular, genres, celebrities }) {
   const { language } = useLanguage();
   const router = useRouter();
   const revealRef = useScrollReveal();
@@ -293,6 +294,20 @@ export default function Home({ featuredMovie, nowPlaying, popular, genres }) {
         </section>
       )}
 
+      {/* ── CELEBRITIES ── */}
+      <section className="home-section">
+        <div className="section-header reveal">
+          <div>
+            <div className="section-tag">Stars</div>
+            <h2 className="section-title">Popular <em>Celebrities</em></h2>
+          </div>
+          <Link href="/celebrity" className="see-all">View All &rarr;</Link>
+        </div>
+        <div className="reveal">
+          <CelebrityStrip celebrities={celebrities} />
+        </div>
+      </section>
+
       {/* ── AD SLOT 2 ── */}
       <div className="ad-container" key={router.asPath + '-ad2'}>
         <AdSlot slot="3307940521" />
@@ -422,12 +437,29 @@ export async function getStaticProps() {
     }
   }
 
+  // Load a random selection of celebrities
+  let celebrities = [];
+  try {
+    const celebData = require('../data/celebrities.json');
+    const all = celebData.celebrities || [];
+    const shuffled = [...all].sort(() => Math.random() - 0.5);
+    celebrities = shuffled.slice(0, 12).map((c) => ({
+      slug: c.slug,
+      name: c.name,
+      category: c.category,
+      wikipedia_slug: c.wikipedia_slug,
+    }));
+  } catch {
+    // celebrities.json not available
+  }
+
   return {
     props: {
       featuredMovie,
       nowPlaying,
       popular,
       genres,
+      celebrities,
     },
     revalidate: 3600,
   };
