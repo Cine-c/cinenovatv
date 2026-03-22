@@ -4,7 +4,6 @@
   "total": 100,
   "note": "Wikipedia images: fetch from https://en.wikipedia.org/api/rest_v1/page/summary/{wikipedia_slug} — use 'thumbnail.source' field. YouTube: embed using https://www.youtube.com/embed/{youtube_embed_id}. News: query using news_search_query with your preferred news API.",
   "celebrities": [
-
     {
       "id": 1,
       "name": "Tom Hanks",
@@ -14,14 +13,29 @@
       "born": "July 9, 1956",
       "birthplace": "Concord, California, USA",
       "bio": "Tom Hanks is one of Hollywood's most beloved and decorated actors, widely regarded as the defining performer of his generation. With back-to-back Academy Awards for Best Actor for Philadelphia (1993) and Forrest Gump (1994), he remains the only male actor to achieve that feat. Known for his extraordinary versatility and everyman appeal, Hanks has anchored blockbusters, intimate dramas, and animated classics alike. His collaborations with Steven Spielberg have produced some of cinema's most memorable films. Off-screen, he is admired for his warmth, humor, and outspoken advocacy.",
-      "top_movies": ["Forrest Gump", "Cast Away", "Saving Private Ryan", "Philadelphia", "The Green Mile", "Captain Phillips", "A Beautiful Day in the Neighborhood", "The Terminal", "Apollo 13", "Big"],
-      "youtube_embed_id": "qBMRMoLiYeA",
-      "youtube_title": "Tom Hanks Full Interview",
+      "top_movies": [
+        "Forrest Gump",
+        "Cast Away",
+        "Saving Private Ryan",
+        "Philadelphia",
+        "The Green Mile",
+        "Captain Phillips",
+        "A Beautiful Day in the Neighborhood",
+        "The Terminal",
+        "Apollo 13",
+        "Big"
+      ],
+      "youtube_embed_id": "lVzxRVxIaxQ",
+      "youtube_title": "Tom Hanks Reveals The Countenance Theory That Changed His Acting Career",
       "wikipedia_slug": "Tom_Hanks",
       "news_search_query": "Tom Hanks 2026 movie",
-      "tags": ["oscar winner", "drama", "comedy", "iconic"]
+      "tags": [
+        "oscar winner",
+        "drama",
+        "comedy",
+        "iconic"
+      ]
     },
-
     {
       "id": 2,
       "name": "Meryl Streep",
@@ -31,14 +45,29 @@
       "born": "June 22, 1949",
       "birthplace": "Summit, New Jersey, USA",
       "bio": "Meryl Streep is widely considered the greatest actress of her era and arguably of all time. A three-time Academy Award winner and 21-time nominee, she has set an unmatched record of consistent excellence across five decades. Streep is celebrated for her uncanny ability to inhabit radically different characters, mastering accents, physicality, and emotional depth with seemingly effortless craft. From Sophie's Choice to The Iron Lady, from The Devil Wears Prada to Kramer vs. Kramer, her range is unparalleled. She continues to be one of the most in-demand performers in Hollywood.",
-      "top_movies": ["Sophie's Choice", "Kramer vs. Kramer", "The Devil Wears Prada", "The Iron Lady", "Adaptation", "Doubt", "Angels in America", "Julie & Julia", "Mamma Mia!", "The Post"],
-      "youtube_embed_id": "EdrDFBBjBds",
-      "youtube_title": "Meryl Streep Interview",
+      "top_movies": [
+        "Sophie's Choice",
+        "Kramer vs. Kramer",
+        "The Devil Wears Prada",
+        "The Iron Lady",
+        "Adaptation",
+        "Doubt",
+        "Angels in America",
+        "Julie & Julia",
+        "Mamma Mia!",
+        "The Post"
+      ],
+      "youtube_embed_id": "VjfFYTRko1Q",
+      "youtube_title": "Meryl Streep Opens Up About Younger Self - The Graham Norton Show",
       "wikipedia_slug": "Meryl_Streep",
       "news_search_query": "Meryl Streep 2026 film",
-      "tags": ["oscar winner", "drama", "legend", "iconic"]
+      "tags": [
+        "oscar winner",
+        "drama",
+        "legend",
+        "iconic"
+      ]
     },
-
     {
       "id": 3,
       "name": "Leonardo DiCaprio",
@@ -48,14 +77,29 @@
       "born": "November 11, 1974",
       "birthplace": "Los Angeles, California, USA",
       "bio": "Leonardo DiCaprio rose from a child actor to become one of the most powerful forces in world cinema. After his breakthrough in Titanic (1997), he consistently pushed himself into challenging, transformative roles that defied his heartthrob image. His long collaboration with Martin Scorsese produced a series of critically acclaimed masterworks. DiCaprio finally claimed his Academy Award for Best Actor for The Revenant (2015) after years of celebrated nominations. He is also a prominent environmental activist, using his platform to address climate change on the global stage.",
-      "top_movies": ["Titanic", "The Revenant", "Inception", "The Wolf of Wall Street", "Django Unchained", "The Departed", "Shutter Island", "Catch Me If You Can", "Gangs of New York", "Once Upon a Time in Hollywood"],
-      "youtube_embed_id": "98RNE6fBKH0",
-      "youtube_title": "Leonardo DiCaprio Interview",
+      "top_movies": [
+        "Titanic",
+        "The Revenant",
+        "Inception",
+        "The Wolf of Wall Street",
+        "Django Unchained",
+        "The Departed",
+        "Shutter Island",
+        "Catch Me If You Can",
+        "Gangs of New York",
+        "Once Upon a Time in Hollywood"
+      ],
+      "youtube_embed_id": "cLVHHZZbo70",
+      "youtube_title": "Leonardo DiCaprio on Wolf of Wall Street, Jonah Hill, Shark Survival Story (Full Interview)",
       "wikipedia_slug": "Leonardo_DiCaprio",
       "news_search_query": "Leonardo DiCaprio 2026 new film",
-      "tags": ["oscar winner", "drama", "blockbuster", "iconic"]
+      "tags": [
+        "oscar winner",
+        "drama",
+        "blockbuster",
+        "iconic"
+      ]
     },
-
     {
       "id": 4,
       "name": "Cate Blanchett",
@@ -65,14 +109,29 @@
       "born": "May 14, 1969",
       "birthplace": "Melbourne, Victoria, Australia",
       "bio": "Cate Blanchett is one of cinema's most versatile and commanding presences, equally at home in epic fantasy, intimate character studies, and avant-garde art films. A two-time Academy Award winner — for The Aviator and Blue Jasmine — she is revered for her intelligence, transformative physicality, and willingness to take creative risks. Her portrayal of Lydia Tár in Tár (2022) earned universal acclaim and her third Oscar nomination for Best Actress. As a former artistic director of the Sydney Theatre Company, Blanchett brings a theatrical depth to every screen performance.",
-      "top_movies": ["Tár", "Blue Jasmine", "Carol", "The Aviator", "Notes on a Scandal", "Elizabeth", "Lord of the Rings trilogy", "Thor: Ragnarok", "Nightmare Alley", "Manifesto"],
-      "youtube_embed_id": "ZSqqVvhimZI",
-      "youtube_title": "Cate Blanchett Interview",
+      "top_movies": [
+        "Tár",
+        "Blue Jasmine",
+        "Carol",
+        "The Aviator",
+        "Notes on a Scandal",
+        "Elizabeth",
+        "Lord of the Rings trilogy",
+        "Thor: Ragnarok",
+        "Nightmare Alley",
+        "Manifesto"
+      ],
+      "youtube_embed_id": "8fJxdFRBP20",
+      "youtube_title": "Cate Blanchett on Hypnotizing Her Chickens and Standing Ovation Contests at Film Festivals",
       "wikipedia_slug": "Cate_Blanchett",
       "news_search_query": "Cate Blanchett 2026 film",
-      "tags": ["oscar winner", "drama", "australian", "iconic"]
+      "tags": [
+        "oscar winner",
+        "drama",
+        "australian",
+        "iconic"
+      ]
     },
-
     {
       "id": 5,
       "name": "Denzel Washington",
@@ -82,14 +141,29 @@
       "born": "December 28, 1954",
       "birthplace": "Mount Vernon, New York, USA",
       "bio": "Denzel Washington is widely regarded as the greatest actor of his generation and one of the most charismatic screen presences in Hollywood history. A two-time Academy Award winner — for Glory and Training Day — he combines magnetic intensity with remarkable technical precision. Washington has excelled in action films, prestige dramas, Shakespearean adaptations, and thrillers with equal conviction. His collaboration with director Antoine Fuqua has produced several of his most commercially successful films. In 2022, he received an Honorary Palme d'Or at Cannes.",
-      "top_movies": ["Training Day", "Malcolm X", "Glory", "The Equalizer", "Fences", "Man on Fire", "Flight", "Philadelphia", "John Q", "The Manchurian Candidate"],
-      "youtube_embed_id": "FEnpnR8K9N8",
-      "youtube_title": "Denzel Washington Interview",
+      "top_movies": [
+        "Training Day",
+        "Malcolm X",
+        "Glory",
+        "The Equalizer",
+        "Fences",
+        "Man on Fire",
+        "Flight",
+        "Philadelphia",
+        "John Q",
+        "The Manchurian Candidate"
+      ],
+      "youtube_embed_id": "WV2EpELLUuo",
+      "youtube_title": "Denzel Washington On Legacy, Wife & Purpose | NXT Chapter with T.D. Jakes",
       "wikipedia_slug": "Denzel_Washington",
       "news_search_query": "Denzel Washington 2026 movie",
-      "tags": ["oscar winner", "drama", "action", "iconic"]
+      "tags": [
+        "oscar winner",
+        "drama",
+        "action",
+        "iconic"
+      ]
     },
-
     {
       "id": 6,
       "name": "Scarlett Johansson",
@@ -99,14 +173,28 @@
       "born": "November 22, 1984",
       "birthplace": "New York City, USA",
       "bio": "Scarlett Johansson is one of the highest-grossing actresses in film history and a defining star of the Marvel Cinematic Universe, where she portrayed Black Widow across ten films. Beyond blockbusters, she has earned critical acclaim in intimate dramas like Lost in Translation, Marriage Story, and Her. Johansson has twice been nominated for Academy Awards in the same year — a remarkable distinction — and continues to balance franchise filmmaking with ambitious independent projects.",
-      "top_movies": ["Lost in Translation", "Marriage Story", "Her", "Black Widow", "Avengers: Endgame", "Jojo Rabbit", "Under the Skin", "Girl with a Pearl Earring", "Match Point", "The Prestige"],
-      "youtube_embed_id": "0Y5P2bgpkSo",
-      "youtube_title": "Scarlett Johansson Interview",
+      "top_movies": [
+        "Lost in Translation",
+        "Marriage Story",
+        "Her",
+        "Black Widow",
+        "Avengers: Endgame",
+        "Jojo Rabbit",
+        "Under the Skin",
+        "Girl with a Pearl Earring",
+        "Match Point",
+        "The Prestige"
+      ],
+      "youtube_embed_id": "JoOy0ElbzYk",
+      "youtube_title": "Scarlett Johansson Breaks Down Her Career, from Her to Avengers: Endgame | Vanity Fair",
       "wikipedia_slug": "Scarlett_Johansson",
       "news_search_query": "Scarlett Johansson 2026 film",
-      "tags": ["marvel", "drama", "blockbuster"]
+      "tags": [
+        "marvel",
+        "drama",
+        "blockbuster"
+      ]
     },
-
     {
       "id": 7,
       "name": "Brad Pitt",
@@ -116,14 +204,29 @@
       "born": "December 18, 1963",
       "birthplace": "Shawnee, Oklahoma, USA",
       "bio": "Brad Pitt has successfully transcended his early status as a Hollywood heartthrob to become one of the industry's most respected and adventurous performers. His Academy Award for Best Supporting Actor for Once Upon a Time in Hollywood (2019) capped decades of acclaimed work. A producer of enormous influence through his company Plan B — responsible for 12 Years a Slave, Moonlight, and other award winners — Pitt has shaped modern Hollywood both in front of and behind the camera.",
-      "top_movies": ["Fight Club", "Once Upon a Time in Hollywood", "Se7en", "Inglourious Basterds", "12 Monkeys", "The Curious Case of Benjamin Button", "Moneyball", "Bullet Train", "Babel", "Troy"],
-      "youtube_embed_id": "u3F9n_smGWY",
-      "youtube_title": "Brad Pitt Interview",
+      "top_movies": [
+        "Fight Club",
+        "Once Upon a Time in Hollywood",
+        "Se7en",
+        "Inglourious Basterds",
+        "12 Monkeys",
+        "The Curious Case of Benjamin Button",
+        "Moneyball",
+        "Bullet Train",
+        "Babel",
+        "Troy"
+      ],
+      "youtube_embed_id": "us4ddWJeZIY",
+      "youtube_title": "Brad Pitt & Adam Sandler | Actors on Actors - Full Conversation",
       "wikipedia_slug": "Brad_Pitt",
       "news_search_query": "Brad Pitt 2026 movie",
-      "tags": ["oscar winner", "drama", "action", "producer"]
+      "tags": [
+        "oscar winner",
+        "drama",
+        "action",
+        "producer"
+      ]
     },
-
     {
       "id": 8,
       "name": "Angelina Jolie",
@@ -133,14 +236,29 @@
       "born": "June 4, 1975",
       "birthplace": "Los Angeles, California, USA",
       "bio": "Angelina Jolie is one of the most globally recognized faces in entertainment and one of Hollywood's most bankable stars. Her Academy Award for Girl, Interrupted showcased the raw intensity that would become her trademark. She later redefined herself as an action star with the Lara Croft franchise and Mr. & Mrs. Smith. Jolie is also a celebrated director and a prominent UN Special Envoy, advocating for refugees and humanitarian causes worldwide.",
-      "top_movies": ["Girl, Interrupted", "Mr. & Mrs. Smith", "Maleficent", "Changeling", "Salt", "Lara Croft: Tomb Raider", "Eternals", "A Mighty Heart", "By the Sea", "Those Who Wish Me Dead"],
-      "youtube_embed_id": "9E5DGD1HcCM",
-      "youtube_title": "Angelina Jolie Interview",
+      "top_movies": [
+        "Girl, Interrupted",
+        "Mr. & Mrs. Smith",
+        "Maleficent",
+        "Changeling",
+        "Salt",
+        "Lara Croft: Tomb Raider",
+        "Eternals",
+        "A Mighty Heart",
+        "By the Sea",
+        "Those Who Wish Me Dead"
+      ],
+      "youtube_embed_id": "BW5C66yD_8I",
+      "youtube_title": "Actress Roundtable: Angelina Jolie, Demi Moore, Zendaya, Zoe Saldana, Mikey Madison & Tilda Swinton",
       "wikipedia_slug": "Angelina_Jolie",
       "news_search_query": "Angelina Jolie 2026 film",
-      "tags": ["oscar winner", "action", "director", "humanitarian"]
+      "tags": [
+        "oscar winner",
+        "action",
+        "director",
+        "humanitarian"
+      ]
     },
-
     {
       "id": 9,
       "name": "Will Smith",
@@ -150,14 +268,29 @@
       "born": "September 25, 1968",
       "birthplace": "Philadelphia, Pennsylvania, USA",
       "bio": "Will Smith is one of the most successful and versatile entertainers in Hollywood history, having dominated both music and film for over three decades. His Academy Award for Best Actor for King Richard (2021) recognized his powerful portrayal of Venus and Serena Williams' father. Smith has been one of the top box office draws globally, with blockbusters spanning action, comedy, drama, and science fiction. His charisma and physical commitment to roles have made him one of cinema's most watchable performers.",
-      "top_movies": ["Ali", "King Richard", "The Pursuit of Happyness", "Ali", "Bad Boys", "Men in Black", "Concussion", "Seven Pounds", "Hitch", "Enemy of the State"],
-      "youtube_embed_id": "AZsHMFBzHr4",
-      "youtube_title": "Will Smith Interview",
+      "top_movies": [
+        "Ali",
+        "King Richard",
+        "The Pursuit of Happyness",
+        "Ali",
+        "Bad Boys",
+        "Men in Black",
+        "Concussion",
+        "Seven Pounds",
+        "Hitch",
+        "Enemy of the State"
+      ],
+      "youtube_embed_id": "4O1DgGnmIJM",
+      "youtube_title": "I Asked Will Smith How He Made $350 Million",
       "wikipedia_slug": "Will_Smith",
       "news_search_query": "Will Smith 2026 movie",
-      "tags": ["oscar winner", "action", "comedy", "music"]
+      "tags": [
+        "oscar winner",
+        "action",
+        "comedy",
+        "music"
+      ]
     },
-
     {
       "id": 10,
       "name": "Jennifer Lawrence",
@@ -167,14 +300,29 @@
       "born": "August 15, 1990",
       "birthplace": "Louisville, Kentucky, USA",
       "bio": "Jennifer Lawrence became the second youngest Best Actress winner in Oscar history for Silver Linings Playbook (2012) and remains one of the most influential actresses of her generation. Her portrayal of Katniss Everdeen in The Hunger Games franchise made her one of Hollywood's biggest box office draws. Lawrence is known for her refreshing candor, naturalistic performances, and ability to anchor both major franchises and intimate character studies.",
-      "top_movies": ["Silver Linings Playbook", "American Hustle", "Joy", "The Hunger Games series", "Winter's Bone", "X-Men: First Class", "Mother!", "Causeway", "No Hard Feelings", "Passengers"],
-      "youtube_embed_id": "pkHpcQP7ZGo",
-      "youtube_title": "Jennifer Lawrence Interview",
+      "top_movies": [
+        "Silver Linings Playbook",
+        "American Hustle",
+        "Joy",
+        "The Hunger Games series",
+        "Winter's Bone",
+        "X-Men: First Class",
+        "Mother!",
+        "Causeway",
+        "No Hard Feelings",
+        "Passengers"
+      ],
+      "youtube_embed_id": "puUVS9HmDp0",
+      "youtube_title": "Jennifer Lawrence Is Terrified People Think Die My Love Is Katniss and Edward Fanfic | Tonight Show",
       "wikipedia_slug": "Jennifer_Lawrence",
       "news_search_query": "Jennifer Lawrence 2026 new film",
-      "tags": ["oscar winner", "action", "drama", "franchise"]
+      "tags": [
+        "oscar winner",
+        "action",
+        "drama",
+        "franchise"
+      ]
     },
-
     {
       "id": 11,
       "name": "Robert Downey Jr.",
@@ -184,14 +332,29 @@
       "born": "April 4, 1965",
       "birthplace": "New York City, USA",
       "bio": "Robert Downey Jr. achieved one of Hollywood's greatest career comebacks, transforming from a troubled talent to the anchor of the Marvel Cinematic Universe as Tony Stark / Iron Man. His portrayal of the character across ten films helped make the MCU the most commercially successful franchise in film history. Downey's natural wit, intelligence, and charisma redefined the superhero genre. He won his first Academy Award for Best Supporting Actor for Oppenheimer (2023), finally earning Oscar recognition decades into his remarkable career.",
-      "top_movies": ["Iron Man", "Avengers: Endgame", "Oppenheimer", "Chaplin", "Tropic Thunder", "Sherlock Holmes", "Less Than Zero", "Kiss Kiss Bang Bang", "The Judge", "Due Date"],
-      "youtube_embed_id": "2qBlE2-tZSQ",
-      "youtube_title": "Robert Downey Jr. Interview",
+      "top_movies": [
+        "Iron Man",
+        "Avengers: Endgame",
+        "Oppenheimer",
+        "Chaplin",
+        "Tropic Thunder",
+        "Sherlock Holmes",
+        "Less Than Zero",
+        "Kiss Kiss Bang Bang",
+        "The Judge",
+        "Due Date"
+      ],
+      "youtube_embed_id": "BBrP8zazELs",
+      "youtube_title": "Robert Downey Jr. Breaks Down His Career, from Iron Man to Oppenheimer | Vanity Fair",
       "wikipedia_slug": "Robert_Downey_Jr.",
       "news_search_query": "Robert Downey Jr 2026 Doctor Doom",
-      "tags": ["oscar winner", "marvel", "comedy", "action"]
+      "tags": [
+        "oscar winner",
+        "marvel",
+        "comedy",
+        "action"
+      ]
     },
-
     {
       "id": 12,
       "name": "Viola Davis",
@@ -201,14 +364,29 @@
       "born": "August 11, 1965",
       "birthplace": "St. Matthews, South Carolina, USA",
       "bio": "Viola Davis is the only Black actress to have achieved the EGOT — Emmy, Grammy, Oscar, and Tony — cementing her status as one of the greatest performers in entertainment history. Her Academy Award for Fences (2016) recognized decades of powerfully committed work. Davis is celebrated for her fearlessness, emotional honesty, and dedication to portraying the full complexity of Black womanhood. Her television work on How to Get Away with Murder brought her talents to global audiences.",
-      "top_movies": ["Fences", "Ma Rainey's Black Bottom", "Doubt", "The Help", "Widows", "Suicide Squad", "Prisoners", "Far from Heaven", "Tropic Thunder", "The Woman King"],
-      "youtube_embed_id": "a9Z2kBvPRbk",
-      "youtube_title": "Viola Davis Interview",
+      "top_movies": [
+        "Fences",
+        "Ma Rainey's Black Bottom",
+        "Doubt",
+        "The Help",
+        "Widows",
+        "Suicide Squad",
+        "Prisoners",
+        "Far from Heaven",
+        "Tropic Thunder",
+        "The Woman King"
+      ],
+      "youtube_embed_id": "FKLIyGHSDBE",
+      "youtube_title": "Viola Davis | Good Hang with Amy Poehler",
       "wikipedia_slug": "Viola_Davis",
       "news_search_query": "Viola Davis 2026 film",
-      "tags": ["oscar winner", "egot", "drama", "iconic"]
+      "tags": [
+        "oscar winner",
+        "egot",
+        "drama",
+        "iconic"
+      ]
     },
-
     {
       "id": 13,
       "name": "Ryan Gosling",
@@ -218,14 +396,29 @@
       "born": "November 12, 1980",
       "birthplace": "London, Ontario, Canada",
       "bio": "Ryan Gosling is one of Hollywood's most enigmatic and compelling leading men, known for choosing roles that subvert expectations and challenge his own image. From the tragic romance of The Notebook to the brooding noir of Drive, and the musical grandeur of La La Land, Gosling continually reinvents himself. His comedic turn as Ken in Barbie (2023) showcased an unexpected gift for self-deprecating humor and earned him an Academy Award nomination for Best Supporting Actor.",
-      "top_movies": ["La La Land", "Drive", "Barbie", "The Notebook", "Blade Runner 2049", "First Man", "Half Nelson", "Blue Valentine", "The Big Short", "Crazy, Stupid, Love"],
-      "youtube_embed_id": "J8pT2FKi7DY",
-      "youtube_title": "Ryan Gosling Interview",
+      "top_movies": [
+        "La La Land",
+        "Drive",
+        "Barbie",
+        "The Notebook",
+        "Blade Runner 2049",
+        "First Man",
+        "Half Nelson",
+        "Blue Valentine",
+        "The Big Short",
+        "Crazy, Stupid, Love"
+      ],
+      "youtube_embed_id": "6hiRDKnxYGE",
+      "youtube_title": "Ryan Gosling on Project Hail Mary, Star Wars and La La Land",
       "wikipedia_slug": "Ryan_Gosling",
       "news_search_query": "Ryan Gosling 2026 film",
-      "tags": ["drama", "romance", "action", "canadian"]
+      "tags": [
+        "drama",
+        "romance",
+        "action",
+        "canadian"
+      ]
     },
-
     {
       "id": 14,
       "name": "Emma Stone",
@@ -235,14 +428,28 @@
       "born": "November 6, 1988",
       "birthplace": "Scottsdale, Arizona, USA",
       "bio": "Emma Stone is a two-time Academy Award winner — for La La Land and Poor Things — establishing herself as one of the defining actresses of her generation. Her rare combination of comedic instinct, dramatic depth, and magnetic screen presence has made her one of Hollywood's most versatile performers. From her breakout in Superbad and Easy A to her transformative collaboration with director Yorgos Lanthimos, Stone has consistently pushed into unexpected creative territory.",
-      "top_movies": ["La La Land", "Poor Things", "Birdman", "Easy A", "The Favourite", "Cruella", "The Amazing Spider-Man", "Superbad", "Zombieland", "Battle of the Sexes"],
-      "youtube_embed_id": "ygqNLUKlUdQ",
+      "top_movies": [
+        "La La Land",
+        "Poor Things",
+        "Birdman",
+        "Easy A",
+        "The Favourite",
+        "Cruella",
+        "The Amazing Spider-Man",
+        "Superbad",
+        "Zombieland",
+        "Battle of the Sexes"
+      ],
+      "youtube_embed_id": "wpjQjusb_BY",
       "youtube_title": "Emma Stone Interview",
       "wikipedia_slug": "Emma_Stone",
       "news_search_query": "Emma Stone 2026 new movie",
-      "tags": ["oscar winner", "comedy", "drama"]
+      "tags": [
+        "oscar winner",
+        "comedy",
+        "drama"
+      ]
     },
-
     {
       "id": 15,
       "name": "Christian Bale",
@@ -252,14 +459,29 @@
       "born": "January 30, 1974",
       "birthplace": "Haverfordwest, Wales, UK",
       "bio": "Christian Bale is renowned for his extraordinary physical transformations and total immersion in every role. From dramatically losing weight for The Machinist to bulking up for Batman Begins, his commitment is unmatched in contemporary Hollywood. An Academy Award winner for The Fighter, Bale has portrayed Batman, Dick Cheney, Patrick Bateman, and a vast array of complex characters. He is widely considered one of the greatest method actors of his era.",
-      "top_movies": ["The Dark Knight trilogy", "American Psycho", "The Fighter", "Vice", "The Machinist", "American Hustle", "Ford v Ferrari", "Empire of the Sun", "Rescue Dawn", "Hostiles"],
-      "youtube_embed_id": "jcUMoGU4G2M",
-      "youtube_title": "Christian Bale Interview",
+      "top_movies": [
+        "The Dark Knight trilogy",
+        "American Psycho",
+        "The Fighter",
+        "Vice",
+        "The Machinist",
+        "American Hustle",
+        "Ford v Ferrari",
+        "Empire of the Sun",
+        "Rescue Dawn",
+        "Hostiles"
+      ],
+      "youtube_embed_id": "6I-NllCQkXo",
+      "youtube_title": "Christian Bale Breaks Down His Most Iconic Characters | GQ",
       "wikipedia_slug": "Christian_Bale",
       "news_search_query": "Christian Bale 2026 film",
-      "tags": ["oscar winner", "method actor", "british", "action"]
+      "tags": [
+        "oscar winner",
+        "method actor",
+        "british",
+        "action"
+      ]
     },
-
     {
       "id": 16,
       "name": "Natalie Portman",
@@ -269,14 +491,29 @@
       "born": "June 9, 1981",
       "birthplace": "Jerusalem, Israel",
       "bio": "Natalie Portman is one of Hollywood's most intellectually driven performers, combining a Harvard education in psychology with a film career of remarkable depth. Her Academy Award for Black Swan recognized her terrifying, fully committed performance in Darren Aronofsky's psychological thriller. Portman gained global fame as Queen Amidala in the Star Wars prequels before establishing herself as one of independent cinema's most compelling presences.",
-      "top_movies": ["Black Swan", "Jackie", "Léon: The Professional", "V for Vendetta", "Thor series", "Closer", "Brothers", "Garden State", "Star Wars prequels", "May December"],
-      "youtube_embed_id": "c4CN1n6Xtj0",
-      "youtube_title": "Natalie Portman Interview",
+      "top_movies": [
+        "Black Swan",
+        "Jackie",
+        "Léon: The Professional",
+        "V for Vendetta",
+        "Thor series",
+        "Closer",
+        "Brothers",
+        "Garden State",
+        "Star Wars prequels",
+        "May December"
+      ],
+      "youtube_embed_id": "Xs4aUWtgTp4",
+      "youtube_title": "Natalie Portman Breaks Down Her Career, from Star Wars to Vox Lux | Vanity Fair",
       "wikipedia_slug": "Natalie_Portman",
       "news_search_query": "Natalie Portman 2026 movie",
-      "tags": ["oscar winner", "drama", "star wars", "israeli-american"]
+      "tags": [
+        "oscar winner",
+        "drama",
+        "star wars",
+        "israeli-american"
+      ]
     },
-
     {
       "id": 17,
       "name": "Matt Damon",
@@ -286,14 +523,29 @@
       "born": "October 8, 1970",
       "birthplace": "Cambridge, Massachusetts, USA",
       "bio": "Matt Damon is one of Hollywood's most enduring and versatile leading men, equally convincing as an action hero, dramatic lead, or comedic foil. He co-wrote Good Will Hunting with Ben Affleck at age 27 — earning an Academy Award for Best Original Screenplay — a feat that announced him as a serious creative force. His collaborations with directors like Steven Soderbergh, Ridley Scott, and Christopher Nolan have produced a string of celebrated films across multiple decades.",
-      "top_movies": ["Good Will Hunting", "The Martian", "The Departed", "Saving Private Ryan", "Jason Bourne series", "Oppenheimer", "Interstellar", "Ocean's Eleven", "True Grit", "The Talented Mr. Ripley"],
-      "youtube_embed_id": "3mfZrK6UYNI",
-      "youtube_title": "Matt Damon Interview",
+      "top_movies": [
+        "Good Will Hunting",
+        "The Martian",
+        "The Departed",
+        "Saving Private Ryan",
+        "Jason Bourne series",
+        "Oppenheimer",
+        "Interstellar",
+        "Ocean's Eleven",
+        "True Grit",
+        "The Talented Mr. Ripley"
+      ],
+      "youtube_embed_id": "Qg-wDS77-Tg",
+      "youtube_title": "Matt Damon Breaks Down His Most Iconic Characters | GQ",
       "wikipedia_slug": "Matt_Damon",
       "news_search_query": "Matt Damon 2026 film",
-      "tags": ["oscar winner", "action", "drama", "writer"]
+      "tags": [
+        "oscar winner",
+        "action",
+        "drama",
+        "writer"
+      ]
     },
-
     {
       "id": 18,
       "name": "Charlize Theron",
@@ -303,14 +555,29 @@
       "born": "August 7, 1975",
       "birthplace": "Benoni, South Africa",
       "bio": "Charlize Theron is one of cinema's most fearless and physically committed performers, famous for completely transforming herself for roles. Her Academy Award for Monster (2003) — in which she underwent a shocking physical transformation to play serial killer Aileen Wuornos — remains one of the most daring actor-as-character vanishing acts in screen history. Theron has also proven herself as a major action star in the Fast & Furious franchise and Mad Max: Fury Road.",
-      "top_movies": ["Monster", "Mad Max: Fury Road", "North Country", "Bombshell", "Atomic Blonde", "Young Adult", "The Old Guard", "Prometheus", "Snow White and the Huntsman", "Tully"],
-      "youtube_embed_id": "oApAiJmUL74",
-      "youtube_title": "Charlize Theron Interview",
+      "top_movies": [
+        "Monster",
+        "Mad Max: Fury Road",
+        "North Country",
+        "Bombshell",
+        "Atomic Blonde",
+        "Young Adult",
+        "The Old Guard",
+        "Prometheus",
+        "Snow White and the Huntsman",
+        "Tully"
+      ],
+      "youtube_embed_id": "zL6N55FJuYI",
+      "youtube_title": "Charlize Theron: I Don't Need a Man (Full Episode)",
       "wikipedia_slug": "Charlize_Theron",
       "news_search_query": "Charlize Theron 2026 movie",
-      "tags": ["oscar winner", "action", "south african", "dramatic transformation"]
+      "tags": [
+        "oscar winner",
+        "action",
+        "south african",
+        "dramatic transformation"
+      ]
     },
-
     {
       "id": 19,
       "name": "Tom Cruise",
@@ -320,14 +587,29 @@
       "born": "July 3, 1962",
       "birthplace": "Syracuse, New York, USA",
       "bio": "Tom Cruise is one of the last true movie stars — a global box office phenomenon who has sustained superstardom for over four decades. Known for performing his own extraordinarily dangerous stunts, Cruise's dedication to practical filmmaking has redefined what audiences expect from action cinema. The Mission: Impossible and Top Gun franchises have made him a billion-dollar brand, while films like Magnolia and Jerry Maguire demonstrate serious dramatic capability beneath the blockbuster exterior.",
-      "top_movies": ["Top Gun: Maverick", "Mission: Impossible series", "Magnolia", "Jerry Maguire", "Born on the Fourth of July", "Rain Man", "Eyes Wide Shut", "Collateral", "Edge of Tomorrow", "A Few Good Men"],
-      "youtube_embed_id": "qIdnkMFMRZ0",
-      "youtube_title": "Tom Cruise Interview",
+      "top_movies": [
+        "Top Gun: Maverick",
+        "Mission: Impossible series",
+        "Magnolia",
+        "Jerry Maguire",
+        "Born on the Fourth of July",
+        "Rain Man",
+        "Eyes Wide Shut",
+        "Collateral",
+        "Edge of Tomorrow",
+        "A Few Good Men"
+      ],
+      "youtube_embed_id": "7ZFh7qI1xyg",
+      "youtube_title": "Tom Cruise Terrifies James in Top Gun Fighter Jet!",
       "wikipedia_slug": "Tom_Cruise",
       "news_search_query": "Tom Cruise Mission Impossible 2026",
-      "tags": ["action", "blockbuster", "stunt performer", "franchise"]
+      "tags": [
+        "action",
+        "blockbuster",
+        "stunt performer",
+        "franchise"
+      ]
     },
-
     {
       "id": 20,
       "name": "Julia Roberts",
@@ -337,14 +619,29 @@
       "born": "October 28, 1967",
       "birthplace": "Smyrna, Georgia, USA",
       "bio": "Julia Roberts is one of Hollywood's most enduring and beloved stars, whose radiant smile and magnetic charm made her the defining romantic comedy actress of the 1990s. Her Academy Award for Erin Brockovich (2000) recognized a powerful dramatic performance that transcended her romantic image. Roberts was one of the first actresses to command a $20 million salary, and her films have grossed billions worldwide. She continues to captivate audiences in both comedic and dramatic roles.",
-      "top_movies": ["Pretty Woman", "Erin Brockovich", "My Best Friend's Wedding", "Notting Hill", "Ocean's Eleven", "Runaway Bride", "America's Sweethearts", "Charlie Wilson's War", "Ticket to Paradise", "Ben Is Back"],
-      "youtube_embed_id": "jI1R3BSXYP4",
-      "youtube_title": "Julia Roberts Interview",
+      "top_movies": [
+        "Pretty Woman",
+        "Erin Brockovich",
+        "My Best Friend's Wedding",
+        "Notting Hill",
+        "Ocean's Eleven",
+        "Runaway Bride",
+        "America's Sweethearts",
+        "Charlie Wilson's War",
+        "Ticket to Paradise",
+        "Ben Is Back"
+      ],
+      "youtube_embed_id": "B5FrBz9X4aU",
+      "youtube_title": "Julia Roberts Talks After The Hunt and Erin Brockovich 25 Years",
       "wikipedia_slug": "Julia_Roberts",
       "news_search_query": "Julia Roberts 2026 film",
-      "tags": ["oscar winner", "romance", "comedy", "iconic"]
+      "tags": [
+        "oscar winner",
+        "romance",
+        "comedy",
+        "iconic"
+      ]
     },
-
     {
       "id": 21,
       "name": "Joaquin Phoenix",
@@ -354,14 +651,28 @@
       "born": "October 28, 1974",
       "birthplace": "San Juan, Puerto Rico",
       "bio": "Joaquin Phoenix is widely regarded as the most daring and unpredictable major actor working in contemporary Hollywood. His Academy Award for Joker (2019) recognized one of cinema's most disturbing and mesmerizing lead performances. Phoenix is known for his absolute method commitment, transforming his body and psyche for every role. From Walk the Line to The Master, Her to You Were Never Really Here, his filmography is a study in risk-taking and emotional extremity.",
-      "top_movies": ["Joker", "Joker: Folie à Deux", "The Master", "Her", "Walk the Line", "You Were Never Really Here", "Gladiator", "Signs", "Inherent Vice", "We Own the Night"],
-      "youtube_embed_id": "nPKCOlkJc4c",
-      "youtube_title": "Joaquin Phoenix Interview",
+      "top_movies": [
+        "Joker",
+        "Joker: Folie à Deux",
+        "The Master",
+        "Her",
+        "Walk the Line",
+        "You Were Never Really Here",
+        "Gladiator",
+        "Signs",
+        "Inherent Vice",
+        "We Own the Night"
+      ],
+      "youtube_embed_id": "Dl-MqpGG8P0",
+      "youtube_title": "Joaquin Phoenix On The Traditional Rules Of Acting And Why He Has His Own",
       "wikipedia_slug": "Joaquin_Phoenix",
       "news_search_query": "Joaquin Phoenix 2026 new film",
-      "tags": ["oscar winner", "method actor", "psychological drama"]
+      "tags": [
+        "oscar winner",
+        "method actor",
+        "psychological drama"
+      ]
     },
-
     {
       "id": 22,
       "name": "Anne Hathaway",
@@ -371,14 +682,29 @@
       "born": "November 12, 1982",
       "birthplace": "Brooklyn, New York, USA",
       "bio": "Anne Hathaway is one of Hollywood's most accomplished and versatile performers, having won an Academy Award for Les Misérables (2012) for her heartbreaking, stripped-bare portrayal of Fantine. From the spirited charm of The Princess Diaries and The Devil Wears Prada to the dramatic intensity of Rachel Getting Married and Interstellar, Hathaway moves seamlessly between commercial hits and art-house films.",
-      "top_movies": ["Les Misérables", "The Devil Wears Prada", "Interstellar", "Rachel Getting Married", "Brokeback Mountain", "The Dark Knight Rises", "Locked Down", "WeCrashed", "The Witches", "Armageddon Time"],
-      "youtube_embed_id": "W4UGpBbkD0Q",
-      "youtube_title": "Anne Hathaway Interview",
+      "top_movies": [
+        "Les Misérables",
+        "The Devil Wears Prada",
+        "Interstellar",
+        "Rachel Getting Married",
+        "Brokeback Mountain",
+        "The Dark Knight Rises",
+        "Locked Down",
+        "WeCrashed",
+        "The Witches",
+        "Armageddon Time"
+      ],
+      "youtube_embed_id": "8C2J9Ij7K5Y",
+      "youtube_title": "Anne Hathaway Rewatches The Princess Diaries, The Devil Wears Prada & More | Vanity Fair",
       "wikipedia_slug": "Anne_Hathaway",
       "news_search_query": "Anne Hathaway 2026 movie",
-      "tags": ["oscar winner", "musical", "drama", "comedy"]
+      "tags": [
+        "oscar winner",
+        "musical",
+        "drama",
+        "comedy"
+      ]
     },
-
     {
       "id": 23,
       "name": "Dwayne Johnson",
@@ -388,14 +714,29 @@
       "born": "May 2, 1972",
       "birthplace": "Hayward, California, USA",
       "bio": "Dwayne 'The Rock' Johnson is one of the highest-paid and most globally recognizable movie stars in the world. Transitioning from a celebrated WWE career, Johnson became a major Hollywood draw through his charisma, physicality, and surprising comedic talent. The Fast & Furious franchise, Jumanji reboots, and Black Adam demonstrate his ability to anchor massive global productions. He is also a prominent producer and entrepreneur whose influence extends far beyond acting.",
-      "top_movies": ["Fast & Furious series", "Jumanji: Welcome to the Jungle", "Black Adam", "Moana", "Pain & Gain", "Hobbs & Shaw", "San Andreas", "Central Intelligence", "Jungle Cruise", "Red Notice"],
-      "youtube_embed_id": "LnEOTbdHPnk",
-      "youtube_title": "Dwayne Johnson Interview",
+      "top_movies": [
+        "Fast & Furious series",
+        "Jumanji: Welcome to the Jungle",
+        "Black Adam",
+        "Moana",
+        "Pain & Gain",
+        "Hobbs & Shaw",
+        "San Andreas",
+        "Central Intelligence",
+        "Jungle Cruise",
+        "Red Notice"
+      ],
+      "youtube_embed_id": "j-_MqPqss5Y",
+      "youtube_title": "Extended Interview: Dwayne Johnson",
       "wikipedia_slug": "Dwayne_Johnson",
       "news_search_query": "Dwayne Johnson 2026 film",
-      "tags": ["action", "comedy", "franchise", "wrestler turned actor"]
+      "tags": [
+        "action",
+        "comedy",
+        "franchise",
+        "wrestler turned actor"
+      ]
     },
-
     {
       "id": 24,
       "name": "Margot Robbie",
@@ -405,14 +746,29 @@
       "born": "July 2, 1990",
       "birthplace": "Dalby, Queensland, Australia",
       "bio": "Margot Robbie is one of Hollywood's most dynamic and powerfully creative presences, both as an actress and a producer through her LuckyChap Entertainment company. Her portrayal of Barbie in Greta Gerwig's cultural phenomenon Barbie (2023) was pitch-perfect, earning her an Academy Award nomination for Best Actress. Robbie's productions have championed female-driven stories at scale, and her range from I, Tonya to Babylon proves she is one of the most exciting talents of her generation.",
-      "top_movies": ["Barbie", "I, Tonya", "Once Upon a Time in Hollywood", "Babylon", "The Wolf of Wall Street", "Bombshell", "Mary Queen of Scots", "Suicide Squad", "Birds of Prey", "Amsterdam"],
-      "youtube_embed_id": "gSuAFlp7ixA",
-      "youtube_title": "Margot Robbie Interview",
+      "top_movies": [
+        "Barbie",
+        "I, Tonya",
+        "Once Upon a Time in Hollywood",
+        "Babylon",
+        "The Wolf of Wall Street",
+        "Bombshell",
+        "Mary Queen of Scots",
+        "Suicide Squad",
+        "Birds of Prey",
+        "Amsterdam"
+      ],
+      "youtube_embed_id": "kpLarmsYVx4",
+      "youtube_title": "Margot Robbie on Wuthering Heights with Jacob Elordi",
       "wikipedia_slug": "Margot_Robbie",
       "news_search_query": "Margot Robbie 2026 new film",
-      "tags": ["australian", "drama", "producer", "blockbuster"]
+      "tags": [
+        "australian",
+        "drama",
+        "producer",
+        "blockbuster"
+      ]
     },
-
     {
       "id": 25,
       "name": "Zendaya",
@@ -422,14 +778,28 @@
       "born": "September 1, 1996",
       "birthplace": "Oakland, California, USA",
       "bio": "Zendaya has transformed from Disney Channel star to one of the most acclaimed and culturally significant performers of her generation. Her Emmy Award-winning performance in Euphoria demonstrated extraordinary emotional range and maturity. In film, her roles in the Dune franchise as Chani and in Challengers as Tashi showcased her ability to command the screen in major productions. At just 26, she became the youngest two-time Emmy winner in history.",
-      "top_movies": ["Dune: Part One", "Dune: Part Two", "Challengers", "Spider-Man: No Way Home", "Malcolm & Marie", "The Greatest Showman", "Space Jam: A New Legacy", "K-Pax", "Smallfoot"],
-      "youtube_embed_id": "LGq8D6jxybA",
-      "youtube_title": "Zendaya Interview",
+      "top_movies": [
+        "Dune: Part One",
+        "Dune: Part Two",
+        "Challengers",
+        "Spider-Man: No Way Home",
+        "Malcolm & Marie",
+        "The Greatest Showman",
+        "Space Jam: A New Legacy",
+        "K-Pax",
+        "Smallfoot"
+      ],
+      "youtube_embed_id": "2hMXEyplSlQ",
+      "youtube_title": "Zendaya on Tom Holland, Robert Pattinson & Seeing the New Spider-Man",
       "wikipedia_slug": "Zendaya",
       "news_search_query": "Zendaya 2026 new movie",
-      "tags": ["emmy winner", "young talent", "drama", "sci-fi"]
+      "tags": [
+        "emmy winner",
+        "young talent",
+        "drama",
+        "sci-fi"
+      ]
     },
-
     {
       "id": 26,
       "name": "Samuel L. Jackson",
@@ -439,14 +809,29 @@
       "born": "December 21, 1948",
       "birthplace": "Washington, D.C., USA",
       "bio": "Samuel L. Jackson is the highest-grossing actor in box office history, with films collectively grossing over $27 billion worldwide. His electrifying collaboration with Quentin Tarantino — spanning Pulp Fiction, Jackie Brown, Django Unchained, The Hateful Eight — produced some of cinema's most iconic moments. Jackson is equally beloved as Nick Fury across the Marvel Cinematic Universe and for his uniquely intense, unforgettable screen presence across every genre.",
-      "top_movies": ["Pulp Fiction", "Django Unchained", "Jackie Brown", "Unbreakable", "The Hateful Eight", "Coach Carter", "A Time to Kill", "Goodfellas", "Avengers series", "Captain Marvel"],
-      "youtube_embed_id": "M2rINWwLBH0",
-      "youtube_title": "Samuel L. Jackson Interview",
+      "top_movies": [
+        "Pulp Fiction",
+        "Django Unchained",
+        "Jackie Brown",
+        "Unbreakable",
+        "The Hateful Eight",
+        "Coach Carter",
+        "A Time to Kill",
+        "Goodfellas",
+        "Avengers series",
+        "Captain Marvel"
+      ],
+      "youtube_embed_id": "SDEVnAO6Oao",
+      "youtube_title": "Samuel L Jackson On Kicking Drugs Before His First Role, Social Media, New Shaft Film + More",
       "wikipedia_slug": "Samuel_L._Jackson",
       "news_search_query": "Samuel L Jackson 2026 film",
-      "tags": ["iconic", "tarantino", "marvel", "action"]
+      "tags": [
+        "iconic",
+        "tarantino",
+        "marvel",
+        "action"
+      ]
     },
-
     {
       "id": 27,
       "name": "Nicole Kidman",
@@ -456,14 +841,29 @@
       "born": "June 20, 1967",
       "birthplace": "Honolulu, Hawaii, USA",
       "bio": "Nicole Kidman is one of the most celebrated and prolific actresses of her era, with an Academy Award for The Hours and nominations spanning decades of ambitious work. Her willingness to pursue transformative, psychologically complex roles — in films by directors from Kubrick to von Trier, Baz Luhrmann to Yorgos Lanthimos — has produced one of the most varied and daring filmographies in contemporary cinema. Her television work in Big Little Lies and The Undoing has also been widely acclaimed.",
-      "top_movies": ["The Hours", "Moulin Rouge!", "Eyes Wide Shut", "Dogville", "Cold Mountain", "Australia", "Being the Ricardos", "Babygirl", "Nine Perfect Strangers", "Big Little Lies"],
-      "youtube_embed_id": "ygqNLUKlUdQ",
-      "youtube_title": "Nicole Kidman Interview",
+      "top_movies": [
+        "The Hours",
+        "Moulin Rouge!",
+        "Eyes Wide Shut",
+        "Dogville",
+        "Cold Mountain",
+        "Australia",
+        "Being the Ricardos",
+        "Babygirl",
+        "Nine Perfect Strangers",
+        "Big Little Lies"
+      ],
+      "youtube_embed_id": "PaA2m6eDChY",
+      "youtube_title": "Nicole Kidman Breaks Down Her Most Iconic Characters",
       "wikipedia_slug": "Nicole_Kidman",
       "news_search_query": "Nicole Kidman 2026 movie",
-      "tags": ["oscar winner", "australian", "drama", "television"]
+      "tags": [
+        "oscar winner",
+        "australian",
+        "drama",
+        "television"
+      ]
     },
-
     {
       "id": 28,
       "name": "Morgan Freeman",
@@ -473,14 +873,29 @@
       "born": "June 1, 1937",
       "birthplace": "Memphis, Tennessee, USA",
       "bio": "Morgan Freeman is one of cinema's most dignified and recognizable presences, whose deep, resonant voice and commanding authority have made him one of the most beloved character actors in film history. His Academy Award for Best Supporting Actor in Million Dollar Baby (2004) represented formal recognition of a decades-long legacy. Freeman has portrayed Nelson Mandela, God, and a vast gallery of wise authority figures, making him perhaps the most naturally trustworthy face in Hollywood.",
-      "top_movies": ["The Shawshank Redemption", "Million Dollar Baby", "Se7en", "Driving Miss Daisy", "Glory", "Gone Baby Gone", "Bruce Almighty", "The Dark Knight", "Invictus", "Seven"],
-      "youtube_embed_id": "3FbMHBBc0CE",
-      "youtube_title": "Morgan Freeman Interview",
+      "top_movies": [
+        "The Shawshank Redemption",
+        "Million Dollar Baby",
+        "Se7en",
+        "Driving Miss Daisy",
+        "Glory",
+        "Gone Baby Gone",
+        "Bruce Almighty",
+        "The Dark Knight",
+        "Invictus",
+        "Seven"
+      ],
+      "youtube_embed_id": "YQBYB39A_S4",
+      "youtube_title": "Morgan Freeman Doesn't Think His Voice Is Special, Reveals His Secret to Staying Young (Extended)",
       "wikipedia_slug": "Morgan_Freeman",
       "news_search_query": "Morgan Freeman 2026 film",
-      "tags": ["oscar winner", "drama", "legendary", "narrator"]
+      "tags": [
+        "oscar winner",
+        "drama",
+        "legendary",
+        "narrator"
+      ]
     },
-
     {
       "id": 29,
       "name": "Jake Gyllenhaal",
@@ -490,14 +905,29 @@
       "born": "December 19, 1980",
       "birthplace": "Los Angeles, California, USA",
       "bio": "Jake Gyllenhaal is one of Hollywood's most adventurous and physically committed actors, known for fearlessly inhabiting dark, complex, and psychologically extreme characters. His performance in Nightcrawler (2014) stands as one of the decade's most chilling and mesmerizing lead turns. Gyllenhaal has consistently chosen challenging material — from Brokeback Mountain to Enemy, Zodiac to Road House — demonstrating a refusal to coast on conventional stardom.",
-      "top_movies": ["Nightcrawler", "Zodiac", "Brokeback Mountain", "Enemy", "Donnie Darko", "Prisoners", "Demolition", "Spider-Man: Far From Home", "Road House", "Source Code"],
-      "youtube_embed_id": "oqL5a1WKQAQ",
-      "youtube_title": "Jake Gyllenhaal Interview",
+      "top_movies": [
+        "Nightcrawler",
+        "Zodiac",
+        "Brokeback Mountain",
+        "Enemy",
+        "Donnie Darko",
+        "Prisoners",
+        "Demolition",
+        "Spider-Man: Far From Home",
+        "Road House",
+        "Source Code"
+      ],
+      "youtube_embed_id": "MehCUPvCdq0",
+      "youtube_title": "Jake Gyllenhaal Takes The Colbert Questionert",
       "wikipedia_slug": "Jake_Gyllenhaal",
       "news_search_query": "Jake Gyllenhaal 2026 new film",
-      "tags": ["drama", "thriller", "psychological", "method actor"]
+      "tags": [
+        "drama",
+        "thriller",
+        "psychological",
+        "method actor"
+      ]
     },
-
     {
       "id": 30,
       "name": "Keanu Reeves",
@@ -507,14 +937,29 @@
       "born": "September 2, 1964",
       "birthplace": "Beirut, Lebanon",
       "bio": "Keanu Reeves is one of cinema's most beloved and quietly enigmatic stars, who transformed from teen idol to action icon to cultural phenomenon. His portrayal of Neo in The Matrix trilogy reshaped science fiction cinema, while John Wick redefined the action genre for a new generation. Reeves is perhaps Hollywood's most universally liked star — known for his genuine humility, generosity, and philosophical thoughtfulness both on and off screen.",
-      "top_movies": ["The Matrix trilogy", "John Wick series", "Speed", "Point Break", "Constantine", "Much Ado About Nothing", "My Own Private Idaho", "A Scanner Darkly", "Knock Knock", "Always Be My Maybe"],
-      "youtube_embed_id": "mnDg80xgJFQ",
-      "youtube_title": "Keanu Reeves Interview",
+      "top_movies": [
+        "The Matrix trilogy",
+        "John Wick series",
+        "Speed",
+        "Point Break",
+        "Constantine",
+        "Much Ado About Nothing",
+        "My Own Private Idaho",
+        "A Scanner Darkly",
+        "Knock Knock",
+        "Always Be My Maybe"
+      ],
+      "youtube_embed_id": "fl0x9Swgfgw",
+      "youtube_title": "Keanu Reeves Takes The Colbert Questionert",
       "wikipedia_slug": "Keanu_Reeves",
       "news_search_query": "Keanu Reeves 2026 John Wick",
-      "tags": ["action", "sci-fi", "canadian", "franchise"]
+      "tags": [
+        "action",
+        "sci-fi",
+        "canadian",
+        "franchise"
+      ]
     },
-
     {
       "id": 31,
       "name": "Benedict Cumberbatch",
@@ -524,14 +969,29 @@
       "born": "July 19, 1976",
       "birthplace": "Hammersmith, London, UK",
       "bio": "Benedict Cumberbatch is one of Britain's most versatile and prolific performers, equally acclaimed in theatre, television, and film. His portrayal of Sherlock Holmes in the BBC series Sherlock made him a global star, while roles in The Imitation Game, 12 Years a Slave, and The Power of the Dog — for which he received an Academy Award nomination for Best Actor — demonstrated his dramatic depth. As Doctor Strange in the MCU, he anchors one of Marvel's most metaphysically ambitious franchises.",
-      "top_movies": ["The Power of the Dog", "The Imitation Game", "Doctor Strange series", "12 Years a Slave", "1917", "Avengers: Infinity War", "The Courier", "Hamlet (NT Live)", "Patrick Melrose", "Sherlock"],
-      "youtube_embed_id": "iDvFy8mfHj4",
-      "youtube_title": "Benedict Cumberbatch Interview",
+      "top_movies": [
+        "The Power of the Dog",
+        "The Imitation Game",
+        "Doctor Strange series",
+        "12 Years a Slave",
+        "1917",
+        "Avengers: Infinity War",
+        "The Courier",
+        "Hamlet (NT Live)",
+        "Patrick Melrose",
+        "Sherlock"
+      ],
+      "youtube_embed_id": "vojB64vZVn0",
+      "youtube_title": "Benedict Cumberbatch On His Most Demanding Co-Stars Ever | The Graham Norton Show",
       "wikipedia_slug": "Benedict_Cumberbatch",
       "news_search_query": "Benedict Cumberbatch 2026 film",
-      "tags": ["british", "marvel", "drama", "television"]
+      "tags": [
+        "british",
+        "marvel",
+        "drama",
+        "television"
+      ]
     },
-
     {
       "id": 32,
       "name": "Florence Pugh",
@@ -541,14 +1001,29 @@
       "born": "January 3, 1996",
       "birthplace": "Oxford, England, UK",
       "bio": "Florence Pugh has emerged as one of the most compelling and fearlessly committed young actresses in world cinema. Her Academy Award nomination for Little Women (2019) and her viscerally intense performance in Midsommar announced her as a generational talent. Pugh brings rare emotional directness and physical courage to every role, whether in Oppenheimer, the MCU, or intimate character studies. She is one of the most exciting and sought-after performers working today.",
-      "top_movies": ["Little Women", "Midsommar", "Oppenheimer", "Black Widow", "Lady Macbeth", "Fighting with My Family", "Don't Worry Darling", "The Wonder", "We Live in Time", "Thunderbolts"],
-      "youtube_embed_id": "E3KxR2rHHSY",
-      "youtube_title": "Florence Pugh Interview",
+      "top_movies": [
+        "Little Women",
+        "Midsommar",
+        "Oppenheimer",
+        "Black Widow",
+        "Lady Macbeth",
+        "Fighting with My Family",
+        "Don't Worry Darling",
+        "The Wonder",
+        "We Live in Time",
+        "Thunderbolts"
+      ],
+      "youtube_embed_id": "EzzkwhlkYwU",
+      "youtube_title": "Beanie Feldstein & Florence Pugh - Actors on Actors - Full Conversation",
       "wikipedia_slug": "Florence_Pugh",
       "news_search_query": "Florence Pugh 2026 new film",
-      "tags": ["british", "drama", "young talent", "marvel"]
+      "tags": [
+        "british",
+        "drama",
+        "young talent",
+        "marvel"
+      ]
     },
-
     {
       "id": 33,
       "name": "Pedro Pascal",
@@ -558,14 +1033,28 @@
       "born": "April 2, 1975",
       "birthplace": "Santiago, Chile",
       "bio": "Pedro Pascal has become one of Hollywood's most beloved and in-demand stars following his breakout television roles in Game of Thrones and Narcos, and his career-defining performance as the Mandalorian in Disney+'s Star Wars series. His ability to convey warmth, wit, and pathos — often behind a helmet — has made him a uniquely beloved presence. Roles in The Last of Us and Gladiator II have cemented his status as one of the most charismatic leading men of his era.",
-      "top_movies": ["Gladiator II", "Wonder Woman 1984", "The Equalizer 3", "Prospect", "Kingsman: The Golden Circle", "If Beale Street Could Talk", "Strange Way of Life", "The Bubble", "The Unbearable Weight of Massive Talent"],
-      "youtube_embed_id": "YQEaahTSMiQ",
-      "youtube_title": "Pedro Pascal Interview",
+      "top_movies": [
+        "Gladiator II",
+        "Wonder Woman 1984",
+        "The Equalizer 3",
+        "Prospect",
+        "Kingsman: The Golden Circle",
+        "If Beale Street Could Talk",
+        "Strange Way of Life",
+        "The Bubble",
+        "The Unbearable Weight of Massive Talent"
+      ],
+      "youtube_embed_id": "MtTRmzzIQO0",
+      "youtube_title": "Pedro Pascal on His Coffee Order, The Last of Us Season Two & Playing Mister Fantastic",
       "wikipedia_slug": "Pedro_Pascal",
       "news_search_query": "Pedro Pascal 2026 new film",
-      "tags": ["chilean-american", "television", "action", "beloved"]
+      "tags": [
+        "chilean-american",
+        "television",
+        "action",
+        "beloved"
+      ]
     },
-
     {
       "id": 34,
       "name": "Austin Butler",
@@ -575,14 +1064,26 @@
       "born": "August 17, 1991",
       "birthplace": "Anaheim, California, USA",
       "bio": "Austin Butler delivered one of the most celebrated star-making performances of the decade with his portrayal of Elvis Presley in Baz Luhrmann's Elvis (2022), earning an Academy Award nomination for Best Actor. His physical transformation, vocal commitment, and emotional depth in the role silenced early doubters and established him as a major force in Hollywood. Butler continues to build an impressive filmography with roles in Dune: Part Two and Masters of the Air.",
-      "top_movies": ["Elvis", "Dune: Part Two", "The Bikeriders", "Once Upon a Time in Hollywood", "Masters of the Air", "The Dead Don't Die", "Yoga Hosers"],
-      "youtube_embed_id": "1D-pOCGCTvo",
-      "youtube_title": "Austin Butler Interview",
+      "top_movies": [
+        "Elvis",
+        "Dune: Part Two",
+        "The Bikeriders",
+        "Once Upon a Time in Hollywood",
+        "Masters of the Air",
+        "The Dead Don't Die",
+        "Yoga Hosers"
+      ],
+      "youtube_embed_id": "rab_wFvS_88",
+      "youtube_title": "Austin Butler Can't Get Rid Of His Elvis Presley Voice | The Graham Norton Show",
       "wikipedia_slug": "Austin_Butler",
       "news_search_query": "Austin Butler 2026 new film",
-      "tags": ["young talent", "musical", "drama", "biographical"]
+      "tags": [
+        "young talent",
+        "musical",
+        "drama",
+        "biographical"
+      ]
     },
-
     {
       "id": 35,
       "name": "Saoirse Ronan",
@@ -592,14 +1093,29 @@
       "born": "April 12, 1994",
       "birthplace": "The Bronx, New York, USA",
       "bio": "Saoirse Ronan is one of the most acclaimed young actresses of her generation, earning four Academy Award nominations before her 30th birthday — a remarkable achievement that speaks to her extraordinary talent. From her debut in Atonement at age 13 to her collaborations with Greta Gerwig in Lady Bird and Little Women, Ronan brings a fierce intelligence and naturalistic precision to every role. She is widely tipped as a future Oscar winner.",
-      "top_movies": ["Lady Bird", "Little Women", "Brooklyn", "Atonement", "The Grand Budapest Hotel", "Mary Queen of Scots", "Hanna", "Loving Vincent", "How I Live Now", "Ammonite"],
-      "youtube_embed_id": "ZkP9VoqrDUo",
-      "youtube_title": "Saoirse Ronan Interview",
+      "top_movies": [
+        "Lady Bird",
+        "Little Women",
+        "Brooklyn",
+        "Atonement",
+        "The Grand Budapest Hotel",
+        "Mary Queen of Scots",
+        "Hanna",
+        "Loving Vincent",
+        "How I Live Now",
+        "Ammonite"
+      ],
+      "youtube_embed_id": "u58_7xNjDWE",
+      "youtube_title": "73 Questions With Saoirse Ronan | Vogue",
       "wikipedia_slug": "Saoirse_Ronan",
       "news_search_query": "Saoirse Ronan 2026 new movie",
-      "tags": ["irish", "drama", "young talent", "gerwig"]
+      "tags": [
+        "irish",
+        "drama",
+        "young talent",
+        "gerwig"
+      ]
     },
-
     {
       "id": 36,
       "name": "Michael B. Jordan",
@@ -609,14 +1125,28 @@
       "born": "February 9, 1987",
       "birthplace": "Santa Ana, California, USA",
       "bio": "Michael B. Jordan is one of Hollywood's most dynamic and charismatic leading men, whose partnership with director Ryan Coogler has produced two of the most culturally resonant films of their era — Fruitvale Station and Black Panther's Killmonger. His physicality and emotional authenticity in the Creed franchise have made him one of sports cinema's most compelling heroes. Jordan is also a prominent producer actively working to diversify representation in Hollywood.",
-      "top_movies": ["Black Panther", "Creed series", "Fruitvale Station", "Just Mercy", "Without Remorse", "Chronicle", "The Wire", "A Journal for Jordan", "Raising Dion"],
-      "youtube_embed_id": "GVDBXm7Axt8",
-      "youtube_title": "Michael B. Jordan Interview",
+      "top_movies": [
+        "Black Panther",
+        "Creed series",
+        "Fruitvale Station",
+        "Just Mercy",
+        "Without Remorse",
+        "Chronicle",
+        "The Wire",
+        "A Journal for Jordan",
+        "Raising Dion"
+      ],
+      "youtube_embed_id": "FlibCSZ93gM",
+      "youtube_title": "Michael B. Jordan EXCLUSIVE: You're Ignoring Your Intuition! That's Why You Feel So Lost",
       "wikipedia_slug": "Michael_B._Jordan",
       "news_search_query": "Michael B Jordan 2026 film",
-      "tags": ["action", "drama", "producer", "marvel"]
+      "tags": [
+        "action",
+        "drama",
+        "producer",
+        "marvel"
+      ]
     },
-
     {
       "id": 37,
       "name": "Sandra Bullock",
@@ -626,14 +1156,29 @@
       "born": "July 26, 1964",
       "birthplace": "Arlington, Virginia, USA",
       "bio": "Sandra Bullock is one of Hollywood's most bankable and beloved stars, whose unique blend of comedic timing and dramatic vulnerability has sustained a career spanning four decades. Her Academy Award for The Blind Side (2009) and her nomination for Gravity (2013) showcase the remarkable versatility behind her box office appeal. Bullock's films have collectively grossed billions worldwide, making her one of the highest-earning actresses of all time.",
-      "top_movies": ["Speed", "Miss Congeniality", "The Blind Side", "Gravity", "Bird Box", "Crash", "The Proposal", "While You Were Sleeping", "The Net", "Lost City"],
-      "youtube_embed_id": "CUH3zxjTOq8",
-      "youtube_title": "Sandra Bullock Interview",
+      "top_movies": [
+        "Speed",
+        "Miss Congeniality",
+        "The Blind Side",
+        "Gravity",
+        "Bird Box",
+        "Crash",
+        "The Proposal",
+        "While You Were Sleeping",
+        "The Net",
+        "Lost City"
+      ],
+      "youtube_embed_id": "K2QMUX-aasE",
+      "youtube_title": "Top Billing interviews Sandra Bullock (Full Insert)",
       "wikipedia_slug": "Sandra_Bullock",
       "news_search_query": "Sandra Bullock 2026",
-      "tags": ["oscar winner", "comedy", "action", "drama"]
+      "tags": [
+        "oscar winner",
+        "comedy",
+        "action",
+        "drama"
+      ]
     },
-
     {
       "id": 38,
       "name": "Amy Adams",
@@ -643,14 +1188,29 @@
       "born": "August 20, 1974",
       "birthplace": "Vicenza, Italy",
       "bio": "Amy Adams is one of Hollywood's most prolific Award nominees, having received six Academy Award nominations without a win — a distinction that has only enhanced appreciation for her remarkable consistency. From the joyful enchantment of Enchanted to the cold ambition of American Hustle and the alien linguistics of Arrival, Adams brings an intelligence and precision to every character that makes her one of the most reliably excellent performers working today.",
-      "top_movies": ["Arrival", "American Hustle", "The Master", "Vice", "Doubt", "Junebug", "Big Eyes", "Sharp Objects", "Enchanted", "Disenchanted"],
-      "youtube_embed_id": "WXqDVfhMzFc",
-      "youtube_title": "Amy Adams Interview",
+      "top_movies": [
+        "Arrival",
+        "American Hustle",
+        "The Master",
+        "Vice",
+        "Doubt",
+        "Junebug",
+        "Big Eyes",
+        "Sharp Objects",
+        "Enchanted",
+        "Disenchanted"
+      ],
+      "youtube_embed_id": "g1vOZaQ_vFY",
+      "youtube_title": "Amy Adams Rewatches Enchanted, Man of Steel, Arrival & More | Vanity Fair",
       "wikipedia_slug": "Amy_Adams",
       "news_search_query": "Amy Adams 2026 film",
-      "tags": ["drama", "sci-fi", "comedy", "versatile"]
+      "tags": [
+        "drama",
+        "sci-fi",
+        "comedy",
+        "versatile"
+      ]
     },
-
     {
       "id": 39,
       "name": "Chris Evans",
@@ -660,14 +1220,29 @@
       "born": "June 13, 1981",
       "birthplace": "Boston, Massachusetts, USA",
       "bio": "Chris Evans became one of the most beloved superhero actors in cinema history through his decade-long portrayal of Steve Rogers / Captain America across ten Marvel films. His arc from super-soldier to selfless leader resonated deeply with global audiences, culminating in a final bow in Avengers: Endgame that moved millions. Post-MCU, Evans has demonstrated impressive range in Knives Out and its sequels, revealing a charismatic, self-aware performer eager to subvert his heroic image.",
-      "top_movies": ["Avengers: Endgame", "Captain America: Civil War", "Knives Out", "Glass Onion", "Parasite", "Snowpiercer", "Before We Go", "The Gray Man", "Gifted", "Lightyear"],
-      "youtube_embed_id": "t26mH5s0N6c",
-      "youtube_title": "Chris Evans Interview",
+      "top_movies": [
+        "Avengers: Endgame",
+        "Captain America: Civil War",
+        "Knives Out",
+        "Glass Onion",
+        "Parasite",
+        "Snowpiercer",
+        "Before We Go",
+        "The Gray Man",
+        "Gifted",
+        "Lightyear"
+      ],
+      "youtube_embed_id": "HYQkbO35vFw",
+      "youtube_title": "Chris Evans Breaks Down His Most Iconic Characters | GQ",
       "wikipedia_slug": "Chris_Evans_(actor)",
       "news_search_query": "Chris Evans 2026 movie Captain America",
-      "tags": ["marvel", "action", "comedy", "franchise"]
+      "tags": [
+        "marvel",
+        "action",
+        "comedy",
+        "franchise"
+      ]
     },
-
     {
       "id": 40,
       "name": "Timothée Chalamet",
@@ -677,14 +1252,29 @@
       "born": "December 27, 1995",
       "birthplace": "New York City, USA",
       "bio": "Timothée Chalamet is the defining young actor of his generation — a talent of extraordinary sensitivity, physical grace, and emotional intelligence. His Academy Award nomination for Call Me by Your Name at just 22 made him the youngest Best Actor nominee in nearly 80 years. His chameleonic range across Dune's Paul Atreides, Willy Wonka, and Bob Dylan demonstrates a fearlessness that marks genuine star power. His portrayal of Dylan in A Complete Unknown brought him a second Oscar nomination.",
-      "top_movies": ["Call Me by Your Name", "Dune: Part One", "Dune: Part Two", "A Complete Unknown", "Wonka", "Little Women", "The French Dispatch", "Don't Look Up", "Beautiful Boy", "Bones and All"],
-      "youtube_embed_id": "8GfP6j0JDZE",
-      "youtube_title": "Timothée Chalamet Interview",
+      "top_movies": [
+        "Call Me by Your Name",
+        "Dune: Part One",
+        "Dune: Part Two",
+        "A Complete Unknown",
+        "Wonka",
+        "Little Women",
+        "The French Dispatch",
+        "Don't Look Up",
+        "Beautiful Boy",
+        "Bones and All"
+      ],
+      "youtube_embed_id": "424w9fJRgYk",
+      "youtube_title": "Timothee Chalamet & Matthew McConaughey | Variety & CNN Town Hall - Full Conversation",
       "wikipedia_slug": "Timothée_Chalamet",
       "news_search_query": "Timothee Chalamet 2026 film",
-      "tags": ["french-american", "young talent", "drama", "sci-fi"]
+      "tags": [
+        "french-american",
+        "young talent",
+        "drama",
+        "sci-fi"
+      ]
     },
-
     {
       "id": 41,
       "name": "Steven Spielberg",
@@ -694,14 +1284,29 @@
       "born": "December 18, 1946",
       "birthplace": "Cincinnati, Ohio, USA",
       "bio": "Steven Spielberg is the most commercially successful film director in history and one of the most influential storytellers cinema has ever produced. His career has defined popular cinema across multiple decades — from the terror of Jaws and wonder of E.T. to the historical gravitas of Schindler's List and Saving Private Ryan. A three-time Academy Award winner for Best Director, Spielberg's films have an unmatched ability to reach across cultures, generations, and demographics with their profound emotional intelligence.",
-      "top_movies": ["Schindler's List", "Saving Private Ryan", "E.T.", "Jaws", "Indiana Jones series", "Jurassic Park", "Munich", "Lincoln", "The Fabelmans", "West Side Story"],
-      "youtube_embed_id": "OdCp2TyFVuk",
-      "youtube_title": "Steven Spielberg Interview",
+      "top_movies": [
+        "Schindler's List",
+        "Saving Private Ryan",
+        "E.T.",
+        "Jaws",
+        "Indiana Jones series",
+        "Jurassic Park",
+        "Munich",
+        "Lincoln",
+        "The Fabelmans",
+        "West Side Story"
+      ],
+      "youtube_embed_id": "CCB6NTM9ST4",
+      "youtube_title": "A Hollywood Masterclass with Steven Spielberg | 2023 TIME100 Summit",
       "wikipedia_slug": "Steven_Spielberg",
       "news_search_query": "Steven Spielberg 2026 new film",
-      "tags": ["director", "oscar winner", "blockbuster", "legend"]
+      "tags": [
+        "director",
+        "oscar winner",
+        "blockbuster",
+        "legend"
+      ]
     },
-
     {
       "id": 42,
       "name": "Christopher Nolan",
@@ -711,14 +1316,29 @@
       "born": "July 30, 1970",
       "birthplace": "Westminster, London, UK",
       "bio": "Christopher Nolan is the most commercially successful auteur director in film history, uniquely able to combine rigorous intellectual ambition with massive global box office appeal. His films — Memento, The Dark Knight trilogy, Inception, Interstellar, Dunkirk, Tenet, and Oppenheimer — consistently redefine what blockbuster cinema is capable of. Oppenheimer became the highest-grossing biopic ever made and earned Nolan his first Academy Award for Best Director. He is a passionate champion of the theatrical experience and analogue filmmaking.",
-      "top_movies": ["The Dark Knight", "Oppenheimer", "Inception", "Interstellar", "Dunkirk", "Memento", "The Prestige", "Batman Begins", "Tenet", "Insomnia"],
-      "youtube_embed_id": "7dIZJJqGbOk",
-      "youtube_title": "Christopher Nolan Interview",
+      "top_movies": [
+        "The Dark Knight",
+        "Oppenheimer",
+        "Inception",
+        "Interstellar",
+        "Dunkirk",
+        "Memento",
+        "The Prestige",
+        "Batman Begins",
+        "Tenet",
+        "Insomnia"
+      ],
+      "youtube_embed_id": "PW3tLBp4L6Q",
+      "youtube_title": "Christopher Nolan on Oppenheimer, AI and the Future (Exclusive Interview)",
       "wikipedia_slug": "Christopher_Nolan",
       "news_search_query": "Christopher Nolan 2026 new film",
-      "tags": ["director", "oscar winner", "sci-fi", "british-american"]
+      "tags": [
+        "director",
+        "oscar winner",
+        "sci-fi",
+        "british-american"
+      ]
     },
-
     {
       "id": 43,
       "name": "Martin Scorsese",
@@ -728,14 +1348,29 @@
       "born": "November 17, 1942",
       "birthplace": "Queens, New York City, USA",
       "bio": "Martin Scorsese is one of the greatest filmmakers in the history of cinema, a director whose body of work across six decades has profoundly shaped American film culture. From Mean Streets and Taxi Driver to Goodfellas, Gangs of New York, The Departed, The Wolf of Wall Street, and Killers of the Flower Moon, Scorsese has continuously expanded the possibilities of cinema. An Academy Award winner for The Departed, he remains extraordinarily prolific and ambitious deep into his eighth decade.",
-      "top_movies": ["Goodfellas", "Taxi Driver", "Raging Bull", "The Departed", "Killers of the Flower Moon", "The Wolf of Wall Street", "The Irishman", "Gangs of New York", "Casino", "Silence"],
-      "youtube_embed_id": "u78rTDQBxJA",
-      "youtube_title": "Martin Scorsese Interview",
+      "top_movies": [
+        "Goodfellas",
+        "Taxi Driver",
+        "Raging Bull",
+        "The Departed",
+        "Killers of the Flower Moon",
+        "The Wolf of Wall Street",
+        "The Irishman",
+        "Gangs of New York",
+        "Casino",
+        "Silence"
+      ],
+      "youtube_embed_id": "8szAkDLWp-M",
+      "youtube_title": "Martin Scorsese Breaks Down His Most Iconic Films | GQ",
       "wikipedia_slug": "Martin_Scorsese",
       "news_search_query": "Martin Scorsese 2026 new film",
-      "tags": ["director", "oscar winner", "crime", "legend"]
+      "tags": [
+        "director",
+        "oscar winner",
+        "crime",
+        "legend"
+      ]
     },
-
     {
       "id": 44,
       "name": "Quentin Tarantino",
@@ -745,14 +1380,28 @@
       "born": "March 27, 1963",
       "birthplace": "Knoxville, Tennessee, USA",
       "bio": "Quentin Tarantino is one of cinema's most original and culturally impactful voices, a director who emerged from video store cinephilia to redefine independent film with Reservoir Dogs and Pulp Fiction. His films are distinguished by their sharp, stylized dialogue, nonlinear structures, loving homage to genre cinema, and shocking eruptions of violence. A two-time Academy Award winner for Best Original Screenplay, Tarantino has announced his tenth film will be his last, making it one of cinema's most anticipated events.",
-      "top_movies": ["Pulp Fiction", "Django Unchained", "Inglourious Basterds", "Kill Bill Vol. 1 & 2", "Once Upon a Time in Hollywood", "The Hateful Eight", "Reservoir Dogs", "Jackie Brown", "Four Rooms"],
-      "youtube_embed_id": "9WnqQlvJqiA",
-      "youtube_title": "Quentin Tarantino Interview",
+      "top_movies": [
+        "Pulp Fiction",
+        "Django Unchained",
+        "Inglourious Basterds",
+        "Kill Bill Vol. 1 & 2",
+        "Once Upon a Time in Hollywood",
+        "The Hateful Eight",
+        "Reservoir Dogs",
+        "Jackie Brown",
+        "Four Rooms"
+      ],
+      "youtube_embed_id": "GrsJDy8VjZk",
+      "youtube_title": "Quentin Tarantino Interview: I'm Shutting Your Butt Down!",
       "wikipedia_slug": "Quentin_Tarantino",
       "news_search_query": "Quentin Tarantino final film 2026",
-      "tags": ["director", "oscar winner", "crime", "auteur"]
+      "tags": [
+        "director",
+        "oscar winner",
+        "crime",
+        "auteur"
+      ]
     },
-
     {
       "id": 45,
       "name": "Denis Villeneuve",
@@ -762,14 +1411,29 @@
       "born": "October 3, 1967",
       "birthplace": "Gentilly, Quebec, Canada",
       "bio": "Denis Villeneuve is widely regarded as the greatest science fiction director working today, having delivered the most critically acclaimed sci-fi films of the 2010s and 2020s. His Dune adaptations are considered definitive achievements in translating the unfilmable. Villeneuve began his career with intense, critically acclaimed French-language films like Incendies before transitioning to English-language cinema with Prisoners, Enemy, Sicario, Arrival, and Blade Runner 2049.",
-      "top_movies": ["Dune: Part One", "Dune: Part Two", "Arrival", "Blade Runner 2049", "Sicario", "Prisoners", "Enemy", "Incendies", "Polytechnique", "Demolition"],
-      "youtube_embed_id": "aDaOgu2CQtI",
-      "youtube_title": "Denis Villeneuve Interview",
+      "top_movies": [
+        "Dune: Part One",
+        "Dune: Part Two",
+        "Arrival",
+        "Blade Runner 2049",
+        "Sicario",
+        "Prisoners",
+        "Enemy",
+        "Incendies",
+        "Polytechnique",
+        "Demolition"
+      ],
+      "youtube_embed_id": "1TgS8r-WhTk",
+      "youtube_title": "Dune: Part Two FYC | Denis Villeneuve Interviewed by Christopher Nolan",
       "wikipedia_slug": "Denis_Villeneuve",
       "news_search_query": "Denis Villeneuve 2026 new film",
-      "tags": ["director", "sci-fi", "canadian", "auteur"]
+      "tags": [
+        "director",
+        "sci-fi",
+        "canadian",
+        "auteur"
+      ]
     },
-
     {
       "id": 46,
       "name": "Greta Gerwig",
@@ -779,14 +1443,27 @@
       "born": "August 4, 1983",
       "birthplace": "Sacramento, California, USA",
       "bio": "Greta Gerwig is one of the most commercially and critically successful directors of her generation, and a defining figure in contemporary female filmmaking. Barbie (2023) became the highest-grossing film by a solo female director in cinema history, grossing over $1.4 billion worldwide. Her previous films Lady Bird and Little Women were both nominated for Academy Awards for Best Picture, establishing Gerwig as a major voice in American cinema. She is the author of some of the most incisive, witty, and emotionally truthful screenplays of the past decade.",
-      "top_movies": ["Barbie", "Little Women", "Lady Bird", "Frances Ha", "Mistress America", "Greenberg", "Damsels in Distress", "20th Century Women"],
-      "youtube_embed_id": "ByGHHoB8xCE",
-      "youtube_title": "Greta Gerwig Interview",
+      "top_movies": [
+        "Barbie",
+        "Little Women",
+        "Lady Bird",
+        "Frances Ha",
+        "Mistress America",
+        "Greenberg",
+        "Damsels in Distress",
+        "20th Century Women"
+      ],
+      "youtube_embed_id": "joUKN8ezVio",
+      "youtube_title": "Greta Gerwig Interviewed by Jesse Armstrong | BFI London Film Festival 2023 Screen Talk",
       "wikipedia_slug": "Greta_Gerwig",
       "news_search_query": "Greta Gerwig 2026 new film",
-      "tags": ["director", "female filmmaker", "comedy", "drama"]
+      "tags": [
+        "director",
+        "female filmmaker",
+        "comedy",
+        "drama"
+      ]
     },
-
     {
       "id": 47,
       "name": "Jordan Peele",
@@ -796,14 +1473,25 @@
       "born": "February 21, 1979",
       "birthplace": "New York City, USA",
       "bio": "Jordan Peele has single-handedly revitalized the horror genre and redefined what American horror cinema can say about society. His debut feature Get Out (2017) — which he wrote and directed — won the Academy Award for Best Original Screenplay and became a cultural phenomenon, grossing over $250 million on a $4.5 million budget. Us and Nope demonstrated his ability to evolve his visual language and thematic ambitions with each film. Peele is one of the most discussed and impactful filmmakers of his era.",
-      "top_movies": ["Get Out", "Us", "Nope", "Candyman (producer)", "Hunters (producer)", "Key & Peele"],
-      "youtube_embed_id": "hNCmb-4oXJA",
-      "youtube_title": "Jordan Peele Interview",
+      "top_movies": [
+        "Get Out",
+        "Us",
+        "Nope",
+        "Candyman (producer)",
+        "Hunters (producer)",
+        "Key & Peele"
+      ],
+      "youtube_embed_id": "PBGPbOgwtIA",
+      "youtube_title": "Jordan Peele Blind Ranks Horror Films and Shares His Childhood Halloween Costumes (Extended)",
       "wikipedia_slug": "Jordan_Peele",
       "news_search_query": "Jordan Peele 2026 new horror film",
-      "tags": ["director", "oscar winner", "horror", "social commentary"]
+      "tags": [
+        "director",
+        "oscar winner",
+        "horror",
+        "social commentary"
+      ]
     },
-
     {
       "id": 48,
       "name": "Ridley Scott",
@@ -813,14 +1501,29 @@
       "born": "November 30, 1937",
       "birthplace": "South Shields, England, UK",
       "bio": "Ridley Scott is one of cinema's most prolific and visually magnificent directors, whose career has spanned seven decades without any diminishment of ambition or output. His debut features Alien (1979) and Blade Runner (1982) are cornerstones of science fiction cinema. Gladiator won the Academy Award for Best Picture and launched a new era of the epic film. Scott continues to direct ambitious large-scale films — including Napoleon and Gladiator II — well into his ninth decade.",
-      "top_movies": ["Gladiator", "Blade Runner", "Alien", "The Martian", "Kingdom of Heaven", "Black Hawk Down", "American Gangster", "Napoleon", "Gladiator II", "House of Gucci"],
-      "youtube_embed_id": "vOAnBFBDf48",
-      "youtube_title": "Ridley Scott Interview",
+      "top_movies": [
+        "Gladiator",
+        "Blade Runner",
+        "Alien",
+        "The Martian",
+        "Kingdom of Heaven",
+        "Black Hawk Down",
+        "American Gangster",
+        "Napoleon",
+        "Gladiator II",
+        "House of Gucci"
+      ],
+      "youtube_embed_id": "rs2I7jkFqvg",
+      "youtube_title": "Ridley Scott Breaks Down His Most Iconic Films",
       "wikipedia_slug": "Ridley_Scott",
       "news_search_query": "Ridley Scott 2026 new film",
-      "tags": ["director", "british", "epic", "sci-fi"]
+      "tags": [
+        "director",
+        "british",
+        "epic",
+        "sci-fi"
+      ]
     },
-
     {
       "id": 49,
       "name": "James Cameron",
@@ -830,14 +1533,28 @@
       "born": "August 16, 1954",
       "birthplace": "Kapuskasing, Ontario, Canada",
       "bio": "James Cameron is the most commercially successful film director in history, responsible for three of the six highest-grossing films of all time — Titanic, Avatar, and Avatar: The Way of Water. His obsessive perfectionism, technological innovation, and genuine belief in the power of spectacle have consistently raised the ceiling of what cinema can achieve visually. Cameron spent years developing underwater photography and 3D technology before filming Avatar, and is currently developing Avatar sequels that will continue to redefine visual filmmaking.",
-      "top_movies": ["Avatar", "Avatar: The Way of Water", "Titanic", "Terminator 2", "The Terminator", "Aliens", "The Abyss", "True Lies", "Strange Days (writer)"],
-      "youtube_embed_id": "7MbnX_vFBxE",
-      "youtube_title": "James Cameron Interview",
+      "top_movies": [
+        "Avatar",
+        "Avatar: The Way of Water",
+        "Titanic",
+        "Terminator 2",
+        "The Terminator",
+        "Aliens",
+        "The Abyss",
+        "True Lies",
+        "Strange Days (writer)"
+      ],
+      "youtube_embed_id": "Jk4QhCPqWpo",
+      "youtube_title": "James Cameron: No One Believed in Me... So I Bet Everything on Myself!",
       "wikipedia_slug": "James_Cameron",
       "news_search_query": "James Cameron Avatar 3 2026",
-      "tags": ["director", "oscar winner", "sci-fi", "blockbuster"]
+      "tags": [
+        "director",
+        "oscar winner",
+        "sci-fi",
+        "blockbuster"
+      ]
     },
-
     {
       "id": 50,
       "name": "David Fincher",
@@ -847,14 +1564,29 @@
       "born": "August 28, 1962",
       "birthplace": "Denver, Colorado, USA",
       "bio": "David Fincher is the master of cold, precise, obsessive cinema — a director whose meticulously controlled visual style and psychological acuity have produced some of the most influential thrillers in film history. Se7en, Fight Club, Zodiac, The Social Network, and Gone Girl have each defined the possibilities of the genre and accumulated enormous critical influence. The Social Network in particular is frequently cited as the defining American film of the 2010s. Fincher demands dozens of takes to achieve mathematical precision, and his sets are famous for their discipline.",
-      "top_movies": ["Fight Club", "Se7en", "Zodiac", "The Social Network", "Gone Girl", "The Girl with the Dragon Tattoo", "Panic Room", "Mank", "Seven", "The Killer"],
-      "youtube_embed_id": "iqR36bCinRw",
-      "youtube_title": "David Fincher Interview",
+      "top_movies": [
+        "Fight Club",
+        "Se7en",
+        "Zodiac",
+        "The Social Network",
+        "Gone Girl",
+        "The Girl with the Dragon Tattoo",
+        "Panic Room",
+        "Mank",
+        "Seven",
+        "The Killer"
+      ],
+      "youtube_embed_id": "L0GfX1rcpQQ",
+      "youtube_title": "David Fincher on His Filmmaking Philosophy | On Directing",
       "wikipedia_slug": "David_Fincher",
       "news_search_query": "David Fincher 2026 new film",
-      "tags": ["director", "thriller", "psychological", "auteur"]
+      "tags": [
+        "director",
+        "thriller",
+        "psychological",
+        "auteur"
+      ]
     },
-
     {
       "id": 51,
       "name": "Wes Anderson",
@@ -864,14 +1596,29 @@
       "born": "May 1, 1969",
       "birthplace": "Houston, Texas, USA",
       "bio": "Wes Anderson has created one of cinema's most instantly recognizable aesthetic worlds — a meticulously symmetrical, pastel-drenched, melancholic vision of humanity that has made him one of the most influential filmmakers of his generation. From Rushmore to The Royal Tenenbaums, The Grand Budapest Hotel to Asteroid City, Anderson's films are simultaneously arch and deeply sincere, their stylized surfaces concealing profound emotional themes of family, loss, and longing. His ability to assemble extraordinary ensemble casts is unmatched.",
-      "top_movies": ["The Grand Budapest Hotel", "The Royal Tenenbaums", "Moonrise Kingdom", "Fantastic Mr. Fox", "Rushmore", "The Life Aquatic", "Isle of Dogs", "The French Dispatch", "Asteroid City", "Bottle Rocket"],
-      "youtube_embed_id": "8u-iFBBsXNE",
-      "youtube_title": "Wes Anderson Interview",
+      "top_movies": [
+        "The Grand Budapest Hotel",
+        "The Royal Tenenbaums",
+        "Moonrise Kingdom",
+        "Fantastic Mr. Fox",
+        "Rushmore",
+        "The Life Aquatic",
+        "Isle of Dogs",
+        "The French Dispatch",
+        "Asteroid City",
+        "Bottle Rocket"
+      ],
+      "youtube_embed_id": "NEOvfStFSvM",
+      "youtube_title": "Every Wes Anderson Movie, Explained by Wes Anderson | Vanity Fair",
       "wikipedia_slug": "Wes_Anderson",
       "news_search_query": "Wes Anderson 2026 new film",
-      "tags": ["director", "auteur", "quirky", "aesthetic"]
+      "tags": [
+        "director",
+        "auteur",
+        "quirky",
+        "aesthetic"
+      ]
     },
-
     {
       "id": 52,
       "name": "Bong Joon-ho",
@@ -881,14 +1628,27 @@
       "born": "September 14, 1969",
       "birthplace": "Daegu, South Korea",
       "bio": "Bong Joon-ho became the first South Korean and first non-English-language filmmaker to win the Academy Award for Best Picture when Parasite swept the 2020 Oscars. His films are master classes in genre subversion — blending comedy, horror, thriller, and social satire with a distinctly Korean sensibility. Snowpiercer, Okja, and Parasite demonstrate a filmmaker who uses genre entertainment to deliver devastating critiques of class, capitalism, and inequality. He has inspired an entire generation of international filmmakers.",
-      "top_movies": ["Parasite", "Snowpiercer", "Okja", "Memories of Murder", "The Host", "Mother", "Barking Dogs Never Bite", "Mickey 17"],
-      "youtube_embed_id": "isOGD_7hNIY",
-      "youtube_title": "Bong Joon-ho Interview",
+      "top_movies": [
+        "Parasite",
+        "Snowpiercer",
+        "Okja",
+        "Memories of Murder",
+        "The Host",
+        "Mother",
+        "Barking Dogs Never Bite",
+        "Mickey 17"
+      ],
+      "youtube_embed_id": "MM5ckjUOnT4",
+      "youtube_title": "Bong Joon Ho Talks Parasite and That Eight-Minute Standing Ovation at Cannes",
       "wikipedia_slug": "Bong_Joon-ho",
       "news_search_query": "Bong Joon-ho 2026 new film",
-      "tags": ["director", "oscar winner", "korean", "genre-blending"]
+      "tags": [
+        "director",
+        "oscar winner",
+        "korean",
+        "genre-blending"
+      ]
     },
-
     {
       "id": 53,
       "name": "Alfonso Cuarón",
@@ -898,14 +1658,26 @@
       "born": "November 28, 1961",
       "birthplace": "Mexico City, Mexico",
       "bio": "Alfonso Cuarón is one of world cinema's most visually audacious directors, whose films are landmarks of cinematic craft and emotional power. His long-take aesthetic — perfected in Children of Men's extraordinary war sequence — has influenced an entire generation of filmmakers. Gravity won him the Academy Award for Best Director while Roma, shot in luminous black-and-white, became a deeply personal masterpiece that won three Oscars including Best Director again, making Cuarón a two-time winner.",
-      "top_movies": ["Roma", "Gravity", "Children of Men", "Harry Potter and the Prisoner of Azkaban", "Y Tu Mamá También", "A Little Princess", "Great Expectations"],
-      "youtube_embed_id": "UhCkVINxn7Y",
-      "youtube_title": "Alfonso Cuarón Interview",
+      "top_movies": [
+        "Roma",
+        "Gravity",
+        "Children of Men",
+        "Harry Potter and the Prisoner of Azkaban",
+        "Y Tu Mamá También",
+        "A Little Princess",
+        "Great Expectations"
+      ],
+      "youtube_embed_id": "nllSIHloqz8",
+      "youtube_title": "Alfonso Cuaron Examines The Language of Cinema & Television | The Big Interview | WIRED",
       "wikipedia_slug": "Alfonso_Cuarón",
       "news_search_query": "Alfonso Cuaron 2026 new film",
-      "tags": ["director", "oscar winner", "mexican", "visual master"]
+      "tags": [
+        "director",
+        "oscar winner",
+        "mexican",
+        "visual master"
+      ]
     },
-
     {
       "id": 54,
       "name": "Guillermo del Toro",
@@ -915,14 +1687,29 @@
       "born": "October 9, 1964",
       "birthplace": "Guadalajara, Jalisco, Mexico",
       "bio": "Guillermo del Toro is the premier fantasist of contemporary cinema, a director whose love for monsters, fairy tales, and gothic horror has produced an extraordinary body of work. His Academy Award for Best Director for The Shape of Water (2017) — a love story between a woman and an amphibian creature — confirmed his unique place in cinema. Del Toro's films are deeply personal expressions of empathy for the monstrous and the marginalized, rooted in a lifelong love of dark fantasy.",
-      "top_movies": ["Pan's Labyrinth", "The Shape of Water", "Hellboy", "Pacific Rim", "Crimson Peak", "Pinocchio", "Nightmare Alley", "Cronos", "Mimic", "The Devil's Backbone"],
-      "youtube_embed_id": "CkZ-sNVFsyA",
-      "youtube_title": "Guillermo del Toro Interview",
+      "top_movies": [
+        "Pan's Labyrinth",
+        "The Shape of Water",
+        "Hellboy",
+        "Pacific Rim",
+        "Crimson Peak",
+        "Pinocchio",
+        "Nightmare Alley",
+        "Cronos",
+        "Mimic",
+        "The Devil's Backbone"
+      ],
+      "youtube_embed_id": "Bp4rCPkViGg",
+      "youtube_title": "Guillermo del Toro on Frankenstein and His Movies That Made Me",
       "wikipedia_slug": "Guillermo_del_Toro",
       "news_search_query": "Guillermo del Toro 2026 new film",
-      "tags": ["director", "oscar winner", "fantasy", "mexican"]
+      "tags": [
+        "director",
+        "oscar winner",
+        "fantasy",
+        "mexican"
+      ]
     },
-
     {
       "id": 55,
       "name": "Sofia Coppola",
@@ -932,14 +1719,27 @@
       "born": "May 14, 1971",
       "birthplace": "New York City, USA",
       "bio": "Sofia Coppola is one of cinema's most distinctive and personal voices, a director whose films capture loneliness, alienation, and feminine interiority with rare delicacy. Her Academy Award for Best Original Screenplay for Lost in Translation (2003) made her the first American woman to win that award, and only the third woman ever nominated for Best Director. Her atmospheric, mood-driven films — Virgin Suicides, Marie Antoinette, The Bling Ring, Priscilla — have created a unique cinematic world all her own.",
-      "top_movies": ["Lost in Translation", "The Virgin Suicides", "Marie Antoinette", "Somewhere", "The Bling Ring", "The Beguiled", "Priscilla", "On the Rocks"],
-      "youtube_embed_id": "yMrPy9mInmQ",
-      "youtube_title": "Sofia Coppola Interview",
+      "top_movies": [
+        "Lost in Translation",
+        "The Virgin Suicides",
+        "Marie Antoinette",
+        "Somewhere",
+        "The Bling Ring",
+        "The Beguiled",
+        "Priscilla",
+        "On the Rocks"
+      ],
+      "youtube_embed_id": "u_abzP2JlNc",
+      "youtube_title": "Sofia Coppola on Her Signature Aesthetic, Romy's Music, and Marc Jacobs | Ask Me Anything | ELLE",
       "wikipedia_slug": "Sofia_Coppola",
       "news_search_query": "Sofia Coppola 2026 new film",
-      "tags": ["director", "oscar winner", "female filmmaker", "atmospheric"]
+      "tags": [
+        "director",
+        "oscar winner",
+        "female filmmaker",
+        "atmospheric"
+      ]
     },
-
     {
       "id": 56,
       "name": "Spike Lee",
@@ -949,14 +1749,29 @@
       "born": "March 20, 1957",
       "birthplace": "Brooklyn, New York, USA",
       "bio": "Spike Lee is one of American cinema's most politically engaged and stylistically daring directors, a filmmaker whose work has consistently confronted racism, police brutality, and the Black American experience. Do the Right Thing (1989) — still his most discussed film — is an incendiary, heartbreaking masterwork that divided and galvanized audiences. BlacKkKlansman won him the Academy Award for Best Adapted Screenplay. Lee's influence on visual style, particularly his famous 'floating dolly' shot, has permeated popular culture.",
-      "top_movies": ["Do the Right Thing", "Malcolm X", "BlacKkKlansman", "25th Hour", "Jungle Fever", "Mo' Better Blues", "She's Gotta Have It", "Inside Man", "Da 5 Bloods", "Oldboy"],
-      "youtube_embed_id": "OqhO0sblT1U",
-      "youtube_title": "Spike Lee Interview",
+      "top_movies": [
+        "Do the Right Thing",
+        "Malcolm X",
+        "BlacKkKlansman",
+        "25th Hour",
+        "Jungle Fever",
+        "Mo' Better Blues",
+        "She's Gotta Have It",
+        "Inside Man",
+        "Da 5 Bloods",
+        "Oldboy"
+      ],
+      "youtube_embed_id": "WV2EpELLUuo",
+      "youtube_title": "How Spike Lee Directs a Film | The Director's Chair",
       "wikipedia_slug": "Spike_Lee",
       "news_search_query": "Spike Lee 2026 new film",
-      "tags": ["director", "oscar winner", "political", "african american cinema"]
+      "tags": [
+        "director",
+        "oscar winner",
+        "political",
+        "african american cinema"
+      ]
     },
-
     {
       "id": 57,
       "name": "Ava DuVernay",
@@ -966,14 +1781,26 @@
       "born": "August 24, 1972",
       "birthplace": "Long Beach, California, USA",
       "bio": "Ava DuVernay is one of the most important and influential filmmakers working today — the first Black woman to direct a Best Picture-nominated film (Selma) and the first to helm a live-action feature with a budget exceeding $100 million (A Wrinkle in Time). Her documentary 13th, examining mass incarceration and its links to the Thirteenth Amendment, is one of the most impactful documentary films of the decade. DuVernay is also a powerful advocate for representation in Hollywood.",
-      "top_movies": ["Selma", "13th", "When They See Us", "A Wrinkle in Time", "Middle of Nowhere", "Queen Sugar", "Origin"],
-      "youtube_embed_id": "VqoLQlrCBfI",
-      "youtube_title": "Ava DuVernay Interview",
+      "top_movies": [
+        "Selma",
+        "13th",
+        "When They See Us",
+        "A Wrinkle in Time",
+        "Middle of Nowhere",
+        "Queen Sugar",
+        "Origin"
+      ],
+      "youtube_embed_id": "kDITF6Db57g",
+      "youtube_title": "Ava DuVernay: Crafting Stories That Change the World | Legacy Talk with Lena Waithe",
       "wikipedia_slug": "Ava_DuVernay",
       "news_search_query": "Ava DuVernay 2026 new film",
-      "tags": ["director", "female filmmaker", "african american cinema", "documentary"]
+      "tags": [
+        "director",
+        "female filmmaker",
+        "african american cinema",
+        "documentary"
+      ]
     },
-
     {
       "id": 58,
       "name": "Darren Aronofsky",
@@ -983,14 +1810,27 @@
       "born": "February 12, 1969",
       "birthplace": "Brooklyn, New York, USA",
       "bio": "Darren Aronofsky is one of American cinema's most uncompromising and viscerally intense directors, whose films push audiences to the limits of psychological and physical discomfort. From the addiction nightmare of Requiem for a Dream to the body horror of Black Swan and the apocalyptic intimacy of mother!, Aronofsky's cinema is an unflinching examination of obsession, sacrifice, and the destruction of the body in pursuit of transcendence.",
-      "top_movies": ["Requiem for a Dream", "Black Swan", "The Wrestler", "Pi", "The Fountain", "Noah", "mother!", "The Whale"],
-      "youtube_embed_id": "yP8P7UrRPYM",
-      "youtube_title": "Darren Aronofsky Interview",
+      "top_movies": [
+        "Requiem for a Dream",
+        "Black Swan",
+        "The Wrestler",
+        "Pi",
+        "The Fountain",
+        "Noah",
+        "mother!",
+        "The Whale"
+      ],
+      "youtube_embed_id": "jasGZtUKPV0",
+      "youtube_title": "Director Darren Aronofsky Breaks Down His Most Iconic Films",
       "wikipedia_slug": "Darren_Aronofsky",
       "news_search_query": "Darren Aronofsky 2026 new film",
-      "tags": ["director", "psychological", "intense", "auteur"]
+      "tags": [
+        "director",
+        "psychological",
+        "intense",
+        "auteur"
+      ]
     },
-
     {
       "id": 59,
       "name": "Yorgos Lanthimos",
@@ -1000,14 +1840,27 @@
       "born": "September 23, 1973",
       "birthplace": "Athens, Greece",
       "bio": "Yorgos Lanthimos is one of world cinema's most audacious and original voices, whose films operate in a uniquely unsettling register that defies genre and upends social conventions. The Lobster, The Favourite, Poor Things, and Kinds of Kindness form a body of work that is simultaneously absurdist and deeply philosophical. His Academy Award for Best Director for Poor Things and Emma Stone's Best Actress win for the same film confirmed Lanthimos as one of the defining filmmakers of his era.",
-      "top_movies": ["Poor Things", "The Favourite", "The Lobster", "Dogtooth", "Kinds of Kindness", "The Killing of a Sacred Deer", "Alps", "The Squid and the Whale"],
-      "youtube_embed_id": "JkqYG5cZpuA",
-      "youtube_title": "Yorgos Lanthimos Interview",
+      "top_movies": [
+        "Poor Things",
+        "The Favourite",
+        "The Lobster",
+        "Dogtooth",
+        "Kinds of Kindness",
+        "The Killing of a Sacred Deer",
+        "Alps",
+        "The Squid and the Whale"
+      ],
+      "youtube_embed_id": "dQPITMtKHE8",
+      "youtube_title": "Every Yorgos Lanthimos Movie, Explained by Yorgos Lanthimos | Vanity Fair",
       "wikipedia_slug": "Yorgos_Lanthimos",
       "news_search_query": "Yorgos Lanthimos 2026 new film",
-      "tags": ["director", "oscar winner", "greek", "absurdist"]
+      "tags": [
+        "director",
+        "oscar winner",
+        "greek",
+        "absurdist"
+      ]
     },
-
     {
       "id": 60,
       "name": "Ryan Coogler",
@@ -1017,14 +1870,26 @@
       "born": "May 23, 1986",
       "birthplace": "Oakland, California, USA",
       "bio": "Ryan Coogler is one of the most important filmmakers of his generation, whose work combines community-rooted empathy with extraordinary cinematic craft. His debut Fruitvale Station was a devastating, humanizing portrait of Oscar Grant. The Creed series reinvented the Rocky franchise with emotional intelligence. Black Panther became a cultural watershed — the first Black superhero film nominated for Best Picture and a landmark of representation in mainstream cinema. His partnership with Michael B. Jordan is one of contemporary cinema's most vital creative relationships.",
-      "top_movies": ["Black Panther", "Black Panther: Wakanda Forever", "Creed", "Creed II (producer)", "Fruitvale Station", "Judas and the Black Messiah (producer)", "Sinners"],
-      "youtube_embed_id": "7lkYl_FON0s",
-      "youtube_title": "Ryan Coogler Interview",
+      "top_movies": [
+        "Black Panther",
+        "Black Panther: Wakanda Forever",
+        "Creed",
+        "Creed II (producer)",
+        "Fruitvale Station",
+        "Judas and the Black Messiah (producer)",
+        "Sinners"
+      ],
+      "youtube_embed_id": "YWqTXowtqJg",
+      "youtube_title": "Ryan Coogler Talks Sinners, Michael B. Jordan, Denzel, Chadwick Boseman, Nipsey Hussle + More",
       "wikipedia_slug": "Ryan_Coogler",
       "news_search_query": "Ryan Coogler Sinners 2026",
-      "tags": ["director", "marvel", "african american cinema", "young filmmaker"]
+      "tags": [
+        "director",
+        "marvel",
+        "african american cinema",
+        "young filmmaker"
+      ]
     },
-
     {
       "id": 61,
       "name": "Penélope Cruz",
@@ -1034,14 +1899,29 @@
       "born": "April 28, 1974",
       "birthplace": "Alcobendas, Madrid, Spain",
       "bio": "Penélope Cruz is Spain's most celebrated international film star and the first Spanish actress to win an Academy Award, which she received for Best Supporting Actress for Vicky Cristina Barcelona (2008). Her long creative collaboration with Pedro Almodóvar has produced the finest work of her career, from All About My Mother to Volver and Parallel Mothers. Cruz moves between Spanish-language art cinema and major Hollywood productions with complete authority, bringing Mediterranean passion and technical precision to every performance.",
-      "top_movies": ["Vicky Cristina Barcelona", "Volver", "Parallel Mothers", "All About My Mother", "Belle Époque", "Blow", "Elegy", "The Counselor", "Pirates of the Caribbean: On Stranger Tides", "L'Immensità"],
-      "youtube_embed_id": "gF6FLnM_MdU",
-      "youtube_title": "Penélope Cruz Interview",
+      "top_movies": [
+        "Vicky Cristina Barcelona",
+        "Volver",
+        "Parallel Mothers",
+        "All About My Mother",
+        "Belle Époque",
+        "Blow",
+        "Elegy",
+        "The Counselor",
+        "Pirates of the Caribbean: On Stranger Tides",
+        "L'Immensità"
+      ],
+      "youtube_embed_id": "MiDcjSIj8K0",
+      "youtube_title": "Penelope Cruz Shares What It Was Like to Party with Prince | The Tonight Show",
       "wikipedia_slug": "Penélope_Cruz",
       "news_search_query": "Penelope Cruz 2026 film Almodovar",
-      "tags": ["oscar winner", "spanish", "almodovar", "international"]
+      "tags": [
+        "oscar winner",
+        "spanish",
+        "almodovar",
+        "international"
+      ]
     },
-
     {
       "id": 62,
       "name": "Antonio Banderas",
@@ -1051,14 +1931,29 @@
       "born": "August 10, 1960",
       "birthplace": "Málaga, Andalusia, Spain",
       "bio": "Antonio Banderas is Spain's most internationally successful male film star, who built a Hollywood career of remarkable range and charisma. His early collaborations with Pedro Almodóvar — including Tie Me Up! Tie Me Down! — made him a European art cinema figure before his leap to Hollywood blockbusters with The Mask of Zorro, Desperado, and Evita. His Academy Award nomination for Pain and Glory (2019), a late-career masterpiece directed by Almodóvar, recognized his deepest and most personal screen performance.",
-      "top_movies": ["Pain and Glory", "The Mask of Zorro", "Desperado", "Evita", "Interview with the Vampire", "Philadelphia", "Puss in Boots", "The Skin I Live In", "Uncharted", "Indiana Jones and the Dial of Destiny"],
-      "youtube_embed_id": "SJz56PoGjYI",
-      "youtube_title": "Antonio Banderas Interview",
+      "top_movies": [
+        "Pain and Glory",
+        "The Mask of Zorro",
+        "Desperado",
+        "Evita",
+        "Interview with the Vampire",
+        "Philadelphia",
+        "Puss in Boots",
+        "The Skin I Live In",
+        "Uncharted",
+        "Indiana Jones and the Dial of Destiny"
+      ],
+      "youtube_embed_id": "I2yQgGzGYuE",
+      "youtube_title": "Antonio Banderas Still Gets Shy About His English",
       "wikipedia_slug": "Antonio_Banderas",
       "news_search_query": "Antonio Banderas 2026 film",
-      "tags": ["spanish", "almodovar", "action", "international"]
+      "tags": [
+        "spanish",
+        "almodovar",
+        "action",
+        "international"
+      ]
     },
-
     {
       "id": 63,
       "name": "Marion Cotillard",
@@ -1068,14 +1963,29 @@
       "born": "September 30, 1975",
       "birthplace": "Paris, France",
       "bio": "Marion Cotillard is France's most celebrated international film actress, whose Academy Award for La Vie en Rose — a physically transformative portrayal of Édith Piaf — remains one of the most astonishing actor-disappears-into-character performances in cinema history. Equally compelling in English-language films like The Dark Knight Rises, Inception, and Rust and Bone, Cotillard has established herself as one of the most versatile and commanding screen performers of her era.",
-      "top_movies": ["La Vie en Rose", "Inception", "The Dark Knight Rises", "Rust and Bone", "Two Days, One Night", "Midnight in Paris", "Public Enemies", "Annette", "Allied", "Blood Ties"],
-      "youtube_embed_id": "tVNJb25OGTM",
-      "youtube_title": "Marion Cotillard Interview",
+      "top_movies": [
+        "La Vie en Rose",
+        "Inception",
+        "The Dark Knight Rises",
+        "Rust and Bone",
+        "Two Days, One Night",
+        "Midnight in Paris",
+        "Public Enemies",
+        "Annette",
+        "Allied",
+        "Blood Ties"
+      ],
+      "youtube_embed_id": "VaQac5_7pP4",
+      "youtube_title": "Marion Cotillard & Kelly Clarkson Share Hilarious TMI Mom Stories!",
       "wikipedia_slug": "Marion_Cotillard",
       "news_search_query": "Marion Cotillard 2026 film",
-      "tags": ["oscar winner", "french", "drama", "international"]
+      "tags": [
+        "oscar winner",
+        "french",
+        "drama",
+        "international"
+      ]
     },
-
     {
       "id": 64,
       "name": "Jackie Chan",
@@ -1085,14 +1995,29 @@
       "born": "April 7, 1954",
       "birthplace": "Victoria Peak, Hong Kong",
       "bio": "Jackie Chan is the most globally successful martial arts film star in history, a performer and stunt choreographer who spent decades building an international brand based on breathtaking physical comedy, genuine danger, and warm screen charisma. Unlike action heroes who rely on special effects, Chan performed all of his own stunts — accumulating countless serious injuries documented in his legendary blooper reels. His crossover to Hollywood with Rush Hour made him a household name in the West, while his Chinese-language films remain cultural touchstones across Asia.",
-      "top_movies": ["Police Story", "Project A", "Drunken Master II", "Rush Hour series", "Shanghai Knights", "The Foreigner", "Kung Fu Panda series (voice)", "The Myth", "Armour of God", "Chinese Zodiac"],
-      "youtube_embed_id": "9Y38rP9Eqrc",
-      "youtube_title": "Jackie Chan Interview",
+      "top_movies": [
+        "Police Story",
+        "Project A",
+        "Drunken Master II",
+        "Rush Hour series",
+        "Shanghai Knights",
+        "The Foreigner",
+        "Kung Fu Panda series (voice)",
+        "The Myth",
+        "Armour of God",
+        "Chinese Zodiac"
+      ],
+      "youtube_embed_id": "PpqHmp8OXnU",
+      "youtube_title": "Jackie Chan Full Steve Harvey Interview",
       "wikipedia_slug": "Jackie_Chan",
       "news_search_query": "Jackie Chan 2026 new film",
-      "tags": ["action", "martial arts", "hong kong", "stunt performer"]
+      "tags": [
+        "action",
+        "martial arts",
+        "hong kong",
+        "stunt performer"
+      ]
     },
-
     {
       "id": 65,
       "name": "Song Kang-ho",
@@ -1102,14 +2027,29 @@
       "born": "January 17, 1967",
       "birthplace": "Gimhae, South Korea",
       "bio": "Song Kang-ho is South Korea's greatest and most beloved film actor — a performer of extraordinary range, naturalism, and physical expressiveness whose work with director Bong Joon-ho has produced some of world cinema's most celebrated films. His portrayal of Ki-taek in Parasite brought him to global attention as the patriarch whose bottled-up rage and quiet humiliation builds to its shattering conclusion. He also won Best Actor at Cannes for Broker (2022).",
-      "top_movies": ["Parasite", "Memories of Murder", "The Host", "Snowpiercer", "Broker", "A Taxi Driver", "Secret Sunshine", "The Good, the Bad, the Weird", "Thirst", "Joint Security Area"],
-      "youtube_embed_id": "gdpqIc6AeIo",
-      "youtube_title": "Song Kang-ho Interview",
+      "top_movies": [
+        "Parasite",
+        "Memories of Murder",
+        "The Host",
+        "Snowpiercer",
+        "Broker",
+        "A Taxi Driver",
+        "Secret Sunshine",
+        "The Good, the Bad, the Weird",
+        "Thirst",
+        "Joint Security Area"
+      ],
+      "youtube_embed_id": "nRQIIEDmQ_8",
+      "youtube_title": "Song Kang-Ho Breaks Down His Career, from Parasite to Broker | Vanity Fair",
       "wikipedia_slug": "Song_Kang-ho",
       "news_search_query": "Song Kang-ho 2026 new film",
-      "tags": ["korean", "drama", "cannes winner", "bong joon-ho"]
+      "tags": [
+        "korean",
+        "drama",
+        "cannes winner",
+        "bong joon-ho"
+      ]
     },
-
     {
       "id": 66,
       "name": "Priyanka Chopra Jonas",
@@ -1119,14 +2059,29 @@
       "born": "July 18, 1982",
       "birthplace": "Jamshedpur, Jharkhand, India",
       "bio": "Priyanka Chopra Jonas is one of the most successful and internationally recognized Indian entertainers of her generation. A former Miss World, she became a Bollywood superstar before successfully transitioning to Hollywood as the lead of the hit American television series Quantico — a rare crossover achievement. Her Bollywood films span action blockbusters, romance, and acclaimed biographical dramas. She is also a prominent producer, entrepreneur, and global humanitarian.",
-      "top_movies": ["Fashion", "Mary Kom", "Barfi!", "Dil Dhadakne Do", "Bajirao Mastani", "Don series", "Citadel", "Baywatch", "We Can Be Heroes", "The Matrix Resurrections"],
-      "youtube_embed_id": "hLWLkLHRp3c",
-      "youtube_title": "Priyanka Chopra Interview",
+      "top_movies": [
+        "Fashion",
+        "Mary Kom",
+        "Barfi!",
+        "Dil Dhadakne Do",
+        "Bajirao Mastani",
+        "Don series",
+        "Citadel",
+        "Baywatch",
+        "We Can Be Heroes",
+        "The Matrix Resurrections"
+      ],
+      "youtube_embed_id": "mW-GONPhKwQ",
+      "youtube_title": "Priyanka Chopra Jonas EXCLUSIVE: The Full Story",
       "wikipedia_slug": "Priyanka_Chopra",
       "news_search_query": "Priyanka Chopra 2026 new film",
-      "tags": ["indian", "bollywood", "action", "global star"]
+      "tags": [
+        "indian",
+        "bollywood",
+        "action",
+        "global star"
+      ]
     },
-
     {
       "id": 67,
       "name": "Deepika Padukone",
@@ -1136,14 +2091,29 @@
       "born": "January 5, 1986",
       "birthplace": "Copenhagen, Denmark",
       "bio": "Deepika Padukone is the highest-paid actress in Bollywood and one of the most globally recognized Indian film stars. Her performances in films like Piku, Padmaavat, Gehraiyaan, and Pathaan have demonstrated extraordinary range, while her courageous public advocacy for mental health awareness — sharing her own struggles with depression — has made her a beloved figure beyond cinema. She was the first Bollywood actress to present at the Academy Awards.",
-      "top_movies": ["Om Shanti Om", "Love Aaj Kal", "Cocktail", "Yeh Jawaani Hai Deewani", "Chennai Express", "Happy New Year", "Piku", "Padmaavat", "Gehraiyaan", "Pathaan"],
-      "youtube_embed_id": "y0V_gBZdRiM",
-      "youtube_title": "Deepika Padukone Interview",
+      "top_movies": [
+        "Om Shanti Om",
+        "Love Aaj Kal",
+        "Cocktail",
+        "Yeh Jawaani Hai Deewani",
+        "Chennai Express",
+        "Happy New Year",
+        "Piku",
+        "Padmaavat",
+        "Gehraiyaan",
+        "Pathaan"
+      ],
+      "youtube_embed_id": "JSR9Z6ddU7M",
+      "youtube_title": "Deepika Padukone, Don't Forget Your Roots | Anupama Chopra",
       "wikipedia_slug": "Deepika_Padukone",
       "news_search_query": "Deepika Padukone 2026 new film",
-      "tags": ["indian", "bollywood", "drama", "global star"]
+      "tags": [
+        "indian",
+        "bollywood",
+        "drama",
+        "global star"
+      ]
     },
-
     {
       "id": 68,
       "name": "Park Seo-joon",
@@ -1153,14 +2123,25 @@
       "born": "December 16, 1988",
       "birthplace": "Seoul, South Korea",
       "bio": "Park Seo-joon is one of South Korea's most popular and internationally recognized actors, whose television and film work has earned him a devoted global fanbase. His charismatic lead performances in series like She Was Pretty, Kill Me, Heal Me, and Itaewon Class made him a hallyu icon. In film, his role in The Marvels marked a landmark Hollywood debut for a Korean actor, while Dream showcased his comedic range as a film director.",
-      "top_movies": ["The Marvels", "Dream", "Midnight Runners", "Parasite (cameo)", "Deliver Us from Evil", "A Violent Prosecutor"],
-      "youtube_embed_id": "Z7SSPVQ63vY",
-      "youtube_title": "Park Seo-joon Interview",
+      "top_movies": [
+        "The Marvels",
+        "Dream",
+        "Midnight Runners",
+        "Parasite (cameo)",
+        "Deliver Us from Evil",
+        "A Violent Prosecutor"
+      ],
+      "youtube_embed_id": "7sZvvQXZeDY",
+      "youtube_title": "Park Seo-Joon Shares Pre-TIFF Message He Got From V",
       "wikipedia_slug": "Park_Seo-joon",
       "news_search_query": "Park Seo-joon 2026 new film",
-      "tags": ["korean", "hallyu", "drama", "marvel"]
+      "tags": [
+        "korean",
+        "hallyu",
+        "drama",
+        "marvel"
+      ]
     },
-
     {
       "id": 69,
       "name": "Lupita Nyong'o",
@@ -1170,14 +2151,27 @@
       "born": "March 1, 1983",
       "birthplace": "Mexico City, Mexico",
       "bio": "Lupita Nyong'o burst onto the global stage with her Academy Award-winning debut in 12 Years a Slave (2013), delivering one of the most devastating and quietly shattering performances in recent cinematic memory. Born in Mexico to Kenyan parents and raised in Kenya, she is one of cinema's most cosmopolitan and intellectually engaged performers. Her range — from the visceral horror of Us to the Afrofuturist grandeur of the Black Panther franchise — speaks to an actress of extraordinary versatility.",
-      "top_movies": ["12 Years a Slave", "Us", "Black Panther series", "Star Wars: The Force Awakens", "Non-Stop", "The Jungle Book (voice)", "Little Monsters", "Chiwetel Ejiofor's Endgame"],
-      "youtube_embed_id": "dqnz2qSfm3g",
-      "youtube_title": "Lupita Nyong'o Interview",
+      "top_movies": [
+        "12 Years a Slave",
+        "Us",
+        "Black Panther series",
+        "Star Wars: The Force Awakens",
+        "Non-Stop",
+        "The Jungle Book (voice)",
+        "Little Monsters",
+        "Chiwetel Ejiofor's Endgame"
+      ],
+      "youtube_embed_id": "ZxXu0yd3z44",
+      "youtube_title": "Oscar Winner Lupita Nyong'o Talks About Money, Saving Elephants, Climate Change and the Oscars",
       "wikipedia_slug": "Lupita_Nyong'o",
       "news_search_query": "Lupita Nyongo 2026 new film",
-      "tags": ["oscar winner", "kenyan", "drama", "marvel"]
+      "tags": [
+        "oscar winner",
+        "kenyan",
+        "drama",
+        "marvel"
+      ]
     },
-
     {
       "id": 70,
       "name": "Idris Elba",
@@ -1187,14 +2181,29 @@
       "born": "September 6, 1972",
       "birthplace": "Hackney, London, UK",
       "bio": "Idris Elba is one of Britain's most charismatic and versatile performers, celebrated for his commanding screen presence across television and film. His iconic portrayal of Detective Chief Inspector John Luther and his critically acclaimed role as Stringer Bell in The Wire established him as a dramatic powerhouse. In film, his work spans action blockbusters like Hobbs & Shaw to prestige dramas like Beasts of No Nation. He was long considered a frontrunner to become the next James Bond.",
-      "top_movies": ["Beasts of No Nation", "Molly's Game", "Zootopia (voice)", "Star Trek Beyond", "Luther: The Fallen Sun", "The Suicide Squad", "Prometheus", "Pacific Rim", "The Jungle Book (voice)", "Three Thousand Years of Longing"],
-      "youtube_embed_id": "q_-RMUv7JJk",
-      "youtube_title": "Idris Elba Interview",
+      "top_movies": [
+        "Beasts of No Nation",
+        "Molly's Game",
+        "Zootopia (voice)",
+        "Star Trek Beyond",
+        "Luther: The Fallen Sun",
+        "The Suicide Squad",
+        "Prometheus",
+        "Pacific Rim",
+        "The Jungle Book (voice)",
+        "Three Thousand Years of Longing"
+      ],
+      "youtube_embed_id": "HFBU8q1LcLg",
+      "youtube_title": "Idris Elba Walks Into An Abu Dhabi Hotel Room! - What Now? with Trevor Noah Podcast",
       "wikipedia_slug": "Idris_Elba",
       "news_search_query": "Idris Elba 2026 new film",
-      "tags": ["british", "action", "drama", "television"]
+      "tags": [
+        "british",
+        "action",
+        "drama",
+        "television"
+      ]
     },
-
     {
       "id": 71,
       "name": "Salma Hayek Pinault",
@@ -1204,14 +2213,29 @@
       "born": "September 2, 1966",
       "birthplace": "Coatzacoalcos, Veracruz, Mexico",
       "bio": "Salma Hayek Pinault is one of the most prominent Latin American actresses in Hollywood history, who fought against industry barriers to produce and star in Frida (2002) — a passion project that earned her an Academy Award nomination for Best Actress. As a producer, she has championed diverse stories and voices across film and television. Her comedic timing in films like Grown Ups and Magic Mike's Last Dance, combined with her dramatic range, has made her one of Hollywood's most enduring performers.",
-      "top_movies": ["Frida", "Desperado", "From Dusk Till Dawn", "Grown Ups", "Eternals", "The Hitman's Bodyguard", "House of Gucci", "Magic Mike's Last Dance", "Everly", "Puss in Boots: The Last Wish"],
-      "youtube_embed_id": "3c7VH7P1sRY",
-      "youtube_title": "Salma Hayek Interview",
+      "top_movies": [
+        "Frida",
+        "Desperado",
+        "From Dusk Till Dawn",
+        "Grown Ups",
+        "Eternals",
+        "The Hitman's Bodyguard",
+        "House of Gucci",
+        "Magic Mike's Last Dance",
+        "Everly",
+        "Puss in Boots: The Last Wish"
+      ],
+      "youtube_embed_id": "-uDVY522ilc",
+      "youtube_title": "Salma Hayek Can't Believe The Weird Tattoo Danny Trejo Has - The Graham Norton Show",
       "wikipedia_slug": "Salma_Hayek",
       "news_search_query": "Salma Hayek 2026 film",
-      "tags": ["mexican", "drama", "producer", "marvel"]
+      "tags": [
+        "mexican",
+        "drama",
+        "producer",
+        "marvel"
+      ]
     },
-
     {
       "id": 72,
       "name": "Eva Green",
@@ -1221,14 +2245,29 @@
       "born": "July 6, 1980",
       "birthplace": "Paris, France",
       "bio": "Eva Green is one of European cinema's most mesmerizing and otherworldly presences, a performer whose striking features and intense, often transgressive roles have made her one of cinema's most distinctive talents. Her debut in Bertolucci's The Dreamers announced a fearless sensuality, while her Bond girl role in Casino Royale introduced her to global audiences. She has since carved out a niche as cinema's queen of the gothic and the uncanny in films like Dark Shadows, Penny Dreadful, and Proxima.",
-      "top_movies": ["Casino Royale", "The Dreamers", "Kingdom of Heaven", "Dark Shadows", "Sin City: A Dame to Kill For", "300: Rise of an Empire", "Miss Peregrine's Home for Peculiar Children", "Wrath of the Gods", "Dumbo", "Proxima"],
-      "youtube_embed_id": "c8g4dOJ8Rnc",
-      "youtube_title": "Eva Green Interview",
+      "top_movies": [
+        "Casino Royale",
+        "The Dreamers",
+        "Kingdom of Heaven",
+        "Dark Shadows",
+        "Sin City: A Dame to Kill For",
+        "300: Rise of an Empire",
+        "Miss Peregrine's Home for Peculiar Children",
+        "Wrath of the Gods",
+        "Dumbo",
+        "Proxima"
+      ],
+      "youtube_embed_id": "ivVHmLq2TnA",
+      "youtube_title": "Eva Green Talks Nudity, Her Twin Sister, and Her Crush on Jack Nicholson | W Magazine",
       "wikipedia_slug": "Eva_Green",
       "news_search_query": "Eva Green 2026 new film",
-      "tags": ["french", "gothic", "drama", "bond girl"]
+      "tags": [
+        "french",
+        "gothic",
+        "drama",
+        "bond girl"
+      ]
     },
-
     {
       "id": 73,
       "name": "Dev Patel",
@@ -1238,14 +2277,27 @@
       "born": "April 23, 1990",
       "birthplace": "Harrow, London, UK",
       "bio": "Dev Patel announced himself to the world as the teenage lead of Slumdog Millionaire (2008), before building a career of remarkable artistic ambition. His Academy Award nomination for Lion (2016) recognized a deeply felt performance of identity and belonging. His bold directorial debut Monkey Man (2024) — in which he also starred — was a kinetically charged action film rooted in Indian mythology and social justice. Patel represents a new generation of British-Asian talent reshaping global cinema.",
-      "top_movies": ["Slumdog Millionaire", "Lion", "Hotel Mumbai", "The Green Knight", "Monkey Man", "The Best Exotic Marigold Hotel", "Chappie", "The Personal History of David Copperfield"],
-      "youtube_embed_id": "Hq1KPB0s1l4",
-      "youtube_title": "Dev Patel Interview",
+      "top_movies": [
+        "Slumdog Millionaire",
+        "Lion",
+        "Hotel Mumbai",
+        "The Green Knight",
+        "Monkey Man",
+        "The Best Exotic Marigold Hotel",
+        "Chappie",
+        "The Personal History of David Copperfield"
+      ],
+      "youtube_embed_id": "edjigfe2vyU",
+      "youtube_title": "Dev Patel Broke His Hand While Filming the First Action Scene of Monkey Man (Extended)",
       "wikipedia_slug": "Dev_Patel",
       "news_search_query": "Dev Patel 2026 new film",
-      "tags": ["british", "drama", "director-actor", "slumdog"]
+      "tags": [
+        "british",
+        "drama",
+        "director-actor",
+        "slumdog"
+      ]
     },
-
     {
       "id": 74,
       "name": "Léa Seydoux",
@@ -1255,14 +2307,28 @@
       "born": "July 1, 1985",
       "birthplace": "Paris, France",
       "bio": "Léa Seydoux is one of the leading figures of contemporary French cinema and a major international star. Her Palme d'Or-winning performance in Blue Is the Warmest Colour (2013) — alongside Adèle Exarchopoulos — was a revelatory, physically demanding portrayal of passionate first love. She has since appeared in major Hollywood franchises — including two Bond films and the Mission: Impossible series — while remaining committed to artistic French cinema with filmmakers like Bruno Dumont and Wes Anderson.",
-      "top_movies": ["Blue Is the Warmest Colour", "Spectre", "No Time to Die", "The French Dispatch", "Crimes of the Future", "It's Only the End of the World", "Belle de Jour (2020)", "Grand Central", "Robin Hood"],
-      "youtube_embed_id": "PuaC3cS5j8c",
-      "youtube_title": "Léa Seydoux Interview",
+      "top_movies": [
+        "Blue Is the Warmest Colour",
+        "Spectre",
+        "No Time to Die",
+        "The French Dispatch",
+        "Crimes of the Future",
+        "It's Only the End of the World",
+        "Belle de Jour (2020)",
+        "Grand Central",
+        "Robin Hood"
+      ],
+      "youtube_embed_id": "FO0OP09BJvA",
+      "youtube_title": "Lea Seydoux on Self-Confidence, Low-Key Style and the Recipe for Success | Bazaar UK",
       "wikipedia_slug": "Léa_Seydoux",
       "news_search_query": "Lea Seydoux 2026 new film",
-      "tags": ["french", "drama", "cannes", "bond girl"]
+      "tags": [
+        "french",
+        "drama",
+        "cannes",
+        "bond girl"
+      ]
     },
-
     {
       "id": 75,
       "name": "Cillian Murphy",
@@ -1272,14 +2338,29 @@
       "born": "May 25, 1976",
       "birthplace": "Douglas, Cork, Ireland",
       "bio": "Cillian Murphy is one of the most quietly compelling actors of his generation, whose glacial blue eyes and chameleon-like intensity have made him one of cinema's most watchable presences. His Academy Award for Best Actor for Oppenheimer (2023) — after more than two decades of acclaimed work — was one of the most celebrated wins in recent memory. As Tommy Shelby in Peaky Blinders, Murphy created one of television's most iconic characters. He is one of the defining Irish cultural exports of his era.",
-      "top_movies": ["Oppenheimer", "28 Days Later", "Batman Begins", "Inception", "Dunkirk", "A Quiet Place Part II", "Peaky Blinders", "The Wind That Shakes the Barley", "Red Eye", "Girl with a Pearl Earring"],
-      "youtube_embed_id": "JHpRkFM01r8",
-      "youtube_title": "Cillian Murphy Interview",
+      "top_movies": [
+        "Oppenheimer",
+        "28 Days Later",
+        "Batman Begins",
+        "Inception",
+        "Dunkirk",
+        "A Quiet Place Part II",
+        "Peaky Blinders",
+        "The Wind That Shakes the Barley",
+        "Red Eye",
+        "Girl with a Pearl Earring"
+      ],
+      "youtube_embed_id": "hj1__4kMEFg",
+      "youtube_title": "Cillian Murphy Answers Questions About Oppenheimer | GQ",
       "wikipedia_slug": "Cillian_Murphy",
       "news_search_query": "Cillian Murphy 2026 new film",
-      "tags": ["oscar winner", "irish", "drama", "television"]
+      "tags": [
+        "oscar winner",
+        "irish",
+        "drama",
+        "television"
+      ]
     },
-
     {
       "id": 76,
       "name": "Tony Leung",
@@ -1289,14 +2370,28 @@
       "born": "June 27, 1962",
       "birthplace": "Kowloon, Hong Kong",
       "bio": "Tony Leung Chiu-wai is widely considered Asia's greatest film actor — a performer of extraordinary inner life and emotional subtlety who has created some of world cinema's most indelible characters. His long collaboration with Hong Kong auteur Wong Kar-wai — In the Mood for Love, Chungking Express, Happy Together — produced some of the most achingly beautiful films ever made. His Cannes Best Actor for In the Mood for Love is one of the festival's most revered wins. His MCU debut as Xu Wenwu in Shang-Chi introduced him to global Marvel audiences.",
-      "top_movies": ["In the Mood for Love", "Chungking Express", "Happy Together", "2046", "Lust, Caution", "Infernal Affairs", "Shang-Chi and the Legend of the Ten Rings", "Hero", "Cyclo"],
-      "youtube_embed_id": "fmNy_sR2E0s",
-      "youtube_title": "Tony Leung Interview",
+      "top_movies": [
+        "In the Mood for Love",
+        "Chungking Express",
+        "Happy Together",
+        "2046",
+        "Lust, Caution",
+        "Infernal Affairs",
+        "Shang-Chi and the Legend of the Ten Rings",
+        "Hero",
+        "Cyclo"
+      ],
+      "youtube_embed_id": "KkNBh24cLvo",
+      "youtube_title": "Tony Leung Breaks Down His Most Iconic Characters | GQ",
       "wikipedia_slug": "Tony_Leung_Chiu-wai",
       "news_search_query": "Tony Leung 2026 new film",
-      "tags": ["hong kong", "wong kar-wai", "drama", "marvel"]
+      "tags": [
+        "hong kong",
+        "wong kar-wai",
+        "drama",
+        "marvel"
+      ]
     },
-
     {
       "id": 77,
       "name": "Isabelle Huppert",
@@ -1306,14 +2401,29 @@
       "born": "March 16, 1953",
       "birthplace": "Paris, France",
       "bio": "Isabelle Huppert is arguably the greatest living European actress, a performer of iron discipline, fearless intelligence, and radical emotional courage whose career of over 50 years has produced one of cinema's most extraordinary bodies of work. Her Golden Globe and César Award-winning performance in Elle (2016) — portraying a rape victim who refuses victimhood — is one of the most bracingly complex performances in cinema history. With over 100 film credits, she works with the world's greatest directors including Michael Haneke, Claude Chabrol, and Paul Verhoeven.",
-      "top_movies": ["Elle", "The Piano Teacher", "8 Women", "White Material", "I Heart Huckabees", "Amour", "La Pianiste", "Violette", "Home", "Mrs. Harris Goes to Paris"],
-      "youtube_embed_id": "eDTtIPNIRHg",
-      "youtube_title": "Isabelle Huppert Interview",
+      "top_movies": [
+        "Elle",
+        "The Piano Teacher",
+        "8 Women",
+        "White Material",
+        "I Heart Huckabees",
+        "Amour",
+        "La Pianiste",
+        "Violette",
+        "Home",
+        "Mrs. Harris Goes to Paris"
+      ],
+      "youtube_embed_id": "3zDkTX3t2yI",
+      "youtube_title": "Isabelle Huppert Is The French Meryl Streep",
       "wikipedia_slug": "Isabelle_Huppert",
       "news_search_query": "Isabelle Huppert 2026 film",
-      "tags": ["french", "drama", "european cinema", "legend"]
+      "tags": [
+        "french",
+        "drama",
+        "european cinema",
+        "legend"
+      ]
     },
-
     {
       "id": 78,
       "name": "Amitabh Bachchan",
@@ -1323,14 +2433,29 @@
       "born": "October 11, 1942",
       "birthplace": "Allahabad, Uttar Pradesh, India",
       "bio": "Amitabh Bachchan is the most iconic figure in the history of Indian cinema — the 'Big B' whose angry young man persona in the 1970s and 80s defined an era of Hindi filmmaking and made him a demigod of popular culture. Having survived near-fatal injury, professional setbacks, and personal crises, his comeback with Mohabbatein and Kaun Banega Crorepati in 2000 was one of entertainment's greatest resurrections. He continues to deliver masterful performances in his 80s.",
-      "top_movies": ["Sholay", "Deewar", "Zanjeer", "Piku", "Black", "Pink", "Paa", "Sarkar", "Mohabbatein", "The Great Gatsby"],
-      "youtube_embed_id": "YqBLJFBSNh8",
-      "youtube_title": "Amitabh Bachchan Interview",
+      "top_movies": [
+        "Sholay",
+        "Deewar",
+        "Zanjeer",
+        "Piku",
+        "Black",
+        "Pink",
+        "Paa",
+        "Sarkar",
+        "Mohabbatein",
+        "The Great Gatsby"
+      ],
+      "youtube_embed_id": "To_sryjeq-4",
+      "youtube_title": "Very Inspirational Interview with Amitabh Bachchan by Vir Sanghvi",
       "wikipedia_slug": "Amitabh_Bachchan",
       "news_search_query": "Amitabh Bachchan 2026 new film",
-      "tags": ["indian", "bollywood", "legend", "icon"]
+      "tags": [
+        "indian",
+        "bollywood",
+        "legend",
+        "icon"
+      ]
     },
-
     {
       "id": 79,
       "name": "Adèle Exarchopoulos",
@@ -1340,14 +2465,26 @@
       "born": "November 22, 1993",
       "birthplace": "Paris, France",
       "bio": "Adèle Exarchopoulos became one of world cinema's most celebrated actresses at just 19 with her devastating, unguarded performance in Abdellatif Kechiche's Blue Is the Warmest Colour — sharing the historic Palme d'Or with co-star Léa Seydoux. Her ability to convey overwhelming emotion with raw, unselfconscious naturalism is extraordinary. She has since built an impressive filmography including Adieu les cons, The Riot Club, and Zero Fucks Given.",
-      "top_movies": ["Blue Is the Warmest Colour", "Adieu les cons", "The Riot Club", "Zero Fucks Given", "Passage to Morrow", "Revenir", "Je suis à toi"],
-      "youtube_embed_id": "PuaC3cS5j8c",
-      "youtube_title": "Adèle Exarchopoulos Interview",
+      "top_movies": [
+        "Blue Is the Warmest Colour",
+        "Adieu les cons",
+        "The Riot Club",
+        "Zero Fucks Given",
+        "Passage to Morrow",
+        "Revenir",
+        "Je suis à toi"
+      ],
+      "youtube_embed_id": "9IRoquznErs",
+      "youtube_title": "Interview with Adele Exarchopoulos of Blue is the Warmest Colour",
       "wikipedia_slug": "Adèle_Exarchopoulos",
       "news_search_query": "Adele Exarchopoulos 2026 new film",
-      "tags": ["french", "cannes", "drama", "young talent"]
+      "tags": [
+        "french",
+        "cannes",
+        "drama",
+        "young talent"
+      ]
     },
-
     {
       "id": 80,
       "name": "Gael García Bernal",
@@ -1357,14 +2494,28 @@
       "born": "November 30, 1978",
       "birthplace": "Guadalajara, Jalisco, Mexico",
       "bio": "Gael García Bernal is one of Latin America's most respected and internationally acclaimed film actors, whose career has bridged Mexican national cinema, art house filmmaking, and Hollywood with complete conviction. His collaborations with Alfonso Cuarón (Y Tu Mamá También) and Alejandro González Iñárritu (Amores Perros, Babel) defined a golden era of Mexican cinema. His award-winning television work in Mozart in the Jungle has brought him new global audiences.",
-      "top_movies": ["Y Tu Mamá También", "Amores Perros", "The Motorcycle Diaries", "Babel", "No", "Blindness", "Coco (voice)", "The Limits of Control", "Cassandra's Dream"],
-      "youtube_embed_id": "PnPFaFFE5Ko",
-      "youtube_title": "Gael García Bernal Interview",
+      "top_movies": [
+        "Y Tu Mamá También",
+        "Amores Perros",
+        "The Motorcycle Diaries",
+        "Babel",
+        "No",
+        "Blindness",
+        "Coco (voice)",
+        "The Limits of Control",
+        "Cassandra's Dream"
+      ],
+      "youtube_embed_id": "o77dZ7ZBU00",
+      "youtube_title": "Gael Garcia Bernal & Diego Luna on Lifelong Friendship, Being Competitive & New Series La Maquina",
       "wikipedia_slug": "Gael_García_Bernal",
       "news_search_query": "Gael Garcia Bernal 2026 film",
-      "tags": ["mexican", "drama", "latin cinema", "international"]
+      "tags": [
+        "mexican",
+        "drama",
+        "latin cinema",
+        "international"
+      ]
     },
-
     {
       "id": 81,
       "name": "Park Chan-wook",
@@ -1374,14 +2525,28 @@
       "born": "August 23, 1963",
       "birthplace": "Seoul, South Korea",
       "bio": "Park Chan-wook is one of world cinema's supreme stylists — a Korean director whose Vengeance Trilogy (Sympathy for Mr. Vengeance, Oldboy, Lady Vengeance) redefined global cinema's relationship with violence, aesthetics, and moral complexity. Oldboy's Cannes Grand Prix win brought Korean cinema to world attention years before Parasite. His later films — Stoker, The Handmaiden, Decision to Leave — demonstrate a filmmaker who continually evolves while maintaining a singular, ravishing visual language.",
-      "top_movies": ["Oldboy", "The Handmaiden", "Decision to Leave", "Sympathy for Mr. Vengeance", "Lady Vengeance", "Stoker", "Thirst", "Joint Security Area", "I'm a Cyborg, But That's OK"],
-      "youtube_embed_id": "5FKxiHatv78",
-      "youtube_title": "Park Chan-wook Interview",
+      "top_movies": [
+        "Oldboy",
+        "The Handmaiden",
+        "Decision to Leave",
+        "Sympathy for Mr. Vengeance",
+        "Lady Vengeance",
+        "Stoker",
+        "Thirst",
+        "Joint Security Area",
+        "I'm a Cyborg, But That's OK"
+      ],
+      "youtube_embed_id": "Jj0N63qglbI",
+      "youtube_title": "Director Park Chan-wook - Satirizing Capitalism in No Other Choice | The Daily Show",
       "wikipedia_slug": "Park_Chan-wook",
       "news_search_query": "Park Chan-wook 2026 new film",
-      "tags": ["director", "korean", "thriller", "cannes"]
+      "tags": [
+        "director",
+        "korean",
+        "thriller",
+        "cannes"
+      ]
     },
-
     {
       "id": 82,
       "name": "Beyoncé",
@@ -1391,14 +2556,27 @@
       "born": "September 4, 1981",
       "birthplace": "Houston, Texas, USA",
       "bio": "Beyoncé is the most decorated recording artist in Grammy history and a global entertainment icon whose forays into film have been consistently ambitious and culturally significant. Her voice work in Disney's The Lion King remake and her concert film Renaissance: A Film by Beyoncé demonstrate her power to command the cinema space. As a producer and creative visionary, her visual albums Lemonade and Black Is King blurred the lines between music video, film, and art installation, winning multiple Emmys and Grammy Awards.",
-      "top_movies": ["Renaissance: A Film by Beyoncé", "The Lion King (voice)", "Dreamgirls", "Homecoming: A Film by Beyoncé", "Black Is King", "Lemonade", "Carmen: A Hip Hopera", "Austin Powers: Goldmember"],
-      "youtube_embed_id": "PeonBmeFR8o",
-      "youtube_title": "Beyoncé Film Career",
+      "top_movies": [
+        "Renaissance: A Film by Beyoncé",
+        "The Lion King (voice)",
+        "Dreamgirls",
+        "Homecoming: A Film by Beyoncé",
+        "Black Is King",
+        "Lemonade",
+        "Carmen: A Hip Hopera",
+        "Austin Powers: Goldmember"
+      ],
+      "youtube_embed_id": "laCpg2ULs00",
+      "youtube_title": "Exclusive: Beyonce and Blue Ivy Behind the Scenes of Disney's Mufasa: The Lion King",
       "wikipedia_slug": "Beyoncé",
       "news_search_query": "Beyonce film 2026",
-      "tags": ["music", "concert film", "pop icon", "actress"]
+      "tags": [
+        "music",
+        "concert film",
+        "pop icon",
+        "actress"
+      ]
     },
-
     {
       "id": 83,
       "name": "Lady Gaga",
@@ -1408,14 +2586,25 @@
       "born": "March 28, 1986",
       "birthplace": "New York City, USA",
       "bio": "Lady Gaga delivered one of the most acclaimed acting debuts in recent Hollywood history with A Star Is Born (2018), earning an Academy Award nomination for Best Actress and winning the Oscar for Best Original Song with 'Shallow'. Her fearless, emotionally raw performance transformed perceptions of her as a performer. She continued to demonstrate dramatic range in House of Gucci and Joker: Folie à Deux, cementing her status as a genuine dual-threat talent in music and film.",
-      "top_movies": ["A Star Is Born", "House of Gucci", "Joker: Folie à Deux", "Machete Kills", "Sin City: A Dame to Kill For", "Chromatica Ball"],
-      "youtube_embed_id": "qNniSp5FLZM",
-      "youtube_title": "Lady Gaga Film Interview",
+      "top_movies": [
+        "A Star Is Born",
+        "House of Gucci",
+        "Joker: Folie à Deux",
+        "Machete Kills",
+        "Sin City: A Dame to Kill For",
+        "Chromatica Ball"
+      ],
+      "youtube_embed_id": "ts-r3J0uqdk",
+      "youtube_title": "Lady Gaga Takes a Lie Detector Test | Vanity Fair",
       "wikipedia_slug": "Lady_Gaga",
       "news_search_query": "Lady Gaga 2026 new film",
-      "tags": ["music", "oscar winner", "drama", "pop icon"]
+      "tags": [
+        "music",
+        "oscar winner",
+        "drama",
+        "pop icon"
+      ]
     },
-
     {
       "id": 84,
       "name": "Eminem",
@@ -1425,14 +2614,22 @@
       "born": "October 17, 1972",
       "birthplace": "St. Joseph, Missouri, USA",
       "bio": "Eminem's only major film role in 8 Mile (2002) is considered one of the greatest music-artist-turned-actor performances in cinema history. The semi-autobiographical film about a struggling rapper in Detroit earned him the Academy Award for Best Original Song for 'Lose Yourself' — making him the first rap artist to win the award. Eminem's raw, visceral performance conveyed the desperate hunger of his early life with a naturalism that surprised critics who anticipated a vanity project.",
-      "top_movies": ["8 Mile", "The Wash", "Funny People (cameo)"],
-      "youtube_embed_id": "9XbAjDdwBXI",
-      "youtube_title": "8 Mile Behind the Scenes",
+      "top_movies": [
+        "8 Mile",
+        "The Wash",
+        "Funny People (cameo)"
+      ],
+      "youtube_embed_id": "4YDr2WPwO60",
+      "youtube_title": "Eminem - 8 Mile (Interview)",
       "wikipedia_slug": "Eminem",
       "news_search_query": "Eminem 2026 film acting",
-      "tags": ["music", "oscar winner", "rap", "biographical"]
+      "tags": [
+        "music",
+        "oscar winner",
+        "rap",
+        "biographical"
+      ]
     },
-
     {
       "id": 85,
       "name": "Rihanna",
@@ -1442,14 +2639,25 @@
       "born": "February 20, 1988",
       "birthplace": "Saint Michael, Barbados",
       "bio": "Rihanna has demonstrated considerable screen presence in a growing list of film appearances, most notably in Ocean's 8 and in her voice role in Home. Her halftime performance at Super Bowl LVII was watched by over 100 million people, and her documentary Rihanna's Super Bowl Halftime Show Pregame documented her return to the spotlight. As the founder of Fenty Beauty and Savage X Fenty, she is also one of the world's most successful fashion entrepreneurs.",
-      "top_movies": ["Ocean's 8", "Home (voice)", "Battleship", "This Is the End", "Valerian and the City of a Thousand Planets", "Stay (music film)"],
-      "youtube_embed_id": "py3tKGHCNGQ",
-      "youtube_title": "Rihanna Film Highlights",
+      "top_movies": [
+        "Ocean's 8",
+        "Home (voice)",
+        "Battleship",
+        "This Is the End",
+        "Valerian and the City of a Thousand Planets",
+        "Stay (music film)"
+      ],
+      "youtube_embed_id": "X3n5Pk8fkLg",
+      "youtube_title": "ROBYN | Rihanna Documentary",
       "wikipedia_slug": "Rihanna",
       "news_search_query": "Rihanna 2026 new film",
-      "tags": ["music", "pop icon", "barbadian", "actress"]
+      "tags": [
+        "music",
+        "pop icon",
+        "barbadian",
+        "actress"
+      ]
     },
-
     {
       "id": 86,
       "name": "Jennifer Lopez",
@@ -1459,14 +2667,29 @@
       "born": "July 24, 1969",
       "birthplace": "The Bronx, New York City, USA",
       "bio": "Jennifer Lopez is one of the most successful and multi-hyphenate entertainers in the world, having built parallel careers as a film star and music icon simultaneously. Her breakout role in Selena (1997) established her as the first Latina actress to earn $1 million for a film, and roles in Out of Sight and Hustlers demonstrated her range as a dramatic actress. Her Golden Globe nomination for Hustlers — in which she played a stripper who scams Wall Street clients — was widely considered overdue recognition for her talent.",
-      "top_movies": ["Selena", "Out of Sight", "Hustlers", "Anaconda", "The Wedding Planner", "Maid in Manhattan", "Money Train", "Atlas", "The Mother", "Shotgun Wedding"],
-      "youtube_embed_id": "ZzLe2vGXC6U",
-      "youtube_title": "Jennifer Lopez Interview",
+      "top_movies": [
+        "Selena",
+        "Out of Sight",
+        "Hustlers",
+        "Anaconda",
+        "The Wedding Planner",
+        "Maid in Manhattan",
+        "Money Train",
+        "Atlas",
+        "The Mother",
+        "Shotgun Wedding"
+      ],
+      "youtube_embed_id": "k483keDRsys",
+      "youtube_title": "Why Jennifer Lopez Doesn't Think She's Ever Truly Been Loved",
       "wikipedia_slug": "Jennifer_Lopez",
       "news_search_query": "Jennifer Lopez 2026 new film",
-      "tags": ["music", "drama", "latina", "pop icon"]
+      "tags": [
+        "music",
+        "drama",
+        "latina",
+        "pop icon"
+      ]
     },
-
     {
       "id": 87,
       "name": "Donald Glover",
@@ -1476,14 +2699,26 @@
       "born": "September 25, 1983",
       "birthplace": "Edwards Air Force Base, California, USA",
       "bio": "Donald Glover is one of contemporary entertainment's most extraordinarily multi-talented figures — an Emmy-winning actor, creator, rapper (as Childish Gambino), and filmmaker whose creative output spans television, music, and cinema with equal ambition. His Emmy-winning series Atlanta is one of the decade's most critically celebrated television achievements. In film, his role as Lando Calrissian in Solo and his voice work in The Lion King demonstrated his ability to inhabit iconic pop culture characters with ease.",
-      "top_movies": ["Solo: A Star Wars Story", "The Martian", "The Lion King (voice)", "Spider-Man: Into the Spider-Verse (voice)", "Guava Island", "This Is America", "Atlanta"],
-      "youtube_embed_id": "VYOjWnS4cMY",
-      "youtube_title": "Donald Glover Interview",
+      "top_movies": [
+        "Solo: A Star Wars Story",
+        "The Martian",
+        "The Lion King (voice)",
+        "Spider-Man: Into the Spider-Verse (voice)",
+        "Guava Island",
+        "This Is America",
+        "Atlanta"
+      ],
+      "youtube_embed_id": "B5N0vYOTMM4",
+      "youtube_title": "Why Donald Glover Is Retiring Childish Gambino and More | The One",
       "wikipedia_slug": "Donald_Glover",
       "news_search_query": "Donald Glover 2026 new film",
-      "tags": ["music", "emmy winner", "comedy", "star wars"]
+      "tags": [
+        "music",
+        "emmy winner",
+        "comedy",
+        "star wars"
+      ]
     },
-
     {
       "id": 88,
       "name": "Janelle Monáe",
@@ -1493,14 +2728,25 @@
       "born": "December 1, 1985",
       "birthplace": "Kansas City, Kansas, USA",
       "bio": "Janelle Monáe has established herself as one of the most intellectually ambitious and visually distinctive artist-performers of her generation, across both music and film. Her film debut in Moonlight (2016) — the Academy Award Best Picture winner — and her role in Hidden Figures demonstrated immediate dramatic ability. Her performance in Glass Onion: A Knives Out Mystery was her most prominent and celebrated screen role yet, revealing a charismatic screen presence capable of carrying major films.",
-      "top_movies": ["Moonlight", "Hidden Figures", "Glass Onion: A Knives Out Mystery", "Harriet", "Antebellum", "The Electric Lady"],
-      "youtube_embed_id": "QpFHNsYOqgY",
-      "youtube_title": "Janelle Monáe Interview",
+      "top_movies": [
+        "Moonlight",
+        "Hidden Figures",
+        "Glass Onion: A Knives Out Mystery",
+        "Harriet",
+        "Antebellum",
+        "The Electric Lady"
+      ],
+      "youtube_embed_id": "kMY1ykh5PYs",
+      "youtube_title": "DP/30: Moonlight, Janelle Monae",
       "wikipedia_slug": "Janelle_Monáe",
       "news_search_query": "Janelle Monae 2026 new film",
-      "tags": ["music", "drama", "afrofuturism", "actress"]
+      "tags": [
+        "music",
+        "drama",
+        "afrofuturism",
+        "actress"
+      ]
     },
-
     {
       "id": 89,
       "name": "Harry Styles",
@@ -1510,14 +2756,22 @@
       "born": "February 1, 1994",
       "birthplace": "Redditch, Worcestershire, UK",
       "bio": "Harry Styles has made a remarkably confident transition from global pop superstar to film actor, earning praise for his performances in Dunkirk, Don't Worry Darling, and My Policeman. His role in Christopher Nolan's Dunkirk — cast entirely for his look rather than his fame — announced a genuine acting ambition. My Policeman, in which he plays a closeted gay man in 1950s England, demonstrated a sensitivity and willingness to inhabit emotionally complex territory.",
-      "top_movies": ["Dunkirk", "Don't Worry Darling", "My Policeman"],
-      "youtube_embed_id": "aN7WiVVMmxs",
-      "youtube_title": "Harry Styles Film Interview",
+      "top_movies": [
+        "Dunkirk",
+        "Don't Worry Darling",
+        "My Policeman"
+      ],
+      "youtube_embed_id": "oTA637pJ63Y",
+      "youtube_title": "Harry Styles: Acting In Dunkirk Was One Of The Best Experiences I've Ever Had | TODAY",
       "wikipedia_slug": "Harry_Styles",
       "news_search_query": "Harry Styles 2026 new film acting",
-      "tags": ["music", "british", "drama", "pop idol"]
+      "tags": [
+        "music",
+        "british",
+        "drama",
+        "pop idol"
+      ]
     },
-
     {
       "id": 90,
       "name": "Taylor Swift",
@@ -1527,14 +2781,24 @@
       "born": "December 13, 1989",
       "birthplace": "West Reading, Pennsylvania, USA",
       "bio": "Taylor Swift is the highest-earning musician in the world and a global cultural phenomenon whose Eras Tour concert film became the highest-grossing concert film in cinema history with over $250 million in box office. Her acting appearances — in Valentine's Day, Amsterdam, and cameos — show a natural screen charisma, while her directorial ambitions are evident in the cinematic quality of her music videos. Her influence on pop culture, fashion, and the entertainment industry is without precedent.",
-      "top_movies": ["Taylor Swift: The Eras Tour", "Amsterdam", "Valentine's Day", "The Giver", "Taylor Swift: Miss Americana"],
-      "youtube_embed_id": "H5v3kku4y6Q",
-      "youtube_title": "Taylor Swift Eras Tour Film",
+      "top_movies": [
+        "Taylor Swift: The Eras Tour",
+        "Amsterdam",
+        "Valentine's Day",
+        "The Giver",
+        "Taylor Swift: Miss Americana"
+      ],
+      "youtube_embed_id": "9qDW_ZKpvxI",
+      "youtube_title": "Taylor Swift On The Life Of A Showgirl, The Eras Tours & Her Engagement!",
       "wikipedia_slug": "Taylor_Swift",
       "news_search_query": "Taylor Swift 2026 film acting",
-      "tags": ["music", "concert film", "pop icon", "actress"]
+      "tags": [
+        "music",
+        "concert film",
+        "pop icon",
+        "actress"
+      ]
     },
-
     {
       "id": 91,
       "name": "Ice Cube",
@@ -1544,14 +2808,28 @@
       "born": "June 15, 1969",
       "birthplace": "Los Angeles, California, USA",
       "bio": "Ice Cube is one of the most successful music artists to build a durable parallel film career, moving from his incendiary work with N.W.A to a mainstream comedy stardom that few could have predicted. His powerful film debut in Boyz n the Hood (1991) established serious dramatic credentials, while his comedic work in Friday — which he wrote — and the Barbershop series demonstrated a gift for crowd-pleasing entertainment that has made him one of Hollywood's most reliably bankable stars.",
-      "top_movies": ["Boyz n the Hood", "Friday", "Barbershop", "22 Jump Street", "Straight Outta Compton (subject)", "Three Kings", "Ride Along", "XXX: State of the Union", "Are We There Yet?"],
-      "youtube_embed_id": "muApHmkNZO8",
-      "youtube_title": "Ice Cube Interview",
+      "top_movies": [
+        "Boyz n the Hood",
+        "Friday",
+        "Barbershop",
+        "22 Jump Street",
+        "Straight Outta Compton (subject)",
+        "Three Kings",
+        "Ride Along",
+        "XXX: State of the Union",
+        "Are We There Yet?"
+      ],
+      "youtube_embed_id": "-Xpp1A1KJyU",
+      "youtube_title": "Hart to Heart | How Ice Cube Prepared His Son O'Shea for Straight Outta Compton Role",
       "wikipedia_slug": "Ice_Cube",
       "news_search_query": "Ice Cube 2026 new film",
-      "tags": ["music", "comedy", "drama", "rapper"]
+      "tags": [
+        "music",
+        "comedy",
+        "drama",
+        "rapper"
+      ]
     },
-
     {
       "id": 92,
       "name": "Mos Def",
@@ -1561,14 +2839,27 @@
       "born": "December 11, 1973",
       "birthplace": "Brooklyn, New York, USA",
       "bio": "Yasiin Bey — better known as Mos Def — is widely regarded as one of the greatest rappers of his generation and a genuinely compelling film actor whose performances have earned critical respect across a diverse range of genres. His work in Monster's Ball, The Italian Job, The Hitchhiker's Guide to the Galaxy, and 16 Blocks demonstrates a natural screen presence and emotional authenticity. He has largely stepped back from the entertainment industry in recent years, deepening his mystique.",
-      "top_movies": ["Monster's Ball", "16 Blocks", "The Italian Job", "The Hitchhiker's Guide to the Galaxy", "Cadillac Records", "Bamboozled", "Be Kind Rewind", "Brown Sugar"],
-      "youtube_embed_id": "AaFTXaQ7x48",
-      "youtube_title": "Mos Def Interview",
+      "top_movies": [
+        "Monster's Ball",
+        "16 Blocks",
+        "The Italian Job",
+        "The Hitchhiker's Guide to the Galaxy",
+        "Cadillac Records",
+        "Bamboozled",
+        "Be Kind Rewind",
+        "Brown Sugar"
+      ],
+      "youtube_embed_id": "Zweuggu9IUQ",
+      "youtube_title": "Yasiin Bey (Mos Def) on Lyrics, Art Exhibit & Fave New Artists: Ari Melber Full 15 Min Interview",
       "wikipedia_slug": "Yasiin_Bey",
       "news_search_query": "Mos Def Yasiin Bey 2026 film",
-      "tags": ["music", "drama", "rapper", "actor"]
+      "tags": [
+        "music",
+        "drama",
+        "rapper",
+        "actor"
+      ]
     },
-
     {
       "id": 93,
       "name": "Lauryn Hill",
@@ -1578,14 +2869,23 @@
       "born": "May 26, 1975",
       "birthplace": "East Orange, New Jersey, USA",
       "bio": "Lauryn Hill is one of music's most singular and influential talents, whose debut solo album The Miseducation of Lauryn Hill remains one of the most celebrated albums in history. Before her music career exploded, Hill showed considerable promise as an actress — most notably in Sister Act 2: Back in the Habit alongside Whoopi Goldberg, and as a teenager in the critically lauded King of the Hill. Her rare combination of vocal brilliance and raw screen charisma has long made film roles feel inevitable.",
-      "top_movies": ["Sister Act 2: Back in the Habit", "King of the Hill", "Restaurant", "Hav Plenty"],
-      "youtube_embed_id": "dI_yqHkb7EA",
-      "youtube_title": "Lauryn Hill Film Appearances",
+      "top_movies": [
+        "Sister Act 2: Back in the Habit",
+        "King of the Hill",
+        "Restaurant",
+        "Hav Plenty"
+      ],
+      "youtube_embed_id": "PQD0kswIWkc",
+      "youtube_title": "Lauryn Hill, Academy Class of 2000, Full Interview",
       "wikipedia_slug": "Lauryn_Hill",
       "news_search_query": "Lauryn Hill film acting 2026",
-      "tags": ["music", "r&b", "actress", "legend"]
+      "tags": [
+        "music",
+        "r&b",
+        "actress",
+        "legend"
+      ]
     },
-
     {
       "id": 94,
       "name": "Common",
@@ -1595,14 +2895,27 @@
       "born": "March 13, 1972",
       "birthplace": "Chicago, Illinois, USA",
       "bio": "Common — born Lonnie Corant Jaxon Rashid Lynn Jr. — is an EGOT-achieving artist: one of the few entertainers to hold an Emmy, Grammy, Oscar, and Tony. His Academy Award for Best Original Song for 'Glory' from Selma — shared with John Legend — recognized a song of stunning emotional power. In film, his performances in Selma, John Wick: Chapter 2, and Hell on Wheels have demonstrated a natural authority and physicality that translates powerfully to the screen.",
-      "top_movies": ["Selma", "John Wick: Chapter 2", "Run All Night", "Now You See Me 2", "Terminator: Salvation", "American Gangster", "Hell on Wheels", "The Chi"],
-      "youtube_embed_id": "ND40f5IXSAM",
-      "youtube_title": "Common Interview",
+      "top_movies": [
+        "Selma",
+        "John Wick: Chapter 2",
+        "Run All Night",
+        "Now You See Me 2",
+        "Terminator: Salvation",
+        "American Gangster",
+        "Hell on Wheels",
+        "The Chi"
+      ],
+      "youtube_embed_id": "fr-mwiyhZAo",
+      "youtube_title": "Common Exclusive: I Was a Broken Kid, But This Mindset Shift Got Me Grammys!",
       "wikipedia_slug": "Common_(rapper)",
       "news_search_query": "Common rapper actor 2026 film",
-      "tags": ["music", "oscar winner", "egot", "rapper"]
+      "tags": [
+        "music",
+        "oscar winner",
+        "egot",
+        "rapper"
+      ]
     },
-
     {
       "id": 95,
       "name": "Will.i.am",
@@ -1612,14 +2925,23 @@
       "born": "March 15, 1975",
       "birthplace": "Los Angeles, California, USA",
       "bio": "will.i.am is one of the most commercially successful musicians of the 21st century and a founding member of the Black Eyed Peas. His film appearances include a memorable role in the X-Men franchise as the teleporting mutant John Wraith. Known for his technological interests and entrepreneurial ventures, will.i.am brings an infectious energy and distinctive style to his acting work. His music production credits for film and television are as prolific as his recording career.",
-      "top_movies": ["X-Men Origins: Wolverine", "Rio 2 (voice)", "Madagascar: Escape 2 Africa (voice)", "Ninja Assassin"],
-      "youtube_embed_id": "xzTzBdXiExU",
-      "youtube_title": "will.i.am Film Interview",
+      "top_movies": [
+        "X-Men Origins: Wolverine",
+        "Rio 2 (voice)",
+        "Madagascar: Escape 2 Africa (voice)",
+        "Ninja Assassin"
+      ],
+      "youtube_embed_id": "1m-2QhqdlfI",
+      "youtube_title": "will.i.am Opens Up: Depression, Creativity & ADHD!",
       "wikipedia_slug": "Will.i.am",
       "news_search_query": "will.i.am film acting 2026",
-      "tags": ["music", "action", "rapper", "producer"]
+      "tags": [
+        "music",
+        "action",
+        "rapper",
+        "producer"
+      ]
     },
-
     {
       "id": 96,
       "name": "Aubrey Plaza",
@@ -1629,14 +2951,28 @@
       "born": "June 26, 1984",
       "birthplace": "Wilmington, Delaware, USA",
       "bio": "Aubrey Plaza has evolved from cult comedic figure — beloved for Parks and Recreation — to one of Hollywood's most intriguing and unpredictable dramatic performers. Her lead role in Emily the Criminal (2022) announced a new career chapter with a taut, morally ambiguous performance of genuine intensity. Her Emmy-nominated work in The White Lotus Season 2 confirmed that she can hold her own in prestige television alongside the finest actors of her generation. Plaza consistently defies categorization.",
-      "top_movies": ["Emily the Criminal", "Ingrid Goes West", "The White Lotus Season 2", "Black Bear", "Child's Play (2019)", "Safety Not Guaranteed", "Dirty Grandpa", "Happiest Season", "Plaza Suite"],
-      "youtube_embed_id": "3UiGKd9SipU",
-      "youtube_title": "Aubrey Plaza Interview",
+      "top_movies": [
+        "Emily the Criminal",
+        "Ingrid Goes West",
+        "The White Lotus Season 2",
+        "Black Bear",
+        "Child's Play (2019)",
+        "Safety Not Guaranteed",
+        "Dirty Grandpa",
+        "Happiest Season",
+        "Plaza Suite"
+      ],
+      "youtube_embed_id": "gLe9yRkrfCE",
+      "youtube_title": "Aubrey Plaza | Good Hang with Amy Poehler",
       "wikipedia_slug": "Aubrey_Plaza",
       "news_search_query": "Aubrey Plaza 2026 new film",
-      "tags": ["comedy", "drama", "television", "indie"]
+      "tags": [
+        "comedy",
+        "drama",
+        "television",
+        "indie"
+      ]
     },
-
     {
       "id": 97,
       "name": "Ana de Armas",
@@ -1646,14 +2982,29 @@
       "born": "April 30, 1988",
       "birthplace": "Santa Cruz del Norte, Havana, Cuba",
       "bio": "Ana de Armas has become one of Hollywood's most sought-after leading ladies, rising from Cuban telenovelas to international stardom with extraordinary speed. Her Academy Award-nominated portrayal of Marilyn Monroe in Blonde (2022) was a physically and emotionally exhausting performance that demonstrated her commitment and range. Her roles in Knives Out, No Time to Die, and John Wick: Chapter 4 have established her as a major action and dramatic star.",
-      "top_movies": ["Blonde", "Knives Out", "No Time to Die", "John Wick: Chapter 4", "Ballerina", "Deep Water", "Ghost in the Shell (2029)", "War Dogs", "Blade Runner 2049", "The Gray Man"],
-      "youtube_embed_id": "dFxFD_s6D7E",
-      "youtube_title": "Ana de Armas Interview",
+      "top_movies": [
+        "Blonde",
+        "Knives Out",
+        "No Time to Die",
+        "John Wick: Chapter 4",
+        "Ballerina",
+        "Deep Water",
+        "Ghost in the Shell (2029)",
+        "War Dogs",
+        "Blade Runner 2049",
+        "The Gray Man"
+      ],
+      "youtube_embed_id": "Ug1txX9lDus",
+      "youtube_title": "Ana de Armas Talks Training to Fight Keanu Reeves in From the World of John Wick: Ballerina",
       "wikipedia_slug": "Ana_de_Armas",
       "news_search_query": "Ana de Armas 2026 Ballerina film",
-      "tags": ["cuban", "action", "drama", "bond girl"]
+      "tags": [
+        "cuban",
+        "action",
+        "drama",
+        "bond girl"
+      ]
     },
-
     {
       "id": 98,
       "name": "Paul Mescal",
@@ -1663,14 +3014,26 @@
       "born": "February 2, 1996",
       "birthplace": "Maynooth, County Kildare, Ireland",
       "bio": "Paul Mescal is the most exciting young Irish talent in world cinema — an actor of devastating emotional intelligence and understated power whose work in Normal People, Aftersun, and All of Us Strangers has generated enormous critical enthusiasm. His Academy Award nomination for Best Actor for Aftersun (2022) was one of the most celebrated of its year. His role as Lucius in Gladiator II introduced him to blockbuster audiences without compromising his artistic credibility.",
-      "top_movies": ["Aftersun", "Gladiator II", "All of Us Strangers", "Normal People", "Strange Darling", "Carmen", "Foe"],
-      "youtube_embed_id": "8GfP6j0JDZE",
-      "youtube_title": "Paul Mescal Interview",
+      "top_movies": [
+        "Aftersun",
+        "Gladiator II",
+        "All of Us Strangers",
+        "Normal People",
+        "Strange Darling",
+        "Carmen",
+        "Foe"
+      ],
+      "youtube_embed_id": "JxTni8mXZIA",
+      "youtube_title": "21 Questions to Fall in Love with Paul Mescal",
       "wikipedia_slug": "Paul_Mescal",
       "news_search_query": "Paul Mescal 2026 new film",
-      "tags": ["irish", "drama", "young talent", "indie"]
+      "tags": [
+        "irish",
+        "drama",
+        "young talent",
+        "indie"
+      ]
     },
-
     {
       "id": 99,
       "name": "Chadwick Boseman",
@@ -1680,14 +3043,29 @@
       "born": "November 29, 1976",
       "birthplace": "Anderson, South Carolina, USA",
       "bio": "Chadwick Boseman is one of the most beloved and mourned figures in modern Hollywood — an actor of remarkable dignity, grace, and power whose portrayal of T'Challa / Black Panther became a global symbol of Black excellence and pride. His death from colon cancer in August 2020 — which he had kept private for four years while filming Black Panther, Avengers, and Ma Rainey's Black Bottom — shocked the world and deepened appreciation for the totality of his legacy. His Golden Globe-winning posthumous performance in Ma Rainey's Black Bottom is one of cinema's most extraordinary final acts.",
-      "top_movies": ["Black Panther", "Avengers: Infinity War", "Avengers: Endgame", "Ma Rainey's Black Bottom", "Da 5 Bloods", "21 Bridges", "Marshall", "Get on Up", "42", "Message from the King"],
-      "youtube_embed_id": "NJMIiPAb8mU",
-      "youtube_title": "Chadwick Boseman Tribute",
+      "top_movies": [
+        "Black Panther",
+        "Avengers: Infinity War",
+        "Avengers: Endgame",
+        "Ma Rainey's Black Bottom",
+        "Da 5 Bloods",
+        "21 Bridges",
+        "Marshall",
+        "Get on Up",
+        "42",
+        "Message from the King"
+      ],
+      "youtube_embed_id": "f6p9L_-Nfwg",
+      "youtube_title": "Chadwick Boseman Talks Black Panther, Turning Down Famous Biopics, Marvel Myths + More",
       "wikipedia_slug": "Chadwick_Boseman",
       "news_search_query": "Chadwick Boseman legacy tribute",
-      "tags": ["marvel", "legacy", "drama", "icon"]
+      "tags": [
+        "marvel",
+        "legacy",
+        "drama",
+        "icon"
+      ]
     },
-
     {
       "id": 100,
       "name": "Zoe Saldaña",
@@ -1697,13 +3075,28 @@
       "born": "June 19, 1978",
       "birthplace": "Passaic, New Jersey, USA",
       "bio": "Zoe Saldaña holds a unique record in film history — she is the lead actress in three of the four highest-grossing films of all time: Avatar, Avatar: The Way of Water, and Avengers: Endgame. Her portrayal of Gamora in the Guardians of the Galaxy series and Neytiri in the Avatar franchise has made her one of the most commercially significant actresses in cinema history. Her Academy Award nomination for Emilia Pérez (2024) — a Spanish-language film in which she gave her most complex and moving performance — finally earned her formal recognition for her extraordinary body of work.",
-      "top_movies": ["Avatar", "Avatar: The Way of Water", "Avengers: Endgame", "Guardians of the Galaxy series", "Emilia Pérez", "Colombiana", "Star Trek series", "Drumline", "Crossroads", "The Losers"],
-      "youtube_embed_id": "d9MyW72ELq0",
-      "youtube_title": "Zoe Saldaña Interview",
+      "top_movies": [
+        "Avatar",
+        "Avatar: The Way of Water",
+        "Avengers: Endgame",
+        "Guardians of the Galaxy series",
+        "Emilia Pérez",
+        "Colombiana",
+        "Star Trek series",
+        "Drumline",
+        "Crossroads",
+        "The Losers"
+      ],
+      "youtube_embed_id": "iVzcvq61lM0",
+      "youtube_title": "Zoe Saldana Reacts To Her Iconic Roles",
       "wikipedia_slug": "Zoe_Saldana",
       "news_search_query": "Zoe Saldana 2026 Avatar new film",
-      "tags": ["marvel", "avatar", "drama", "oscar nominated"]
+      "tags": [
+        "marvel",
+        "avatar",
+        "drama",
+        "oscar nominated"
+      ]
     }
-
   ]
 }
