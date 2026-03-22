@@ -69,70 +69,85 @@ function onConsentDenied() {
  */
 export default function CookieConsent() {
   useEffect(() => {
-    // 1. Listen for Google Funding Choices consent via googlefc callback
-    if (typeof window.googlefc !== 'undefined') {
-      window.googlefc.callbackQueue = window.googlefc.callbackQueue || [];
-      window.googlefc.callbackQueue.push({
-        CONSENT_API_READY: () => {
-          // Google CMP is ready — now listen via TCF API
-          listenTcf();
-        },
-      });
-    }
-
-    // 2. Also try TCF API directly (may already be available)
-    listenTcf();
-
-    // 3. For returning users who already consented, load AdSense immediately.
-    //    Also clear stale 'rejected' from non-EU users who were wrongly denied
-    //    by the old code (gdprApplies=false bug) — let TCF re-evaluate them.
+    // Fast path: returning user already consented in a previous session
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored === 'accepted') {
       grantConsent();
       loadAdSense();
-    } else if (stored === 'rejected') {
-      localStorage.removeItem(STORAGE_KEY);
-    }
-
-    // 4. Fallback: if consent not resolved after 800ms, grant by default.
-    //    Covers non-EU users where CMP loads __tcfapi but never fires
-    //    a recognized TCF event (gdprApplies=false, no dialog needed).
-    //    Google CMP typically loads in ~300ms, so 800ms is generous.
-    const fallbackTimer = setTimeout(() => {
-      if (!localStorage.getItem(STORAGE_KEY)) {
-        onConsentGranted();
-      }
-    }, 800);
-
-    return () => clearTimeout(fallbackTimer);
-  }, []);
-
-  return null;
-}
-
-function listenTcf() {
-  if (typeof window.__tcfapi !== 'function') return;
-
-  window.__tcfapi('addEventListener', 2, (tcData, success) => {
-    if (!success) return;
-
-    // Non-EU: GDPR doesn't apply — no consent needed, grant immediately
-    if (tcData.gdprApplies === false) {
-      onConsentGranted();
       return;
     }
 
-    if (
-      tcData.eventStatus === 'useractioncomplete' ||
-      tcData.eventStatus === 'tcloaded'
-    ) {
-      // Purpose 1 = Store and/or access information on a device
-      const purpose1 = tcData.purpose?.consents?.[1];
-      if (purpose1) {
-        onConsentGranted();
-      } else {
-        onConsentDenied();
-      }
+    // Clear stale rejections so the CMP can re-evaluate
+    if (stored === 'rejected') {
+      localStorage.removeItem(STORAGE_KEY);
     }
-  });
+
+    let resolved = false;
+
+    // Register TCF event listener once __tcfapi is available
+    function registerTcfListener() {
+      if (resolved) return;
+      if (typeof window.__tcfapi !== 'function') return;
+
+      window.__tcfapi('addEventListener', 2, (tcData, success) => {
+        if (!success || resolved) return;
+
+        // Non-EU: GDPR doesn't apply — grant immediately
+        if (tcData.gdprApplies === false) {
+          resolved = true;
+          onConsentGranted();
+          return;
+        }
+
+        if (
+          tcData.eventStatus === 'useractioncomplete' ||
+          tcData.eventStatus === 'tcloaded'
+        ) {
+          resolved = true;
+          // Purpose 1 = Store and/or access information on a device
+          const purpose1 = tcData.purpose?.consents?.[1];
+          if (purpose1) {
+            onConsentGranted();
+          } else {
+            onConsentDenied();
+          }
+        }
+      });
+    }
+
+    // Hook into Google Funding Choices callback queue
+    window.googlefc = window.googlefc || {};
+    window.googlefc.callbackQueue = window.googlefc.callbackQueue || [];
+    window.googlefc.callbackQueue.push({
+      CONSENT_API_READY: () => registerTcfListener(),
+    });
+
+    // Poll for __tcfapi in case CONSENT_API_READY already fired
+    const poll = setInterval(() => {
+      if (typeof window.__tcfapi === 'function') {
+        registerTcfListener();
+        clearInterval(poll);
+      }
+    }, 250);
+
+    // Final fallback after 5s — only if CMP completely failed to load
+    const fallback = setTimeout(() => {
+      clearInterval(poll);
+      if (resolved || localStorage.getItem(STORAGE_KEY)) return;
+
+      if (typeof window.__tcfapi !== 'function') {
+        // CMP never loaded (blocked / network error) — grant as fallback
+        onConsentGranted();
+      }
+      // If __tcfapi exists but not resolved, the CMP dialog is visible
+      // — do NOT force-grant; let the user interact with it
+    }, 5000);
+
+    return () => {
+      clearInterval(poll);
+      clearTimeout(fallback);
+    };
+  }, []);
+
+  return null;
 }
