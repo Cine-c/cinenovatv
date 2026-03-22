@@ -78,7 +78,21 @@ function NewsSection({ query }) {
   );
 }
 
-export default function CelebrityPage({ celebrity, wikiImage }) {
+function useWikiImage(slug) {
+  const [image, setImage] = useState(null);
+  useEffect(() => {
+    if (!slug) return;
+    fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(slug)}`)
+      .then((r) => r.json())
+      .then((d) => setImage(d.thumbnail?.source || d.originalimage?.source || null))
+      .catch(() => {});
+  }, [slug]);
+  return image;
+}
+
+export default function CelebrityPage({ celebrity }) {
+  const wikiImage = useWikiImage(celebrity?.wikipedia_slug);
+
   if (!celebrity) {
     return (
       <div className="celeb-page">
@@ -228,24 +242,8 @@ export async function getStaticProps({ params }) {
     return { notFound: true };
   }
 
-  // Fetch Wikipedia thumbnail
-  let wikiImage = null;
-  if (celebrity.wikipedia_slug) {
-    try {
-      const res = await fetch(
-        `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(celebrity.wikipedia_slug)}`
-      );
-      if (res.ok) {
-        const wiki = await res.json();
-        wikiImage = wiki.thumbnail?.source || wiki.originalimage?.source || null;
-      }
-    } catch {
-      // Wikipedia fetch failed, continue without image
-    }
-  }
-
   return {
-    props: { celebrity, wikiImage },
-    revalidate: 86400, // Re-fetch Wikipedia image daily
+    props: { celebrity },
+    revalidate: 86400,
   };
 }

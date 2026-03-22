@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import SEOHead from '../../components/seo/SEOHead';
 
 const CATEGORY_LABELS = {
@@ -10,7 +10,42 @@ const CATEGORY_LABELS = {
   music_artist_in_film: 'Music Artists',
 };
 
-export default function CelebritiesIndex({ celebrities, wikiImages }) {
+function CelebCard({ celebrity }) {
+  const [image, setImage] = useState(null);
+
+  useEffect(() => {
+    if (!celebrity.wikipedia_slug) return;
+    fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(celebrity.wikipedia_slug)}`)
+      .then((r) => r.json())
+      .then((d) => setImage(d.thumbnail?.source || null))
+      .catch(() => {});
+  }, [celebrity.wikipedia_slug]);
+
+  return (
+    <Link href={`/celebrity/${celebrity.slug}`} className="celeb-index-card">
+      <div className="celeb-index-card-img">
+        {image ? (
+          <img src={image} alt={celebrity.name} loading="lazy" />
+        ) : (
+          <div className="celeb-index-placeholder">
+            <svg viewBox="0 0 24 24" width="48" height="48" fill="currentColor" opacity="0.2">
+              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+            </svg>
+          </div>
+        )}
+      </div>
+      <div className="celeb-index-card-body">
+        <span className="celeb-index-category">
+          {CATEGORY_LABELS[celebrity.category] || celebrity.category}
+        </span>
+        <h2>{celebrity.name}</h2>
+        <span className="celeb-index-nationality">{celebrity.nationality}</span>
+      </div>
+    </Link>
+  );
+}
+
+export default function CelebritiesIndex({ celebrities }) {
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -64,32 +99,7 @@ export default function CelebritiesIndex({ celebrities, wikiImages }) {
 
         <section className="celeb-index-grid">
           {filtered.length > 0 ? (
-            filtered.map((c) => (
-              <Link key={c.slug} href={`/celebrity/${c.slug}`} className="celeb-index-card">
-                <div className="celeb-index-card-img">
-                  {wikiImages[c.slug] ? (
-                    <img
-                      src={wikiImages[c.slug]}
-                      alt={c.name}
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="celeb-index-placeholder">
-                      <svg viewBox="0 0 24 24" width="48" height="48" fill="currentColor" opacity="0.2">
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                      </svg>
-                    </div>
-                  )}
-                </div>
-                <div className="celeb-index-card-body">
-                  <span className="celeb-index-category">
-                    {CATEGORY_LABELS[c.category] || c.category}
-                  </span>
-                  <h2>{c.name}</h2>
-                  <span className="celeb-index-nationality">{c.nationality}</span>
-                </div>
-              </Link>
-            ))
+            filtered.map((c) => <CelebCard key={c.slug} celebrity={c} />)
           ) : (
             <div className="celeb-index-empty">
               <p>No celebrities found matching your criteria.</p>
@@ -103,37 +113,9 @@ export default function CelebritiesIndex({ celebrities, wikiImages }) {
 
 export async function getStaticProps() {
   const data = require('../../data/celebrities.json');
-  const celebrities = data.celebrities;
-
-  // Fetch Wikipedia thumbnails in parallel (batched)
-  const wikiImages = {};
-  const BATCH_SIZE = 10;
-
-  for (let i = 0; i < celebrities.length; i += BATCH_SIZE) {
-    const batch = celebrities.slice(i, i + BATCH_SIZE);
-    const results = await Promise.allSettled(
-      batch.map(async (c) => {
-        if (!c.wikipedia_slug) return { slug: c.slug, image: null };
-        const res = await fetch(
-          `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(c.wikipedia_slug)}`
-        );
-        if (!res.ok) return { slug: c.slug, image: null };
-        const wiki = await res.json();
-        return {
-          slug: c.slug,
-          image: wiki.thumbnail?.source || null,
-        };
-      })
-    );
-    for (const r of results) {
-      if (r.status === 'fulfilled' && r.value) {
-        wikiImages[r.value.slug] = r.value.image;
-      }
-    }
-  }
 
   return {
-    props: { celebrities, wikiImages },
+    props: { celebrities: data.celebrities },
     revalidate: 86400,
   };
 }
