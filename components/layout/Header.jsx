@@ -79,6 +79,9 @@ export default function Header() {
           <Link href="/scenes" onClick={() => setMenuOpen(false)}>
             Scenes
           </Link>
+          <Link href="/celebrity" onClick={() => setMenuOpen(false)}>
+            Celebrities
+          </Link>
           <Link href="/blog" onClick={() => setMenuOpen(false)}>
             Blog
           </Link>

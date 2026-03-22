@@ -40,6 +40,7 @@ export default function Footer() {
             <Link href="/scenes">Scenes</Link>
             <Link href="/discover">Discover</Link>
             <Link href="/blockbuster">Blockbuster</Link>
+            <Link href="/celebrity">Celebrities</Link>
           </nav>
         </div>
 
