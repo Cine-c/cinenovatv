@@ -93,68 +93,55 @@ export default function Home({ featuredMovie, nowPlaying, popular, genres, celeb
       />
       <WebSiteJsonLd />
 
-      {/* ── HERO SPLIT ── */}
-      <section className="hero-split" ref={heroRef}>
-        <div className="hero-bg" />
+      {/* ── HERO BACKDROP ── */}
+      <section className="hero-backdrop" ref={heroRef}>
+        {featuredMovie?.backdrop_path && (
+          <Image
+            className="hero-backdrop-image"
+            src={`https://image.tmdb.org/t/p/original${featuredMovie.backdrop_path}`}
+            alt={featuredMovie.title || ''}
+            fill
+            priority
+            sizes="100vw"
+            style={{ objectFit: 'cover' }}
+          />
+        )}
+        <div className="hero-backdrop-gradient" />
         <div className="spotlight" ref={spotlightRef} />
 
         <div className="hero-content">
-          <div className="hero-eyebrow">Now Streaming</div>
+          <div className="hero-eyebrow">Now Trending</div>
           <h1 className="hero-title">
-            Where Every<br />Film Finds
-            <em>Its Audience.</em>
+            <em>{featuredMovie?.title || 'Discover Cinema'}</em>
           </h1>
-          <p className="hero-sub">
-            Discover what&apos;s worth watching tonight — across every platform, every genre. Curated for people who take cinema seriously.
-          </p>
+          <div className="hero-meta">
+            {featuredMovie?.release_date && (
+              <span className="hero-meta-year">{featuredMovie.release_date.split('-')[0]}</span>
+            )}
+            {featuredMovie?.vote_average > 0 && (
+              <span className="hero-meta-rating">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--gold)" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                {featuredMovie.vote_average.toFixed(1)}
+              </span>
+            )}
+          </div>
+          {featuredMovie?.overview && (
+            <p className="hero-overview">{featuredMovie.overview}</p>
+          )}
           <div className="hero-actions">
-            <Link href="/discover" className="btn-primary">
-              <span>Explore Films</span>
-              <span>&rarr;</span>
-            </Link>
             {featuredMovie && heroTrailerKey && (
               <Link
                 href={`/trailers?play=${featuredMovie.id}`}
-                className="btn-ghost"
+                className="btn-primary"
               >
                 <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                Watch Trailer
+                <span>Watch Trailer</span>
               </Link>
             )}
-          </div>
-        </div>
-
-        <div className="hero-visual">
-          <div className="card-stack">
-            {(nowPlaying || []).slice(0, 3).map((movie, i) => (
-              <div className="card" key={movie.id}>
-                <img
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                  alt={movie.title}
-                  loading={i < 2 ? 'eager' : 'lazy'}
-                />
-                <div className="card-gradient" />
-                {i === 2 && (
-                  <>
-                    <div className="card-info">
-                      <div className="card-title">{movie.title}</div>
-                      <div className="card-meta">
-                        {movie.release_date?.split('-')[0]} &middot; {movie.vote_average?.toFixed(1)}
-                      </div>
-                    </div>
-                    <div className="badge">New</div>
-                  </>
-                )}
-              </div>
-            ))}
-            <div className="hero-stat">
-              <div className="hero-stat-num">{featuredMovie?.vote_average ? Math.min(featuredMovie.vote_average, 9.9).toFixed(1) : '8.5'}</div>
-              <div className="hero-stat-label">Top Rated</div>
-            </div>
-            <div className="hero-stat">
-              <div className="hero-stat-num">{nowPlaying?.length || 12}+</div>
-              <div className="hero-stat-label">Now Playing</div>
-            </div>
+            <Link href="/discover" className="btn-ghost">
+              <span>Explore Films</span>
+              <span>&rarr;</span>
+            </Link>
           </div>
         </div>
       </section>
