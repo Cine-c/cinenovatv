@@ -240,33 +240,48 @@ export default function MovieDetailPage({ movie, credits, videos, ratings, watch
             {/* Ad: between Cast and Trailers */}
             <AdSlot slot="1594520752" format="in-article" />
 
-            {/* Trailers */}
-            {trailers.length > 1 && (
+            {/* Trailers — embed first trailer for Google video indexing */}
+            {trailers.length > 0 && (
               <div className="movie-detail-section">
                 <h2>Trailers & Videos</h2>
-                <div className="trailers-list">
-                  {trailers.map((v) => (
-                    <button
-                      key={v.key}
-                      className="trailer-thumb"
-                      onClick={() => setShowTrailer(true)}
-                    >
-                      <Image
-                        src={`https://img.youtube.com/vi/${v.key}/mqdefault.jpg`}
-                        alt={v.name}
-                        width={320}
-                        height={180}
-                        style={{ objectFit: 'cover' }}
-                      />
-                      <div className="trailer-thumb-overlay">
-                        <svg viewBox="0 0 24 24" fill="currentColor" width="36" height="36">
-                          <path d="M8 5v14l11-7z"/>
-                        </svg>
-                      </div>
-                      <span className="trailer-thumb-title">{v.name}</span>
-                    </button>
-                  ))}
+                <div className="trailer-embed">
+                  <iframe
+                    src={`https://www.youtube.com/embed/${trailers[0].key}`}
+                    title={trailers[0].name}
+                    width="100%"
+                    height="400"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    loading="lazy"
+                    style={{ borderRadius: '6px', border: 'none' }}
+                  />
                 </div>
+                {trailers.length > 1 && (
+                  <div className="trailers-list">
+                    {trailers.slice(1).map((v) => (
+                      <button
+                        key={v.key}
+                        className="trailer-thumb"
+                        onClick={() => setShowTrailer(true)}
+                      >
+                        <Image
+                          src={`https://img.youtube.com/vi/${v.key}/mqdefault.jpg`}
+                          alt={v.name}
+                          width={320}
+                          height={180}
+                          style={{ objectFit: 'cover' }}
+                        />
+                        <div className="trailer-thumb-overlay">
+                          <svg viewBox="0 0 24 24" fill="currentColor" width="36" height="36">
+                            <path d="M8 5v14l11-7z"/>
+                          </svg>
+                        </div>
+                        <span className="trailer-thumb-title">{v.name}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
 
