@@ -27,6 +27,17 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      { source: '/trailer', destination: '/trailers', permanent: true },
+      { source: '/index.html', destination: '/', permanent: true },
+      { source: '/trailer.html', destination: '/trailers', permanent: true },
+      { source: '/trailers.html', destination: '/trailers', permanent: true },
+      { source: '/privacy.html', destination: '/privacy', permanent: true },
+      { source: '/reviews.html', destination: '/blog', permanent: true },
+      { source: '/blockbuster/:slug.html', destination: '/blockbuster', permanent: true },
+    ];
+  },
   async rewrites() {
     return [
       { source: '/sitemap.xml', destination: '/api/sitemap.xml' },

@@ -1,6 +1,7 @@
 # Allow Google and AdsBot (AdSense)
 User-agent: Googlebot
 Allow: /
+Disallow: /api/
 
 User-agent: AdsBot-Google
 Allow: /
@@ -11,6 +12,7 @@ Allow: /
 # Allow Bing
 User-agent: Bingbot
 Allow: /
+Disallow: /api/
 
 # Block common AI training bots
 User-agent: GPTBot
@@ -34,6 +36,7 @@ Disallow: /
 # Default: allow everything else
 User-agent: *
 Allow: /
+Disallow: /api/
 
 # Sitemap reference
 Sitemap: https://www.cinenovatv.com/sitemap.xml
