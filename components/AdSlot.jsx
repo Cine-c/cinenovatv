@@ -33,17 +33,18 @@ function AdSlotInner({ slot, format, responsive, native }) {
   const pushed = useRef(false);
   const [consented, setConsented] = useState(() => {
     if (typeof window === 'undefined') return false;
-    return getConsentStatus() === 'accepted';
+    const s = getConsentStatus();
+    return s === 'accepted' || s === 'npa';
   });
   const [inView, setInView] = useState(false);
 
   // Listen for consent changes
   useEffect(() => {
     // Re-check on mount (covers SSR hydration)
-    const current = getConsentStatus() === 'accepted';
-    if (current) setConsented(true);
+    const current = getConsentStatus();
+    if (current === 'accepted' || current === 'npa') setConsented(true);
 
-    const handleConsent = (e) => setConsented(e.detail === 'accepted');
+    const handleConsent = (e) => setConsented(e.detail === 'accepted' || e.detail === 'npa');
     const handleStorage = (e) => {
       if (e.key === 'cookieConsent') setConsented(e.newValue === 'accepted');
     };

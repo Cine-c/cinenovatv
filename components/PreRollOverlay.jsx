@@ -8,7 +8,10 @@ export default function PreRollOverlay({ onSkip }) {
   const [countdown, setCountdown] = useState(null);
   const [canSkip, setCanSkip] = useState(false);
   const [adFilled, setAdFilled] = useState(false);
-  const [consented, setConsented] = useState(() => getConsentStatus() === 'accepted');
+  const [consented, setConsented] = useState(() => {
+    const s = getConsentStatus();
+    return s === 'accepted' || s === 'npa';
+  });
   const pushed = useRef(false);
   const adRef = useRef(null);
   const onSkipRef = useRef(onSkip);
@@ -18,10 +21,10 @@ export default function PreRollOverlay({ onSkip }) {
 
   // Consent check — listen for changes
   useEffect(() => {
-    const current = getConsentStatus() === 'accepted';
-    if (current) setConsented(true);
+    const current = getConsentStatus();
+    if (current === 'accepted' || current === 'npa') setConsented(true);
 
-    const handleConsent = (e) => setConsented(e.detail === 'accepted');
+    const handleConsent = (e) => setConsented(e.detail === 'accepted' || e.detail === 'npa');
     const handleStorage = (e) => {
       if (e.key === 'cookieConsent') setConsented(e.newValue === 'accepted');
     };

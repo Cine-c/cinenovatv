@@ -12,12 +12,9 @@ const CONSENT_EVENT = 'consentChange';
 export function getConsentStatus() {
   if (typeof window === 'undefined') return null;
 
-  // Try TCF API first (set by Google Funding Choices CMP)
-  if (typeof window.__tcfapi === 'function') {
-    // Synchronous check via cached tcData if available
-    if (window.__tcfapiConsentCache !== undefined) {
-      return window.__tcfapiConsentCache;
-    }
+  // Check in-memory cache (set by TCF listener or CMP-blocked fallback)
+  if (window.__tcfapiConsentCache !== undefined) {
+    return window.__tcfapiConsentCache;
   }
 
   // Fallback: localStorage (for non-EU users or before TCF loads)
@@ -77,9 +74,9 @@ export default function CookieConsent() {
       return;
     }
 
-    // Clear stale rejections so the CMP can re-evaluate
+    // Respect previous rejection — don't re-prompt (GDPR requirement)
     if (stored === 'rejected') {
-      localStorage.removeItem(STORAGE_KEY);
+      return;
     }
 
     let resolved = false;
@@ -136,8 +133,11 @@ export default function CookieConsent() {
       if (resolved || localStorage.getItem(STORAGE_KEY)) return;
 
       if (typeof window.__tcfapi !== 'function') {
-        // CMP never loaded (blocked / network error) — grant as fallback
-        onConsentGranted();
+        // CMP never loaded (blocked / network error) — load ads in
+        // non-personalized mode (consent-mode defaults stay denied)
+        window.__tcfapiConsentCache = 'npa';
+        loadAdSense();
+        window.dispatchEvent(new CustomEvent(CONSENT_EVENT, { detail: 'npa' }));
       }
       // If __tcfapi exists but not resolved, the CMP dialog is visible
       // — do NOT force-grant; let the user interact with it
