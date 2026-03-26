@@ -75,8 +75,8 @@ export default function Home({ featuredMovie, nowPlaying, popular, genres, celeb
   // Now playing items for the marquee ticker
   const tickerItems = (nowPlaying || []).slice(0, 9);
 
-  // Top 4 popular movies for trending grid
-  const trendingMovies = (popular || []).slice(0, 4);
+  // Top 8 popular movies for trending grid
+  const trendingMovies = (popular || []).slice(0, 8);
 
   // Featured article movie — pick the second trending movie
   const articleMovie = (popular || [])[1] || featuredMovie;

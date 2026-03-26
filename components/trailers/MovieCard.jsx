@@ -10,6 +10,8 @@ export default function MovieCard({ movie, onWatchTrailer }) {
     ? `https://image.tmdb.org/t/p/w342${movie.poster_path}`
     : '/placeholder-poster.jpg';
 
+  const year = (movie.release_date || '').split('-')[0] || movie.releaseYear || null;
+
   return (
     <article className="movie-card">
       <div className="movie-card-poster">
@@ -31,6 +33,11 @@ export default function MovieCard({ movie, onWatchTrailer }) {
             </svg>
           </button>
         </div>
+        {movie.overview && (
+          <div className="movie-card-synopsis">
+            <p>{movie.overview}</p>
+          </div>
+        )}
         <button
           className={`watchlater-btn${saved ? ' saved' : ''}`}
           onClick={(e) => { e.stopPropagation(); toggle(movie); }}
@@ -45,12 +52,14 @@ export default function MovieCard({ movie, onWatchTrailer }) {
         <Link href={`/movies/${movie.id}`} className="movie-card-title-link">
           <h3 className="movie-card-title">{movie.title}</h3>
         </Link>
-        {movie.releaseYear && <span className="movie-card-year">{movie.releaseYear}</span>}
-        {movie.vote_average > 0 && (
-          <span className="movie-card-rating">
-            {movie.vote_average.toFixed(1)}
-          </span>
-        )}
+        <div className="movie-card-meta">
+          {year && <span className="movie-card-year">{year}</span>}
+          {movie.vote_average > 0 && (
+            <span className="movie-card-rating">
+              {movie.vote_average.toFixed(1)}
+            </span>
+          )}
+        </div>
       </div>
     </article>
   );
