@@ -24,7 +24,7 @@ gtag('consent','default',{
         {/* Google Funding Choices CMP — serves IAB TCF v2.3 consent dialog */}
         <script
           async
-          src="https://fundingchoicesmessages.google.com/i/pub-8747979755893623?ers=1"
+          src="https://fundingchoicesmessages.google.com/i/pub-8747979755893623"
         />
         <script
           dangerouslySetInnerHTML={{
