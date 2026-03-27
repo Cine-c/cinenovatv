@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CineNovaTV Assistant</title>
+<style>
+  /* ---- Chat bubble button ---- */
+  #cnv-chat-btn {
+    position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+    width: 60px; height: 60px; border-radius: 50%; border: none;
+    background: linear-gradient(135deg, #e50914, #b20710);
+    color: #fff; font-size: 28px; cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0,0,0,.35);
+    transition: transform .2s;
+  }
+  #cnv-chat-btn:hover { transform: scale(1.1); }
+
+  /* ---- Chat window ---- */
+  #cnv-chat-window {
+    display: none; position: fixed; bottom: 96px; right: 24px; z-index: 9999;
+    width: 380px; max-height: 540px; border-radius: 16px;
+    background: #141414; color: #e5e5e5;
+    box-shadow: 0 8px 32px rgba(0,0,0,.5);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: none; flex-direction: column; overflow: hidden;
+  }
+  #cnv-chat-window.open { display: flex; }
+
+  /* header */
+  .cnv-header {
+    background: linear-gradient(135deg, #e50914, #b20710);
+    padding: 14px 18px; font-size: 16px; font-weight: 700;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .cnv-header button {
+    background: none; border: none; color: #fff; font-size: 20px; cursor: pointer;
+  }
+
+  /* messages area */
+  .cnv-messages {
+    flex: 1; overflow-y: auto; padding: 14px; display: flex;
+    flex-direction: column; gap: 10px; max-height: 360px;
+  }
+  .cnv-messages::-webkit-scrollbar { width: 6px; }
+  .cnv-messages::-webkit-scrollbar-thumb { background: #444; border-radius: 3px; }
+
+  .cnv-msg { max-width: 85%; padding: 10px 14px; border-radius: 14px; font-size: 14px; line-height: 1.45; }
+  .cnv-msg.bot { background: #2a2a2a; align-self: flex-start; }
+  .cnv-msg.user { background: #e50914; color: #fff; align-self: flex-end; }
+
+  /* quick-action buttons */
+  .cnv-actions { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 14px 8px; }
+  .cnv-actions button {
+    background: #2a2a2a; color: #e5e5e5; border: 1px solid #444;
+    border-radius: 20px; padding: 6px 14px; font-size: 13px; cursor: pointer;
+    transition: background .2s;
+  }
+  .cnv-actions button:hover { background: #e50914; border-color: #e50914; color: #fff; }
+
+  /* input bar */
+  .cnv-input-bar {
+    display: flex; border-top: 1px solid #333; padding: 10px;
+  }
+  .cnv-input-bar input {
+    flex: 1; background: #2a2a2a; border: none; border-radius: 20px;
+    padding: 10px 16px; color: #e5e5e5; font-size: 14px; outline: none;
+  }
+  .cnv-input-bar input::placeholder { color: #888; }
+  .cnv-input-bar button {
+    background: #e50914; border: none; border-radius: 50%; width: 38px;
+    height: 38px; margin-left: 8px; color: #fff; font-size: 18px; cursor: pointer;
+  }
+
+  /* movie card */
+  .cnv-movie-card {
+    background: #1e1e1e; border-radius: 10px; overflow: hidden; margin-top: 6px;
+  }
+  .cnv-movie-card img {
+    width: 100%; height: 160px; object-fit: cover;
+  }
+  .cnv-movie-card .cnv-card-body { padding: 10px 12px; }
+  .cnv-movie-card .cnv-card-title { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+  .cnv-movie-card .cnv-card-meta { font-size: 12px; color: #aaa; margin-bottom: 6px; }
+  .cnv-movie-card .cnv-card-overview { font-size: 13px; color: #ccc; line-height: 1.4; }
+  .cnv-movie-card .cnv-card-providers { font-size: 12px; color: #e50914; margin-top: 6px; font-weight: 600; }
+
+  /* typing indicator */
+  .cnv-typing span {
+    display: inline-block; width: 8px; height: 8px; background: #888;
+    border-radius: 50%; margin-right: 4px; animation: cnvBounce .6s infinite alternate;
+  }
+  .cnv-typing span:nth-child(2) { animation-delay: .2s; }
+  .cnv-typing span:nth-child(3) { animation-delay: .4s; }
+  @keyframes cnvBounce { to { opacity: .3; transform: translateY(-4px); } }
+</style>
+</head>
+<body>
+
+<!-- Chat toggle button -->
+<button id="cnv-chat-btn" onclick="toggleChat()" aria-label="Open chat">&#127916;</button>
+
+<!-- Chat window -->
+<div id="cnv-chat-window">
+  <div class="cnv-header">
+    <span>CineNovaTV Assistant</span>
+    <button onclick="toggleChat()" aria-label="Close chat">&times;</button>
+  </div>
+  <div class="cnv-messages" id="cnv-messages"></div>
+  <div class="cnv-actions" id="cnv-actions"></div>
+  <div class="cnv-input-bar">
+    <input id="cnv-input" type="text" placeholder="Search a movie or ask me anything..." autocomplete="off">
+    <button onclick="sendMessage()" aria-label="Send">&#9654;</button>
+  </div>
+</div>
+
+<script>
+const TMDB_KEY = 'be15cf50e79cec926bbbddb3ab5dd819';
+const TMDB_IMG = 'https://image.tmdb.org/t/p/w500';
+const messagesEl = document.getElementById('cnv-messages');
+const inputEl = document.getElementById('cnv-input');
+const actionsEl = document.getElementById('cnv-actions');
+
+// Toggle chat open/close
+function toggleChat() {
+  const win = document.getElementById('cnv-chat-window');
+  win.classList.toggle('open');
+  if (win.classList.contains('open') && messagesEl.children.length === 0) {
+    showWelcome();
+  }
+}
+
+// Welcome message + quick actions
+function showWelcome() {
+  addBotMessage("Hey! I'm the CineNovaTV assistant. I can help you discover movies and find where to watch them.");
+  showQuickActions([
+    { label: "Trending Now", action: () => handleTrending() },
+    { label: "Top Rated", action: () => handleTopRated() },
+    { label: "Recommend Me Something", action: () => handleRandom() },
+  ]);
+}
+
+function showQuickActions(actions) {
+  actionsEl.innerHTML = '';
+  actions.forEach(a => {
+    const btn = document.createElement('button');
+    btn.textContent = a.label;
+    btn.onclick = () => { addUserMessage(a.label); a.action(); };
+    actionsEl.appendChild(btn);
+  });
+}
+
+function clearActions() { actionsEl.innerHTML = ''; }
+
+// Messages
+function addBotMessage(text) {
+  const div = document.createElement('div');
+  div.className = 'cnv-msg bot';
+  div.innerHTML = text;
+  messagesEl.appendChild(div);
+  scrollDown();
+}
+
+function addUserMessage(text) {
+  const div = document.createElement('div');
+  div.className = 'cnv-msg user';
+  div.textContent = text;
+  messagesEl.appendChild(div);
+  clearActions();
+  scrollDown();
+}
+
+function addMovieCard(movie, providers) {
+  const year = (movie.release_date || '').slice(0, 4);
+  const rating = movie.vote_average ? movie.vote_average.toFixed(1) : 'N/A';
+  let overview = movie.overview || 'No overview available.';
+  if (overview.length > 140) overview = overview.slice(0, 139).trimEnd() + '…';
+
+  const backdrop = movie.backdrop_path ? TMDB_IMG + movie.backdrop_path : '';
+  const providerText = providers && providers.length > 0
+    ? 'Stream on: ' + providers.join(', ')
+    : 'Check cinenovatv.com for availability';
+
+  const html = `
+    <div class="cnv-movie-card">
+      ${backdrop ? `<img src="${backdrop}" alt="${movie.title}">` : ''}
+      <div class="cnv-card-body">
+        <div class="cnv-card-title">${movie.title}${year ? ' (' + year + ')' : ''}</div>
+        <div class="cnv-card-meta">&#11088; ${rating}/10</div>
+        <div class="cnv-card-overview">${overview}</div>
+        <div class="cnv-card-providers">${providerText}</div>
+      </div>
+    </div>`;
+  const div = document.createElement('div');
+  div.className = 'cnv-msg bot';
+  div.innerHTML = html;
+  messagesEl.appendChild(div);
+  scrollDown();
+}
+
+function showTyping() {
+  const div = document.createElement('div');
+  div.className = 'cnv-msg bot cnv-typing';
+  div.id = 'cnv-typing';
+  div.innerHTML = '<span></span><span></span><span></span>';
+  messagesEl.appendChild(div);
+  scrollDown();
+}
+function hideTyping() {
+  const el = document.getElementById('cnv-typing');
+  if (el) el.remove();
+}
+
+function scrollDown() {
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+
+// TMDB API helpers
+async function tmdbGet(endpoint, params = {}) {
+  params.api_key = TMDB_KEY;
+  const qs = new URLSearchParams(params).toString();
+  const res = await fetch(`https://api.themoviedb.org/3${endpoint}?${qs}`);
+  return res.json();
+}
+
+async function getWatchProviders(movieId) {
+  const data = await tmdbGet(`/movie/${movieId}/watch/providers`);
+  const us = data.results && data.results.US;
+  if (!us) return [];
+  const flat = [...(us.flatrate || []), ...(us.ads || [])];
+  return flat.map(p => p.provider_name).slice(0, 4);
+}
+
+// Handlers
+async function handleTrending() {
+  showTyping();
+  const data = await tmdbGet('/trending/movie/day');
+  hideTyping();
+  const movies = data.results.slice(0, 5);
+  addBotMessage("Here's what's trending today:");
+  for (const m of movies) {
+    const providers = await getWatchProviders(m.id);
+    addMovieCard(m, providers);
+  }
+  showAfterActions();
+}
+
+async function handleTopRated() {
+  showTyping();
+  const data = await tmdbGet('/movie/top_rated');
+  hideTyping();
+  const movies = data.results.slice(0, 5);
+  addBotMessage("Here are some of the highest rated movies:");
+  for (const m of movies) {
+    const providers = await getWatchProviders(m.id);
+    addMovieCard(m, providers);
+  }
+  showAfterActions();
+}
+
+async function handleRandom() {
+  showTyping();
+  const page = Math.floor(Math.random() * 5) + 1;
+  const data = await tmdbGet('/movie/popular', { page });
+  hideTyping();
+  const movies = data.results;
+  const pick = movies[Math.floor(Math.random() * movies.length)];
+  const providers = await getWatchProviders(pick.id);
+  addBotMessage("I think you'd enjoy this one:");
+  addMovieCard(pick, providers);
+  showQuickActions([
+    { label: "Another One", action: () => handleRandom() },
+    { label: "Trending Now", action: () => handleTrending() },
+  ]);
+}
+
+async function handleSearch(query) {
+  showTyping();
+  const data = await tmdbGet('/search/movie', { query });
+  hideTyping();
+  if (!data.results || data.results.length === 0) {
+    addBotMessage(`I couldn't find anything for "<b>${query}</b>". Try a different title.`);
+    showAfterActions();
+    return;
+  }
+  const movies = data.results.slice(0, 3);
+  addBotMessage(`Here's what I found for "<b>${query}</b>":`);
+  for (const m of movies) {
+    const providers = await getWatchProviders(m.id);
+    addMovieCard(m, providers);
+  }
+  showAfterActions();
+}
+
+async function handleGenre(query) {
+  showTyping();
+  const genreMap = {
+    action: 28, adventure: 12, animation: 16, comedy: 35, crime: 80,
+    documentary: 99, drama: 18, family: 10751, fantasy: 14, history: 36,
+    horror: 27, music: 10402, mystery: 9648, romance: 10749, scifi: 878,
+    'science fiction': 878, thriller: 53, war: 10752, western: 37
+  };
+  const key = query.toLowerCase().trim();
+  const genreId = genreMap[key];
+  if (!genreId) {
+    hideTyping();
+    addBotMessage(`I don't recognize that genre. Try: action, comedy, horror, drama, thriller, scifi, romance, animation, or documentary.`);
+    return;
+  }
+  const data = await tmdbGet('/discover/movie', { with_genres: genreId, sort_by: 'popularity.desc' });
+  hideTyping();
+  const movies = data.results.slice(0, 5);
+  addBotMessage(`Top <b>${query}</b> movies right now:`);
+  for (const m of movies) {
+    const providers = await getWatchProviders(m.id);
+    addMovieCard(m, providers);
+  }
+  showAfterActions();
+}
+
+function showAfterActions() {
+  showQuickActions([
+    { label: "Trending Now", action: () => handleTrending() },
+    { label: "Recommend Me Something", action: () => handleRandom() },
+    { label: "Top Rated", action: () => handleTopRated() },
+  ]);
+}
+
+// Process user input
+function sendMessage() {
+  const text = inputEl.value.trim();
+  if (!text) return;
+  inputEl.value = '';
+  addUserMessage(text);
+  processInput(text);
+}
+
+function processInput(text) {
+  const lower = text.toLowerCase();
+
+  if (/trending|what.?s hot|popular now/.test(lower)) {
+    handleTrending();
+  } else if (/top rated|best movies|highest rated/.test(lower)) {
+    handleTopRated();
+  } else if (/recommend|suggest|random|surprise/.test(lower)) {
+    handleRandom();
+  } else if (/^(action|comedy|horror|drama|thriller|scifi|science fiction|romance|animation|documentary|adventure|fantasy|mystery|crime|western|war|family|history|music)\s*(movies?)?$/i.test(lower)) {
+    handleGenre(lower.replace(/\s*movies?\s*$/, ''));
+  } else if (/where.*(watch|stream)|can i (watch|stream)|available on/.test(lower)) {
+    const title = lower.replace(/where.*(watch|stream)|can i (watch|stream)|available on/g, '').trim();
+    if (title) handleSearch(title);
+    else addBotMessage("Which movie are you looking for? Type the title and I'll find it.");
+  } else if (lower === 'help' || lower === 'hi' || lower === 'hello' || lower === 'hey') {
+    addBotMessage("I can help you with:<br>&#127916; <b>Search</b> — type any movie title<br>&#128293; <b>Trending</b> — see what's hot today<br>&#11088; <b>Top Rated</b> — all-time best<br>&#127922; <b>Recommend</b> — random pick for you<br>&#127917; <b>Genre</b> — type a genre like \"horror\" or \"comedy\"");
+    showAfterActions();
+  } else {
+    // Default: treat it as a movie search
+    handleSearch(text);
+  }
+}
+
+// Enter key
+inputEl.addEventListener('keydown', e => {
+  if (e.key === 'Enter') sendMessage();
+});
+</script>
+
+</body>
+</html>

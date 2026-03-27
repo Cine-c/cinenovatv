@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useWatchLater } from '../WatchLaterContext';
 
-export default function MovieCard({ movie, onWatchTrailer }) {
+export default function MovieCard({ movie, onWatchTrailer, genreMap }) {
   const { toggle, has } = useWatchLater();
   const saved = has(movie.id);
 
@@ -32,6 +32,13 @@ export default function MovieCard({ movie, onWatchTrailer }) {
               <path d="M8 5v14l11-7z" />
             </svg>
           </button>
+          {genreMap && movie.genre_ids && movie.genre_ids.length > 0 && (
+            <div className="movie-card-genres">
+              {movie.genre_ids.slice(0, 2).map((gid) => (
+                genreMap[gid] ? <span key={gid} className="movie-card-genre-tag">{genreMap[gid]}</span> : null
+              ))}
+            </div>
+          )}
         </div>
         {movie.overview && (
           <div className="movie-card-synopsis">
