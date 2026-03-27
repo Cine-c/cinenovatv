@@ -280,7 +280,7 @@ export default function Chatbot() {
           position: fixed;
           bottom: 24px;
           right: 24px;
-          z-index: 9990;
+          z-index: 10000;
           width: 60px;
           height: 60px;
           border-radius: 50%;
@@ -306,7 +306,7 @@ export default function Chatbot() {
           position: fixed;
           bottom: 96px;
           right: 24px;
-          z-index: 9990;
+          z-index: 10000;
           width: 380px;
           max-height: 540px;
           border-radius: var(--radius-lg, 6px);
