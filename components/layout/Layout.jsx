@@ -4,6 +4,7 @@ import Footer from './Footer';
 import CookieConsent from '../CookieConsent';
 
 const CustomCursor = dynamic(() => import('../CustomCursor'), { ssr: false });
+const Chatbot = dynamic(() => import('../Chatbot'), { ssr: false });
 
 export default function Layout({ children }) {
   return (
@@ -14,6 +15,7 @@ export default function Layout({ children }) {
 
       <div className="film-grain" />
       <CustomCursor />
+      <Chatbot />
 
       <CookieConsent />
     </div>
