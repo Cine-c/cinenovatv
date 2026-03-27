@@ -107,7 +107,7 @@ export default function ScenesPage() {
   return (
     <>
       <SEOHead
-        title="Iconic Movie Scenes - Unforgettable Cinema Moments"
+        title="10 Most Iconic Movie Scenes of All Time — Moments That Defined Cinema"
         description="Explore the most iconic scenes in cinema history. From classic Hollywood to modern blockbusters, discover the moments that defined filmmaking."
         url="/scenes"
       />

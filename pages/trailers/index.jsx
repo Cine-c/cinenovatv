@@ -53,13 +53,6 @@ export default function TrailersPage({ initialMovies, genres, totalResults, init
 
       if (movieToPlay) {
         setSelectedMovie(movieToPlay);
-        // Clean up URL without reload
-        const { play, ...restQuery } = router.query;
-        router.replace(
-          { pathname: router.pathname, query: restQuery },
-          undefined,
-          { shallow: true }
-        );
       } else if (movies.length > 0) {
         // Fetch movie details if not in current list
         fetch(`/api/movie/${playId}/details`)
@@ -67,13 +60,6 @@ export default function TrailersPage({ initialMovies, genres, totalResults, init
           .then(data => {
             if (data && data.id) {
               setSelectedMovie(data);
-              // Clean up URL without reload
-              const { play, ...restQuery } = router.query;
-              router.replace(
-                { pathname: router.pathname, query: restQuery },
-                undefined,
-                { shallow: true }
-              );
             }
           })
           .catch(err => console.error('Error fetching movie:', err));
@@ -250,7 +236,7 @@ export default function TrailersPage({ initialMovies, genres, totalResults, init
   return (
     <>
       <SEOHead
-        title="Latest Movie Trailers 2026 — Watch New & Upcoming"
+        title="New Movie Trailers (2026) — Watch the Latest Releases Now"
         description="Watch the latest movie trailers for 2026. Browse trending, now playing, upcoming, and top-rated films. Updated daily with new releases."
         url="/trailers"
       />

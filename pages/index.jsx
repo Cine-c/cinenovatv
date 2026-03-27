@@ -87,7 +87,7 @@ export default function Home({ featuredMovie, nowPlaying, popular, genres, celeb
   return (
     <div ref={revealRef} className="homepage-full">
       <SEOHead
-        title="Discover Movies, Trailers & Streaming Info"
+        title="CineNovaTV — Find What to Watch Tonight | Trailers, Streaming & Reviews"
         description="CineNovaTV — your free guide to what's worth watching tonight. Browse trending movies, check streaming availability across 40+ platforms, and watch trailers."
         url="/"
       />
@@ -373,6 +373,7 @@ export async function getStaticProps() {
           release_date: m.release_date || '',
           vote_average: m.vote_average || 0,
           overview: m.overview || '',
+          genre_ids: m.genre_ids || [],
         }));
       }
 

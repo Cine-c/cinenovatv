@@ -24,6 +24,11 @@ function generateSiteMap({ posts, movieIds, celebritySlugs, sceneSlugs }) {
     { url: '/academy/cinematography', priority: '0.6', changefreq: 'monthly' },
     { url: '/academy/editing-magic', priority: '0.6', changefreq: 'monthly' },
     { url: '/academy/film-scores', priority: '0.6', changefreq: 'monthly' },
+    { url: '/celebrity', priority: '0.7', changefreq: 'weekly' },
+    { url: '/articles/anaconda-blood-coil', priority: '0.8', changefreq: 'weekly' },
+    { url: '/articles/my-boo-2', priority: '0.8', changefreq: 'weekly' },
+    { url: '/articles/chickenhare-groundhog', priority: '0.8', changefreq: 'weekly' },
+    { url: '/articles/sydney-sweeney-career', priority: '0.8', changefreq: 'weekly' },
     { url: '/privacy', priority: '0.3', changefreq: 'yearly' },
   ];
 
@@ -108,19 +113,29 @@ export default async function handler(req, res) {
     console.error('Error loading celebrities for sitemap:', err);
   }
 
-  // Fetch trending + popular movie IDs from TMDB
+  // Fetch 5 pages from each of 4 TMDB endpoints (up to ~400 unique movies)
   const apiKey = process.env.TMDB_API_KEY;
   if (apiKey) {
     try {
-      const [trendingRes, popularRes, nowPlayingRes, topRatedRes] = await Promise.allSettled([
-        fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${apiKey}&page=1`),
-        fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&page=1`),
-        fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&page=1`),
-        fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&page=1`),
-      ]);
+      const endpoints = [
+        'trending/movie/day',
+        'movie/popular',
+        'movie/now_playing',
+        'movie/top_rated',
+      ];
+      const pages = [1, 2, 3, 4, 5];
+      const fetches = [];
+      for (const endpoint of endpoints) {
+        for (const page of pages) {
+          fetches.push(
+            fetch(`https://api.themoviedb.org/3/${endpoint}?api_key=${apiKey}&page=${page}`)
+          );
+        }
+      }
 
+      const results = await Promise.allSettled(fetches);
       const ids = new Set();
-      for (const result of [trendingRes, popularRes, nowPlayingRes, topRatedRes]) {
+      for (const result of results) {
         if (result.status === 'fulfilled') {
           const data = await result.value.json();
           for (const m of data.results || []) {

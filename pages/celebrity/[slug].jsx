@@ -105,7 +105,7 @@ export default function CelebrityPage({ celebrity }) {
   }
 
   const categoryLabel = CATEGORY_LABELS[celebrity.category] || celebrity.category;
-  const seoTitle = `${celebrity.name} — ${categoryLabel} | Biography, Movies & News`;
+  const seoTitle = `${celebrity.name} — Top Movies, Bio & Latest News (2026)`;
   const seoDescription = celebrity.bio.slice(0, 155) + '...';
 
   return (
@@ -119,6 +119,15 @@ export default function CelebrityPage({ celebrity }) {
       />
 
       <div className="celeb-page">
+        {/* Breadcrumbs */}
+        <nav className="breadcrumbs">
+          <Link href="/">Home</Link>
+          <span className="separator">/</span>
+          <Link href="/celebrity">Celebrities</Link>
+          <span className="separator">/</span>
+          <span className="current">{celebrity.name}</span>
+        </nav>
+
         {/* Hero Section */}
         <section className="celeb-hero">
           <div className="celeb-hero-bg" />

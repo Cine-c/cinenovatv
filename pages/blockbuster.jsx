@@ -30,7 +30,7 @@ export default function Blockbuster({ posts, categories }) {
   return (
     <>
       <SEOHead
-        title="Blockbuster"
+        title="Blockbuster — Deep Dives Into the Films Shaping Cinema Today"
         description="The biggest stories in film. Deep dives into the actors, directors, and moments shaping cinema today."
         url="/blockbuster"
       />

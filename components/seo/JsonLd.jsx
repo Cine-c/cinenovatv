@@ -130,7 +130,7 @@ export function ItemListJsonLd({ items, type = 'Movie' }) {
         name: item.title,
         url: type === 'BlogPosting'
           ? `${siteUrl}/blog/${item.slug}`
-          : `${siteUrl}/trailers?movie=${item.id}`,
+          : `${siteUrl}/movies/${item.id}`,
       },
     })),
   };

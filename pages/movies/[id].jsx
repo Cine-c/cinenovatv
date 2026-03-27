@@ -8,7 +8,7 @@ import { useWatchLater } from '../../components/WatchLaterContext';
 import { useState } from 'react';
 import AdSlot from '../../components/AdSlot';
 
-export default function MovieDetailPage({ movie, credits, videos, ratings, watchProviders, similar }) {
+export default function MovieDetailPage({ movie, credits, videos, ratings, watchProviders, similar, celebSlugs }) {
   const [showTrailer, setShowTrailer] = useState(false);
   const { toggle, has } = useWatchLater();
   const saved = has(movie?.id);
@@ -45,8 +45,8 @@ export default function MovieDetailPage({ movie, credits, videos, ratings, watch
   const rottenTomatoes = ratings?.Ratings?.find((r) => r.Source === 'Rotten Tomatoes')?.Value;
   const metacritic = ratings?.Ratings?.find((r) => r.Source === 'Metacritic')?.Value;
 
-  const seoTitle = `${movie.title} (${releaseYear}) — Where to Watch, Stream & Rent`;
-  const seoDescription = `${movie.title} (${releaseYear}) — ${movie.overview?.slice(0, 120)}... Stream, rent, or buy on Netflix, Prime, Disney+ and 40+ platforms.`;
+  const seoTitle = `${movie.title} (${releaseYear}) — Cast, Trailer, Reviews & Where to Stream`;
+  const seoDescription = `Everything about ${movie.title} (${releaseYear}): full cast, ratings, trailer, and where to watch on Netflix, Prime & 40+ platforms.`;
 
   const trailerUrl = trailers.length > 0
     ? `https://www.youtube.com/embed/${trailers[0].key}`
@@ -66,6 +66,15 @@ export default function MovieDetailPage({ movie, credits, videos, ratings, watch
       <MovieJsonLd movie={movie} trailerUrl={trailerUrl} />
 
       <div className="movie-detail-page">
+        {/* Breadcrumbs */}
+        <nav className="breadcrumbs">
+          <Link href="/">Home</Link>
+          <span className="separator">/</span>
+          <Link href="/discover">Movies</Link>
+          <span className="separator">/</span>
+          <span className="current">{movie.title}</span>
+        </nav>
+
         {/* Hero */}
         <section
           className="movie-detail-hero"
@@ -91,7 +100,7 @@ export default function MovieDetailPage({ movie, credits, videos, ratings, watch
                 {releaseYear && <span>{releaseYear}</span>}
                 {runtime && <span>{runtime}</span>}
                 {movie.genres?.map((g) => (
-                  <span key={g.id} className="genre-tag">{g.name}</span>
+                  <Link key={g.id} href={`/discover?genre=${g.id}`} className="genre-tag">{g.name}</Link>
                 ))}
               </div>
 
@@ -199,27 +208,34 @@ export default function MovieDetailPage({ movie, credits, videos, ratings, watch
               <div className="movie-detail-section">
                 <h2>Cast</h2>
                 <div className="cast-grid">
-                  {cast.map((person) => (
-                    <div key={person.id} className="cast-card">
-                      {person.profile_path ? (
-                        <Image
-                          src={`https://image.tmdb.org/t/p/w185${person.profile_path}`}
-                          alt={person.name}
-                          width={80}
-                          height={80}
-                          style={{ objectFit: 'cover', borderRadius: '50%' }}
-                        />
-                      ) : (
-                        <div className="cast-placeholder">
-                          <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor" opacity="0.3">
-                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                          </svg>
-                        </div>
-                      )}
-                      <span className="cast-name">{person.name}</span>
-                      <span className="cast-character">{person.character}</span>
-                    </div>
-                  ))}
+                  {cast.map((person) => {
+                    const celebSlug = celebSlugs?.[person.name];
+                    const Wrapper = celebSlug ? Link : 'div';
+                    const wrapperProps = celebSlug
+                      ? { href: `/celebrity/${celebSlug}`, className: 'cast-card cast-card-link' }
+                      : { className: 'cast-card' };
+                    return (
+                      <Wrapper key={person.id} {...wrapperProps}>
+                        {person.profile_path ? (
+                          <Image
+                            src={`https://image.tmdb.org/t/p/w185${person.profile_path}`}
+                            alt={person.name}
+                            width={80}
+                            height={80}
+                            style={{ objectFit: 'cover', borderRadius: '50%' }}
+                          />
+                        ) : (
+                          <div className="cast-placeholder">
+                            <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor" opacity="0.3">
+                              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                          </div>
+                        )}
+                        <span className="cast-name">{person.name}</span>
+                        <span className="cast-character">{person.character}</span>
+                      </Wrapper>
+                    );
+                  })}
                 </div>
               </div>
             )}
@@ -419,6 +435,20 @@ export async function getServerSideProps({ params, req }) {
     if (omdbResult.status === 'fulfilled') ratings = omdbResult.value;
     if (wpResult.status === 'fulfilled') watchProviders = wpResult.value;
 
+    // Build celebrity name→slug lookup for cast linking
+    let celebSlugs = {};
+    try {
+      const celebData = require('../../data/celebrities.json');
+      const castNames = new Set((data.credits?.cast || []).slice(0, 12).map(c => c.name));
+      for (const c of celebData.celebrities || []) {
+        if (castNames.has(c.name)) {
+          celebSlugs[c.name] = c.slug;
+        }
+      }
+    } catch {
+      // celebrities.json not available
+    }
+
     return {
       props: {
         movie: {
@@ -470,6 +500,7 @@ export async function getServerSideProps({ params, req }) {
           poster_path: m.poster_path,
           release_date: m.release_date || '',
         })),
+        celebSlugs,
       },
     };
   } catch {

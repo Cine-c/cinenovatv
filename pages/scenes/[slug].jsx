@@ -158,7 +158,7 @@ export default function SceneDetail({ scene }) {
   return (
     <>
       <SEOHead
-        title={`${scene.title} - ${scene.movie} | Iconic Movie Scenes`}
+        title={`"${scene.title}" — ${scene.movie} | Why This Scene Is Unforgettable`}
         description={scene.description}
         url={`/scenes/${scene.slug}`}
         image={scene.image}

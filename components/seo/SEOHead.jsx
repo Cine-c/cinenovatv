@@ -7,6 +7,7 @@ export default function SEOHead({
   url,
   type = 'website',
   article = null,
+  noindex = false,
 }) {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.cinenovatv.com';
   const fullUrl = url ? `${siteUrl}${url}` : siteUrl;
@@ -19,6 +20,7 @@ export default function SEOHead({
     <Head>
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
+      {noindex && <meta name="robots" content="noindex, nofollow" />}
       <link rel="canonical" href={fullUrl} />
 
       {/* Open Graph */}

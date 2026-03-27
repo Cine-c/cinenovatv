@@ -50,7 +50,7 @@ export default function BlogIndex({ posts, categories }) {
   return (
     <>
       <SEOHead
-        title="Movie News, Reviews & Entertainment Articles"
+        title="Movie News & Reviews — Actor Spotlights, Film Analysis & Streaming Guides"
         description="Movie news, reviews, and entertainment articles from the CineNovaTV team. Actor spotlights, film analysis, and streaming guides."
         url="/blog"
       />
