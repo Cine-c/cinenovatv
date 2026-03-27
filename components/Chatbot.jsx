@@ -36,7 +36,10 @@ const CHATBOT_CSS = `
 .cnv-typing span:nth-child(2){animation-delay:.2s}
 .cnv-typing span:nth-child(3){animation-delay:.4s}
 @keyframes cnvBounce{to{opacity:.3;transform:translateY(-4px)}}
-@media(max-width:480px){.cnv-chat-window{width:calc(100vw - 20px);right:10px;bottom:86px;max-height:calc(100dvh - 110px)}.cnv-chat-btn{bottom:16px;right:16px;width:52px;height:52px;font-size:24px}}
+@media(max-width:480px){.cnv-chat-window{width:calc(100vw - 20px);right:10px;bottom:86px;max-height:calc(100dvh - 110px)}.cnv-chat-btn{bottom:16px;right:16px;width:52px;height:52px}.cnv-chat-btn svg{width:28px;height:28px}.cnv-chat-tooltip{right:78px;bottom:22px;font-size:13px;padding:8px 14px}}
+.cnv-chat-tooltip{position:fixed;bottom:30px;right:96px;z-index:10000;background:#2EC4B6;color:#070709;font-family:var(--font-body,'DM Sans',sans-serif);font-size:14px;font-weight:600;padding:10px 16px;border-radius:var(--radius-md,4px);box-shadow:0 4px 12px rgba(0,0,0,.3);white-space:nowrap;animation:cnvFadeIn .4s ease-out}
+.cnv-chat-tooltip::after{content:'';position:absolute;right:-6px;top:50%;transform:translateY(-50%);border:6px solid transparent;border-left-color:#2EC4B6;border-right:0}
+@keyframes cnvFadeIn{from{opacity:0;transform:translateX(8px)}to{opacity:1;transform:translateX(0)}}
 `;
 
 const GENRE_MAP = {
@@ -94,8 +97,17 @@ export default function Chatbot() {
   const [isTyping, setIsTyping] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [hasOpened, setHasOpened] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
   const messagesRef = useRef(null);
   const inputRef = useRef(null);
+
+  // Show tooltip after 3 seconds if chat hasn't been opened
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!isOpen) setShowTooltip(true);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Inject scoped CSS into head
   useEffect(() => {
@@ -310,6 +322,7 @@ export default function Chatbot() {
   }, [inputValue, addUserMessage, processInput]);
 
   const handleToggle = useCallback(() => {
+    setShowTooltip(false);
     setIsOpen(prev => {
       const next = !prev;
       if (next && !hasOpened) {
@@ -325,14 +338,31 @@ export default function Chatbot() {
     });
   }, [hasOpened]);
 
+  const botIcon = (
+    <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="11" width="18" height="10" rx="2" />
+      <circle cx="8.5" cy="16" r="1.5" fill="currentColor" stroke="none" />
+      <circle cx="15.5" cy="16" r="1.5" fill="currentColor" stroke="none" />
+      <path d="M8 11V9a4 4 0 0 1 8 0v2" />
+      <line x1="12" y1="5" x2="12" y2="3" />
+      <circle cx="12" cy="2" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+
   return (
     <>
+      {showTooltip && !isOpen && (
+        <div className="cnv-chat-tooltip" onClick={handleToggle}>
+          Hi! I can help you find movies
+        </div>
+      )}
+
       <button
         className="cnv-chat-btn"
         onClick={handleToggle}
         aria-label={isOpen ? 'Close chat' : 'Open chat'}
       >
-        {isOpen ? '\u2715' : '\ud83c\udfac'}
+        {isOpen ? '\u2715' : botIcon}
       </button>
 
       <div className={`cnv-chat-window${isOpen ? ' open' : ''}`}>
