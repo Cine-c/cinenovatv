@@ -2,6 +2,43 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 
 const TMDB_IMG = 'https://image.tmdb.org/t/p/w500';
 
+const CHATBOT_CSS = `
+.cnv-chat-btn{position:fixed;bottom:24px;right:24px;z-index:10000;width:60px;height:60px;border-radius:50%;border:2px solid var(--gold,#C9A84C);background:linear-gradient(135deg,var(--gold,#C9A84C),#a8893a);color:var(--bg-primary,#070709);font-size:28px;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.5);transition:transform .2s,box-shadow .2s;display:flex;align-items:center;justify-content:center;line-height:1}
+.cnv-chat-btn:hover{transform:scale(1.1);box-shadow:0 6px 24px rgba(201,168,76,.3)}
+.cnv-chat-window{display:none;position:fixed;bottom:96px;right:24px;z-index:10000;width:380px;max-height:540px;border-radius:var(--radius-lg,6px);background:var(--bg-secondary,#0e0e12);color:#e5e5e5;box-shadow:0 8px 32px rgba(0,0,0,.6);font-family:var(--font-body,'DM Sans',sans-serif);flex-direction:column;overflow:hidden;border:1px solid rgba(201,168,76,.2)}
+.cnv-chat-window.open{display:flex}
+.cnv-chat-header{background:linear-gradient(135deg,var(--gold,#C9A84C),#a8893a);padding:14px 18px;font-size:16px;font-weight:700;display:flex;justify-content:space-between;align-items:center;color:var(--bg-primary,#070709);font-family:var(--font-heading,'Cormorant Garamond',serif)}
+.cnv-chat-header button{background:none;border:none;color:var(--bg-primary,#070709);font-size:22px;cursor:pointer;line-height:1;padding:0}
+.cnv-chat-header button:hover{opacity:.7}
+.cnv-messages{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;max-height:360px}
+.cnv-messages::-webkit-scrollbar{width:6px}
+.cnv-messages::-webkit-scrollbar-thumb{background:rgba(201,168,76,.3);border-radius:3px}
+.cnv-msg{max-width:85%;padding:10px 14px;border-radius:var(--radius-md,4px);font-size:14px;line-height:1.45;white-space:pre-line}
+.cnv-msg.bot{background:rgba(201,168,76,.08);align-self:flex-start;border:1px solid rgba(201,168,76,.12)}
+.cnv-msg.user{background:var(--gold,#C9A84C);color:var(--bg-primary,#070709);align-self:flex-end;font-weight:500}
+.cnv-actions{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 8px}
+.cnv-actions button{background:rgba(201,168,76,.08);color:var(--gold,#C9A84C);border:1px solid rgba(201,168,76,.25);border-radius:var(--radius-sm,2px);padding:6px 14px;font-size:13px;cursor:pointer;transition:background .2s,color .2s;font-family:var(--font-body,'DM Sans',sans-serif)}
+.cnv-actions button:hover{background:var(--gold,#C9A84C);border-color:var(--gold,#C9A84C);color:var(--bg-primary,#070709)}
+.cnv-input-bar{display:flex;border-top:1px solid rgba(201,168,76,.15);padding:10px}
+.cnv-input-bar input{flex:1;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15);border-radius:var(--radius-sm,2px);padding:10px 16px;color:#e5e5e5;font-size:14px;outline:none;font-family:var(--font-body,'DM Sans',sans-serif)}
+.cnv-input-bar input::placeholder{color:#888}
+.cnv-input-bar input:focus{border-color:var(--gold,#C9A84C)}
+.cnv-input-bar button{background:var(--gold,#C9A84C);border:none;border-radius:var(--radius-sm,2px);width:38px;height:38px;margin-left:8px;color:var(--bg-primary,#070709);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.cnv-input-bar button:hover{opacity:.85}
+.cnv-movie-card{background:rgba(201,168,76,.04);border-radius:var(--radius-md,4px);overflow:hidden;margin-top:6px;border:1px solid rgba(201,168,76,.1)}
+.cnv-movie-card img{width:100%;height:160px;object-fit:cover}
+.cnv-movie-card .cnv-card-body{padding:10px 12px}
+.cnv-movie-card .cnv-card-title{font-weight:700;font-size:15px;margin-bottom:4px;color:var(--gold,#C9A84C)}
+.cnv-movie-card .cnv-card-meta{font-size:12px;color:#aaa;margin-bottom:6px}
+.cnv-movie-card .cnv-card-overview{font-size:13px;color:#ccc;line-height:1.4}
+.cnv-movie-card .cnv-card-providers{font-size:12px;color:var(--gold,#C9A84C);margin-top:6px;font-weight:600}
+.cnv-typing span{display:inline-block;width:8px;height:8px;background:var(--gold,#C9A84C);border-radius:50%;margin-right:4px;animation:cnvBounce .6s infinite alternate}
+.cnv-typing span:nth-child(2){animation-delay:.2s}
+.cnv-typing span:nth-child(3){animation-delay:.4s}
+@keyframes cnvBounce{to{opacity:.3;transform:translateY(-4px)}}
+@media(max-width:480px){.cnv-chat-window{width:calc(100vw - 20px);right:10px;bottom:86px;max-height:calc(100dvh - 110px)}.cnv-chat-btn{bottom:16px;right:16px;width:52px;height:52px;font-size:24px}}
+`;
+
 const GENRE_MAP = {
   action: 28, adventure: 12, animation: 16, comedy: 35, crime: 80,
   documentary: 99, drama: 18, family: 10751, fantasy: 14, history: 36,
@@ -59,6 +96,21 @@ export default function Chatbot() {
   const [hasOpened, setHasOpened] = useState(false);
   const messagesRef = useRef(null);
   const inputRef = useRef(null);
+
+  // Inject scoped CSS into head
+  useEffect(() => {
+    const id = 'cnv-chatbot-styles';
+    if (!document.getElementById(id)) {
+      const style = document.createElement('style');
+      style.id = id;
+      style.textContent = CHATBOT_CSS;
+      document.head.appendChild(style);
+    }
+    return () => {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+    };
+  }, []);
 
   // Scroll to bottom when messages change
   useEffect(() => {
@@ -275,247 +327,6 @@ export default function Chatbot() {
 
   return (
     <>
-      <style jsx global>{`
-        .cnv-chat-btn {
-          position: fixed;
-          bottom: 24px;
-          right: 24px;
-          z-index: 10000;
-          width: 60px;
-          height: 60px;
-          border-radius: 50%;
-          border: 2px solid var(--gold, #C9A84C);
-          background: linear-gradient(135deg, var(--gold, #C9A84C), #a8893a);
-          color: var(--bg-primary, #070709);
-          font-size: 28px;
-          cursor: pointer;
-          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
-          transition: transform 0.2s, box-shadow 0.2s;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          line-height: 1;
-        }
-        .cnv-chat-btn:hover {
-          transform: scale(1.1);
-          box-shadow: 0 6px 24px rgba(201, 168, 76, 0.3);
-        }
-
-        .cnv-chat-window {
-          display: none;
-          position: fixed;
-          bottom: 96px;
-          right: 24px;
-          z-index: 10000;
-          width: 380px;
-          max-height: 540px;
-          border-radius: var(--radius-lg, 6px);
-          background: var(--bg-secondary, #0e0e12);
-          color: #e5e5e5;
-          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
-          font-family: var(--font-body, 'DM Sans', sans-serif);
-          flex-direction: column;
-          overflow: hidden;
-          border: 1px solid rgba(201, 168, 76, 0.2);
-        }
-        .cnv-chat-window.open {
-          display: flex;
-        }
-
-        .cnv-chat-header {
-          background: linear-gradient(135deg, var(--gold, #C9A84C), #a8893a);
-          padding: 14px 18px;
-          font-size: 16px;
-          font-weight: 700;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          color: var(--bg-primary, #070709);
-          font-family: var(--font-heading, 'Cormorant Garamond', serif);
-        }
-        .cnv-chat-header button {
-          background: none;
-          border: none;
-          color: var(--bg-primary, #070709);
-          font-size: 22px;
-          cursor: pointer;
-          line-height: 1;
-          padding: 0;
-        }
-        .cnv-chat-header button:hover {
-          opacity: 0.7;
-        }
-
-        .cnv-messages {
-          flex: 1;
-          overflow-y: auto;
-          padding: 14px;
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
-          max-height: 360px;
-        }
-        .cnv-messages::-webkit-scrollbar {
-          width: 6px;
-        }
-        .cnv-messages::-webkit-scrollbar-thumb {
-          background: rgba(201, 168, 76, 0.3);
-          border-radius: 3px;
-        }
-
-        .cnv-msg {
-          max-width: 85%;
-          padding: 10px 14px;
-          border-radius: var(--radius-md, 4px);
-          font-size: 14px;
-          line-height: 1.45;
-          white-space: pre-line;
-        }
-        .cnv-msg.bot {
-          background: rgba(201, 168, 76, 0.08);
-          align-self: flex-start;
-          border: 1px solid rgba(201, 168, 76, 0.12);
-        }
-        .cnv-msg.user {
-          background: var(--gold, #C9A84C);
-          color: var(--bg-primary, #070709);
-          align-self: flex-end;
-          font-weight: 500;
-        }
-
-        .cnv-actions {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 6px;
-          padding: 0 14px 8px;
-        }
-        .cnv-actions button {
-          background: rgba(201, 168, 76, 0.08);
-          color: var(--gold, #C9A84C);
-          border: 1px solid rgba(201, 168, 76, 0.25);
-          border-radius: var(--radius-sm, 2px);
-          padding: 6px 14px;
-          font-size: 13px;
-          cursor: pointer;
-          transition: background 0.2s, color 0.2s;
-          font-family: var(--font-body, 'DM Sans', sans-serif);
-        }
-        .cnv-actions button:hover {
-          background: var(--gold, #C9A84C);
-          border-color: var(--gold, #C9A84C);
-          color: var(--bg-primary, #070709);
-        }
-
-        .cnv-input-bar {
-          display: flex;
-          border-top: 1px solid rgba(201, 168, 76, 0.15);
-          padding: 10px;
-        }
-        .cnv-input-bar input {
-          flex: 1;
-          background: rgba(201, 168, 76, 0.06);
-          border: 1px solid rgba(201, 168, 76, 0.15);
-          border-radius: var(--radius-sm, 2px);
-          padding: 10px 16px;
-          color: #e5e5e5;
-          font-size: 14px;
-          outline: none;
-          font-family: var(--font-body, 'DM Sans', sans-serif);
-        }
-        .cnv-input-bar input::placeholder {
-          color: #888;
-        }
-        .cnv-input-bar input:focus {
-          border-color: var(--gold, #C9A84C);
-        }
-        .cnv-input-bar button {
-          background: var(--gold, #C9A84C);
-          border: none;
-          border-radius: var(--radius-sm, 2px);
-          width: 38px;
-          height: 38px;
-          margin-left: 8px;
-          color: var(--bg-primary, #070709);
-          font-size: 18px;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .cnv-input-bar button:hover {
-          opacity: 0.85;
-        }
-
-        .cnv-movie-card {
-          background: rgba(201, 168, 76, 0.04);
-          border-radius: var(--radius-md, 4px);
-          overflow: hidden;
-          margin-top: 6px;
-          border: 1px solid rgba(201, 168, 76, 0.1);
-        }
-        .cnv-movie-card img {
-          width: 100%;
-          height: 160px;
-          object-fit: cover;
-        }
-        .cnv-movie-card .cnv-card-body {
-          padding: 10px 12px;
-        }
-        .cnv-movie-card .cnv-card-title {
-          font-weight: 700;
-          font-size: 15px;
-          margin-bottom: 4px;
-          color: var(--gold, #C9A84C);
-        }
-        .cnv-movie-card .cnv-card-meta {
-          font-size: 12px;
-          color: #aaa;
-          margin-bottom: 6px;
-        }
-        .cnv-movie-card .cnv-card-overview {
-          font-size: 13px;
-          color: #ccc;
-          line-height: 1.4;
-        }
-        .cnv-movie-card .cnv-card-providers {
-          font-size: 12px;
-          color: var(--gold, #C9A84C);
-          margin-top: 6px;
-          font-weight: 600;
-        }
-
-        .cnv-typing span {
-          display: inline-block;
-          width: 8px;
-          height: 8px;
-          background: var(--gold, #C9A84C);
-          border-radius: 50%;
-          margin-right: 4px;
-          animation: cnvBounce 0.6s infinite alternate;
-        }
-        .cnv-typing span:nth-child(2) { animation-delay: 0.2s; }
-        .cnv-typing span:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes cnvBounce {
-          to { opacity: 0.3; transform: translateY(-4px); }
-        }
-
-        @media (max-width: 480px) {
-          .cnv-chat-window {
-            width: calc(100vw - 20px);
-            right: 10px;
-            bottom: 86px;
-            max-height: calc(100dvh - 110px);
-          }
-          .cnv-chat-btn {
-            bottom: 16px;
-            right: 16px;
-            width: 52px;
-            height: 52px;
-            font-size: 24px;
-          }
-        }
-      `}</style>
-
       <button
         className="cnv-chat-btn"
         onClick={handleToggle}
