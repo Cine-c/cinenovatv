@@ -366,8 +366,8 @@ export default function DiscoverPage({
   return (
     <>
       <SEOHead
-        title={isFilterMode ? `${filterSummary} - Discover` : 'Browse Movies by Genre & Streaming Platform — Find What to Watch Tonight'}
-        description="Browse thousands of movies by genre, streaming service, and release date. Find where to watch any movie with CineNovaTV."
+        title={isFilterMode ? `${filterSummary} - Discover` : 'Browse Movies by Genre, Year & Rating | CineNovaTV'}
+        description="Filter thousands of movies by genre, release year, rating, and streaming service. Find your next favourite film in seconds on CineNovaTV."
         url="/discover"
       />
       <ItemListJsonLd items={(isFilterMode ? filteredMovies : trending || []).slice(0, 10)} type="Movie" />

@@ -87,8 +87,8 @@ export default function Home({ featuredMovie, nowPlaying, popular, genres, celeb
   return (
     <div ref={revealRef} className="homepage-full">
       <SEOHead
-        title="CineNovaTV — Find What to Watch Tonight | Trailers, Streaming & Reviews"
-        description="CineNovaTV — your free guide to what's worth watching tonight. Browse trending movies, check streaming availability across 40+ platforms, and watch trailers."
+        title="CineNovaTV — Discover Movies, Trailers & Where to Stream"
+        description="Your free movie guide. Browse 50 000+ titles, watch trailers, compare 40+ streaming platforms, and find exactly what to watch tonight — updated daily."
         url="/"
       />
       <WebSiteJsonLd />

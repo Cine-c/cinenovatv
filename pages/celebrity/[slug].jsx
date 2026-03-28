@@ -105,8 +105,8 @@ export default function CelebrityPage({ celebrity }) {
   }
 
   const categoryLabel = CATEGORY_LABELS[celebrity.category] || celebrity.category;
-  const seoTitle = `${celebrity.name} — Top Movies, Bio & Latest News (2026)`;
-  const seoDescription = celebrity.bio.slice(0, 155) + '...';
+  const seoTitle = `${celebrity.name} — Movies, Career & Latest News | CineNovaTV`;
+  const seoDescription = `Explore ${celebrity.name}'s complete filmography, career highlights, and latest news. Bio, top movies, and exclusive video content on CineNovaTV.`;
 
   return (
     <>

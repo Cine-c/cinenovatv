@@ -5,8 +5,8 @@ export default function AboutPage() {
   return (
     <>
       <SEOHead
-        title="About CineNovaTV — Your Free Guide to Movies & Streaming"
-        description="Learn about CineNovaTV - your go-to source for movie trailers, reviews, and the latest film news."
+        title="About CineNovaTV — Free Movie Discovery Platform"
+        description="CineNovaTV is a free movie discovery platform. Learn how we help millions find what to watch with trailers, streaming info, and curated recommendations."
         url="/about"
       />
 

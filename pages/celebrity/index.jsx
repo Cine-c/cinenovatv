@@ -61,8 +61,8 @@ export default function CelebritiesIndex({ celebrities }) {
   return (
     <>
       <SEOHead
-        title="100 Top Hollywood Stars — Actors, Directors & Their Best Movies"
-        description="Explore biographies, filmographies, and latest news for 100 top Hollywood celebrities including actors, actresses, directors, and music artists in film."
+        title="Actor Profiles — Filmographies & Career News | CineNovaTV"
+        description="Explore detailed profiles for 100+ Hollywood actors, actresses, and directors. Filmographies, bios, career highlights, and the latest entertainment news."
         url="/celebrity"
       />
 

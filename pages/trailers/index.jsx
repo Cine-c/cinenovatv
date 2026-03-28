@@ -236,8 +236,8 @@ export default function TrailersPage({ initialMovies, genres, totalResults, init
   return (
     <>
       <SEOHead
-        title="New Movie Trailers (2026) — Watch the Latest Releases Now"
-        description="Watch the latest movie trailers for 2026. Browse trending, now playing, upcoming, and top-rated films. Updated daily with new releases."
+        title="Latest Movie Trailers 2026 | CineNovaTV"
+        description="Watch brand-new trailers for every 2026 release. Browse trending, now playing, and upcoming films — updated daily with HD trailers and teasers."
         url="/trailers"
       />
       <ItemListJsonLd items={movies.slice(0, 10)} type="Movie" />

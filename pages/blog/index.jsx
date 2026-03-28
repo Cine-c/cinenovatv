@@ -50,8 +50,8 @@ export default function BlogIndex({ posts, categories }) {
   return (
     <>
       <SEOHead
-        title="Movie News & Reviews — Actor Spotlights, Film Analysis & Streaming Guides"
-        description="Movie news, reviews, and entertainment articles from the CineNovaTV team. Actor spotlights, film analysis, and streaming guides."
+        title="Movie News, Reviews & Streaming Guides | CineNovaTV Blog"
+        description="Read the latest movie news, honest reviews, and streaming guides. Actor spotlights, film analysis, and weekly what-to-watch picks from CineNovaTV."
         url="/blog"
       />
       <ItemListJsonLd items={posts.slice(0, 10)} type="BlogPosting" />

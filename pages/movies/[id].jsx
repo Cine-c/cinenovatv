@@ -45,8 +45,8 @@ export default function MovieDetailPage({ movie, credits, videos, ratings, watch
   const rottenTomatoes = ratings?.Ratings?.find((r) => r.Source === 'Rotten Tomatoes')?.Value;
   const metacritic = ratings?.Ratings?.find((r) => r.Source === 'Metacritic')?.Value;
 
-  const seoTitle = `${movie.title} (${releaseYear}) — Cast, Trailer, Reviews & Where to Stream`;
-  const seoDescription = `Everything about ${movie.title} (${releaseYear}): full cast, ratings, trailer, and where to watch on Netflix, Prime & 40+ platforms.`;
+  const seoTitle = `${movie.title} (${releaseYear}) — Trailer, Cast & Where to Stream | CineNovaTV`;
+  const seoDescription = `${movie.title} (${releaseYear}): watch the trailer, explore the full cast, read ratings, and find where to stream on Netflix, Prime & 40+ platforms.`;
 
   const trailerUrl = trailers.length > 0
     ? `https://www.youtube.com/embed/${trailers[0].key}`
