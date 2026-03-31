@@ -9,8 +9,14 @@ export function OrganizationJsonLd() {
     name: 'CineNovaTV',
     url: siteUrl,
     logo: `${siteUrl}/logo.png`,
-    sameAs: ['https://x.com/CineNovaTV'],
-    description: 'Your source for movie trailers, reviews, and the latest film news.',
+    sameAs: [
+      'https://x.com/CineNovaTV',
+      'https://www.instagram.com/cinenovatv',
+      'https://www.youtube.com/@cinenovatv',
+      'https://www.tiktok.com/@cinenovatv',
+    ],
+    description:
+      'Movie discovery platform. Browse 50,000+ films and series, watch trailers, and find where to stream across 40+ platforms.',
   };
 
   return (
@@ -37,6 +43,52 @@ export function WebSiteJsonLd() {
       },
       'query-input': 'required name=search_term_string',
     },
+  };
+
+  return (
+    <Head>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
+    </Head>
+  );
+}
+
+export function FAQPageJsonLd({ faqs }) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  };
+
+  return (
+    <Head>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
+    </Head>
+  );
+}
+
+export function VideoObjectJsonLd({ video }) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: video.name,
+    description: video.description,
+    thumbnailUrl: video.thumbnailUrl,
+    uploadDate: video.uploadDate,
+    embedUrl: video.embedUrl,
+    ...(video.duration && { duration: video.duration }),
   };
 
   return (

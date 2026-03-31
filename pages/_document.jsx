@@ -31,15 +31,7 @@ gtag('consent','default',{
             __html: `window.googlefc=window.googlefc||{};window.googlefc.callbackQueue=window.googlefc.callbackQueue||[];`,
           }}
         />
-        {/* Global site tag (gtag.js) — loads early, respects consent mode */}
-        <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-gtag('js',new Date());
-gtag('config','${GA_ID}',{send_page_view:false});`,
-          }}
-        />
+        {/* GA gtag.js is loaded via next/script in _app.jsx with afterInteractive strategy */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" type="image/png" href="/favicon.png" sizes="32x32" />
         <link rel="icon" type="image/png" href="/icon-192.png" sizes="192x192" />
@@ -51,7 +43,7 @@ gtag('config','${GA_ID}',{send_page_view:false});`,
           href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap"
           rel="stylesheet"
         />
-        <link rel="preconnect" href="https://image.tmdb.org" />
+        <link rel="preconnect" href="https://image.tmdb.org" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://www.youtube.com" />
         <link rel="preconnect" href="https://fundingchoicesmessages.google.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossOrigin="anonymous" />

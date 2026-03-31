@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import SEOHead from '../../components/seo/SEOHead';
-import { MovieJsonLd } from '../../components/seo/JsonLd';
+import { MovieJsonLd, VideoObjectJsonLd } from '../../components/seo/JsonLd';
 import TrailerModal from '../../components/trailers/TrailerModal';
 import WatchProviders from '../../components/WatchProviders';
 import { useWatchLater } from '../../components/WatchLaterContext';
@@ -64,6 +64,19 @@ export default function MovieDetailPage({ movie, credits, videos, ratings, watch
         type="video.movie"
       />
       <MovieJsonLd movie={movie} trailerUrl={trailerUrl} />
+      {trailerUrl && (
+        <VideoObjectJsonLd
+          video={{
+            name: `${movie.title} — Official Trailer`,
+            description: movie.overview || `Watch the official trailer for ${movie.title}.`,
+            thumbnailUrl: movie.backdrop_path
+              ? `https://image.tmdb.org/t/p/w780${movie.backdrop_path}`
+              : `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+            uploadDate: movie.release_date || undefined,
+            embedUrl: trailerUrl,
+          }}
+        />
+      )}
 
       <div className="movie-detail-page">
         {/* Breadcrumbs */}

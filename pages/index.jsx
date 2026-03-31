@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import SEOHead from '../components/seo/SEOHead';
-import { WebSiteJsonLd } from '../components/seo/JsonLd';
+import { WebSiteJsonLd, FAQPageJsonLd } from '../components/seo/JsonLd';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useLanguage } from '../components/LanguageContext';
@@ -92,6 +92,32 @@ export default function Home({ featuredMovie, nowPlaying, popular, genres, celeb
         url="/"
       />
       <WebSiteJsonLd />
+      <FAQPageJsonLd
+        faqs={[
+          {
+            question: 'What is CineNovaTV?',
+            answer:
+              'CineNovaTV is a free movie discovery platform. Browse 50,000+ titles, watch trailers, compare 40+ streaming platforms, and find exactly what to watch tonight — updated daily.',
+          },
+          {
+            question: 'Is CineNovaTV free to use?',
+            answer:
+              'Yes, CineNovaTV is completely free. Browse films, watch trailers, and find where to stream them without creating an account.',
+          },
+          {
+            question: 'How many streaming platforms does CineNovaTV cover?',
+            answer:
+              'CineNovaTV covers 40+ streaming platforms including Netflix, Prime Video, Apple TV+, Disney+, Hulu, HBO Max, and more — updated daily with new releases and availability changes.',
+          },
+          {
+            question: 'Where can I find what to watch tonight?',
+            answer:
+              'CineNovaTV shows you what is streaming across Netflix, Prime Video, Apple TV+, Disney+, and 35+ other platforms. Use the Discover page to filter by genre, rating, and platform.',
+          },
+        ]}
+      />
+
+      <h1 className="sr-only">CineNovaTV — Discover Movies, Trailers &amp; Where to Stream</h1>
 
       {/* ── HERO BACKDROP ── */}
       <section className="hero-backdrop" ref={heroRef}>
@@ -111,9 +137,9 @@ export default function Home({ featuredMovie, nowPlaying, popular, genres, celeb
 
         <div className="hero-content">
           <div className="hero-eyebrow">Now Trending</div>
-          <h1 className="hero-title">
+          <h2 className="hero-title">
             <em>{featuredMovie?.title || 'Discover Cinema'}</em>
-          </h1>
+          </h2>
           <div className="hero-meta">
             {featuredMovie?.release_date && (
               <span className="hero-meta-year">{featuredMovie.release_date.split('-')[0]}</span>
@@ -231,9 +257,13 @@ export default function Home({ featuredMovie, nowPlaying, popular, genres, celeb
         <div className="feature-strip reveal">
           <div className="feature-inner">
             <div className="feature-image">
-              <img
+              <Image
                 src={`https://image.tmdb.org/t/p/w780${articleMovie.backdrop_path || articleMovie.poster_path}`}
                 alt={articleMovie.title}
+                width={780}
+                height={439}
+                loading="lazy"
+                style={{ objectFit: 'cover', width: '100%', height: '100%' }}
               />
             </div>
             <div className="feature-text">
@@ -269,10 +299,13 @@ export default function Home({ featuredMovie, nowPlaying, popular, genres, celeb
                 className="genre-card"
                 key={genre.id}
               >
-                <img
+                <Image
                   src={genre.image || `https://image.tmdb.org/t/p/w780/gPbM0MK8CP8A174rmUwGsADNYKD.jpg`}
                   alt={genre.name}
+                  width={780}
+                  height={439}
                   loading="lazy"
+                  style={{ objectFit: 'cover', width: '100%', height: '100%' }}
                 />
                 <div className="genre-name">{genre.name}</div>
               </Link>

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
+import Script from 'next/script';
 import Layout from '../components/layout/Layout';
 import ErrorBoundary from '../components/ErrorBoundary';
 import { OrganizationJsonLd } from '../components/seo/JsonLd';
@@ -40,6 +41,17 @@ export default function App({ Component, pageProps }) {
 
   return (
     <ErrorBoundary>
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+        strategy="afterInteractive"
+      />
+      <Script
+        id="gtag-init"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `gtag('js',new Date());gtag('config','${GA_ID}',{send_page_view:false});`,
+        }}
+      />
       <LanguageProvider>
         <AuthProvider>
           <AdFreeProvider>
